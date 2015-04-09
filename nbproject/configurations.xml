@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>AssignedTrip.hpp</itemPath>
+      <itemPath>CSVRow.hpp</itemPath>
+      <itemPath>Comparators.hpp</itemPath>
+      <itemPath>DataContainer.hpp</itemPath>
+      <itemPath>Driver.hpp</itemPath>
+      <itemPath>Event.hpp</itemPath>
+      <itemPath>FeasibleMatch.hpp</itemPath>
+      <itemPath>LatLng.hpp</itemPath>
+      <itemPath>Location.hpp</itemPath>
+      <itemPath>MitmModel.hpp</itemPath>
+      <itemPath>ModelUtils.hpp</itemPath>
+      <itemPath>OpenTrip.hpp</itemPath>
+      <itemPath>Output.hpp</itemPath>
+      <itemPath>Request.hpp</itemPath>
+      <itemPath>Rider.hpp</itemPath>
+      <itemPath>Solution.hpp</itemPath>
+      <itemPath>TripData.hpp</itemPath>
+      <itemPath>UFBW_fixed.hpp</itemPath>
+      <itemPath>Utility.hpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>ItemNotFoundException.hpp</itemPath>
+      <itemPath>TimeAdjacencyException.hpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>AssignedTrip.cpp</itemPath>
+      <itemPath>CSVRow.cpp</itemPath>
+      <itemPath>DataContainer.cpp</itemPath>
+      <itemPath>Driver.cpp</itemPath>
+      <itemPath>MitmModel.cpp</itemPath>
+      <itemPath>OpenTrip.cpp</itemPath>
+      <itemPath>Output.cpp</itemPath>
+      <itemPath>Request.cpp</itemPath>
+      <itemPath>Rider.cpp</itemPath>
+      <itemPath>Solution.cpp</itemPath>
+      <itemPath>TripData.cpp</itemPath>
+      <itemPath>UFBW_fixed.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../../Documents/3rdparty/or-tools.MacOsX64/include</pElem>
+            <pElem>../../Documents/3rdparty/COIN/2.9.4/Cbc/src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../../Documents/3rdparty/or-tools.MacOsX64/lib</pElem>
+            <pElem>../../Documents/3rdparty/COIN/Cbc-2.3.2-mac-osx-x86-icc10.1-parallel/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>ortools</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="AssignedTrip.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AssignedTrip.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="CSVRow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CSVRow.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Comparators.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="DataContainer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DataContainer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Driver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Driver.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Event.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ItemNotFoundException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LatLng.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Location.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MitmModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MitmModel.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenTrip.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Output.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Output.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Request.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Request.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Solution.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Solution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TimeAdjacencyException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TripData.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TripData.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UFBW_fixed.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UFBW_fixed.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="AssignedTrip.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AssignedTrip.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="CSVRow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CSVRow.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Comparators.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="DataContainer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DataContainer.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Driver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Driver.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Event.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ItemNotFoundException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LatLng.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Location.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MitmModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MitmModel.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenTrip.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Output.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Output.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Request.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Request.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Solution.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Solution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TimeAdjacencyException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TripData.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TripData.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UFBW_fixed.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UFBW_fixed.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

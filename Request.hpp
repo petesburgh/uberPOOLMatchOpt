@@ -26,10 +26,10 @@ public:
     
     // setters
     void setInitRequest(bool isInit) { _isInitReq = isInit; }
-    void setIndex(int ix) { _index = ix; }
+    void setIndex(int ix) { _reqIndex = ix; }
     
     // getters    
-    const int getIndex() const { return _index; }
+    const int getReqIndex() const { return _reqIndex; }
     const int getRiderIndex() const { return _riderIndex; }
     const std::string getRiderID() const { return _riderID; }    
     const Driver * getActualDriver() const { return pDriver; }
@@ -51,7 +51,7 @@ public:
     }
     
 private:
-    int _index;
+    int _reqIndex;
     const int _riderIndex;    
     std::string _riderID;
     time_t _requestTime;    

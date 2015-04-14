@@ -174,8 +174,9 @@ void Output::printRequestsInSim() {
     int timeBuffer = 30;
     int locBuffer = 25;
     int initBuffer = 12;
-    outFile << "\n\t" << left << setw(indexBuffer) << "index" << 
+    outFile << "\n\t" << left << setw(indexBuffer) << "tripIx" << 
             left << setw(riderBuffer) << "riderID" << 
+            left << setw(indexBuffer) << "riderIx" <<
             left << setw(initBuffer) << "initReq?" << 
             left << setw(timeBuffer) << "requestTime" << 
             left << setw(locBuffer) << "pickupLat" << 
@@ -187,8 +188,9 @@ void Output::printRequestsInSim() {
     std::set<Request*, ReqComp> requests = pDataContainer->getAllPoolRequestsInSim();
     for( std::set<Request*, ReqComp>::iterator iReq = requests.begin(); iReq != requests.end(); ++iReq ) {
         std::string isInit = (*iReq)->isInitRequest() ? "yes" : "no"; 
-        outFile << "\t" << left << setw(indexBuffer) << Utility::intToStr((*iReq)->getIndex()) << 
+        outFile << "\t" << left << setw(indexBuffer) << Utility::intToStr((*iReq)->getReqIndex()) << 
                 left << setw(riderBuffer) << (*iReq)->getRiderID() << 
+                left << setw(indexBuffer) << Utility::intToStr((*iReq)->getRiderIndex()) <<
                 left << setw(initBuffer) << isInit <<
                 left << setw(timeBuffer) << Utility::convertTimeTToString((*iReq)->getReqTime()) << 
                 left << setw(locBuffer) << Utility::doubleToStr((*iReq)->getPickupLat()) << 
@@ -537,7 +539,7 @@ void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolu
         std::string isInitStr = (*reqItr)->isInitRequest() ? "yes" : "no";
         
         
-        outFile << "  " << left << setw(ixBuff) << Utility::intToStr((*reqItr)->getIndex()) << 
+        outFile << "  " << left << setw(ixBuff) << Utility::intToStr((*reqItr)->getReqIndex()) << 
                 left << setw(ixBuff) << Utility::intToStr((*reqItr)->getRiderIndex()) << 
                 left << setw(ynBuff) << isInitStr << 
                 left << setw(timeBuff) << Utility::convertTimeTToString((*reqItr)->getReqTime()) << 

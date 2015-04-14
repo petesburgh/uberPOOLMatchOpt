@@ -57,7 +57,7 @@ public:
     static std::set<AssignedTrip*, AssignedTripIndexComp> getCompletedOpenTrips(const time_t &tm, std::set<OpenTrip*,EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips) {
 
         std::set<AssignedTrip*, AssignedTripIndexComp> unmatchedTrips;
-
+        
         // iterate over open trips and check for completion
         std::set<OpenTrip*, EtaComp>::iterator openTripItr;
         std::set<OpenTrip*, EtaComp>::iterator lastDeletionItr;
@@ -78,13 +78,7 @@ public:
             Event actualDropOff((*openTripItr)->getETD(), (*openTripItr)->getDropRequestLat(), (*openTripItr)->getDropRequestLng());
             pAssignedTrip->setMasterDropFromActuals(actualDropOff);
             assignedTrips.insert(pAssignedTrip);  
-            
-            // TODO: delete
-            /*if( pAssignedTrip->getMasterIndex() == 0 ) {
-                std::cout << "\n\nfound trip index " << pAssignedTrip->getIndex() << " assigned to master index " << pAssignedTrip->getMasterIndex() << std::endl;
-                std::cout << "\t(at 'getCompletedOpenTrips(.)'\n" << std::endl;
-            }*/
-            
+                       
             unmatchedTrips.insert(pAssignedTrip);
             lastDeletionItr = openTripItr;
         }
@@ -93,7 +87,7 @@ public:
         if( lastDeletionItr != openTrips.begin() ) {
             openTrips.erase(openTrips.begin(), lastDeletionItr);
         }
-
+        
         return unmatchedTrips;  
     }
     

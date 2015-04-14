@@ -63,7 +63,7 @@ public:
     std::set<Request*,  ReqComp> cloneRequests();
     std::set<OpenTrip*, EtaComp> cloneOpenTrips();
     
-    std::set<AssignedTrip*, AssignedTripIndexComp> clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips);
+    std::set<AssignedTrip*, AssignedTripIndexComp> clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
     
     // methods for building solution
     void buildSolution(std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips);

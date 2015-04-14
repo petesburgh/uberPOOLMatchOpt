@@ -121,14 +121,15 @@ class UFBW_fixed {
     
  
 public:
-    UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int maxWaitTimeInSec, const int maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
+    UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
     virtual ~UFBW_fixed();
     
     bool solve(bool printDebugFiles, Output * pOutput);
-    std::set<AssignedTrip*, AssignedTripIndexComp> solveMatchingOptimization(std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches);
+    std::set<AssignedTrip*, AssignedTripIndexComp> solveMatchingOptimization(std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests);
         
     std::set<OpenTrip*, EtaComp> convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime);
     std::set<Request*, ReqComp> getRequestsInInterval(std::deque<Request*> &requestsToProcess, const time_t &currBatchStartTime, const time_t &currBatchEndTime);
+    AssignedTrip * convertWaitingRequestToAssignedTrip(Request * pWaitingRequest);
     std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > generateCandidateMastersAndMinions(std::set<OpenTrip*, EtaComp> &openTrips, std::set<Request*, ReqComp> &currBatchRequests);
     std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> generateFeasibleMasterMinionMatches(std::set<UFBW_fixed::MasterCand*, UFBW_fixed::MasterComp> &candMasters, std::set<UFBW_fixed::MinionCand*, UFBW_fixed::MinionComp> &candMinions);
     double getPickupDistanceToMinion(UFBW_fixed::MasterCand * pMaster, UFBW_fixed::MinionCand * pMinion); 
@@ -141,17 +142,26 @@ public:
     // --------------
     //   opt model 
     // --------------
-    std::map<MPVariable*,MasterMinionMatchCand*> buildModelVariables(MPSolver * pSolver, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches);        
+    std::map<MPVariable*,MasterMinionMatchCand*> buildModelVariables(MPSolver * pSolver, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::map<const int, MPConstraint*> * pLeftNodeConstrMap, std::map<const int, MPConstraint*> * pRightNodeConstrMap, std::map<const int, MPConstraint*> * pAggregationConstrMap);        
     void printCurrentBatchMatchCandidates(std::ofstream &outFile, Request * pRequest, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches);
-    void buildConstraints(MPSolver * pSolver, std::map<MPVariable*, UFBW_fixed::MasterMinionMatchCand*> * pMatchVarMap, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp>* pEligMatches);    
+    void buildConstraints(MPSolver * pSolver, std::map<MPVariable*, UFBW_fixed::MasterMinionMatchCand*> * pMatchVarMap, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp>* pEligMatches, std::set<Request*, ReqComp> * pBatchRequests);    
+    void buildDegreeConstraints(MPSolver * pSolver, std::map<MPVariable*,UFBW_fixed::MasterMinionMatchCand*> * pMatchVarMap, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp>* pEligMatches);
+    void buildBatchRequestPairConstraints(MPSolver * pSolver, std::map<MPVariable*, UFBW_fixed::MasterMinionMatchCand*> * pVarMatchMap, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp>* pEligMatches, std::set<Request*, ReqComp> * pBatchRequests);
+    void instantiateConstraints(MPSolver * pSolver, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests, std::map<const int, MPConstraint*> * pRiderIxLeftDegreeConstrMap, std::map<const int, MPConstraint*> * pRiderIxRightDegreeConstrMap, std::map<const int, MPConstraint*> * pRiderIxAggregationConstrMap);
+    void instantiateDegreeConstraints(MPSolver * pSolver, std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::map<const int, MPConstraint*> * pRiderIxLeftDegreeConstrMap, std::map<const int, MPConstraint*> * pRiderIxRighttDegreeConstrMap);
+    void instantiateAggregationConstraints(MPSolver * pSolver, std::set<UFBW_fixed::MasterMinionMatchCand*,UFBW_fixed::MasterMinionMatchComp>* pEligMatches, std::set<Request*, ReqComp> * pBatchRequests, std::map<const int, MPConstraint*> * pRiderIxAggregationConstrMap);
     std::vector<MPVariable*> getIncidentEdgeVariablesForMaster(const UFBW_fixed::MasterCand * pMaster, std::map<UFBW_fixed::MasterMinionMatchCand*, MPVariable*> * pMatchVarMap);
     MPConstraint * getLeftNodeConstraint(MPSolver * pSolver, const UFBW_fixed::MasterCand * pMaster);
     MPConstraint * getRightNodeConstraint(MPSolver * pSolver, const UFBW_fixed::MinionCand * pMinion);
     std::vector<UFBW_fixed::MasterMinionMatchCand*> * getOptimalMatchings(MPSolver * pSolver, std::map<MPVariable*,MasterMinionMatchCand*> * pEdgeVariables);
     std::set<AssignedTrip*, AssignedTripIndexComp> buildAssignedTripsFromMatchingSolution(std::vector<UFBW_fixed::MasterMinionMatchCand*> * pOptMatchings);
-    std::set<const int> getAllIndicesAssociatedWithMatchedRiders(std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
-    int removeMatchedOpenTrips(std::set<const int> * pMatchedRiderIndices, std::set<OpenTrip*, EtaComp> * pOpenTrips);
-    int removeMatchedFutureRequests(std::set<const int> * pMatchedRiderIndices, std::deque<Request*> * pFutureRequests, Request * pCurrRequestInQueue); // does not match request at top of the deque
+    std::multimap<const int, time_t> getAllIndicesAssociatedWithMatchedRiders(std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
+    int removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips);
+    int removeMatchedFutureRequests(std::multimap<const int, time_t>* pMatchedRiderReqTimeMap, std::deque<Request*> * pFutureRequests, Request * pCurrRequestInQueue); // does not match request at top of the deque
+    std::set<int> getRidersThanMayBeMastersOrMinions(std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests);
+    Request* getMinionRequest(const int riderIndex, std::set<Request*, ReqComp> * pRequests);
+    MPConstraint * getRiderCopyAggregationConstraint(MPSolver * pSolver, const int masterIndex);
+    
     
     void initEligMatchFile(std::ofstream &outFile);
     
@@ -162,7 +172,6 @@ private:
     const time_t _startTime;
     const time_t _endTime;
     const int _lenBatchWindowInSec;
-    const int _maxWaitTimeInSec;
     const int _maxMatchDistInKm;
     const double _minOverlapThreshold;
     const std::set<Request*, ReqComp> _allRequests;

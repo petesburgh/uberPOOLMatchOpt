@@ -71,7 +71,6 @@
         <ccTool>
           <incDir>
             <pElem>../../Documents/3rdparty/or-tools.MacOsX64/include</pElem>
-            <pElem>../../Documents/3rdparty/COIN/2.9.4/Cbc/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>

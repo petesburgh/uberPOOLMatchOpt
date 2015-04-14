@@ -40,14 +40,13 @@ int main(int argc, char** argv) {
     const double pctPoolUsers = 0.40;
     const int maxMatchDistInKm = 3;
     const int simLengthInMin = 60;
-    const int maxWaitTimeBatchModelInSec = 30;
     const double minPoolMatchPctForMaster = 0.2;
     const bool printDebugFiles = true;
     const bool printToScreen = true;
     
     // TYPE OF TESTS TO RUN
-    const bool runMITMModel        = true;
-    const bool runUFBW_seqPickups  = false;
+    const bool runMITMModel        = false;
+    const bool runUFBW_seqPickups  = true;
     const bool runUFBW_flexPickups = false; 
     
     printBanner();
@@ -80,12 +79,19 @@ int main(int argc, char** argv) {
     std::set<Request*,  ReqComp> allRequestsInSim = pDataContainer->getAllPoolRequestsInSim();
     std::set<OpenTrip*, EtaComp> initOpenTrips = pDataContainer->getInitOpenTripsAtTimeline();
     const std::set<Driver*, DriverIndexComp>* pDrivers = pDataContainer->getAllDrivers();
+    
+    // TODO: DELETE
+    std::cout << "requests:        " << allRequestsInSim.size() << std::endl;
+    std::cout << "init open trips: " << initOpenTrips.size() << std::endl;
+    int expReqs = allRequestsInSim.size() + initOpenTrips.size();
+    std::cout << "EXP NO. REQs:    " << expReqs << std::endl;
+    //exit(0);
         
     std::cout << "AFTER STEP 3 there are a total of " << allRequestsInSim.size() << " requests" << std::endl;
     
     // print input files
     writeAndPrintInputs(pDataContainer);
-    
+        
     /*
      *   step 4: run all modules requested by user
      */     
@@ -98,7 +104,7 @@ int main(int argc, char** argv) {
         }
     }
     if( runUFBW_seqPickups ) {                     
-        UFBW_fixed * pFixedBatchModel = new UFBW_fixed(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), upFrontBatchWindowInSec, maxWaitTimeBatchModelInSec, maxMatchDistInKm, minPoolMatchPctForMaster, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
+        UFBW_fixed * pFixedBatchModel = new UFBW_fixed(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), upFrontBatchWindowInSec, maxMatchDistInKm, minPoolMatchPctForMaster, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
         bool modelSolved = pFixedBatchModel->solve(printDebugFiles, pOutput);
         if( modelSolved ) {
             Solution * pFixedBatchSolution = pFixedBatchModel->getSolution();

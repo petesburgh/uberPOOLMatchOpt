@@ -77,67 +77,67 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/uberpoolmatchopt: ${OBJECTFILES}
 ${OBJECTDIR}/AssignedTrip.o: AssignedTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AssignedTrip.o AssignedTrip.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AssignedTrip.o AssignedTrip.cpp
 
 ${OBJECTDIR}/CSVRow.o: CSVRow.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CSVRow.o CSVRow.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CSVRow.o CSVRow.cpp
 
 ${OBJECTDIR}/DataContainer.o: DataContainer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DataContainer.o DataContainer.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DataContainer.o DataContainer.cpp
 
 ${OBJECTDIR}/Driver.o: Driver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Driver.o Driver.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Driver.o Driver.cpp
 
 ${OBJECTDIR}/MitmModel.o: MitmModel.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel.o MitmModel.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel.o MitmModel.cpp
 
 ${OBJECTDIR}/OpenTrip.o: OpenTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OpenTrip.o OpenTrip.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OpenTrip.o OpenTrip.cpp
 
 ${OBJECTDIR}/Output.o: Output.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
 
 ${OBJECTDIR}/Request.o: Request.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Request.o Request.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Request.o Request.cpp
 
 ${OBJECTDIR}/Rider.o: Rider.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Rider.o Rider.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Rider.o Rider.cpp
 
 ${OBJECTDIR}/Solution.o: Solution.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Solution.o Solution.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Solution.o Solution.cpp
 
 ${OBJECTDIR}/TripData.o: TripData.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TripData.o TripData.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TripData.o TripData.cpp
 
 ${OBJECTDIR}/UFBW_fixed.o: UFBW_fixed.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_fixed.o UFBW_fixed.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_fixed.o UFBW_fixed.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -I../../Documents/3rdparty/COIN/2.9.4/Cbc/src -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

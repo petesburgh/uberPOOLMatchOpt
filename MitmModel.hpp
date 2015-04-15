@@ -51,6 +51,7 @@ public:
     AssignedTrip * convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch);
     
     bool removeMasterFromOpenTrips(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips);
+    bool removeMasterFromOpenTrips_deprecated(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips);
     
     // find nearest unassigned driver
     std::pair<Driver*, std::pair<double,double> > * getNearestDriverToDispatchRequest(std::set<OpenTrip*, EtaComp> * pOpenTrips, time_t reqTime, double reqLat, double reqLng, const Driver * pDriver);

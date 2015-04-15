@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
     const bool printToScreen = true;
     
     // TYPE OF TESTS TO RUN
-    const bool runMITMModel        = false;
-    const bool runUFBW_seqPickups  = true;
+    const bool runMITMModel        = true;
+    const bool runUFBW_seqPickups  = false;
     const bool runUFBW_flexPickups = false; 
     
     printBanner();
@@ -79,6 +79,7 @@ int main(int argc, char** argv) {
     std::set<Request*,  ReqComp> allRequestsInSim = pDataContainer->getAllPoolRequestsInSim();
     std::set<OpenTrip*, EtaComp> initOpenTrips = pDataContainer->getInitOpenTripsAtTimeline();
     const std::set<Driver*, DriverIndexComp>* pDrivers = pDataContainer->getAllDrivers();
+    
     
     // TODO: DELETE
     std::cout << "requests:        " << allRequestsInSim.size() << std::endl;

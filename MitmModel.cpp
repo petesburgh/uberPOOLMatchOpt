@@ -45,48 +45,28 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
        
     // step 2: loop through all requests
     std::set<Request*, ReqComp> requestsWithNoDrivers;
-    
-    int ct = 0;
-    for( std::set<Request*, ReqComp>::iterator jj = requests.begin(); jj != requests.end(); ++jj ) {
-        if( (*jj)->getRiderIndex() == 90 ) {
-            ct++;
-        }
-    }
-    std::cout << "\tthere are " << ct << " trips for rider index 90" << std::endl;
-    exit(0);
-    
+ 
     std::set<Request*, ReqComp>::iterator reqItr;    
     for( reqItr = requests.begin(); reqItr != requests.end(); ++reqItr ) {
-        
-        bool toPrint = ((*reqItr)->getRiderIndex() == 90);
-        std::cout << "processing request from rider index " << (*reqItr)->getRiderIndex() << std::endl;
-        if( toPrint ) {
-            std::cout << "\t***processing rider index 90 ***" << std::endl;
-        }
-                                        
-        // 2.A: move any open trips to assigned if open trips COMPLETE
+                            
         time_t currReqTime = (*reqItr)->getReqTime();
         std::set<AssignedTrip*, AssignedTripIndexComp> completedUnmatchedTrips = ModelUtils::getCompletedOpenTrips(currReqTime,openTrips,_assignedTrips);
-               
+                                                          
         if( completedUnmatchedTrips.size() > 0 ) {           
             _assignedTrips.insert(completedUnmatchedTrips.begin(),completedUnmatchedTrips.end());
         }  
-        
+               
         // 2.B: search for best open trip to match        
         AssignedTrip * matchedOpenTrip = getBestMatchForCurrMinionRequest(*reqItr,&openTrips,printDebugFiles,pOutFile);  
         
-        
+                                   
         // 2.C: remove the matched master from Open Trip
         if( matchedOpenTrip != NULL ) {
-            bool isRemoved = removeMasterFromOpenTrips(matchedOpenTrip,&openTrips);     
-            //assignedTrips.insert(matchedOpenTrip);
-            _assignedTrips.insert(matchedOpenTrip);       
-            if( matchedOpenTrip->getMasterIndex() == 90 ) {
-                std::cout << "\t\tMATCHED TRIP master index 90!" << std::endl;
-            }
-            if( matchedOpenTrip->getMinionIndex() == 90 ) {
-                std::cout << "\t\tMATCHED TRIP minion index 90!" << std::endl;
-            }            
+            matchedOpenTrip->setIndex(_assignedTrips.size());
+            
+            bool isRemoved = removeMasterFromOpenTrips(matchedOpenTrip,&openTrips);    
+
+            _assignedTrips.insert(matchedOpenTrip);     
         } 
         // 2.D: create a new OpenTrip 
         else {            
@@ -101,9 +81,6 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
                 std::pair<double,double> estLocOfActDriver(estLoc.getLat(), estLoc.getLng());
                 OpenTrip * pOpenTrip = createNewOpenTripForUnmatchedRequest((*reqItr)->getActualDriver(), estLocOfActDriver, *reqItr);
                 openTrips.insert(pOpenTrip); 
-                if( pOpenTrip->getMasterIndex() == 16 ) {
-                    std::cout << "\t\tcreating new open trip with master index 16 (driver not busy)" << std::endl;
-                }
             }  */
                                     
             // 2.D.ii: the driver from the actual trip has been assigned to another request
@@ -113,11 +90,6 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
                 // 2.D.ii.a: if there is no eligible driver, add to permanent open trip so as not to consider future match
                 if( pNearestDriverAndLoc != NULL ) {
                     OpenTrip * pOpenTrip = createNewOpenTripForUnmatchedRequest(pNearestDriverAndLoc->first, pNearestDriverAndLoc->second, *reqItr);                     
-                    
-                    if( pOpenTrip->getMasterIndex() == 90 ) {
-                        std::cout << "\tcreating open trip with master index " << pOpenTrip->getMasterIndex() << std::endl;
-                    }
-                    
                     openTrips.insert(pOpenTrip);
                 } 
 
@@ -132,17 +104,13 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
     std::cout << "\n\n\n--- finished processing all requests ---\n\n" << std::endl;
     // assign any unmatched (open) trips
     if( openTrips.size() > 0 ) {
-        std::cout << openTrips.size() << " open trips were unassigned" << std::endl;
-        std::cout << "\tconverting to unmatched AssignedTrips... " << std::endl;
         std::set<AssignedTrip*, AssignedTripIndexComp> finalUnmatchedTrips = clearRemainingOpenTrips(openTrips, &_assignedTrips);
         assert( openTrips.empty() );        
-        std::cout << "\t\tdone.\n" << std::endl;        
     }
     
     // assign disqualified trips due to no available driver
     _disqualifiedRequests.insert(requestsWithNoDrivers.begin(),requestsWithNoDrivers.end());
-    
-    
+        
     if( printDebugFiles ) {
         pOutFile->close();
     }
@@ -557,7 +525,20 @@ AssignedTrip * MitmModel::convertFeasibleMatchToAssignedTripObject(FeasibleMatch
 
     return pTrip;
 }
-bool MitmModel::removeMasterFromOpenTrips(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips) {
+bool MitmModel::removeMasterFromOpenTrips(AssignedTrip* pMatchedTrip, std::set<OpenTrip*,EtaComp>* pOpenTrips) {
+    
+    for( std::set<OpenTrip*, EtaComp>::iterator iTrip = pOpenTrips->begin(); iTrip != pOpenTrips->end(); ) {   
+        if( (*iTrip)->getMasterID() == pMatchedTrip->getMasterId() ) {             
+            pOpenTrips->erase(iTrip++);                        
+            return true;
+        } else {
+            iTrip++;
+        }
+    }
+    
+    return false;
+}
+bool MitmModel::removeMasterFromOpenTrips_deprecated(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips) {
     
     std::set<OpenTrip*, EtaComp>::iterator iTrip;
     for( iTrip = pOpenTrips->begin(); iTrip != pOpenTrips->end(); ++iTrip ) {

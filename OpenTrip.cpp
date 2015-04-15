@@ -13,10 +13,6 @@ OpenTrip::OpenTrip(const std::string driverID, const Driver * driver, const int 
     _driverIndex = driverIx;
     _riderID = riderID;
     _riderIndex = riderIx;   
-    
-    if( _riderIndex == 90 ) {
-        std::cout << "\t** ADDING OPEN TRIP WITH MASTER INDEX 90 **" << std::endl;
-    }
 }
 
 /*OpenTrip::OpenTrip(const OpenTrip& orig) : _eta(-1) {

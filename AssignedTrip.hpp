@@ -31,7 +31,7 @@ public:
     
     // set master info
     void setMasterId(const std::string id) { _masterId = id; }
-    void setMasterIndex(const int ix); // { _masterIndex = ix; }
+    void setMasterIndex(const int ix) { _masterIndex = ix; }
     void setMasterRequest(Event req) { _masterRequest = req; }
     void setMasterDispatch(Event disp) { _masterDispatch = disp; }
     void setMasterPickupFromActuals(Event pickup) { _masterPickupFromActuals = pickup; }

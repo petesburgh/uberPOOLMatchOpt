@@ -15,10 +15,3 @@ AssignedTrip::AssignedTrip(const Driver * driver) : pDriver(driver)  {
 
 AssignedTrip::~AssignedTrip() {
 }
-
-void AssignedTrip::setMasterIndex(const int ix) {
-    if( ix == 90 ) {
-        std::cout << "\t*** ASSIGNING TRIP WITH MASTER INDEX " << ix << " ***" << std::endl;
-    }
-    this->_masterIndex = ix;
-}

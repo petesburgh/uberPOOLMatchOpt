@@ -42,31 +42,14 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput) {
     for( std::set<Request*, ReqComp>::iterator reqItr = _allRequests.begin(); reqItr != _allRequests.end(); ++reqItr ) {
         requestPool.push_back(*reqItr);
     }
-    
-    cout << "\nlooking for missing riders..." << std::endl;
-    std::set<const int> missingRiders;
-    missingRiders.insert(262);
-    missingRiders.insert(337);
-    missingRiders.insert(674);
-    missingRiders.insert(754);
-    missingRiders.insert(755);
-    missingRiders.insert(756);
-    
-    for( std::deque<Request*>::iterator it = requestPool.begin(); it != requestPool.end(); ++it ) {
-        std::set<const int>::iterator riderIt = missingRiders.find((*it)->getRiderIndex());
-        if( riderIt != missingRiders.end() ) {
-            std::cout << "missing rider " << (*it)->getRiderIndex() << " req at " << Utility::convertTimeTToString((*it)->getReqTime()) << std::endl;
-        }
-    }
-    std::cout << "\n\n" << std::endl;
-    //exit(0);
-    
+      
     // step 2: initialize all open trips
     std::set<OpenTrip*, EtaComp> currOpenTrips = cloneOpenTrips(_initOpenTrips);
     
     // step 3: initialize set of past unmatched requests (before open trip)
     std::set<Request*, ReqComp> unmatchedRequestsWithinWaitTime;
     
+        
     std::cout << "\n\nbatch window length:  " << _lenBatchWindowInSec << " sec" << std::endl;
         
     while( true ) {
@@ -83,12 +66,6 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput) {
         
         std::cout << "\tthere are " << unmatchedRequestsWithinWaitTime.size() << " unmatched requests waiting a match... " << std::endl;
         
-        std::set<const int>::iterator missingRiderItr = missingRiders.find(pCurrRequest->getRiderIndex());
-        bool isMissing = (missingRiderItr != missingRiders.end());
-        if( isMissing ) {
-            std::cout << "\n\tCHECK MISSING RIDER WITH INDEX " << pCurrRequest->getRiderIndex() << " req at " << Utility::convertTimeTToString(pCurrRequest->getReqTime()) << std::endl;
-           // exit(0);
-        }
                 
         // step 1: convert any expired unmatched requests to open trips if they have been waiting more than the tolerance
         if( unmatchedRequestsWithinWaitTime.size() > 0 ) {
@@ -147,26 +124,13 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput) {
             if( printDebugFiles ) {
                 printCurrentBatchMatchCandidates(*pOutFile, pCurrRequest, &feasibleMatches);
             }
-
+           
             // step 7: SOLVE OPTIMIZATION MODEL    
             std::cout << "\tsolving optimization model... " << std::endl;
-            std::set<AssignedTrip*, AssignedTripIndexComp> matchingsForCurrBatch = solveMatchingOptimization(&feasibleMatches, &requestsInCurrBatch);
-            std::cout << "\t\tcomplete" << std::endl;
+            std::set<AssignedTrip*, AssignedTripIndexComp> matchingsForCurrBatch = solveMatchingOptimization(&feasibleMatches, &requestsInCurrBatch);        
+            std::cout << "\t\tdone." << std::endl;
             if( matchingsForCurrBatch.size() > 0 ) {                
                 _assignedTrips.insert(matchingsForCurrBatch.begin(), matchingsForCurrBatch.end());   
-                
-                // TODO: delete
-                std::set<AssignedTrip*, AssignedTripIndexComp>::iterator jj;
-                for( jj = matchingsForCurrBatch.begin(); jj != matchingsForCurrBatch.end(); ++jj ) {
-                    if( (*jj)->getMasterIndex() == 90 ) {
-                        std::cout << "assigning pool with rider index 90 to MASTER" << std::endl;
-                       // exit(0);
-                    }
-                    if( (*jj)->getMinionIndex() == 90 ) {
-                        std::cout << "assigning pool with rider index 90 to MINION" << std::endl;
-                        //exit(0);                    
-                    }
-                }
             }
 
             std::cout << "\t" << matchingsForCurrBatch.size() << " matches have been found from optimization" << std::endl;
@@ -176,7 +140,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput) {
             std::multimap<const int, time_t> matchedRiderReqTimeMap = getAllIndicesAssociatedWithMatchedRiders(&matchingsForCurrBatch);
             int removedOpenTrips = removeMatchedOpenTrips(&matchedRiderReqTimeMap, &currOpenTrips);
             int removedFutureRequests = removeMatchedFutureRequests(&matchedRiderReqTimeMap, &requestPool, pCurrRequest);
-            
+                        
             //std::set<const int>::iterator topRequestItr = matchedRiderIndices.find(pCurrRequest->getRiderIndex());            
             //isTopRequestMatched = (topRequestItr != matchedRiderIndices.end());   
             std::multimap<const int, time_t>::iterator topRequestItr = matchedRiderReqTimeMap.find(pCurrRequest->getRiderIndex());
@@ -252,9 +216,7 @@ std::set<OpenTrip*, EtaComp> UFBW_fixed::convertExpiredUnmatchedReqsToOpenTrips(
             
             newOpenTrips.insert(pOpenTrip);
             
-            pUnmatchedRequests->erase(reqItr++);
-           // std::cout << "\t\t\t\t\tdone." << std::endl;
-            
+            pUnmatchedRequests->erase(reqItr++);            
         } else {
             reqItr++;
         }
@@ -870,7 +832,7 @@ std::multimap<const int, time_t> UFBW_fixed::getAllIndicesAssociatedWithMatchedR
     return indexTimeMapOfMatchedRiders;
 }
 
-int UFBW_fixed::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips) {
+/*int UFBW_fixed::removeMatchedOpenTrips_deprecated(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips) {
     
     int removedOpenTrips = 0;
     
@@ -879,10 +841,31 @@ int UFBW_fixed::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatch
         const int masterIndex = (*openTripItr)->getMasterIndex();
         std::multimap<const int, time_t>::iterator matchingRiderIndexReqTimeItr = pMatchedRiderReqTimeMap->find(masterIndex); // = pMatchedRiderIndices->find(masterIndex);
         if( matchingRiderIndexReqTimeItr != pMatchedRiderReqTimeMap->end() ) {
+            std::cout << "\tI WANT TO REMOVE OPEN TRIP WITH MASTER INDEX " << (*openTripItr)->getMasterIndex() << std::endl;
+            exit(0);
             pOpenTrips->erase(openTripItr);     
             removedOpenTrips++;            
             continue;
         }        
+    }
+    
+    return removedOpenTrips;    
+}*/
+int UFBW_fixed::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips) {
+    
+    int removedOpenTrips = 0;
+    
+    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    for( openTripItr = pOpenTrips->begin(); openTripItr != pOpenTrips->end(); ) {
+        const int masterIndex = (*openTripItr)->getMasterIndex();
+        std::multimap<const int, time_t>::iterator matchingRiderIndexReqTimeItr = pMatchedRiderReqTimeMap->find(masterIndex); // = pMatchedRiderIndices->find(masterIndex);
+        if( matchingRiderIndexReqTimeItr != pMatchedRiderReqTimeMap->end() ) {
+            pOpenTrips->erase(openTripItr++);     
+            removedOpenTrips++;            
+            continue;
+        } else {
+            openTripItr++;
+        }  
     }
     
     return removedOpenTrips;    
@@ -894,14 +877,6 @@ int UFBW_fixed::removeMatchedFutureRequests(std::multimap<const int, time_t>* pM
     
     std::cout << "\n\nremoving matched future requests... " << std::endl;
         
-    std::cout << "here are the future requests: " << std::endl;
-    for( std::deque<Request*>::iterator i = pFutureRequests->begin(); i != pFutureRequests->end(); ++i ) {
-        if( (*i)->getRiderIndex() != 90 ) 
-            continue;
-        std::cout << "\trequest " << (*i)->getRiderIndex() << " at " << Utility::convertTimeTToString((*i)->getReqTime()) << std::endl;
-    }
-    //exit(0);
-    
     std::deque<Request*>::iterator reqItr;
     for( reqItr = pFutureRequests->begin(); reqItr != pFutureRequests->end(); ++reqItr ) {
         const int riderIndex = (*reqItr)->getRiderIndex();
@@ -909,12 +884,6 @@ int UFBW_fixed::removeMatchedFutureRequests(std::multimap<const int, time_t>* pM
         if( matchingIndexReqTimeItr != pMatchedRiderReqTimeMap->end() ) {
             if( pCurrRequestInQueue->getRiderIndex() != (*reqItr)->getRiderIndex() ) { // ignore the top request in the deque since it will 'pop' from the front later
                 if( matchingIndexReqTimeItr->second == (*reqItr)->getReqTime() ) {
-                    if( (*reqItr)->getRiderIndex() == 90 ) {
-                        std::cout << "\tgoing to delete rider index 90 at " << Utility::convertTimeTToString((*reqItr)->getReqTime()) << std::endl;
-                        std::cout << "\t\tpCurrRequestInQueue->getRiderIndex() = " << pCurrRequestInQueue->getRiderIndex() << std::endl;
-                        std::cout << "\t\t(*reqItr)->getRiderIndex()           = " << (*reqItr)->getRiderIndex() << std::endl;
-                        //exit(0);
-                    }
                     pFutureRequests->erase(reqItr);
                     removedFutureRequests++;
                     continue;

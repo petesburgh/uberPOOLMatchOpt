@@ -538,19 +538,6 @@ bool MitmModel::removeMasterFromOpenTrips(AssignedTrip* pMatchedTrip, std::set<O
     
     return false;
 }
-bool MitmModel::removeMasterFromOpenTrips_deprecated(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips) {
-    
-    std::set<OpenTrip*, EtaComp>::iterator iTrip;
-    for( iTrip = pOpenTrips->begin(); iTrip != pOpenTrips->end(); ++iTrip ) {
-        if( (*iTrip)->getMasterID() == pMatchedTrip->getMasterId() ) {
-            pOpenTrips->erase(iTrip);
-            return true;
-        }
-    }
-    
-    return false;
-}
-
 // methods to determine nearest driver
 std::pair<Driver*, std::pair<double,double> > * MitmModel::getNearestDriverToDispatchRequest(std::set<OpenTrip*, EtaComp> * pOpenTrips, time_t reqTime, double reqLat, double reqLng, const Driver * pActualDriver) {
     

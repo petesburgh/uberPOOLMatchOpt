@@ -12,7 +12,8 @@ OpenTrip::OpenTrip(const std::string driverID, const Driver * driver, const int 
     _driverID = driverID;
     _driverIndex = driverIx;
     _riderID = riderID;
-    _riderIndex = riderIx;   
+    _riderIndex = riderIx;  
+    
 }
 
 /*OpenTrip::OpenTrip(const OpenTrip& orig) : _eta(-1) {

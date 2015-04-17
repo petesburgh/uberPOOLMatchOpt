@@ -31,10 +31,10 @@ using namespace std;
 
 class MitmModel {
 public:
-    MitmModel(const time_t startTime, const time_t endTime, const int maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);
+    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);
     virtual ~MitmModel();
     
-    bool solve(bool printDebugFiles, Output * pOutput);
+    bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
     
     // methods to update
     std::set<AssignedTrip*, AssignedTripIndexComp> getAllCompletedOpenTrips(time_t &tm, std::set<OpenTrip*,EtaComp> &openTrips);
@@ -42,14 +42,11 @@ public:
         
     // given minion,master pair, check if feasible
     std::vector<FeasibleMatch*> getFeasibleMatchesFromCurrPair(Request* pMinionReq, OpenTrip * pMasterCand);
-    FeasibleMatch * checkIfOverlapIsFeasWithMasterDropoffFirst(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
-    FeasibleMatch * checkIfOverlapIsFeasWithMinionDropoffFirst(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
+    FeasibleMatch * checkIfFIFOMatchIsFeasible(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
+    FeasibleMatch * checkIfFILOMatchIsFeasible(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
     
-    LatLng estimateLocationOfMasterAtTime(const time_t &currTime, OpenTrip * pCandMaster);
-    const double computeCostOfMatch(FeasibleMatch * pMatch) const;
-    
-    AssignedTrip * convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch);
-    
+    const double computeCostOfMatch(FeasibleMatch * pMatch) const;    
+    AssignedTrip * convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch);    
     bool removeMasterFromOpenTrips(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips);
     
     // find nearest unassigned driver
@@ -57,13 +54,13 @@ public:
     bool checkIfDriverAssignedToOpenTrip( time_t currTime, Driver * pDriver, std::set<OpenTrip*, EtaComp>* pOpenTrips );
     std::pair<const TripData*, const TripData*> * getAdjacentTrips(const Driver * pDriver, const time_t reqTime);
     LatLng getEstLocationOfOpenDriver(const Driver * pDriver, const time_t &reqTime);
-    OpenTrip * createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, std::pair<double,double> driverDispatchLoc, Request * pMinionRequest);
+    OpenTrip * createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, std::pair<double,double> driverDispatchLoc, Request * pMinionRequest, const Event * pActualDispatchEvent);
     OpenTrip * getOpenTripAssignedToDriver(std::set<OpenTrip*, EtaComp> * pOpenTrips, const Driver * pDriver);
     
     std::set<Request*,  ReqComp> cloneRequests();
     std::set<OpenTrip*, EtaComp> cloneOpenTrips();
     
-    std::set<AssignedTrip*, AssignedTripIndexComp> clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
+    void clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
     
     // methods for building solution
     void buildSolution(std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips);
@@ -78,7 +75,7 @@ private:
   
     const time_t _startTime;
     const time_t _endTime;
-    const int _maxMatchDistInKm;
+    const double _maxMatchDistInKm;
     const double _minOverlapThreshold;
     std::set<Request*, ReqComp> _allRequests;
     std::set<OpenTrip*, EtaComp> _initOpenTrips; 

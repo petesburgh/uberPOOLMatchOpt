@@ -7,7 +7,7 @@
 
 #include "MitmModel.hpp"
 
-MitmModel::MitmModel(const time_t startTime, const time_t endTime, const int maxMatchDistKm, const double minOverlapThreshold, 
+MitmModel::MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, 
         std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers) 
         : _startTime(startTime), _endTime(endTime), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allDrivers(drivers) {
     _allRequests = initRequests;
@@ -22,7 +22,7 @@ MitmModel::~MitmModel() {
 /*
  *  SOLVE MITM PROXY MODEL
  */
-bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
+bool MitmModel::solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips) {
     
     std::cout << "\n\n--------------------------------------------------\n" << std::endl;
     std::cout << "                SOLVING MITM MODEL\n" << std::endl;
@@ -30,7 +30,10 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
         
     // step 1: build sets to be updated
     std::set<Request*,  ReqComp> requests = cloneRequests();
-    std::set<OpenTrip*, EtaComp> openTrips = cloneOpenTrips();
+    std::set<OpenTrip*, EtaComp> openTrips;
+    if( populateInitOpenTrips ) {
+        openTrips = cloneOpenTrips();
+    }
     
     std::ofstream * pOutFile;
     
@@ -48,10 +51,10 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
  
     std::set<Request*, ReqComp>::iterator reqItr;    
     for( reqItr = requests.begin(); reqItr != requests.end(); ++reqItr ) {
-                            
+                                                   
         time_t currReqTime = (*reqItr)->getReqTime();
         std::set<AssignedTrip*, AssignedTripIndexComp> completedUnmatchedTrips = ModelUtils::getCompletedOpenTrips(currReqTime,openTrips,_assignedTrips);
-                                                          
+        
         if( completedUnmatchedTrips.size() > 0 ) {           
             _assignedTrips.insert(completedUnmatchedTrips.begin(),completedUnmatchedTrips.end());
         }  
@@ -59,54 +62,53 @@ bool MitmModel::solve(bool printDebugFiles, Output * pOutput) {
         // 2.B: search for best open trip to match        
         AssignedTrip * matchedOpenTrip = getBestMatchForCurrMinionRequest(*reqItr,&openTrips,printDebugFiles,pOutFile);  
         
-                                   
-        // 2.C: remove the matched master from Open Trip
+        // step 3: process the match                     
+        // IF there is a match, remove the old master and append the set of assigned trips
         if( matchedOpenTrip != NULL ) {
-            matchedOpenTrip->setIndex(_assignedTrips.size());
-            
-            bool isRemoved = removeMasterFromOpenTrips(matchedOpenTrip,&openTrips);    
-
+            matchedOpenTrip->setIndex(_assignedTrips.size());            
+            removeMasterFromOpenTrips(matchedOpenTrip,&openTrips);    
             _assignedTrips.insert(matchedOpenTrip);     
         } 
-        // 2.D: create a new OpenTrip 
+        
+        // IF no match, then assign new open trip
         else {            
             // check if the driver from the actual trip is free
             OpenTrip * pCurrOpenTrip = getOpenTripAssignedToDriver(&openTrips,(*reqItr)->getActualDriver());
             
-            
-            // 2.D.i: if the driver from the actual request is available at the time of request
-          /*  if( pCurrOpenTrip == NULL ) {
-                //std::pair<double,double> actDispatchLoc = make_pair((*reqItr)->getActualDispatchEvent()->lat, (*reqItr)->getActualDispatchEvent()->lng);
+            const Event * pMasterDispatchEvent = (*reqItr)->getActualDispatchEvent();
+                                                
+            // 3.A: if the driver from the actual request is available at the time of request
+           if( pCurrOpenTrip == NULL ) {
                 LatLng estLoc = getEstLocationOfOpenDriver((*reqItr)->getActualDriver(),(*reqItr)->getReqTime());
                 std::pair<double,double> estLocOfActDriver(estLoc.getLat(), estLoc.getLng());
-                OpenTrip * pOpenTrip = createNewOpenTripForUnmatchedRequest((*reqItr)->getActualDriver(), estLocOfActDriver, *reqItr);
+                OpenTrip * pOpenTrip = createNewOpenTripForUnmatchedRequest((*reqItr)->getActualDriver(), estLocOfActDriver, *reqItr, pMasterDispatchEvent);
                 openTrips.insert(pOpenTrip); 
-            }  */
+            }            
                                     
-            // 2.D.ii: the driver from the actual trip has been assigned to another request
-            //else {      //
+            // 3.B: the driver from the actual trip has been assigned to another request
+            else {      //
                 std::pair<Driver*, std::pair<double,double> > * pNearestDriverAndLoc = getNearestDriverToDispatchRequest(&openTrips, (*reqItr)->getReqTime(), (*reqItr)->getPickupLat(), (*reqItr)->getPickupLng(), (*reqItr)->getActualDriver());
                 
-                // 2.D.ii.a: if there is no eligible driver, add to permanent open trip so as not to consider future match
+                // 3.B.i: if there is no eligible driver, add to permanent open trip so as not to consider future match
                 if( pNearestDriverAndLoc != NULL ) {
-                    OpenTrip * pOpenTrip = createNewOpenTripForUnmatchedRequest(pNearestDriverAndLoc->first, pNearestDriverAndLoc->second, *reqItr);                     
+                    OpenTrip * pOpenTrip = createNewOpenTripForUnmatchedRequest(pNearestDriverAndLoc->first, pNearestDriverAndLoc->second, *reqItr, pMasterDispatchEvent);                     
                     openTrips.insert(pOpenTrip);
                 } 
 
-                // 2.D.ii.b: if there is no eligible driver append to the vector of requests with no drivers
+                // 3.B.ii: if there is no eligible driver append to the vector of requests with no drivers
                 else {
                     requestsWithNoDrivers.insert(*reqItr);
                 }
-            //}  //
+            }  //
         }
     }
     
     std::cout << "\n\n\n--- finished processing all requests ---\n\n" << std::endl;
     // assign any unmatched (open) trips
     if( openTrips.size() > 0 ) {
-        std::set<AssignedTrip*, AssignedTripIndexComp> finalUnmatchedTrips = clearRemainingOpenTrips(openTrips, &_assignedTrips);
+        clearRemainingOpenTrips(openTrips, &_assignedTrips);
         assert( openTrips.empty() );        
-    }
+    } 
     
     // assign disqualified trips due to no available driver
     _disqualifiedRequests.insert(requestsWithNoDrivers.begin(),requestsWithNoDrivers.end());
@@ -172,10 +174,8 @@ std::set<AssignedTrip*, AssignedTripIndexComp> MitmModel::getAllCompletedOpenTri
     
     return unmatchedTrips;
 }
-std::set<AssignedTrip*, AssignedTripIndexComp> MitmModel::clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips) {
-    std::set<AssignedTrip*, AssignedTripIndexComp> finalUnmatchedTrips;
-    
-   // std::cout << "\n\n\tclearing all " << openTrips.size() << " left over remaining open trips" << std::endl;
+void MitmModel::clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips) {
+    //std::set<AssignedTrip*, AssignedTripIndexComp> finalUnmatchedTrips;
     
     for( std::set<OpenTrip*, EtaComp>::iterator tripItr = openTrips.begin(); tripItr != openTrips.end(); ++tripItr ) {
                 
@@ -188,17 +188,14 @@ std::set<AssignedTrip*, AssignedTripIndexComp> MitmModel::clearRemainingOpenTrip
         pAssignedTrip->setMasterDropFromActuals(actualDropOff);
         //_assignedTrips.insert(pAssignedTrip);
         pAssignedTrips->insert(pAssignedTrip);
-        
-     //   std::cout << "\t\tmaster index " << pAssignedTrip->getMasterIndex() << std::endl;
-        
-                
-        finalUnmatchedTrips.insert(pAssignedTrip);
+                   
+        //finalUnmatchedTrips.insert(pAssignedTrip);
     }
     
     // remove all remaining open trips
     openTrips.erase(openTrips.begin(), openTrips.end());
     
-    return finalUnmatchedTrips;
+    //return finalUnmatchedTrips;
 }
 
 /*
@@ -267,28 +264,33 @@ AssignedTrip * MitmModel::getBestMatchForCurrMinionRequest(Request * pMinionRequ
 std::vector<FeasibleMatch*> MitmModel::getFeasibleMatchesFromCurrPair(Request* pMinionReq, OpenTrip * pMasterCand) {
     
     std::vector<FeasibleMatch*> feasibleAssignments; 
-    
-    // check 1: distance to minion is feasible
-    const double distFromMasterToMinion = Utility::computeGreatCircleDistance(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng(), pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+   
+    // check 1: pickup distance is feasible
+    const double pickupDistanceAtTimeOfMinionRequest = ModelUtils::getPickupDistanceAtTimeOfMinionRequest(pMinionReq->getReqTime(), pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMasterCand->getETA(), pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng(), pMasterCand->getETD(), pMasterCand->getDropRequestLat(), pMasterCand->getDropRequestLng());
+    if( pickupDistanceAtTimeOfMinionRequest <= _maxMatchDistInKm ) {
+            
+        // check 2: trip overlap exceeds threshold
+        const double distFromMasterOriginToMinion = Utility::computeGreatCircleDistance(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng(), pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+        const double uberXdistanceForMaster = Utility::computeGreatCircleDistance(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng(), pMasterCand->getDropRequestLat(), pMasterCand->getDropRequestLng());
+        const double uberXdistanceForMinion = Utility::computeGreatCircleDistance(pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
+
+        //      2.A:  check match with master dropoff first
+        FeasibleMatch * pFeasMatchWithMasterDropoffFirst = checkIfFIFOMatchIsFeasible(pMinionReq->getRiderID(), distFromMasterOriginToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
+        //FeasibleMatch * pFeasMatchWithMasterDropoffFirst = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, pMinionReq->getRiderID(), distFromMasterToMinion, uberXdistanceForMaster, uberXdistanceForMinion, )
+        if( pFeasMatchWithMasterDropoffFirst != NULL ) {
+            feasibleAssignments.push_back(pFeasMatchWithMasterDropoffFirst);
+        }    
         
-    // check 2: trip overlap exceeds threshold
-    const double uberXdistanceForMaster = Utility::computeGreatCircleDistance(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng(), pMasterCand->getDropRequestLat(), pMasterCand->getDropRequestLng());
-    const double uberXdistanceForMinion = Utility::computeGreatCircleDistance(pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
-    
-    //      2.A:  check match with master dropoff first
-    FeasibleMatch * pFeasMatchWithMasterDropoffFirst = checkIfOverlapIsFeasWithMasterDropoffFirst(pMinionReq->getRiderID(), distFromMasterToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
-    if( pFeasMatchWithMasterDropoffFirst != NULL ) {
-        feasibleAssignments.push_back(pFeasMatchWithMasterDropoffFirst);
-    }    
-    //      2.B:  check with minion dropoff first
-    FeasibleMatch * pFeasMatchWithMinionDropoffFirst = checkIfOverlapIsFeasWithMinionDropoffFirst(distFromMasterToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
-    if( pFeasMatchWithMinionDropoffFirst != NULL ) {
-        feasibleAssignments.push_back(pFeasMatchWithMinionDropoffFirst);
+        //      2.B:  check with minion dropoff first
+        FeasibleMatch * pFeasMatchWithMinionDropoffFirst = checkIfFILOMatchIsFeasible(distFromMasterOriginToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
+        if( pFeasMatchWithMinionDropoffFirst != NULL ) {
+            feasibleAssignments.push_back(pFeasMatchWithMinionDropoffFirst);
+        }
     }
     
     return feasibleAssignments;
 }
-FeasibleMatch * MitmModel::checkIfOverlapIsFeasWithMasterDropoffFirst(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
+FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
     
     /*
      *   MASTER constraint: s1 + 0.5h <= (1-t)x 
@@ -351,7 +353,7 @@ FeasibleMatch * MitmModel::checkIfOverlapIsFeasWithMasterDropoffFirst(const std:
         return NULL;
     }
 }
-FeasibleMatch * MitmModel::checkIfOverlapIsFeasWithMinionDropoffFirst(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
+FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
     
     /*
      *   MASTER constraint: (s1 + 0.5h + s2) <= (1-t)x 
@@ -418,69 +420,6 @@ FeasibleMatch * MitmModel::checkIfOverlapIsFeasWithMinionDropoffFirst(const doub
     }
 }
 
-LatLng MitmModel::estimateLocationOfMasterAtTime(const time_t &currTime, OpenTrip * pCandMaster) {
-        
-    double estLat = 0.0;
-    double estLng = 0.0;
-
-    const Event * pMasterReqEvent = pCandMaster->getMasterRequestEvent();
-    
-    // case 1: the master has not yet been picked up
-    if( pCandMaster->getETA() > currTime) {
-            
-        // extract adjacent events
-        const Event * pMasterDispatch = pCandMaster->getMasterDispatcEvent();    
-        const Event * pMasterReq  = pCandMaster->getMasterRequestEvent();
-        
-        // if the current time coincides with the dispatch time then the location will be the dispatch
-        if( currTime == pMasterDispatch->timeT ) {            
-            LatLng locAtTimeOfDispatch = LatLng(pMasterDispatch->lat,pMasterDispatch->lng);
-            return locAtTimeOfDispatch;
-        }
-                
-        try {    
-            LatLng estLocation = Utility::estLocationByLinearProxy(currTime, pMasterDispatch->timeT, pMasterDispatch->lat, pMasterDispatch->lng, pCandMaster->getETA(), pMasterReqEvent->lat, pMasterReqEvent->lng);              
-            return estLocation;
-        } catch( TimeAdjacencyException &ex ) {  
-            std::cerr << "\n\n*** TimeAdjacencyException caught ***\n" << std::endl;
-            std::cerr << ex.what() << std::endl;
-            std::cerr << "\tcurrent time:       " << Utility::convertTimeTToString(currTime) << std::endl;
-            std::cerr << "\tearlier event time: " << Utility::convertTimeTToString(pMasterDispatch->timeT) << std::endl;
-            std::cerr << "\tlater event time:   " << Utility::convertTimeTToString(pMasterReq->timeT) << std::endl;
-            std::cerr << "\n(exiting)" << std::endl;
-            exit(1);
-        }         
-    }
-    
-    
-    // case 2: the master has already been picked up
-    else {
-        // extract adjacent events
-        const time_t masterPickupTime = pCandMaster->getETA();
-        const double masterPickupLat = pCandMaster->getActPickupLat();
-        const double masterPickupLng = pCandMaster->getActPickupLng();
-        const time_t masterDropTime  = pCandMaster->getETD();
-        const double masterDropLat   = pCandMaster->getDropRequestLat();
-        const double masterDropLng   = pCandMaster->getDropRequestLng();
- 
-        try {            
-            LatLng estLocation = Utility::estLocationByLinearProxy(currTime, masterPickupTime, masterPickupLat, masterPickupLng, masterDropTime, masterDropLat, masterDropLng);            
-            return estLocation;
-        } catch( TimeAdjacencyException &ex ) {
-            std::cerr << "\n\n*** TimeAdjacencyException caught ***\n" << std::endl;
-            std::cerr << ex.what() << std::endl;
-            std::cerr << "\tcurrent time: " << Utility::convertTimeTToString(currTime) << std::endl;
-            std::cerr << "\tearlier event time: " << Utility::convertTimeTToString(masterPickupTime) << std::endl;
-            std::cerr << "\tlater event time:   " << Utility::convertTimeTToString(masterDropTime) << std::endl;
-            std::cerr << "\n(exiting)" << std::endl;
-            exit(1);
-        }
-    }
-     
-    LatLng estLatLng(estLat,estLng);
-    return estLatLng;    
-}
-
 /*
  *   compute the cost of a candidate match
  *     - computed as difference in driver distance from master pickup to final drop
@@ -538,6 +477,7 @@ bool MitmModel::removeMasterFromOpenTrips(AssignedTrip* pMatchedTrip, std::set<O
     
     return false;
 }
+
 // methods to determine nearest driver
 std::pair<Driver*, std::pair<double,double> > * MitmModel::getNearestDriverToDispatchRequest(std::set<OpenTrip*, EtaComp> * pOpenTrips, time_t reqTime, double reqLat, double reqLng, const Driver * pActualDriver) {
     
@@ -546,7 +486,7 @@ std::pair<Driver*, std::pair<double,double> > * MitmModel::getNearestDriverToDis
         
     for( std::set<Driver*>::iterator iDriver = _allDrivers->begin(); iDriver != _allDrivers->end(); ++iDriver ) {
         bool isDriverAssignedToOpenTrip = checkIfDriverAssignedToOpenTrip(reqTime,*iDriver,pOpenTrips);
-        //if( !isDriverAssignedToOpenTrip ) {
+        if( !isDriverAssignedToOpenTrip ) {
             
             // estimate location from trip actuals
             LatLng estLocation = getEstLocationOfOpenDriver(*iDriver, reqTime);
@@ -561,7 +501,7 @@ std::pair<Driver*, std::pair<double,double> > * MitmModel::getNearestDriverToDis
                 std::cerr << "\texiting... " << std::endl;
                 exit(1);
             }                                    
-        // }
+        }
     }
     
     // case 1: there is at least one driver: return the nearest one
@@ -661,13 +601,13 @@ LatLng MitmModel::getEstLocationOfOpenDriver(const Driver * pDriver, const time_
         return initLoc;              
     }    
 }
-OpenTrip * MitmModel::createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, std::pair<double,double> driverDispatchLoc, Request * pMinionRequest) {
+OpenTrip * MitmModel::createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, std::pair<double,double> driverDispatchLoc, Request * pMinionRequest, const Event * pActualDispatchEvent) {
     
     const Event * pReqEvent    = new Event(pMinionRequest->getReqTime(), pMinionRequest->getPickupLat(), pMinionRequest->getPickupLng());
-    const Event * pDispEvent   = new Event(pMinionRequest->getReqTime()+1, driverDispatchLoc.first, driverDispatchLoc.second );
-           
+ //   const Event * pDispEvent   = new Event(pMinionRequest->getReqTime(), driverDispatchLoc.first, driverDispatchLoc.second );
+   
     OpenTrip * pOpenTrip = new OpenTrip(pNearestDriver->getId(), pNearestDriver, pNearestDriver->getIndex(), pMinionRequest->getRiderID(), 
-            pMinionRequest->getRiderIndex(), pReqEvent, pDispEvent, pMinionRequest->getPickupLat(), pMinionRequest->getPickupLng(), 
+            pMinionRequest->getRiderIndex(), pReqEvent, pActualDispatchEvent, pMinionRequest->getPickupLat(), pMinionRequest->getPickupLng(), 
             pMinionRequest->getDropoffLat(), pMinionRequest->getDropoffLng(), pMinionRequest->getActTimeOfPickupFromTripActuals(), pMinionRequest->getActTimeOfDropoffFromTripActuals());
     
     return pOpenTrip;
@@ -731,7 +671,7 @@ void MitmModel::printMatchCandidatesForCurrRequest(std::multimap<const double, F
             left << setw(distBuff) << "totalDistMaster" << 
             left << setw(distBuff) << "uberXDistMaster" << 
             left << setw(distBuff) << "totalDistMinion" << 
-            left << setw(distBuff) << "uberXDistMinion" << 
+            left << setw(distBuff) << "uberXDistMinion" <<
             std::endl;
     
     std::multimap<const double, FeasibleMatch*>::iterator matchItr;
@@ -756,7 +696,7 @@ void MitmModel::printMatchCandidatesForCurrRequest(std::multimap<const double, F
         *pOut << left << setw(costBuff) << std::setprecision(7) << Utility::doubleToStr(matchItr->first) <<
                 left << setw(masterIdBuff) << Utility::intToStr(matchItr->second->_masterIndex) << 
                 left << setw(extBuff) << isExtStr << 
-                left << setw(dropBuff) << firstDropStr << 
+                left << setw(dropBuff) << firstDropStr <<
                 left << setw(locBuff) << masterPickupLoc <<
                 left << setw(locBuff) << masterDropLoc <<
                 left << setw(distBuff) << Utility::doubleToStr(matchItr->second->_distToMinionPickup) << 
@@ -765,7 +705,8 @@ void MitmModel::printMatchCandidatesForCurrRequest(std::multimap<const double, F
                 left << setw(distBuff) << Utility::doubleToStr(matchItr->second->_totalDistanceForMaster) <<               
                 left << setw(distBuff) << Utility::doubleToStr(matchItr->second->_uberXDistanceForMaster) << 
                 left << setw(distBuff) << Utility::doubleToStr(matchItr->second->_totalDistanceForMinion) << 
-                left << setw(distBuff) << Utility::doubleToStr(matchItr->second->_uberXDistanceForMinion) << std::endl;
+                left << setw(distBuff) << Utility::doubleToStr(matchItr->second->_uberXDistanceForMinion) << 
+               std::endl; 
     }
     *pOut << "\n" << std::endl;
     

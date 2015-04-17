@@ -60,7 +60,7 @@ public:
                
         // iterate over open trips and check for completion
         std::set<OpenTrip*, EtaComp>::iterator openTripItr;
-        std::set<OpenTrip*, EtaComp>::iterator lastDeletionItr;
+        std::set<OpenTrip*, EtaComp>::iterator lastDeletionItr = openTrips.begin();
         for( openTripItr = openTrips.begin(); openTripItr != openTrips.end(); ++openTripItr ) {
 
             // terminate loop if ETA is after current time epoch (openTrips are sorted by ETA)
@@ -83,82 +83,48 @@ public:
             unmatchedTrips.insert(pAssignedTrip);
             lastDeletionItr = openTripItr;
         }
-        
+                
         // now delete all expired open trips
         if( lastDeletionItr != openTrips.begin() ) {
-            openTrips.erase(openTrips.begin(), lastDeletionItr);
-        }
+            openTrips.erase(openTrips.begin(), lastDeletionItr); 
+        }        
         
         return unmatchedTrips;  
     }
     
-    
-    /*
-     *   given time, estimate location of candidate master (represented by OpenTrip object)
-     */
-    static LatLng estimateLocationOfMasterAtTime(const time_t &currTime, const Event * pMasterDispatch, const Event * pMasterPickup, const Event * pMasterDrop) {
-        
-    double estLat = 0.0;
-    double estLng = 0.0;
-
-    // case 1: the master has not yet been picked up
-    if( currTime <= pMasterPickup->timeT ) {
-        
-        // if the current time coincides with the dispatch time then the location will be the dispatch
-        if( currTime == pMasterDispatch->timeT ) {            
-            LatLng locAtTimeOfDispatch = LatLng(pMasterDispatch->lat, pMasterDispatch->lng);
-            return locAtTimeOfDispatch;
+    //static double getPickupDistanceAtTimeOfMinionRequest(Request * pRequest, OpenTrip * pOpenTrip) {
+    static double getPickupDistanceAtTimeOfMinionRequest(
+            const time_t minionReqTime, 
+            const double minionPickupLat, 
+            const double minionPickupLng, 
+            const time_t masterPickupTime, 
+            const double masterPickupLat, 
+            const double masterPickupLng, 
+            const time_t masterDropoffTime, 
+            const double masterDropLat, 
+            const double masterDropLng ) {
+                        
+        // case 1: pickup has NOT occurred
+        if( minionReqTime <= masterPickupTime ) {
+            
+            // pickup distance is from master pickup to minion pickup
+            double pickupDistance = Utility::computeGreatCircleDistance(masterPickupLat, masterPickupLng, minionPickupLat, minionPickupLng);
+            
+            return pickupDistance;
         }
         
-        // if the current time coincides with the pickup time, then the location will be the pickup
-        if( currTime == pMasterPickup->timeT ) {
-            LatLng locAtTimeOfPickup = LatLng(pMasterPickup->lat, pMasterPickup->lng);
-            return locAtTimeOfPickup;
-        }
-                
-        try {    
-            LatLng estLocation = Utility::estLocationByLinearProxy(currTime, pMasterDispatch->timeT, pMasterDispatch->lat, pMasterDispatch->lng, pMasterPickup->timeT, pMasterPickup->lat, pMasterPickup->lng);              
-            return estLocation;
-        } catch( TimeAdjacencyException &ex ) {  
-            std::cerr << "\n\n*** TimeAdjacencyException caught ***\n" << std::endl;
-            std::cerr << ex.what() << std::endl;
-            std::cerr << "\tcurrent time:       " << Utility::convertTimeTToString(currTime) << std::endl;
-            std::cerr << "\tearlier event time: " << Utility::convertTimeTToString(pMasterDispatch->timeT) << std::endl;
-            std::cerr << "\tlater event time:   " << Utility::convertTimeTToString(pMasterPickup->timeT) << std::endl;
-            std::cerr << "\n(exiting)" << std::endl;
-            exit(1);
-        }         
+        // case 2: pickup HAS occurred
+        else {
+            // estimate location     
+            LatLng estLocAtTimeOfRequest = Utility::estLocationByLinearProxy(minionReqTime, masterPickupTime, masterPickupLat, masterPickupLng, masterDropoffTime, masterDropLat, masterDropLng);
+            
+            // pickup distance is from est location (linearly interpolated) and minion pickup
+            double pickupDistance = Utility::computeGreatCircleDistance(estLocAtTimeOfRequest.getLat(), estLocAtTimeOfRequest.getLng(), minionPickupLat, minionPickupLng);
+            
+            return pickupDistance;
+        }                
     }
     
-    
-    // case 2: the master has already been picked up
-    else {
-        // extract adjacent events
-        const time_t masterPickupTime = pMasterPickup->timeT;
-        const double masterPickupLat  = pMasterPickup->lat;
-        const double masterPickupLng  = pMasterPickup->lng;
-        const time_t masterDropTime   = pMasterDrop->timeT;
-        const double masterDropLat    = pMasterDrop->lat;
-        const double masterDropLng    = pMasterDrop->lng;
- 
-        try {            
-            LatLng estLocation = Utility::estLocationByLinearProxy(currTime, masterPickupTime, masterPickupLat, masterPickupLng, masterDropTime, masterDropLat, masterDropLng);            
-            return estLocation;
-        } catch( TimeAdjacencyException &ex ) {
-            std::cerr << "\n\n*** TimeAdjacencyException caught ***\n" << std::endl;
-            std::cerr << ex.what() << std::endl;
-            std::cerr << "\tcurrent time: " << Utility::convertTimeTToString(currTime) << std::endl;
-            std::cerr << "\tearlier event time: " << Utility::convertTimeTToString(masterPickupTime) << std::endl;
-            std::cerr << "\tlater event time:   " << Utility::convertTimeTToString(masterDropTime) << std::endl;
-            std::cerr << "\n(exiting)" << std::endl;
-            exit(1);
-        }
-    }
-     
-    LatLng estLatLng(estLat,estLng);
-    return estLatLng;  
-    }
-
     /*
      * 
      *    given master, minion pair determine if the match is feasible where the MASTER is dropped first

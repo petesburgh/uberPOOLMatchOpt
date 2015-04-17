@@ -60,8 +60,7 @@ void Solution::buildSolutionMetrics() {
             } else if( !isExtended && !isFIFO ) {
                 numFILONonExtendedMatches++;    // increment FILO AND nonextended
             }
-                        
-            
+                                    
             // compute additional distance for master
             const double tripLength_master  = (*tripItr)->getMatchDetails()->_totalDistanceForMaster;
             const double uberXLength_master = (*tripItr)->getMatchDetails()->_uberXDistanceForMaster;

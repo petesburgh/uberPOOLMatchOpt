@@ -29,10 +29,10 @@
 
 using namespace std;
 
-class MitmModel {
+class MitmModel_new {
 public:
-    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);
-    virtual ~MitmModel();
+    MitmModel_new(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);
+    virtual ~MitmModel_new();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
     bool solve_deprecated(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);

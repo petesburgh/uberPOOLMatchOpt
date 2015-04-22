@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/DataContainer.o \
 	${OBJECTDIR}/Driver.o \
 	${OBJECTDIR}/MitmModel.o \
+	${OBJECTDIR}/MitmModel_new.o \
 	${OBJECTDIR}/OpenTrip.o \
 	${OBJECTDIR}/Output.o \
 	${OBJECTDIR}/Request.o \
@@ -47,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Solution.o \
 	${OBJECTDIR}/TripData.o \
 	${OBJECTDIR}/UFBW_fixed.o \
+	${OBJECTDIR}/deprecated.o \
 	${OBJECTDIR}/main.o
 
 
@@ -99,6 +101,11 @@ ${OBJECTDIR}/MitmModel.o: MitmModel.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel.o MitmModel.cpp
 
+${OBJECTDIR}/MitmModel_new.o: MitmModel_new.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel_new.o MitmModel_new.cpp
+
 ${OBJECTDIR}/OpenTrip.o: OpenTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -133,6 +140,11 @@ ${OBJECTDIR}/UFBW_fixed.o: UFBW_fixed.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_fixed.o UFBW_fixed.cpp
+
+${OBJECTDIR}/deprecated.o: deprecated.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/deprecated.o deprecated.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

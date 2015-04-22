@@ -29,22 +29,12 @@ public:
     
     static AssignedTrip * convertOpenTripToAssignedTrip(OpenTrip * pOpenTrip) {
   
-        // if a trip has been completed, define the open trip here        
-        Event masterReq(pOpenTrip->getMasterRequestEvent()->timeT, pOpenTrip->getMasterRequestEvent()->lat, pOpenTrip->getMasterRequestEvent()->lng);
-        Event masterDispatch(pOpenTrip->getMasterDispatcEvent()->timeT, pOpenTrip->getMasterDispatcEvent()->lat, pOpenTrip->getMasterDispatcEvent()->lng);
-
-        AssignedTrip * pUnmatchedTrip = new AssignedTrip(pOpenTrip->getDriver());
+        // if a trip has been completed, define the open trip here                
+        AssignedTrip * pUnmatchedTrip = new AssignedTrip(pOpenTrip->getDriver(), pOpenTrip->getMasterDispatcEvent(), pOpenTrip->getRiderTripUUID(), pOpenTrip->getMasterRequestEvent(), pOpenTrip->getMasterActualPickupEvent(), pOpenTrip->getMasterActualDropEvent());
         
         pUnmatchedTrip->setMasterId(pOpenTrip->getMasterID());
         pUnmatchedTrip->setMasterIndex(pOpenTrip->getMasterIndex());
-        pUnmatchedTrip->setMasterRequest(masterReq);
-        pUnmatchedTrip->setMasterDispatch(masterDispatch);        
-
-        Event actPickUp(pOpenTrip->getETA(), pOpenTrip->getActPickupLat(), pOpenTrip->getActPickupLng());
-        pUnmatchedTrip->setMasterPickupFromActuals(actPickUp);
-        Event actDrop(pOpenTrip->getETD(), pOpenTrip->getDropRequestLat(), pOpenTrip->getDropRequestLng());
-        pUnmatchedTrip->setMasterDropFromActuals(actDrop);
-        
+                
         return pUnmatchedTrip;
     }
     
@@ -72,11 +62,11 @@ public:
             // convert expired open trip to AssignedTrip that is unmatched
             AssignedTrip * pAssignedTrip = ModelUtils::convertOpenTripToAssignedTrip(*openTripItr);
             
-            pAssignedTrip->setIndex(assignedTrips.size());
-            Event actualPickUp((*openTripItr)->getETA(), (*openTripItr)->getActPickupLat(), (*openTripItr)->getActPickupLng());
+            pAssignedTrip->setIndex(assignedTrips.size());            
+          /*  Event actualPickUp((*openTripItr)->getETA(), (*openTripItr)->getActPickupLat(), (*openTripItr)->getActPickupLng());
             pAssignedTrip->setMasterPickupFromActuals(actualPickUp);
             Event actualDropOff((*openTripItr)->getETD(), (*openTripItr)->getDropRequestLat(), (*openTripItr)->getDropRequestLng());
-            pAssignedTrip->setMasterDropFromActuals(actualDropOff);
+            pAssignedTrip->setMasterDropFromActuals(actualDropOff); */
             assignedTrips.insert(pAssignedTrip); 
             
                        
@@ -102,23 +92,31 @@ public:
             const double masterPickupLng, 
             const time_t masterDropoffTime, 
             const double masterDropLat, 
-            const double masterDropLng ) {
+            const double masterDropLng,
+            const time_t masterDispatchTime,
+            const double masterDispatchLat, 
+            const double masterDispatchLng ) {
                         
-        // case 1: pickup has NOT occurred
+        // case 1: pickup has NOT occurred (non-extended)
         if( minionReqTime <= masterPickupTime ) {
+                                    
+            // pickup distance from current location to minion origin
+            LatLng estMasterLocation = Utility::estLocationByLinearProxy(minionReqTime, masterDispatchTime, masterDispatchLat, masterDispatchLng, masterPickupTime, masterPickupLat, masterPickupLng);
+            double pickupDistance_driverToMaster = Utility::computeGreatCircleDistance(estMasterLocation.getLat(), estMasterLocation.getLng(), masterPickupLat, masterPickupLng);
             
-            // pickup distance is from master pickup to minion pickup
-            double pickupDistance = Utility::computeGreatCircleDistance(masterPickupLat, masterPickupLng, minionPickupLat, minionPickupLng);
+            // pickup distance from master to minion
+            double pickupDistance_masterToMinion = Utility::computeGreatCircleDistance(masterPickupLat, masterPickupLng, minionPickupLat, minionPickupLng);
             
-            return pickupDistance;
+            double pickupDistance_total = pickupDistance_driverToMaster + pickupDistance_masterToMinion;
+            return pickupDistance_total;
         }
         
-        // case 2: pickup HAS occurred
+        // case 2: pickup HAS occurred (extended)
         else {
             // estimate location     
             LatLng estLocAtTimeOfRequest = Utility::estLocationByLinearProxy(minionReqTime, masterPickupTime, masterPickupLat, masterPickupLng, masterDropoffTime, masterDropLat, masterDropLng);
             
-            // pickup distance is from est location (linearly interpolated) and minion pickup
+            // pickup distance is 
             double pickupDistance = Utility::computeGreatCircleDistance(estLocAtTimeOfRequest.getLat(), estLocAtTimeOfRequest.getLng(), minionPickupLat, minionPickupLng);
             
             return pickupDistance;
@@ -180,9 +178,10 @@ public:
             // get dispatch time (-1 if dispatch has not yet occurred)
             time_t masterDispatchTime = (pMasterCand->pDispatchEvent == NULL) ? -1 : pMasterCand->pDispatchEvent->timeT;
 
-            FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, minionId, pMinionCand->_riderIndex, true, isExtendedMatch, 
+            FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMasterCand->_riderTripUUID, minionId, 
+                        pMinionCand->_riderIndex, pMinionCand->_riderTripUUID, true, pMasterCand->pReqEvent, pMasterCand->pDispatchEvent, isExtendedMatch, 
                         distToMinion, sharedDistance, dropDist, totalDistMaster, totalDistMinion, masterUberXDist, uberXDistMinion,
-                        pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, pMasterCand->_ETD, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
+                        pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, pMasterCand->_ETD, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                         pMinionCand->_reqTime, -1, -1, -1, pMinionCand->_reqOrig, pMinionCand->_reqDest, pctAddlDistMinion,
                         masterSavings, minionSavings, avgSavings);    
             return pFeasMatch;
@@ -247,9 +246,10 @@ public:
             // get dispatch time (-1 if dispatch has not yet occurred)
             time_t masterDispatchTime = (pMasterCand->pDispatchEvent == NULL) ? -1 : pMasterCand->pDispatchEvent->timeT;
 
-            FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMinionCand->_riderID, pMinionCand->_riderIndex, false, isExtendedMatch,
+            FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMasterCand->_riderTripUUID, 
+                    pMinionCand->_riderID, pMinionCand->_riderIndex, pMinionCand->_riderTripUUID, false, pMasterCand->pReqEvent, pMasterCand->pDispatchEvent, isExtendedMatch,
                     distToMinion, sharedDistance, distToMasterDrop, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
-                    pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, -1, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
+                    pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, -1, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                     pMinionCand->_reqTime, pMinionCand->_reqTime, -1, -1, minionOrig, minionDest, pctAddlDistMinion,
                     masterSavings, minionSavings, avgSavings);    
             return pFeasMatch;
@@ -257,6 +257,37 @@ public:
             return NULL;
         }
     }
+    
+    
+    // compute pick up distance
+    static double computePickupDistance(const time_t masterETA, const double masterOrigLat, const double masterOrigLng, const time_t masterETD, const double masterDestLat, const double masterDestLng, const time_t minionReqTime, const double minionOrigLat, const double minionOrigLng) {
+        
+        double pickupDist = 0.0;
+        
+        bool isExtended = (masterETA <= minionReqTime);
+        
+        // case 1: non-extended match
+        if( !isExtended ) {
+            pickupDist = Utility::computeGreatCircleDistance(masterOrigLat, masterOrigLng, minionOrigLat, minionOrigLng);
+        }
+        
+        // case 2: extended match
+        else {
+            // get the master location at time of minion request
+            LatLng estLocAtMinReq = Utility::estLocationByLinearProxy(minionReqTime, masterETA, masterOrigLat, masterOrigLng, masterETD, masterDestLat, masterDestLng);
+            
+            // compute dist between master origin and curr location
+            const double distFromOrigToCurrLoc   = Utility::computeGreatCircleDistance(masterOrigLat, masterOrigLng, estLocAtMinReq.getLat(), estLocAtMinReq.getLng());
+            
+            // compute dist between curr location and minion origin
+            const double distFromCurrLocToMinion = Utility::computeGreatCircleDistance(estLocAtMinReq.getLat(), estLocAtMinReq.getLng(), minionOrigLat, minionOrigLng);
+            
+            pickupDist = distFromOrigToCurrLoc + distFromCurrLocToMinion;            
+        }
+        
+        return pickupDist;
+    }
+    
 };
 
 #endif	/* MODELUTILS_HPP */

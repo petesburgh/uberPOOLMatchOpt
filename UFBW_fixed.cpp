@@ -16,8 +16,10 @@ UFBW_fixed::UFBW_fixed(const time_t startTime, const time_t endTime, const int l
 
 UFBW_fixed::~UFBW_fixed() {
 }
+#include "MitmModel.hpp"
 
-bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips) {
+
+bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen) {
     std::cout << "\n\n---------------------------------------------------------\n" << std::endl;
     std::cout << "     SOLVING UP FRONT BATCHING OPT WITH FIXED PICKUPS\n" << std::endl;
     std::cout << "---------------------------------------------------------\n\n" << std::endl;   
@@ -62,10 +64,12 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         const time_t batchWindowBegin = pCurrRequest->getReqTime();
         const time_t batchWindowEnd   = batchWindowBegin + _lenBatchWindowInSec;
                        
-        std::cout << "\n\n-------------------------------------------------------------------------\n" << std::endl;
-        std::cout << "       CURRENT REQUEST AT TOP OF DEQUE: " << pCurrRequest->getRiderIndex() << " AT " << Utility::convertTimeTToString(pCurrRequest->getReqTime()) << std::endl;
-        std::cout << "          batch " << Utility::intToStr(_batchCounter) << " from " << Utility::convertTimeTToString(batchWindowBegin) << " to " << Utility::convertTimeTToString(batchWindowEnd) << std::endl;
-        std::cout << "\n-------------------------------------------------------------------------\n\n" << std::endl;
+        if( printToScreen ) {
+            std::cout << "\n\n-------------------------------------------------------------------------\n" << std::endl;
+            std::cout << "       CURRENT REQUEST AT TOP OF DEQUE: " << pCurrRequest->getRiderIndex() << " AT " << Utility::convertTimeTToString(pCurrRequest->getReqTime()) << std::endl;
+            std::cout << "          batch " << Utility::intToStr(_batchCounter) << " from " << Utility::convertTimeTToString(batchWindowBegin) << " to " << Utility::convertTimeTToString(batchWindowEnd) << std::endl;
+            std::cout << "\n-------------------------------------------------------------------------\n\n" << std::endl;  
+        }
                               
         // step 1: convert any expired unmatched requests to open trips if they have been waiting more than the tolerance
         if( unmatchedRequestsWithinWaitTime.size() > 0 ) {            
@@ -77,7 +81,9 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         // step 2: convert all completed trips to unmatched trips   
         std::set<AssignedTrip*, AssignedTripIndexComp> completedTripsCurrBatch = ModelUtils::getCompletedOpenTrips(pCurrRequest->getReqTime(), currOpenTrips, _assignedTrips);
         
-        std::cout << "\t" << completedTripsCurrBatch.size() << " open trips have been completed as unmatched" << std::endl;
+        if( printToScreen ) {
+            std::cout << "\t" << completedTripsCurrBatch.size() << " open trips have been completed as unmatched" << std::endl;
+        }
               
         // step 3: get ALL requests from the current within the batch window
         std::set<Request*, ReqComp> requestsInCurrBatch = getRequestsInInterval(requestPool, batchWindowBegin, batchWindowEnd);
@@ -85,27 +91,31 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         // step 4: build candidate MASTERS and MINIONS
         std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > candMastersMinions = generateCandidateMastersAndMinions(currOpenTrips, requestsInCurrBatch);
         
-        // TODO: delete
-        // print candidate MINIONS        
-        std::set<MinionCand*, MinionComp> minions = candMastersMinions.second;
-        std::cout << "\t" << minions.size() << " candidate minions: " << std::endl;
-        std::set<MinionCand*, MinionComp>::iterator itr;
-        for( itr = minions.begin(); itr != minions.end(); ++itr ) {
-            std::cout << "\t\tminion " << (*itr)->_riderIndex << " request at " << Utility::convertTimeTToString((*itr)->_reqTime) << std::endl;
+           
+        if( printToScreen ) {
+            std::set<MinionCand*, MinionComp> minions = candMastersMinions.second;
+            std::cout << "\t" << minions.size() << " candidate minions: " << std::endl;
+            std::set<MinionCand*, MinionComp>::iterator itr;
+            for( itr = minions.begin(); itr != minions.end(); ++itr ) {
+                std::cout << "\t\tminion " << (*itr)->_riderIndex << " request at " << Utility::convertTimeTToString((*itr)->_reqTime) << std::endl;
+            }
         }
         
         // step 5: build FEASIBLE candidate (master,minion) pairs
-        std::cout << "\ttrying to get feasible matches... " << std::endl;
-        std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(candMastersMinions.first, candMastersMinions.second);
-                
-        std::cout << "\t\t" << feasibleMatches.size() << " feasible matches have been identified" << std::endl;
-        //TODO: delete
-        for( std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp>::iterator matchCandItr = feasibleMatches.begin(); matchCandItr != feasibleMatches.end(); ++matchCandItr ) {
-            const std::string dropTypeStr = ((*matchCandItr)->_dropType == UFBW_fixed::MasterMinionMatchCand::FIFO) ? "FIFO" : "FILO";
-            std::cout << "\t\t\tmaster/minion/type  " << (*matchCandItr)->pMaster->_riderIndex << " / " << (*matchCandItr)->pMinion->_riderIndex << " / " << dropTypeStr << std::endl;
+        if( printToScreen ) { 
+            std::cout << "\ttrying to get feasible matches... " << std::endl;
         }
-        bool isTopRequestMatched = false;
-               
+        std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(candMastersMinions.first, candMastersMinions.second);
+         
+        if( printToScreen ) {
+            std::cout << "\t\t" << feasibleMatches.size() << " feasible matches have been identified" << std::endl;                
+            for( std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp>::iterator matchCandItr = feasibleMatches.begin(); matchCandItr != feasibleMatches.end(); ++matchCandItr ) {
+                const std::string dropTypeStr = ((*matchCandItr)->_dropType == UFBW_fixed::MasterMinionMatchCand::FIFO) ? "FIFO" : "FILO";
+                std::cout << "\t\t\tmaster/minion/type  " << (*matchCandItr)->pMaster->_riderIndex << " / " << (*matchCandItr)->pMinion->_riderIndex << " / " << dropTypeStr << std::endl;
+            }
+        }
+        
+        bool isTopRequestMatched = false;               
         if( feasibleMatches.size() > 0 ) {
         
             // step 6: assign costs to each match candidate (& print candidates)
@@ -114,15 +124,21 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
                 printCurrentBatchMatchCandidates(*pOutFile, pCurrRequest, &feasibleMatches);
             }
            
-            // step 7: SOLVE OPTIMIZATION MODEL    
-            std::cout << "\tsolving optimization model... " << std::endl;
-            std::set<AssignedTrip*, AssignedTripIndexComp> matchingsForCurrBatch = solveMatchingOptimization(&feasibleMatches, &requestsInCurrBatch);        
-            std::cout << "\t\tdone." << std::endl;
+            // step 7: SOLVE OPTIMIZATION MODEL
+            if( printToScreen ) {
+                std::cout << "\tsolving optimization model... " << std::endl;
+            }
+            std::set<AssignedTrip*, AssignedTripIndexComp> matchingsForCurrBatch = solveMatchingOptimization(&feasibleMatches, &requestsInCurrBatch, printToScreen);        
+            if( printToScreen ) {
+                std::cout << "\t\tdone." << std::endl;
+            }
             if( matchingsForCurrBatch.size() > 0 ) {                
                 _assignedTrips.insert(matchingsForCurrBatch.begin(), matchingsForCurrBatch.end());  
             }
 
-            std::cout << "\t" << matchingsForCurrBatch.size() << " matches have been found from optimization" << std::endl;
+            if( printToScreen ) {
+                std::cout << "\t" << matchingsForCurrBatch.size() << " matches have been found from optimization" << std::endl;
+            }
 
             // step 8: remove matched masters & minions
             //std::set<const int> matchedRiderIndices = getAllIndicesAssociatedWithMatchedRiders(&matchingsForCurrBatch);
@@ -155,7 +171,9 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         _batchCounter++;
     }
     
-    std::cout << "\n\nafter processing all " << _allRequests.size() << " there are " << _assignedTrips.size() << " assigned trips" << std::endl;
+    if( printToScreen ) {
+        std::cout << "\n\nafter processing all " << _allRequests.size() << " there are " << _assignedTrips.size() << " assigned trips" << std::endl;
+    }
 
     // convert any requests awaiting a match to an open trip
     for( std::set<Request*, ReqComp>::iterator waitingReqItr = unmatchedRequestsWithinWaitTime.begin(); waitingReqItr != unmatchedRequestsWithinWaitTime.end(); ++waitingReqItr ) {
@@ -165,15 +183,19 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
     }
     
     // convert any remaining open trips to unmatched ones
-    std::cout << "\tconverting final open trips to unmatched trips... " << std::endl;
+    if( printToScreen ) {
+        std::cout << "\tconverting final open trips to unmatched trips... " << std::endl;
+    }
     std::set<OpenTrip*, EtaComp>::iterator openTripItr;
     for( openTripItr = currOpenTrips.begin(); openTripItr != currOpenTrips.end(); ++openTripItr ) {
         AssignedTrip * pAssignedTrip = ModelUtils::convertOpenTripToAssignedTrip(*openTripItr);
         pAssignedTrip->setIndex(_assignedTrips.size());
-        _assignedTrips.insert(pAssignedTrip);
+        _assignedTrips.insert(pAssignedTrip);               
     }
-    std::cout << "\tdone." << std::endl;
-    std::cout << "\n\nafter there are " << _assignedTrips.size() << " assigned trips" << std::endl;
+    if( printToScreen ) {
+        std::cout << "\tdone." << std::endl;
+        std::cout << "\n\nafter there are " << _assignedTrips.size() << " assigned trips" << std::endl;
+    }
 
     // create Solution
     pSolution = new Solution(Solution::UFBW_fixedPickups, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), _assignedTrips, _disqualifiedRequests);
@@ -200,10 +222,11 @@ std::set<OpenTrip*, EtaComp> UFBW_fixed::convertExpiredUnmatchedReqsToOpenTrips(
             
             const Event * pRequestEvent = new Event((*reqItr)->getReqTime(), (*reqItr)->getPickupLat(), (*reqItr)->getPickupLng());
                         
-            OpenTrip * pOpenTrip = new OpenTrip((*reqItr)->getActualDriver()->getId(), (*reqItr)->getActualDriver(), 
-                    (*reqItr)->getActualDriver()->getIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderIndex(), pRequestEvent,
+            OpenTrip * pOpenTrip = new OpenTrip((*reqItr)->getActualDriver()->getId(), (*reqItr)->getActualDriver(), (*reqItr)->getActualDriver()->getIndex(), 
+                    (*reqItr)->getRiderID(), (*reqItr)->getRiderIndex(), (*reqItr)->getRiderTripUUID(), pRequestEvent,
                     (*reqItr)->getActualDispatchEvent(), (*reqItr)->getPickupLat(), (*reqItr)->getPickupLng(), (*reqItr)->getDropoffLat(), 
-                    (*reqItr)->getDropoffLng(), (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals() );
+                    (*reqItr)->getDropoffLng(), (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals(),
+                    (*reqItr)->getActualPickupEvent(), (*reqItr)->getActualDropEvent());
             
             newOpenTrips.insert(pOpenTrip);
             
@@ -227,10 +250,10 @@ std::pair<std::set<UFBW_fixed::MasterCand*, UFBW_fixed::MasterComp>, std::set<UF
         LatLng reqOrig((*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
         LatLng reqDest((*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
         
-        const Event * pickupEvent = new Event((*tripItr)->getETA(), (*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
-        const Event * dropEvent = new Event((*tripItr)->getETD(), (*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
+        //const Event * pickupEvent = new Event((*tripItr)->getETA(), (*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
+        //const Event * dropEvent = new Event((*tripItr)->getETD(), (*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
         
-        UFBW_fixed::MasterCand * pMasterCand = new UFBW_fixed::MasterCand((*tripItr)->getMasterRequestEvent()->timeT, reqOrig, reqDest, (*tripItr)->getETA(), (*tripItr)->getETD(), (*tripItr)->getDriver(), (*tripItr)->getMasterDispatcEvent(), pickupEvent, dropEvent, (*tripItr)->getMasterIndex(), (*tripItr)->getMasterID());
+        UFBW_fixed::MasterCand * pMasterCand = new UFBW_fixed::MasterCand((*tripItr)->getMasterRequestEvent(), (*tripItr)->getMasterRequestEvent()->timeT, reqOrig, reqDest, (*tripItr)->getETA(), (*tripItr)->getETD(), (*tripItr)->getDriver(), (*tripItr)->getMasterDispatcEvent(), (*tripItr)->getMasterActualPickupEvent(), (*tripItr)->getMasterActualDropEvent(), (*tripItr)->getMasterIndex(), (*tripItr)->getMasterID(), (*tripItr)->getRiderTripUUID());
         candMasters.insert(pMasterCand);
     }
     
@@ -239,15 +262,16 @@ std::pair<std::set<UFBW_fixed::MasterCand*, UFBW_fixed::MasterComp>, std::set<UF
         LatLng reqOrig((*reqItr)->getPickupLat(), (*reqItr)->getPickupLng());
         LatLng reqDest((*reqItr)->getDropoffLat(), (*reqItr)->getDropoffLng());
         
-        const Event * pickupEvent = new Event((*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getPickupLat(), (*reqItr)->getPickupLng());
-        const Event * dropEvent = new Event((*reqItr)->getActTimeOfDropoffFromTripActuals(), (*reqItr)->getDropoffLat(), (*reqItr)->getDropoffLng());
+       // const Event * pickupEvent = new Event((*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getPickupLat(), (*reqItr)->getPickupLng());
+       // const Event * dropEvent = new Event((*reqItr)->getActTimeOfDropoffFromTripActuals(), (*reqItr)->getDropoffLat(), (*reqItr)->getDropoffLng());
         
-        // MASTER candidate (note: since dispatch has not occurred by this stage a NULL dispatch event is passed in)
-        UFBW_fixed::MasterCand * pMasterCand = new UFBW_fixed::MasterCand((*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals(), (*reqItr)->getActualDriver(), NULL, pickupEvent, dropEvent, (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID());
+        // MASTER candidate (note: since dispatch has not occurred by this stage a NULL dispatch event is passed in)        
+            // JP; commenting the following line out 
+        UFBW_fixed::MasterCand * pMasterCand = new UFBW_fixed::MasterCand((*reqItr)->getActualRequestEvent(),(*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals(), (*reqItr)->getActualDriver(), NULL, (*reqItr)->getActualPickupEvent(), (*reqItr)->getActualDropEvent(), (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderTripUUID());        
         candMasters.insert(pMasterCand);
         
         // MINION candidate
-        UFBW_fixed::MinionCand * pMinionCand = new UFBW_fixed::MinionCand((*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID());
+        UFBW_fixed::MinionCand * pMinionCand = new UFBW_fixed::MinionCand((*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderTripUUID());
         candMinions.insert(pMinionCand);
     }    
         
@@ -257,23 +281,23 @@ std::pair<std::set<UFBW_fixed::MasterCand*, UFBW_fixed::MasterComp>, std::set<UF
     return mmPair;
 }
 AssignedTrip * UFBW_fixed::convertWaitingRequestToAssignedTrip(Request * pWaitingRequest) {
-    AssignedTrip * pAssignedTrip = new AssignedTrip(pWaitingRequest->getActualDriver());
+    AssignedTrip * pAssignedTrip = new AssignedTrip(pWaitingRequest->getActualDriver(), pWaitingRequest->getActualDispatchEvent(), pWaitingRequest->getRiderTripUUID(), pWaitingRequest->getActualRequestEvent(), pWaitingRequest->getActualPickupEvent(), pWaitingRequest->getActualDropEvent());
     
     // define request and dispatch events
-    Event reqEvent(pWaitingRequest->getReqTime(), pWaitingRequest->getPickupLat(), pWaitingRequest->getPickupLng());
-    Event dispatchEvent(pWaitingRequest->getActualDispatchEvent()->timeT, pWaitingRequest->getActualDispatchEvent()->lat, pWaitingRequest->getActualDispatchEvent()->lng);
+    //Event reqEvent(pWaitingRequest->getReqTime(), pWaitingRequest->getPickupLat(), pWaitingRequest->getPickupLng());
+    //Event dispatchEvent(pWaitingRequest->getActualDispatchEvent()->timeT, pWaitingRequest->getActualDispatchEvent()->lat, pWaitingRequest->getActualDispatchEvent()->lng);
     
     pAssignedTrip->setMasterId(pWaitingRequest->getRiderID());
     pAssignedTrip->setMasterIndex(pWaitingRequest->getRiderIndex());
-    pAssignedTrip->setMasterRequest(reqEvent);
-    pAssignedTrip->setMasterDispatch(dispatchEvent);
+   // pAssignedTrip->setMasterRequest(reqEvent);
+   // pAssignedTrip->setMasterDispatch(dispatchEvent);
     
-    Event actPickup(pWaitingRequest->getActTimeOfPickupFromTripActuals(),pWaitingRequest->getPickupLat(),pWaitingRequest->getPickupLng());
-    Event actDropoff(pWaitingRequest->getActTimeOfDropoffFromTripActuals(),pWaitingRequest->getDropoffLat(),pWaitingRequest->getDropoffLng());
+  //  Event actPickup(pWaitingRequest->getActTimeOfPickupFromTripActuals(),pWaitingRequest->getPickupLat(),pWaitingRequest->getPickupLng());
+  //  Event actDropoff(pWaitingRequest->getActTimeOfDropoffFromTripActuals(),pWaitingRequest->getDropoffLat(),pWaitingRequest->getDropoffLng());
     
-    pAssignedTrip->setMasterPickupFromActuals(actPickup);   
-    pAssignedTrip->setMasterDropFromActuals(actDropoff); 
-    
+   // pAssignedTrip->setMasterPickupFromActuals(actPickup);   
+   // pAssignedTrip->setMasterDropFromActuals(actDropoff); 
+       
     return pAssignedTrip;
 }
 
@@ -298,18 +322,11 @@ std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> 
     std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> matchCandidates;
     
     std::set<UFBW_fixed::MasterCand*, UFBW_fixed::MasterComp>::iterator masterItr;
-    
-    bool toPrint = (_batchCounter == 3);
-        
+            
     for( masterItr = candMasters.begin(); masterItr != candMasters.end(); ++masterItr ) {
-        
-                       
+                               
         // loop over all candidate minions
         for( std::set<UFBW_fixed::MinionCand*, UFBW_fixed::MinionComp>::iterator minionItr = candMinions.begin(); minionItr != candMinions.end(); ++minionItr ) {
-            
-            bool isMaster = ((*masterItr)->_riderIndex == 287);
-            bool isMinion = ((*minionItr)->_riderIndex == 291);
-            bool toPrint = (isMaster && isMinion);
             
             // ensure the master trip has not been completed
             if( (*masterItr)->_ETD <= (*minionItr)->_reqTime ) 
@@ -318,29 +335,54 @@ std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> 
             // ignore matching the same rider
             if( (*masterItr)->_riderIndex == (*minionItr)->_riderIndex )
                 continue;
+            
+          //  std::cout << "\n\ncandidate master: " << (*masterItr)->_riderIndex << " req at " << Utility::convertTimeTToString((*masterItr)->_reqTime) << std::endl;
+          //  std::cout << "candidate minion: " << (*minionItr)->_riderIndex << " req at " << Utility::convertTimeTToString((*minionItr)->_reqTime) << std::endl;
+                                               
+            // check if DISTANCE qualifies (check separate instances depending upon if the master has been dispatched)
+            double pickupDistToMinionAtTimeOfReq = 0.0;
+            if( (*masterItr)->pDispatchEvent == NULL ) {
+                pickupDistToMinionAtTimeOfReq = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
+            } else {
+               // std::cout << "\tcomputing pickup distance between master/minion pair " << (*masterItr)->_riderIndex << "/" << (*minionItr)->_riderIndex << std::endl;
+               // std::cout << "\tmaster dispatched at " << Utility::convertTimeTToString((*masterItr)->pDispatchEvent->timeT) << std::endl;
+                
+                // if the minion request occurs after master dispatch
+                if( (*minionItr)->_reqTime >= (*masterItr)->pDispatchEvent->timeT ) {
+                    pickupDistToMinionAtTimeOfReq = ModelUtils::getPickupDistanceAtTimeOfMinionRequest(
+                        (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), 
+                        (*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), 
+                        (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(),
+                        (*masterItr)->pDispatchEvent->timeT, (*masterItr)->pDispatchEvent->lat, 
+                        (*masterItr)->pDispatchEvent->lng);                    
+                }
+                
+                // if the minion request occurs before master dispatch
+                else {
+                    pickupDistToMinionAtTimeOfReq = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
+                }
+            }
                         
-            // check if DISTANCE qualifies                   
-            const double pickupDistToMinionAtTimeOfReq = ModelUtils::getPickupDistanceAtTimeOfMinionRequest((*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
-                        
-            if( pickupDistToMinionAtTimeOfReq <= _maxMatchDistInKm ) {           
-
-                const double haversineDistFromMasterOrigToMinionOrig = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
+            if( pickupDistToMinionAtTimeOfReq <= _maxMatchDistInKm ) {   
+                
+                //const double haversineDistFromMasterOrigToMinionOrig = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
+                const double pickupDistanceToMinion = ModelUtils::computePickupDistance((*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(), (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng()); // TODO: fix this!
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
                                 
                 // check if FIFO match is feasible                           
-                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, haversineDistFromMasterOrigToMinionOrig , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr  );                                
+                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr  );                                
                 if( pFIFOMatch != NULL ) {  
                     const int matchIndex = matchCandidates.size();
-                    UFBW_fixed::MasterMinionMatchCand * pFIFOMatchCandidate = new UFBW_fixed::MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, haversineDistFromMasterOrigToMinionOrig, UFBW_fixed::MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);
+                    UFBW_fixed::MasterMinionMatchCand * pFIFOMatchCandidate = new UFBW_fixed::MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, UFBW_fixed::MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);
                     matchCandidates.insert(pFIFOMatchCandidate);
                 }
                 
                 // check if FILO match is feasible
-                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, haversineDistFromMasterOrigToMinionOrig, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr);
+                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr);
                 if( pFILOMatch != NULL ) {
                     const int matchIndex = matchCandidates.size();
-                    UFBW_fixed::MasterMinionMatchCand * pFILOMatchCandidate = new UFBW_fixed::MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, haversineDistFromMasterOrigToMinionOrig, UFBW_fixed::MasterMinionMatchCand::FILO, pFILOMatch->_avgSavings, pFILOMatch->_masterPickedUpAtTimeOfMatch, pFILOMatch);
+                    UFBW_fixed::MasterMinionMatchCand * pFILOMatchCandidate = new UFBW_fixed::MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, UFBW_fixed::MasterMinionMatchCand::FILO, pFILOMatch->_avgSavings, pFILOMatch->_masterPickedUpAtTimeOfMatch, pFILOMatch);
                     matchCandidates.insert(pFILOMatchCandidate);  
                 }                                
             }            
@@ -370,7 +412,8 @@ double UFBW_fixed::computeEdgeWeightOfCurrCandidateMatch(MasterMinionMatchCand *
 // -------------------------------------------------
 std::set<AssignedTrip*, AssignedTripIndexComp> UFBW_fixed::solveMatchingOptimization(
         std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, 
-        std::set<Request*, ReqComp> * pBatchRequests ) {
+        std::set<Request*, ReqComp> * pBatchRequests,
+        bool printToScreen) {
     
     std::set<AssignedTrip*, AssignedTripIndexComp> currBatchMatches;
     
@@ -387,11 +430,15 @@ std::set<AssignedTrip*, AssignedTripIndexComp> UFBW_fixed::solveMatchingOptimiza
     instantiateConstraints(&solver, pEligMatches, pBatchRequests, &riderIndexLeftDegreeConstraint, &riderIndexRightDegreeConstraint, &riderIndexAggregationConstraint);
    
     // build variables
-    std::cout << "\t\tbuilding model... " << std::endl;
+    if( printToScreen ) {
+        std::cout << "\t\tbuilding model... " << std::endl;
+    }
     std::map<MPVariable*,MasterMinionMatchCand*> edgeVariables = buildModelVariables(&solver,pEligMatches, &riderIndexLeftDegreeConstraint, &riderIndexRightDegreeConstraint, &riderIndexAggregationConstraint);
-    std::cout << "\t\t\tdone." << std::endl;
-      
-    std::cout << "\n\tINVOKING SOLVER... " << std::endl;
+    
+    if( printToScreen ) {
+        std::cout << "\t\t\tdone." << std::endl;      
+        std::cout << "\n\tINVOKING SOLVER... " << std::endl;
+    }
     
     
     // solve
@@ -405,9 +452,11 @@ std::set<AssignedTrip*, AssignedTripIndexComp> UFBW_fixed::solveMatchingOptimiza
     switch( status ) {
         case MPSolver::OPTIMAL :
         {
-            std::cout << "\t\tHOORAY! SOLUTION IS OPTIMAL" << std::endl;
+            if( printToScreen ) {
+                std::cout << "\t\tHOORAY! SOLUTION IS OPTIMAL" << std::endl;
+            }
             const double optObjVal = solver.Objective().Value();
-            pOptMatchings = getOptimalMatchings(&solver, &edgeVariables);
+            pOptMatchings = getOptimalMatchings(&solver, &edgeVariables, printToScreen);
             break;
         }
         case MPSolver::INFEASIBLE : 
@@ -605,7 +654,7 @@ std::vector<MPVariable*> UFBW_fixed::getIncidentEdgeVariablesForMaster(const UFB
             
     return incidentEdgeVariables;    
 }
-std::vector<UFBW_fixed::MasterMinionMatchCand*> * UFBW_fixed::getOptimalMatchings(MPSolver* pSolver, std::map<MPVariable*,UFBW_fixed::MasterMinionMatchCand*>* pEdgeVariables) {
+std::vector<UFBW_fixed::MasterMinionMatchCand*> * UFBW_fixed::getOptimalMatchings(MPSolver* pSolver, std::map<MPVariable*,UFBW_fixed::MasterMinionMatchCand*>* pEdgeVariables, bool printToScreen) {
    
     // std::map<const MasterCand*, const MinionCand*> * pOptMatchingMap = new std::map<const MasterCand*, const MinionCand*>();
     std::vector<UFBW_fixed::MasterMinionMatchCand*> * pOptMatchings = new std::vector<UFBW_fixed::MasterMinionMatchCand*>();
@@ -614,7 +663,9 @@ std::vector<UFBW_fixed::MasterMinionMatchCand*> * UFBW_fixed::getOptimalMatching
     for( varItr = pSolver->variables().begin(); varItr != pSolver->variables().end(); ++varItr ) {
         const double val = (*varItr)->solution_value();
         if( val > 0.01 ){
-            std::cout << "var " << (*varItr)->name() << ":  " << (*varItr)->solution_value() << std::endl;   
+            if( printToScreen ) {
+                std::cout << "var " << (*varItr)->name() << ":  " << (*varItr)->solution_value() << std::endl;   
+            }
             std::map<MPVariable*, UFBW_fixed::MasterMinionMatchCand*>::iterator varMatchItr = pEdgeVariables->find(*varItr);
             if( varMatchItr != pEdgeVariables->end() ) {            
                 pOptMatchings->push_back(varMatchItr->second);//
@@ -639,25 +690,26 @@ std::set<AssignedTrip*, AssignedTripIndexComp> UFBW_fixed::buildAssignedTripsFro
         const UFBW_fixed::MasterCand * pMaster = (*matchItr)->pMaster;
         const UFBW_fixed::MinionCand * pMinion = (*matchItr)->pMinion;
         
-        Event masterReqEvent(pMaster->_reqTime, pMaster->_reqOrig.getLat(), pMaster->_reqOrig.getLng());
-        Event minionReqEvent(pMinion->_reqTime, pMinion->_reqOrig.getLat(), pMinion->_reqOrig.getLng());
-        Event masterPickFromActuals(pMaster->pPickupEvent->timeT, pMaster->pPickupEvent->lat, pMaster->pPickupEvent->lng);
-        Event masterDropFromActuals(pMaster->pDropEvent->timeT, pMaster->pDropEvent->lat, pMaster->pDropEvent->lng);
+      //  Event masterReqEvent(pMaster->_reqTime, pMaster->_reqOrig.getLat(), pMaster->_reqOrig.getLng());
+      //  Event minionReqEvent(pMinion->_reqTime, pMinion->_reqOrig.getLat(), pMinion->_reqOrig.getLng());
+      //  Event masterPickFromActuals(pMaster->pPickupEvent->timeT, pMaster->pPickupEvent->lat, pMaster->pPickupEvent->lng);
+      //  Event masterDropFromActuals(pMaster->pDropEvent->timeT, pMaster->pDropEvent->lat, pMaster->pDropEvent->lng);
         
         // build AssignedTrip* object
             // 
-        AssignedTrip * pAssignedTrip = new AssignedTrip(pMaster->pDriver);
+        AssignedTrip * pAssignedTrip = new AssignedTrip(pMaster->pDriver, pMaster->pDispatchEvent, pMaster->_riderTripUUID, pMaster->pReqEvent, pMaster->pPickupEvent, pMaster->pDropEvent);
         pAssignedTrip->setIndex(assignedTripCounter);
         pAssignedTrip->setMasterId(pMaster->_riderID);
         pAssignedTrip->setMasterIndex(pMaster->_riderIndex);
-        pAssignedTrip->setMasterRequest(masterReqEvent);
+        //pAssignedTrip->setMasterRequest(masterReqEvent);
         //pAssignedTrip->setMasterDispatch();
-        pAssignedTrip->setMasterDropFromActuals(masterPickFromActuals);
-        pAssignedTrip->setMasterPickupFromActuals(masterDropFromActuals);
+        //pAssignedTrip->setMasterDropFromActuals(masterPickFromActuals);
+        //pAssignedTrip->setMasterPickupFromActuals(masterDropFromActuals);
         pAssignedTrip->setMinionId(pMinion->_riderID);
         pAssignedTrip->setMinionIndex(pMinion->_riderIndex);
+        pAssignedTrip->setMinionTripUUID(pMinion->_riderTripUUID);
         //pAssignedTrip->setMinionDispatch();
-        pAssignedTrip->setMinionRequest(minionReqEvent);
+       // pAssignedTrip->setMinionRequest(minionReqEvent);
                 
         // set FeasibleMatch object which stores information about match metrics
         pAssignedTrip->setMatch((*matchItr)->pFeasMatch);  
@@ -737,7 +789,7 @@ std::multimap<const int, time_t> UFBW_fixed::getAllIndicesAssociatedWithMatchedR
     std::set<AssignedTrip*, AssignedTripIndexComp>::iterator tripItr;
     for( tripItr = pAssignedTrips->begin(); tripItr != pAssignedTrips->end(); ++tripItr ) {
         indexTimeMapOfMatchedRiders.insert(make_pair((*tripItr)->getMasterIndex(), (*tripItr)->getMasterRequestEvent()->timeT));
-        indexTimeMapOfMatchedRiders.insert(make_pair((*tripItr)->getMinionIndex(), (*tripItr)->getMinionRequestEvent()->timeT));
+        indexTimeMapOfMatchedRiders.insert(make_pair((*tripItr)->getMinionIndex(), (*tripItr)->getMatchDetails()->_minionRequest));
     }
     
     //return indicesMatchedRiders;

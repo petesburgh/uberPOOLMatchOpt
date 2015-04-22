@@ -401,16 +401,22 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
     
     outFile << "\n\n--- MATCH SOLUTION SUMMARY ---\n" << std::endl;    
     
-    int ixBuff = 9;
+    int ixBuff = 13;
     int isExtBuff = 9;
     int fifoBuff = 12;
     int geoBuff = 25;
     int distBuff = 14;
     int inconvBuff = 17;
+    int uuidBuff = 45;
+    int timeBuff = 25;
     
     outFile << "  " << left << setw(ixBuff) << "DRIVER" << 
-            left << setw(ixBuff) << "MASTER" << 
-            left << setw(ixBuff) << "MINION" << 
+            left << setw(ixBuff) << "MASTER_IX" << 
+            left << setw(ixBuff) << "MINION_IX" << 
+            left << setw(uuidBuff) << "MASTER_UUID" << 
+            left << setw(uuidBuff) << "MINION_UUID" << 
+            left << setw(timeBuff) << "MASTER_REQ_TIME" << 
+            left << setw(timeBuff) << "MINION_REQ_TIME" << 
             left << setw(isExtBuff) << "EXT?" << 
             left << setw(fifoBuff) << "FIFO/FILO" << 
             left << setw(distBuff) << "DIST_TO_MIN" <<
@@ -453,6 +459,10 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
         outFile << "  " << left << setw(ixBuff) << Utility::intToStr(driverIndex) << 
                 left << setw(ixBuff) << Utility::intToStr(masterIndex) << 
                 left << setw(ixBuff) << Utility::intToStr(minionIndex) << 
+                left << setw(uuidBuff) << (*tripItr)->getMasterTripUUID() << 
+                left << setw(uuidBuff) << (*tripItr)->getMinionTripUUID() <<
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMatchDetails()->_masterRequest) << 
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMatchDetails()->_minionRequest) <<
                 left << setw(isExtBuff) << isExtStr << 
                 left << setw(fifoBuff) << fifoFiloStr << 
                 left << setw(distBuff) << Utility::truncateDouble((*tripItr)->getMatchDetails()->_distToMinionPickup,4) <<
@@ -476,13 +486,15 @@ void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) 
     const std::set<AssignedTrip*, AssignedTripIndexComp> * pUnmatchedTrips = pSolution->getUnmatchedTrips();
     std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
     
-    int ixBuff = 9;
+    int ixBuff = 13;
     int timeBuff = 25;
     int geoBuff = 25;
     int distBuff = 15;
+    int uuidBuff = 45;
     
     outFile << "  " << left << setw(ixBuff) << "DRIVER" << 
-            left << setw(ixBuff) << "RIDER" << 
+            left << setw(ixBuff) << "RIDER_IX" << 
+            left << setw(uuidBuff) << "RIDER_UUID" << 
             left << setw(timeBuff) << "REQUEST_TIME" << 
             left << setw(geoBuff) << "PICKUP_LOC" << 
             left << setw(geoBuff) << "DROP_LOC" << 
@@ -492,19 +504,20 @@ void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) 
             std::endl;
     
     for( tripItr = pUnmatchedTrips->begin(); tripItr != pUnmatchedTrips->end(); ++tripItr ) {               
-        LatLng pickupLoc((*tripItr)->getMasterPickupEventFromActuals()->lat, (*tripItr)->getMasterPickupEventFromActuals()->lng);
+        LatLng pickupLoc((*tripItr)->getMasterPickupEventFromActuals()->lat, (*tripItr)->getMasterPickupEventFromActuals()->lng);       
         LatLng dropLoc((*tripItr)->getMasterDropEventFromActuals()->lat, (*tripItr)->getMasterDropEventFromActuals()->lng);
         const double distKm = Utility::computeGreatCircleDistance(pickupLoc.getLat(), pickupLoc.getLng(), dropLoc.getLat(), dropLoc.getLng());        
-        
+                       
         outFile << "  " << left << setw(ixBuff) << Utility::intToStr((*tripItr)->getDriver()->getIndex()) << 
                 left << setw(ixBuff) << Utility::intToStr((*tripItr)->getMasterIndex()) << 
+                left << setw(uuidBuff) << (*tripItr)->getMasterTripUUID() <<
                 left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterRequestEvent()->timeT) << 
                 left << setw(geoBuff) << Utility::convertToLatLngStr(pickupLoc, 5) << 
                 left << setw(geoBuff) << Utility::convertToLatLngStr(dropLoc, 5) << 
                 left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterPickupEventFromActuals()->timeT) << 
                 left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterDropEventFromActuals()->timeT) << 
                 left << setw(distBuff) << Utility::truncateDouble(distKm, 2) << 
-                std::endl;
+                std::endl;        
     }
    
 }

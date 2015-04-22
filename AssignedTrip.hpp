@@ -21,8 +21,8 @@
 using namespace std;
 
 class AssignedTrip {
-public:
-    AssignedTrip(const Driver * driver);
+public:    
+    AssignedTrip(const Driver * driver, const Event * masterDispatchEvent, const std::string masterTripUUID, const Event * masterRequest, const Event * actualPickupForMaster, const Event * actualDropForMaster);
     virtual ~AssignedTrip();
     
     // setters
@@ -32,20 +32,12 @@ public:
     // set master info
     void setMasterId(const std::string id) { _masterId = id; }
     void setMasterIndex(const int ix) { _masterIndex = ix; }
-    void setMasterRequest(Event req) { _masterRequest = req; }
-    void setMasterDispatch(Event disp) { _masterDispatch = disp; }
-    void setMasterPickupFromActuals(Event pickup) { _masterPickupFromActuals = pickup; }
-    void setMasterDropFromActuals(Event drop) { _masterDropFromActuals = drop; }
-    //void setMasterPickup(Event pick) { _masterPickup = pick; }
-    //void setMasterDrop(Event drop) { _masterDrop = drop; }
-    
+        
     // set minion info
     void setMinionId(const std::string id) { _minionId = id; }
     void setMinionIndex(const int ix) { _minionIndex = ix; }
-    void setMinionRequest(Event req) { _minionRequest = req; }
-    void setMinionDispatch(Event disp) { _minionDispatch = disp; }
-    //void setMinionPickup(Event pick) { _minionPickup = pick; }
-    //void setMinionDrop(Event drop) { _minionDrop = drop; }
+    void setMinionDispatch(Event disp) { _minionDispatch = disp; }    
+    void setMinionTripUUID(const std::string uuid) { _minionTripUUID = uuid; }
     
     // getters
     const int getIndex() const { return _index; }
@@ -54,16 +46,17 @@ public:
     // get master info
     const std::string getMasterId() const { return _masterId; }
     const int getMasterIndex() const { return _masterIndex; }
-    const Event * getMasterRequestEvent() const { return &_masterRequest; }
-    const Event * getMasterDispatchEvent() const { return &_masterDispatch; }
-    const Event * getMasterPickupEventFromActuals() const { return &_masterPickupFromActuals; }
-    const Event * getMasterDropEventFromActuals() const { return &_masterDropFromActuals; }
+    const Event * getMasterRequestEvent() const { return pMasterRequestEvent; }
+    const Event * getMasterDispatchEvent() const { return pMasterDispatchEvent; }
+    const Event * getMasterPickupEventFromActuals() const { return pMasterPickupEventFromActuals; }
+    const Event * getMasterDropEventFromActuals() const { return pMasterDropEventFromActuals; }
+    const std::string getMasterTripUUID() const { return _masterTripUUID; }
     
     // get minion info
     const std::string getMinionId() const { return _minionId; }
     const int getMinionIndex() const { return _minionIndex; }
-    const Event * getMinionRequestEvent() const { return &_minionRequest; }
     const Event * getMinionDispatchEvent() const { return &_minionDispatch; }
+    const std::string getMinionTripUUID() const { return _minionTripUUID; }
     
     // check if trip is matched   
     const bool isMatchedTrip() const { return (_minionIndex != -1); }
@@ -81,16 +74,17 @@ private:
     // master info
     std::string _masterId;
     int _masterIndex;
-    Event _masterRequest;
-    Event _masterDispatch;
-    Event _masterPickupFromActuals;
-    Event _masterDropFromActuals;
+    const Event * pMasterRequestEvent;
+    const Event * pMasterDispatchEvent;
+    const Event * pMasterPickupEventFromActuals;
+    const Event * pMasterDropEventFromActuals;
+    std::string _masterTripUUID;
     
     // minion info
     std::string _minionId;
     int _minionIndex;
-    Event _minionRequest;
     Event _minionDispatch;
+    std::string _minionTripUUID;
     
     FeasibleMatch * pMatch;
 };

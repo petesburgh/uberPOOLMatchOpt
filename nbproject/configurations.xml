@@ -14,6 +14,7 @@
       <itemPath>LatLng.hpp</itemPath>
       <itemPath>Location.hpp</itemPath>
       <itemPath>MitmModel.hpp</itemPath>
+      <itemPath>MitmModel_new.hpp</itemPath>
       <itemPath>ModelUtils.hpp</itemPath>
       <itemPath>OpenTrip.hpp</itemPath>
       <itemPath>Output.hpp</itemPath>
@@ -38,6 +39,7 @@
       <itemPath>DataContainer.cpp</itemPath>
       <itemPath>Driver.cpp</itemPath>
       <itemPath>MitmModel.cpp</itemPath>
+      <itemPath>MitmModel_new.cpp</itemPath>
       <itemPath>OpenTrip.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
       <itemPath>Request.cpp</itemPath>
@@ -45,6 +47,7 @@
       <itemPath>Solution.cpp</itemPath>
       <itemPath>TripData.cpp</itemPath>
       <itemPath>UFBW_fixed.cpp</itemPath>
+      <itemPath>deprecated.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -115,6 +118,10 @@
       </item>
       <item path="MitmModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MitmModel_new.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MitmModel_new.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
@@ -148,6 +155,8 @@
       <item path="UFBW_fixed.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="deprecated.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -204,6 +213,10 @@
       </item>
       <item path="MitmModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MitmModel_new.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MitmModel_new.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
@@ -237,6 +250,8 @@
       <item path="UFBW_fixed.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="deprecated.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

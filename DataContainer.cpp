@@ -71,12 +71,12 @@ void DataContainer::extractCvsSnapshot() {
            */
            if( currTrip->getStatus() == TripData::COMPLETE )
                continue; 
-           else if( currTrip->getStatus() == TripData::FUTURE ) {
+           if( currTrip->getStatus() == TripData::FUTURE ) {
                if( currTrip->getRequestEvent()->timeT > _simEndTime ) 
                    continue;
            }
            
-           
+                      
            _allTrips.push_back(currTrip); // append to global list of all trips 
 
            // get Rider* object (and define if necessary)
@@ -196,7 +196,32 @@ bool DataContainer::generateUberPoolTripProxy() {
     // if the pct is strictly between (0,1)
     else {
         int numPoolUsers = (int)round(_pctPoolUsers*_allUberXRiders.size());
-        for( std::set<Rider*>::iterator rItr = _allUberXRiders.begin(); rItr != _allUberXRiders.end(); ++rItr ) {
+       
+        // randomize users
+        std::multimap<double, Rider*> randomRiderMap;
+        for( std::set<Rider*, RiderIndexComp>::iterator riderIt = _allUberXRiders.begin(); riderIt != _allUberXRiders.end(); ++riderIt ) {
+            double randNum = ((double)(std::rand()) / (RAND_MAX));
+            randomRiderMap.insert(make_pair(randNum, *riderIt));            
+        }
+        
+                        
+        for( std::map<double, Rider*>::iterator randomMapItr = randomRiderMap.begin(); randomMapItr != randomRiderMap.end(); ++randomMapItr ) {
+                        
+            _uberPoolRiders.insert(randomMapItr->second);
+            
+            // define all trips taken by riders as POOL trips
+            const std::vector<TripData*> * pTrips = randomMapItr->second->getTrips();
+            for( std::vector<TripData*>::const_iterator tripItr = pTrips->begin(); tripItr != pTrips->end(); ++tripItr ) {
+                (*tripItr)->definePOOLTrip();
+            }
+            
+            if( _uberPoolRiders.size() == numPoolUsers ) {
+                return true;
+            }            
+        } 
+               
+        
+        /*for( std::set<Rider*>::iterator rItr = _allUberXRiders.begin(); rItr != _allUberXRiders.end(); ++rItr ) {
             _uberPoolRiders.insert(*rItr);
             
             // define all trips taken by rider as POOL trips
@@ -207,7 +232,7 @@ bool DataContainer::generateUberPoolTripProxy() {
             if( _uberPoolRiders.size() == numPoolUsers ) {
                 return true;
             }
-        }
+        }   */    
     }
     
     return false;
@@ -245,7 +270,7 @@ bool DataContainer::populateRequestsAndTrips() {
             {                                          
                 Rider * pRider = this->getRiderFromID((*iTrip)->getRiderID());
                 Driver * pDriver = this->getDriverFromID((*iTrip)->getDriverID());
-                Request * pRequest = new Request((*iTrip)->getRiderID(), (*iTrip)->getRiderIndex(), pDriver, (*iTrip)->getRequestEvent(), dropLocation, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getDispatchEvent());
+                Request * pRequest = new Request((*iTrip)->getRiderID(), (*iTrip)->getRiderIndex(), (*iTrip)->getUniqueTripID(), pDriver, (*iTrip)->getRequestEvent(), dropLocation, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent(), (*iTrip)->getDropoffEvent());
                 pRequest->setInitRequest(true);
                 pRequest->setIndex((int)_allRequestsInSim.size());
                 
@@ -263,7 +288,7 @@ bool DataContainer::populateRequestsAndTrips() {
             {
                 Rider * pRider = this->getRiderFromID((*iTrip)->getRiderID());
                 Driver * pDriver = this->getDriverFromID((*iTrip)->getDriverID());
-                Request * pRequest = new Request((*iTrip)->getRiderID(), (*iTrip)->getRiderIndex(), pDriver, (*iTrip)->getRequestEvent(), dropLocation, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getDispatchEvent());
+                Request * pRequest = new Request((*iTrip)->getRiderID(), (*iTrip)->getRiderIndex(), (*iTrip)->getUniqueTripID(), pDriver, (*iTrip)->getRequestEvent(), dropLocation, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getRequestEvent(),(*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent(),(*iTrip)->getDropoffEvent());
                 pRequest->setInitRequest(false);
                 pRequest->setIndex((int)_allRequestsInSim.size());
                 
@@ -292,7 +317,8 @@ bool DataContainer::populateRequestsAndTrips() {
                     std::cerr << "*** ItemNotFoundException thrown ***" << std::endl;
                     std::cerr << ex.what() << std::endl;
                 }
-                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT);
+                                
+                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getUniqueTripID(), (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getPickupEvent(), (*iTrip)->getDropoffEvent());
                 pOpenTrip->setIsRiderInitPresent(false);    // rider NOT initially present              
                 _initOpenTrips.insert(pOpenTrip);
                 
@@ -318,7 +344,7 @@ bool DataContainer::populateRequestsAndTrips() {
                     std::cerr << "*** ItemNotFoundException thrown ***" << std::endl;
                     std::cerr << ex.what() << std::endl;
                 }        
-                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT);
+                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getUniqueTripID(), (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getPickupEvent(),(*iTrip)->getDropoffEvent());
                 pOpenTrip->setIsRiderInitPresent(true);     // rider is initially present
                 _initOpenTrips.insert(pOpenTrip);             
                 

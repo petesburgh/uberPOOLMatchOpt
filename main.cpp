@@ -5,12 +5,12 @@
  * Created on March 18, 2015, 11:04 AM
  */
 
-#include <cstdlib>
 #include <iostream>
 #include <iterator>
 #include "DataContainer.hpp"
 #include "Output.hpp"
-#include "MitmModel.hpp"
+//#include "MitmModel.hpp"
+#include "MitmModel_new.hpp"
 #include "UFBW_fixed.hpp"
 
 #include <iterator>
@@ -34,22 +34,23 @@ int main(int argc, char** argv) {
     // specify inputs // TODO: move to text file
     const std::string inputPath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/";
     const std::string outPath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/Output/";
-    const std::string csvFilename = "trips-SF-2015-04-13-1500-2000-uberX.csv";    
+    const std::string csvFilename = "trips-SF-2015-04-13-1600-1700-uberX.csv";    
     const std::string timelineStr = "2015-04-13 16:00:00";
-    const int upFrontBatchWindowInSec = 30;
-    const double pctPoolUsers = 0.40;
+    const int upFrontBatchWindowInSec = 60;
+    //const double pctPoolUsers = 0.40;
+    const double pctPoolUsers = 0.99;
     const double maxMatchDistInKm = 3.0;
     const int simLengthInMin = 60;
     const double minPoolMatchPctForMaster = 0.2;
     const bool printDebugFiles = true;
-    const bool printToScreen = true;
+    const bool printToScreen = false;
     const bool populateInitOpenTrips = false;
     
     // TYPE OF TESTS TO RUN
     const bool runMITMModel        = true;
     const bool runUFBW_seqPickups  = true;
     const bool runUFBW_flexPickups = false; 
-        
+            
     printBanner();
     
     /*
@@ -70,6 +71,35 @@ int main(int argc, char** argv) {
     pDataContainer->generateUberPoolTripProxy();   // get uberPOOL users
     int nPoolTrips = pDataContainer->buildUberPOOLTrips(); // build only uberPOOL trips (subset of all trips which also contain uberX trips)    
     
+    // loop through all trips 
+    std::string filename = "tripSample.txt";
+    std::string ouputPath = outPath + filename;         
+    ofstream outFile;
+    outFile.open(ouputPath);    
+   
+    std::cout << "\n\nlooping through all POOL trips...\n" << std::endl;
+    outFile << "\n\n-------------------------------------------\n" << std::endl;
+    outFile << "        SAMPLE RIDER SUMMARY" << std::endl;
+    outFile << "\n-------------------------------------------\n\n" << std::endl;  
+    
+    outFile << left << setw(10) << "rider" << 
+            left << setw(10) << "POOL/X" << 
+            left << setw(31) << "request" << 
+            left << setw(31) << "dispatch" << 
+            left << setw(31) << "drop" << std::endl;
+   
+    
+    for( std::vector<TripData*>::const_iterator jp = pDataContainer->getUberPoolTrips()->begin(); jp != pDataContainer->getUberPoolTrips()->end(); ++jp ) {
+        
+        std::string isPoolStr = ((*jp)->isPOOL()) ? "POOL" : "X";
+        outFile << left << setw(10) << Utility::intToStr((*jp)->getRiderIndex()) << 
+                left << setw(10) << isPoolStr << 
+                left << setw(31) << Utility::convertTimeTToString((*jp)->getRequestEvent()->timeT) << 
+                left << setw(31) << Utility::convertTimeTToString((*jp)->getDispatchEvent()->timeT) << 
+                left << setw(31) << Utility::convertTimeTToString((*jp)->getDropoffEvent()->timeT) << std::endl;    
+    }
+    outFile.close();    
+    
     /*
      *   step 3: convert Trip objects into:
      *      (i)  Request objects (i.e. Trips that have not yet been dispatched)
@@ -81,13 +111,11 @@ int main(int argc, char** argv) {
     std::set<OpenTrip*, EtaComp> initOpenTrips = pDataContainer->getInitOpenTripsAtTimeline();
     const std::set<Driver*, DriverIndexComp>* pDrivers = pDataContainer->getAllDrivers();
     
-    
     // TODO: DELETE
     std::cout << "requests:        " << allRequestsInSim.size() << std::endl;
     std::cout << "init open trips: " << initOpenTrips.size() << std::endl;
     int expReqs = allRequestsInSim.size() + initOpenTrips.size();
     std::cout << "EXP NO. REQs:    " << expReqs << std::endl;
-    //exit(0);
         
     std::cout << "AFTER STEP 3 there are a total of " << allRequestsInSim.size() << " requests" << std::endl;
     
@@ -98,7 +126,7 @@ int main(int argc, char** argv) {
      *   step 4: run all modules requested by user
      */     
     if( runMITMModel ) {
-        MitmModel * pMitmModel = new MitmModel(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxMatchDistInKm, minPoolMatchPctForMaster, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
+        MitmModel_new * pMitmModel = new MitmModel_new(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxMatchDistInKm, minPoolMatchPctForMaster, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
         bool modelSolved = pMitmModel->solve(printDebugFiles, pOutput, populateInitOpenTrips);
         if( modelSolved ) {          
             Solution * pMitmSolution = pMitmModel->getSolution();
@@ -107,10 +135,15 @@ int main(int argc, char** argv) {
     }
     if( runUFBW_seqPickups ) {                     
         UFBW_fixed * pFixedBatchModel = new UFBW_fixed(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), upFrontBatchWindowInSec, maxMatchDistInKm, minPoolMatchPctForMaster, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
-        bool modelSolved = pFixedBatchModel->solve(printDebugFiles, pOutput, populateInitOpenTrips);
+        bool modelSolved = pFixedBatchModel->solve(printDebugFiles, pOutput, populateInitOpenTrips, printToScreen);
         if( modelSolved ) {
+            std::cout << "\nUFBW solved successfully" << std::endl;
+            std::cout << "\tgetting solution... " << std::endl;
             Solution * pFixedBatchSolution = pFixedBatchModel->getSolution();
+            std::cout << "\t\tdone." << std::endl;
+            std::cout << "\tprinting... " << std::endl;
             pOutput->printSolution(pFixedBatchSolution);
+            std::cout << "\t\tdone." << std::endl; 
         }
     }
     

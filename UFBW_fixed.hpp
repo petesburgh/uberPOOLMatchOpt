@@ -37,11 +37,12 @@ class UFBW_fixed {
 
     struct MasterCand {
         
-        MasterCand(const time_t reqTime, const LatLng reqOrig, const LatLng reqDest, const time_t eta, const time_t etd, const Driver * driver,
-                   const Event * dispatchEvent, const Event * pickupEvent, const Event * drop, const int riderIx, const std::string riderID) :
-            _reqTime(reqTime), _reqOrig(reqOrig), _reqDest(reqDest), _ETA(eta), _ETD(etd), 
-            pDriver(driver), pDispatchEvent(dispatchEvent), pPickupEvent(pickupEvent), pDropEvent(drop), _riderIndex(riderIx), _riderID(riderID) {};
+        MasterCand(const Event * reqEvent, const time_t reqTime, const LatLng reqOrig, const LatLng reqDest, const time_t eta, const time_t etd, const Driver * driver,
+                   const Event * dispatchEvent, const Event * pickupEvent, const Event * drop, const int riderIx, const std::string riderID, const std::string riderTripUUID) :
+            pReqEvent(reqEvent), _reqTime(reqTime), _reqOrig(reqOrig), _reqDest(reqDest), _ETA(eta), _ETD(etd), 
+            pDriver(driver), pDispatchEvent(dispatchEvent), pPickupEvent(pickupEvent), pDropEvent(drop), _riderIndex(riderIx), _riderID(riderID), _riderTripUUID(riderTripUUID) {};
         
+        const Event * pReqEvent;
         const time_t _reqTime;
         const LatLng _reqOrig;
         const LatLng _reqDest;                
@@ -53,6 +54,7 @@ class UFBW_fixed {
         const Event * pDropEvent;
         const int _riderIndex;
         const std::string _riderID;
+        const std::string _riderTripUUID;
         
         bool operator= (const MasterCand& other) {
             return (this->_riderIndex == other._riderIndex);
@@ -60,14 +62,15 @@ class UFBW_fixed {
     };
     
     struct MinionCand {
-        MinionCand(const time_t reqTime, const LatLng reqOrig, const LatLng reqDest, const int riderIx, const std::string riderID) :
-            _reqTime(reqTime), _reqOrig(reqOrig), _reqDest(reqDest), _riderIndex(riderIx), _riderID(riderID) {};
+        MinionCand(const time_t reqTime, const LatLng reqOrig, const LatLng reqDest, const int riderIx, const std::string riderID, const std::string riderTripUUID) :
+            _reqTime(reqTime), _reqOrig(reqOrig), _reqDest(reqDest), _riderIndex(riderIx), _riderID(riderID), _riderTripUUID(riderTripUUID) {};
             
         const time_t _reqTime;
         const LatLng _reqOrig;
         const LatLng _reqDest;
         const int _riderIndex;
         const std::string _riderID;
+        const std::string _riderTripUUID;
         
         bool operator= (const MinionCand& other) {
             return (this->_riderIndex == other._riderIndex);
@@ -124,8 +127,8 @@ public:
     UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
     virtual ~UFBW_fixed();
     
-    bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
-    std::set<AssignedTrip*, AssignedTripIndexComp> solveMatchingOptimization(std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests);
+    bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen);
+    std::set<AssignedTrip*, AssignedTripIndexComp> solveMatchingOptimization(std::set<UFBW_fixed::MasterMinionMatchCand*, UFBW_fixed::MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests, bool printToScreen);
         
     std::set<OpenTrip*, EtaComp> convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime);
     std::set<Request*, ReqComp> getRequestsInInterval(std::deque<Request*> &requestsToProcess, const time_t &currBatchStartTime, const time_t &currBatchEndTime);
@@ -152,7 +155,7 @@ public:
     std::vector<MPVariable*> getIncidentEdgeVariablesForMaster(const UFBW_fixed::MasterCand * pMaster, std::map<UFBW_fixed::MasterMinionMatchCand*, MPVariable*> * pMatchVarMap);
     MPConstraint * getLeftNodeConstraint(MPSolver * pSolver, const UFBW_fixed::MasterCand * pMaster);
     MPConstraint * getRightNodeConstraint(MPSolver * pSolver, const UFBW_fixed::MinionCand * pMinion);
-    std::vector<UFBW_fixed::MasterMinionMatchCand*> * getOptimalMatchings(MPSolver * pSolver, std::map<MPVariable*,MasterMinionMatchCand*> * pEdgeVariables);
+    std::vector<UFBW_fixed::MasterMinionMatchCand*> * getOptimalMatchings(MPSolver * pSolver, std::map<MPVariable*,MasterMinionMatchCand*> * pEdgeVariables, bool printToScreen);
     std::set<AssignedTrip*, AssignedTripIndexComp> buildAssignedTripsFromMatchingSolution(std::vector<UFBW_fixed::MasterMinionMatchCand*> * pOptMatchings);
     std::multimap<const int, time_t> getAllIndicesAssociatedWithMatchedRiders(std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
     int removeMatchedOpenTrips_deprecated(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips);

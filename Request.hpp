@@ -21,7 +21,7 @@ using namespace std;
 
 class Request {
 public:
-    Request(const std::string riderID, const int riderIndex, const Driver * actDriver, const Event * pickupRequest, LatLng dropLocation, time_t actPickupTimeFromSched, time_t actDropoffTimeFromSched, const Event * actDispatchEvent);
+    Request(const std::string riderID, const int riderIndex, const std::string riderUUID, const Driver * actDriver, const Event * pickupRequest, LatLng dropLocation, time_t actPickupTimeFromSched, time_t actDropoffTimeFromSched, const Event * actReqEvent, const Event * actDispatchEvent, const Event * actPickupEvent, const Event * actualDropEvent);
     virtual ~Request();
     
     // setters
@@ -44,6 +44,12 @@ public:
     const time_t getActTimeOfDropoffFromTripActuals() const { return _dropoffTimeFromSched; }
     
     const Event * getActualDispatchEvent() const { return pActualDispatchEvent; }
+    
+    const std::string getRiderTripUUID() const { return _riderTripUUID; }
+    
+    const Event * getActualRequestEvent() const { return pActualReqEvent; }
+    const Event * getActualPickupEvent() const { return pActualPickupEvent; }
+    const Event * getActualDropEvent() const { return pActualDropEvent; }
   
     // define ordering by request time
     bool operator<(Request other) const {
@@ -60,12 +66,16 @@ private:
     double _dropoffLat;
     double _dropoffLng;
     bool _isInitReq;
+    const std::string _riderTripUUID;
     
     const time_t _pickupTimeFromSched;
     const time_t _dropoffTimeFromSched;
     
     const Driver * pDriver;
+    const Event * pActualReqEvent;
     const Event * pActualDispatchEvent;
+    const Event * pActualPickupEvent;
+    const Event * pActualDropEvent;
     
 };
 

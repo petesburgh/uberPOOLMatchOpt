@@ -21,7 +21,9 @@ using namespace std;
 class OpenTrip {
 public:
        
-    OpenTrip(const std::string driverID, const Driver * driver, const int driverIx, const std::string riderID, const int riderIx, const Event * masterReq, const Event * masterDispatch, const double actualPickupLat, const double actualPickupLng, const double dropReqLat, const double dropReqLng, time_t eta, time_t etd);
+    OpenTrip(const std::string driverID, const Driver * driver, const int driverIx, const std::string riderID, const int riderIx, const std::string riderTripUUID, 
+             const Event * masterReq, const Event * masterDispatch, const double actualPickupLat, const double actualPickupLng, const double dropReqLat, 
+             const double dropReqLng, time_t eta, time_t etd, const Event * masterPickupFromActuals, const Event * masterDropActual);
     virtual ~OpenTrip();
         
     // setters
@@ -34,6 +36,8 @@ public:
     const int getMasterIndex() const { return _riderIndex; }
     const Event * getMasterRequestEvent() { return pMasterReqEvent; }
     const Event * getMasterDispatcEvent() { return pMasterDispatchEvent; }
+    const Event * getMasterActualDropEvent() { return pMasterActualDropEvent; }
+    const Event * getMasterActualPickupEvent() { return pMasterActualPickupEvent; }
     const bool isRiderInitPresentAtStart() { return _isRiderInitiallyPresent; }
     const Driver * getDriver() const { return pDriver; }
     
@@ -46,6 +50,8 @@ public:
     const double getDropRequestLat() const { return _dropRequestLat; }
     const double getDropRequestLng() const { return _dropRequestLng; }
     
+    const std::string getRiderTripUUID() const { return _riderTripUUID; }
+    
 private:
     
     std::string _driverID; 
@@ -53,9 +59,10 @@ private:
     int _driverIndex;
     int _riderIndex;
     const Event * pMasterReqEvent;
-    const Event * pMasterDispatchEvent;  
-    //Event _masterPickupEvent;
-    
+    const Event * pMasterDispatchEvent; 
+    const Event * pMasterActualDropEvent;
+    const Event * pMasterActualPickupEvent;
+        
     const Driver * pDriver;
     
     const double _actualPickupLat;
@@ -67,6 +74,8 @@ private:
     bool _isRiderInitiallyPresent;  
     const time_t _eta;  
     const time_t _etd;
+    
+    const std::string _riderTripUUID;
     
 };
 

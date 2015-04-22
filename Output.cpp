@@ -8,15 +8,15 @@
 #include "Output.hpp"
 
 
-Output::Output(DataContainer * dataContainer) {    
+Output::Output(DataContainer * dataContainer, const std::string outputBasePath, const std::string outputScenarioPath) : 
+    _outputBasePath(outputBasePath), _outputScenarioPath(outputScenarioPath) {  
+    
     pDataContainer = dataContainer; 
-   _outputBasePath = dataContainer->getOutputPath();
-  
+    
     // ensure directory exists
-    int status = mkdir(_outputBasePath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
-}
-
-Output::Output(const Output& orig) {
+    int status_base = mkdir(_outputBasePath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
+    int status_scen = mkdir(_outputScenarioPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
+    
 }
 
 Output::~Output() {
@@ -24,8 +24,8 @@ Output::~Output() {
 
 void Output::printSummaryInfo() {
     std::string filename = "snapshot_summary.txt";
-    std::string outPath = _outputBasePath + filename; 
-        
+    std::string outPath = _outputScenarioPath + filename;
+            
     ofstream outFile;
     outFile.open(outPath);
     
@@ -61,7 +61,7 @@ void Output::printSummaryInfo() {
 
 void Output::printTripSnapshot() {
     std::string filename = "summaryAllTrips.txt";
-    std::string outPath = _outputBasePath + filename;
+    std::string outPath = _outputScenarioPath + filename;
     
     ofstream outFile(outPath);
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -106,7 +106,7 @@ void Output::printTripSnapshot() {
 void Output::printPoolRiders() {
     
     std::string filename = "poolRiders.txt";
-    std::string outPath = _outputBasePath + filename;
+    std::string outPath = _outputScenarioPath + filename;
     
     ofstream outFile(outPath);
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -131,7 +131,7 @@ void Output::printPoolRiders() {
 void Output::printDrivers() {
     
     std::string filename = "drivers.txt";
-    std::string outPath = _outputBasePath + filename;
+    std::string outPath = _outputScenarioPath + filename;
     
     ofstream outFile(outPath);
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -157,7 +157,7 @@ void Output::printDrivers() {
 void Output::printRequestsInSim() {
     
     std::string filename = "poolRequests.txt";
-    std::string outPath = _outputBasePath + filename;
+    std::string outPath = _outputScenarioPath + filename;
     
     ofstream outFile(outPath);
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -207,7 +207,7 @@ void Output::printRequestsInSim() {
 void Output::printInitOpenTrips() {
     
     std::string filename = "initOpenTrips.txt";
-    std::string outPath = _outputBasePath + filename;
+    std::string outPath = _outputScenarioPath + filename;
     
     ofstream outFile(outPath);
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -294,7 +294,7 @@ void Output::printSolution(Solution* pSolution) {
     
     filename += modelname;
     filename += ".txt";
-    std::string outpath = _outputBasePath + filename;
+    std::string outpath = _outputScenarioPath + filename;
     
     ofstream outFile(outpath.c_str());
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -478,7 +478,6 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
         
     }    
 }
-
 void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) {
     
     outFile << "\n\n\n\n\n\n--- UNMATCHED MASTERS SUMMARY ---\n" << std::endl;    
@@ -521,7 +520,6 @@ void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) 
     }
    
 }
-
 void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolution) {
     
     outFile << "\n\n\n\n\n\n--- DISQUALIFIED REQUESTS ---\n" << std::endl;

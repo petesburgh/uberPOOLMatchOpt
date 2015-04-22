@@ -21,8 +21,7 @@ using namespace std;
 
 class Output {
 public:
-    Output(DataContainer * dataContainer);
-    Output(const Output& orig);
+    Output(DataContainer * dataContainer, const std::string outputBasePath, const std::string outputScenarioPath);
     virtual ~Output();
     
     // print debug files
@@ -43,10 +42,12 @@ public:
     void printDisqualifiedRequestsSummary(ofstream &outFile, Solution * pSolution);
     
     const std::string getOutputBasePath() const { return _outputBasePath; }
+    const std::string getOutputScenarioPath() const { return _outputScenarioPath; }
     
 private:
     
-    std::string _outputBasePath;
+    const std::string _outputBasePath;
+    const std::string _outputScenarioPath;
     DataContainer * pDataContainer;
 
 };

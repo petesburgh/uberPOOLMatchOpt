@@ -54,13 +54,13 @@ void writeAndPrintInputs(DataContainer*);
 int main(int argc, char** argv) {
              
     // specify singleton inputs // TODO: move to text file
-    const std::string inputPath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/";
-    const std::string coreOutPath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/Output/";
-    const std::string csvFilename = "trips-SF-2015-04-13-1600-1700-uberX.csv";    
-    const std::string timelineStr = "2015-04-13 16:00:00";
-    const int simLengthInMin = 60;
-    const bool printDebugFiles = true;
-    const bool printToScreen = false;
+    const std::string inputPath      = "/Users/jonpetersen/Documents/uberPOOL/testEnv/";
+    const std::string outputBasePath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/Output/";
+    const std::string csvFilename    = "trips-SF-2015-04-13-1600-1700-uberX.csv";    
+    const std::string timelineStr    = "2015-04-13 16:00:00";
+    const int simLengthInMin         = 60;
+    const bool printDebugFiles       = true;
+    const bool printToScreen         = false;
     const bool populateInitOpenTrips = false;
         
     // specify DEFAULT values
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
     const bool runUFBW_flexPickups = false; 
     
     // SPECIFY TYPE OF EXPERIMENT
-    int experiment = DEFAULTVALUES;
+    int experiment = BATCHWINDOW;
     
     int numRuns = -1;
     switch( experiment ) {
@@ -110,13 +110,13 @@ int main(int argc, char** argv) {
         default :
             std::cerr << "** ERROR: Unhandled Experiment Type **" << std::endl;
     }
-    
+     
         
     // ----------------------------------------------
     // 
     //          uberPOOL MATCHING SIMULATOR
     // 
-    // ----------------------------------------------
+    // ----------------------------------------------            
     ParameterSet currParamSet;
     for( int ii = 1; ii <= numRuns; ii++ ) {
         
@@ -133,17 +133,9 @@ int main(int argc, char** argv) {
                 &range_minPoolDiscountForMaster
         );
         
-        //std::cout << "running " << currParamSet._paramSetStr << std::endl;
-        //continue;
-        
-        // create directory
-        std::cout << "coreOutPath: " << coreOutPath << std::endl;
-        std::string scenStr = currParamSet._paramSetStr;
-        std::cout << "specificScen " << scenStr << std::endl;;
-        const std::string outPath = coreOutPath + scenStr + "/";
-
-        
-                        
+        // create scenario output path
+        const std::string outputScenarioPath = outputBasePath + currParamSet._paramSetStr + "/";
+                              
         printBanner(&currParamSet, numRuns);
 
         /*
@@ -153,11 +145,11 @@ int main(int argc, char** argv) {
                - set of all riders  
         */
         //DataContainer * pDataContainer = new DataContainer(inputPath,outPath,csvFilename,timelineStr,upFrontBatchWindowInSec,pctPoolUsers,simLengthInMin,printDebugFiles,printToScreen);
-        DataContainer * pDataContainer = new DataContainer(inputPath,outPath,csvFilename,timelineStr,currParamSet._batchWindowLengthInSec,currParamSet._optInRate,simLengthInMin,printDebugFiles,printToScreen);
+        DataContainer * pDataContainer = new DataContainer(inputPath,csvFilename,timelineStr,currParamSet._batchWindowLengthInSec,currParamSet._optInRate,simLengthInMin,printDebugFiles,printToScreen);
         pDataContainer->extractCvsSnapshot();
 
         // instantiate output object
-        pOutput = new Output(pDataContainer);
+        pOutput = new Output(pDataContainer, outputBasePath, outputScenarioPath);
 
         /*
          *  step 2: filter uberX users to proxy for uberPOOL trips

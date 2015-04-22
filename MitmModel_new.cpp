@@ -39,9 +39,9 @@ bool MitmModel_new::solve(bool printDebugFiles, Output * pOutput, bool populateI
     
     // initialize output file that tracks match candidates
     if( printDebugFiles ) {
-        const std::string outputBasePath = pOutput->getOutputBasePath();
+        const std::string outputScenPath = pOutput->getOutputScenarioPath();
         const std::string filename = "MITM-match-candidates.txt";
-        std::string outPath = outputBasePath + filename;
+        std::string outPath = outputScenPath + filename;
         pOutFile = new std::ofstream(outPath); 
         initCandidateMatchFile(*pOutFile);
     }

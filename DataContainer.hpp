@@ -37,8 +37,7 @@ using namespace std;
 class DataContainer {
 public:
     DataContainer();
-    DataContainer(const std::string &inputPath, const std::string &outputPath, const std::string &filename, const std::string &timelineStr, const int _batchWindowInSec, const double pctPoolUsers, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen);
-    DataContainer(const DataContainer& orig);
+    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const int _batchWindowInSec, const double pctPoolUsers, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen);
     virtual ~DataContainer();
     
     // methods called by main()
@@ -52,7 +51,7 @@ public:
         
     // getters
     const std::string getInputPath()   const { return _inputPath; }
-    const std::string getOutputPath() const { return _outputPath; }
+ //   const std::string getOutputPath() const { return _outputPath; }
     const std::string getCsvFilename() const { return _csvFilename; }
     const std::vector<TripData*>* getAllTrips() const { return &_allTrips; }
     const std::vector<TripData*>* getUberPoolTrips() const { return &_uberPOOLTrips; }
@@ -81,7 +80,6 @@ public:
 private:
     // I/O
     std::string _inputPath;   // input path for folder containing input data
-    std::string _outputPath;  // output base path for all written files
     std::string _csvFilename; // name of csv file containing snapshot data
     std::string _timelineStr; // string of timeline defining snapshot
     int _batchWindowInSec;    // length of up-front batch window

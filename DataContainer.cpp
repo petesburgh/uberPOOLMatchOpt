@@ -11,9 +11,8 @@
 // constructors
 DataContainer::DataContainer() {
 }
-DataContainer::DataContainer(const std::string &inputPath, const std::string &outputPath, const std::string &csvFilename, const std::string &timelineStr, const int batchWindowInSec, const double pctPoolUsers, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen) {
+DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, const int batchWindowInSec, const double pctPoolUsers, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen) {
     _inputPath = inputPath;
-    _outputPath = outputPath;
     _csvFilename = csvFilename;
     _timelineStr = timelineStr;
     _timeline = Utility::convertDateTimeStringToTimeT(timelineStr);
@@ -28,8 +27,6 @@ DataContainer::DataContainer(const std::string &inputPath, const std::string &ou
     assert( (0 <= _pctPoolUsers) && (_pctPoolUsers <= 1) );
     assert( _timeline <= _simEndTime );
     
-}
-DataContainer::DataContainer(const DataContainer& orig) {
 }
 
 // destructor

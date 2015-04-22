@@ -438,22 +438,7 @@ const double MitmModel_new::computeCostOfMatch(FeasibleMatch * pMatch) const {
     }
     
     const double cost = addedDistance;
-    
-    // TODO: delete
-    if( pMatch->_minionIndex == 501 ) {
-        std::cout << "\nreading master " << pMatch->_masterIndex << std::endl;
-        std::cout << "reading minion " << pMatch->_minionIndex << std::endl;
-        std::string isExt = (pMatch->_masterPickedUpAtTimeOfMatch) ? "extended" : "non-extended";
-        std::cout << "type:  " << isExt << std::endl;
-        std::cout << "\tdist from dispatch to master pickup: " << distFromDispatchToMasterPickup << std::endl;
-        std::cout << "\tdist to minion pickup: " << distToMinionPickup << std::endl;
-        std::cout << "\tshared distance: " << sharedDist << std::endl;
-        std::cout << "\tdrop distance: " << dropDist << std::endl;
-        std::cout << "total distance: " << totalPooledDistance << std::endl;
-        std::cout << "uberX distance: " << uberXDistMaster << std::endl;
-        std::cout << "COST = " << cost << std::endl;   
-    }
-    
+      
     return cost;
 }
 

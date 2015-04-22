@@ -10,8 +10,8 @@
 
 Output::Output(DataContainer * dataContainer) {    
     pDataContainer = dataContainer; 
-    _outputBasePath = dataContainer->getOutputPath();
-    
+   _outputBasePath = dataContainer->getOutputPath();
+  
     // ensure directory exists
     int status = mkdir(_outputBasePath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
 }

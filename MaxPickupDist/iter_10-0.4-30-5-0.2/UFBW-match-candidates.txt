@@ -1,0 +1,1976 @@
+
+----------------------------------------
+
+    Up Front Batch Window Candidates
+        (fixed pickup sequence)
+
+----------------------------------------
+
+
+current request: 2015-04-13-16:01:09
+request origin:  37.36470,-121.92360
+request dest:    37.31725,-122.05143
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2424        2600        0.2149         no            FIFO      2015-04-13-16:01:36             37.78404,-122.43992         37.78916,-122.40365         2015-04-13-16:01:27             37.78402,-122.42409         37.78478,-122.39988         
+
+
+current request: 2015-04-13-16:01:35
+request origin:  37.62131,-122.37896
+request dest:    37.76045,-121.90175
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       879         672         0.8440         no            FIFO      2015-04-13-16:00:32             37.73150,-122.46442         37.77719,-122.39050         2015-04-13-16:02:05             37.72272,-122.45262         37.80564,-122.40537         
+
+
+current request: 2015-04-13-16:01:55
+request origin:  37.76159,-122.38768
+request dest:    37.79508,-122.39799
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1504        2799        0.5745         no            FIFO      2015-04-13-16:00:29             37.75281,-122.40584         37.79314,-122.39770         2015-04-13-16:02:23             37.75933,-122.40981         37.79916,-122.41060         
+
+
+current request: 2015-04-13-16:02:12
+request origin:  37.32301,-121.96026
+request dest:    37.18052,-121.99410
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2521        2904        4.4292         no            FIFO      2015-04-13-16:00:12             37.77473,-122.40150         37.61711,-122.38400         2015-04-13-16:02:42             37.78670,-122.40249         37.61486,-122.38581         
+	1       2521        2904        4.3109         no            FILO      2015-04-13-16:00:12             37.77473,-122.40150         37.61711,-122.38400         2015-04-13-16:02:42             37.78670,-122.40249         37.61486,-122.38581         
+
+
+current request: 2015-04-13-16:02:24
+request origin:  37.77016,-122.42390
+request dest:    37.74832,-122.40209
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       385         2030        0.2860         no            FIFO      2015-04-13-16:02:31             37.77239,-122.41621         37.77456,-122.39820         2015-04-13-16:02:53             37.77163,-122.41856         37.77658,-122.39229         
+	1       2030        385         0.3950         no            FILO      2015-04-13-16:02:53             37.77163,-122.41856         37.77658,-122.39229         2015-04-13-16:02:31             37.77239,-122.41621         37.77456,-122.39820         
+
+
+current request: 2015-04-13-16:02:28
+request origin:  37.79214,-122.44314
+request dest:    37.61468,-122.38954
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       473         293         4.1417         no            FIFO      2015-04-13-16:01:57             37.79186,-122.44081         37.65425,-122.38340         2015-04-13-16:02:28             37.79214,-122.44314         37.61468,-122.38954         
+
+
+current request: 2015-04-13-16:02:51
+request origin:  37.41442,-121.96285
+request dest:    37.38715,-121.96650
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1926        6           11.2284        no            FIFO      2015-04-13-16:01:35             37.62131,-122.37896         37.76045,-121.90175         2015-04-13-16:03:17             37.62131,-122.37896         37.77945,-121.92960         
+	1       1926        6           11.9695        no            FILO      2015-04-13-16:01:35             37.62131,-122.37896         37.76045,-121.90175         2015-04-13-16:03:17             37.62131,-122.37896         37.77945,-121.92960         
+
+
+current request: 2015-04-13-16:03:00
+request origin:  37.77389,-122.41159
+request dest:    37.77828,-122.39680
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       382         2526        3.9413         no            FILO      2015-04-13-16:02:07             37.61768,-122.38677         37.41875,-122.07720         2015-04-13-16:03:27             37.61497,-122.39003         37.49222,-122.23200         
+
+
+current request: 2015-04-13-16:03:23
+request origin:  37.39226,-122.03176
+request dest:    37.42330,-122.07266
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1828        1509        0.4359         no            FIFO      2015-04-13-16:01:10             37.39076,-121.97462         37.40295,-121.98440         2015-04-13-16:03:45             37.39113,-121.97453         37.40275,-121.98412         
+	1       1828        1509        0.4517         no            FILO      2015-04-13-16:01:10             37.39076,-121.97462         37.40295,-121.98440         2015-04-13-16:03:45             37.39113,-121.97453         37.40275,-121.98412         
+	2       3007        1829        0.1558         no            FIFO      2015-04-13-16:01:55             37.76159,-122.38768         37.79508,-122.39799         2015-04-13-16:03:47             37.78063,-122.38962         37.79470,-122.40271         
+	3       1609        769         0.6802         no            FIFO      2015-04-13-16:02:42             37.79002,-122.45190         37.79288,-122.39970         2015-04-13-16:03:34             37.80018,-122.43996         37.79346,-122.39860         
+	4       1609        769         0.6396         no            FILO      2015-04-13-16:02:42             37.79002,-122.45190         37.79288,-122.39970         2015-04-13-16:03:34             37.80018,-122.43996         37.79346,-122.39860         
+	5       2903        2802        4.2513         no            FIFO      2015-04-13-16:02:10             37.61336,-122.38927         37.76013,-122.39050         2015-04-13-16:03:43             37.61773,-122.38611         37.78672,-122.40623         
+
+
+current request: 2015-04-13-16:03:58
+request origin:  37.75706,-122.46615
+request dest:    37.78834,-122.40921
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2225        2427        1.7402         no            FIFO      2015-04-13-16:04:24             37.36448,-121.92338         37.41640,-122.02500         2015-04-13-16:04:21             37.36470,-121.92360         37.42418,-122.15800         
+	1       476         2225        1.8407         no            FIFO      2015-04-13-16:02:53             37.36470,-121.92360         37.40990,-121.98890         2015-04-13-16:04:24             37.36448,-121.92338         37.41640,-122.02500         
+	2       2427        2225        1.7253         no            FILO      2015-04-13-16:04:21             37.36470,-121.92360         37.42418,-122.15800         2015-04-13-16:04:24             37.36448,-121.92338         37.41640,-122.02500         
+
+
+current request: 2015-04-13-16:04:14
+request origin:  37.78293,-122.43356
+request dest:    37.77849,-122.44880
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2222        1613        0.0467         no            FIFO      2015-04-13-16:01:57             37.78679,-122.43448         37.79103,-122.40270         2015-04-13-16:04:44             37.79452,-122.42413         37.79222,-122.40580         
+
+
+current request: 2015-04-13-16:04:35
+request origin:  37.74165,-122.42130
+request dest:    37.78114,-122.39600
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1110        2911        1.9982         no            FIFO      2015-04-13-16:03:37             37.71139,-122.21131         37.80087,-122.23140         2015-04-13-16:05:05             37.70795,-122.21450         37.86613,-122.25396         
+
+
+current request: 2015-04-13-16:05:15
+request origin:  37.79680,-122.41093
+request dest:    37.78336,-122.39400
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       669         483         3.4541         no            FIFO      2015-04-13-16:01:09             37.36470,-121.92360         37.31725,-122.05143         2015-04-13-16:05:45             37.36470,-121.92360         37.30267,-122.06400         
+	1       669         483         2.5886         no            FILO      2015-04-13-16:01:09             37.36470,-121.92360         37.31725,-122.05143         2015-04-13-16:05:45             37.36470,-121.92360         37.30267,-122.06400         
+
+
+current request: 2015-04-13-16:05:37
+request origin:  37.78867,-122.41343
+request dest:    37.77704,-122.42906
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1003        891         1.6988         no            FIFO      2015-04-13-16:04:33             37.32988,-121.90450         37.38758,-121.97341         2015-04-13-16:05:56             37.32676,-121.89750         37.41752,-121.97897         
+	1       480         2707        2.0485         no            FILO      2015-04-13-16:04:19             37.73992,-122.42685         37.86948,-122.25215         2015-04-13-16:05:52             37.74442,-122.41247         37.79287,-122.27094         
+
+
+current request: 2015-04-13-16:05:50
+request origin:  37.39894,-121.95736
+request dest:    37.42346,-121.90764
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2427        98          4.4281         no            FILO      2015-04-13-16:04:21             37.36470,-121.92360         37.42418,-122.15800         2015-04-13-16:06:20             37.36395,-121.92894         37.40296,-122.11170         
+
+
+current request: 2015-04-13-16:06:01
+request origin:  37.40123,-122.07096
+request dest:    37.79137,-122.40455
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2908        1510        4.0432         no            FILO      2015-04-13-16:03:40             37.61431,-122.38850         37.40799,-122.08240         2015-04-13-16:06:27             37.61474,-122.38540         37.47192,-122.24417         
+
+
+current request: 2015-04-13-16:06:19
+request origin:  37.77406,-122.43209
+request dest:    37.77907,-122.41435
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1105        2607        1.4139         no            FIFO      2015-04-13-16:01:01             37.38802,-122.09030         37.44258,-122.17050         2015-04-13-16:06:49             37.39343,-122.08375         37.48109,-122.16990         
+
+
+current request: 2015-04-13-16:06:36
+request origin:  37.78042,-122.47315
+request dest:    37.75527,-122.43228
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2605        3009        0.2552         no            FILO      2015-04-13-16:05:54             37.79330,-122.39604         37.76982,-122.38646         2015-04-13-16:06:43             37.79342,-122.39545         37.77985,-122.39470         
+
+
+current request: 2015-04-13-16:06:49
+request origin:  37.77569,-122.45676
+request dest:    37.76540,-122.40359
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       679         13          5.0207         no            FIFO      2015-04-13-16:05:38             37.61482,-122.38551         37.79309,-122.40040         2015-04-13-16:07:18             37.61481,-122.38967         37.78792,-122.41140         
+	1       679         13          5.2722         no            FILO      2015-04-13-16:05:38             37.61482,-122.38551         37.79309,-122.40040         2015-04-13-16:07:18             37.61481,-122.38967         37.78792,-122.41140         
+
+
+current request: 2015-04-13-16:07:41
+request origin:  37.78937,-122.40711
+request dest:    37.44643,-122.16727
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       892         2433        6.7473         no            FILO      2015-04-13-16:06:01             37.40123,-122.07096         37.79137,-122.40455         2015-04-13-16:08:11             37.38914,-122.07297         37.61591,-122.39010         
+
+
+current request: 2015-04-13-16:07:54
+request origin:  37.78126,-122.39021
+request dest:    37.77642,-122.40751
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       774         2610        1.1696         no            FIFO      2015-04-13-16:07:19             37.36448,-121.92338         37.38787,-121.96194         2015-04-13-16:08:24             37.36462,-121.92364         37.38772,-121.96053         
+	1       774         2610        1.2241         no            FILO      2015-04-13-16:07:19             37.36448,-121.92338         37.38787,-121.96194         2015-04-13-16:08:24             37.36462,-121.92364         37.38772,-121.96053         
+
+
+current request: 2015-04-13-16:07:59
+request origin:  37.78982,-122.42218
+request dest:    37.78351,-122.40751
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2603        2333        3.9477         yes           FIFO      2015-04-13-16:05:48             37.78654,-122.40192         37.61783,-122.38623         2015-04-13-16:08:28             37.75833,-122.42400         37.61790,-122.38567         
+	1       2603        2333        3.9462         yes           FILO      2015-04-13-16:05:48             37.78654,-122.40192         37.61783,-122.38623         2015-04-13-16:08:28             37.75833,-122.42400         37.61790,-122.38567         
+	2       1104        14          3.1709         yes           FIFO      2015-04-13-16:00:16             37.78801,-122.43340         37.71230,-122.21286         2015-04-13-16:08:27             37.77213,-122.42851         37.71193,-122.21220         
+	3       1104        14          3.1365         yes           FILO      2015-04-13-16:00:16             37.78801,-122.43340         37.71230,-122.21286         2015-04-13-16:08:27             37.77213,-122.42851         37.71193,-122.21220         
+
+
+current request: 2015-04-13-16:08:21
+request origin:  37.41984,-122.12498
+request dest:    37.61719,-122.38452
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1299        2435        0.3226         yes           FILO      2015-04-13-16:06:18             37.76440,-122.39701         37.79063,-122.39854         2015-04-13-16:08:46             37.76735,-122.40040         37.78582,-122.40570         
+
+
+current request: 2015-04-13-16:08:32
+request origin:  37.36576,-122.02420
+request dest:    37.42742,-122.09634
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2221        1203        0.1244         yes           FIFO      2015-04-13-16:00:45             37.78254,-122.41834         37.78731,-122.39639         2015-04-13-16:09:01             37.78301,-122.40622         37.78892,-122.39550         
+	1       1305        1203        0.0762         no            FIFO      2015-04-13-16:08:48             37.78351,-122.41808         37.78610,-122.39710         2015-04-13-16:09:01             37.78301,-122.40622         37.78892,-122.39550         
+	2       2330        2714        0.1799         no            FIFO      2015-04-13-16:07:24             37.80287,-122.41642         37.76481,-122.41150         2015-04-13-16:09:02             37.79911,-122.42811         37.77055,-122.40456         
+
+
+current request: 2015-04-13-16:08:57
+request origin:  37.77545,-122.39724
+request dest:    37.77541,-122.41820
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1938        103         0.4774         no            FIFO      2015-04-13-16:09:03             37.75428,-122.41239         37.78634,-122.40842         2015-04-13-16:09:26             37.76442,-122.40740         37.79188,-122.40430         
+
+
+current request: 2015-04-13-16:09:57
+request origin:  37.80610,-122.41982
+request dest:    37.79207,-122.39974
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2540        1116        1.0673         no            FIFO      2015-04-13-16:10:22             37.36470,-121.92360         37.39077,-121.97450         2015-04-13-16:10:00             37.36470,-121.92360         37.41720,-122.02567         
+	1       1116        2540        1.0673         no            FILO      2015-04-13-16:10:00             37.36470,-121.92360         37.41720,-122.02567         2015-04-13-16:10:22             37.36470,-121.92360         37.39077,-121.97450         
+
+
+current request: 2015-04-13-16:10:02
+request origin:  37.40296,-121.93288
+request dest:    37.36443,-121.92320
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       482         1118        6.5558         no            FIFO      2015-04-13-16:04:49             37.45811,-122.16094         37.61794,-122.38570         2015-04-13-16:10:28             37.45811,-122.19151         37.61484,-122.38530         
+	1       482         1118        6.6919         no            FILO      2015-04-13-16:04:49             37.45811,-122.16094         37.61794,-122.38570         2015-04-13-16:10:28             37.45811,-122.19151         37.61484,-122.38530         
+	2       2539        3108        5.1091         no            FIFO      2015-04-13-16:10:19             37.77768,-122.43238         37.61787,-122.38550         2015-04-13-16:10:28             37.77246,-122.42764         37.61789,-122.38700         
+	3       2539        3108        5.1238         no            FILO      2015-04-13-16:10:19             37.77768,-122.43238         37.61787,-122.38550         2015-04-13-16:10:28             37.77246,-122.42764         37.61789,-122.38700         
+	4       3108        2539        4.7957         no            FIFO      2015-04-13-16:10:28             37.77246,-122.42764         37.61789,-122.38700         2015-04-13-16:10:19             37.77768,-122.43238         37.61787,-122.38550         
+	5       3108        2539        4.7799         no            FILO      2015-04-13-16:10:28             37.77246,-122.42764         37.61789,-122.38700         2015-04-13-16:10:19             37.77768,-122.43238         37.61787,-122.38550         
+
+
+current request: 2015-04-13-16:10:22
+request origin:  37.78047,-122.40808
+request dest:    37.78260,-122.39430
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2912        309         0.5257         yes           FIFO      2015-04-13-16:06:36             37.78042,-122.47315         37.75527,-122.43228         2015-04-13-16:10:51             37.78279,-122.46347         37.76033,-122.42150         
+
+
+current request: 2015-04-13-16:10:38
+request origin:  37.79471,-122.42202
+request dest:    37.79327,-122.39911
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       296         2141        0.1297         no            FIFO      2015-04-13-16:03:07             37.78632,-122.41134         37.78437,-122.40440         2015-04-13-16:11:07             37.78690,-122.41060         37.78368,-122.40209         
+
+
+current request: 2015-04-13-16:10:41
+request origin:  37.77630,-122.44105
+request dest:    37.79761,-122.43121
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3105        2815        0.3090         yes           FILO      2015-04-13-16:09:44             37.79891,-122.41586         37.76865,-122.39530         2015-04-13-16:11:11             37.79005,-122.41397         37.77622,-122.40285         
+
+
+current request: 2015-04-13-16:10:45
+request origin:  37.55439,-122.25659
+request dest:    37.55652,-122.28830
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       585         778         0.4454         no            FILO      2015-04-13-16:11:13             37.78302,-122.38912         37.74396,-122.45010         2015-04-13-16:11:12             37.77619,-122.39612         37.75987,-122.42146         
+
+
+current request: 2015-04-13-16:11:05
+request origin:  37.76477,-122.42031
+request dest:    37.76235,-122.41120
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2434        2041        1.1576         no            FILO      2015-04-13-16:08:32             37.36576,-122.02420         37.42742,-122.09634         2015-04-13-16:11:34             37.37112,-122.04281         37.42057,-122.07290         
+
+
+current request: 2015-04-13-16:11:13
+request origin:  37.63077,-122.42007
+request dest:    37.61778,-122.38540
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2706        2143        0.1455         yes           FIFO      2015-04-13-16:05:15             37.79680,-122.41093         37.78336,-122.39400         2015-04-13-16:11:43             37.79092,-122.40906         37.78460,-122.39570         
+	1       2706        2143        0.2454         yes           FILO      2015-04-13-16:05:15             37.79680,-122.41093         37.78336,-122.39400         2015-04-13-16:11:43             37.79092,-122.40906         37.78460,-122.39570         
+	2       1415        496         0.4495         no            FIFO      2015-04-13-16:10:38             37.79471,-122.42202         37.79327,-122.39911         2015-04-13-16:11:13             37.79650,-122.42219         37.79462,-122.39680         
+	3       1415        496         0.3588         no            FILO      2015-04-13-16:10:38             37.79471,-122.42202         37.79327,-122.39911         2015-04-13-16:11:13             37.79650,-122.42219         37.79462,-122.39680         
+	4       497         2143        0.2568         no            FIFO      2015-04-13-16:11:22             37.79167,-122.41034         37.78736,-122.39625         2015-04-13-16:11:43             37.79092,-122.40906         37.78460,-122.39570         
+
+
+current request: 2015-04-13-16:11:22
+request origin:  37.81295,-122.29815
+request dest:    37.80423,-122.27111
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2228        2719        0.5749         no            FIFO      2015-04-13-16:05:48             37.77909,-122.41547         37.76383,-122.45691         2015-04-13-16:11:44             37.77756,-122.43156         37.76415,-122.45642         
+	1       2228        2719        0.6030         no            FILO      2015-04-13-16:05:48             37.77909,-122.41547         37.76383,-122.45691         2015-04-13-16:11:44             37.77756,-122.43156         37.76415,-122.45642         
+	2       903         780         4.9724         no            FIFO      2015-04-13-16:11:39             37.79562,-122.43083         37.61493,-122.38980         2015-04-13-16:11:47             37.80543,-122.44221         37.61643,-122.38390         
+	3       903         780         4.9953         no            FILO      2015-04-13-16:11:39             37.79562,-122.43083         37.61493,-122.38980         2015-04-13-16:11:47             37.80543,-122.44221         37.61643,-122.38390         
+	4       780         903         5.6379         no            FIFO      2015-04-13-16:11:47             37.80543,-122.44221         37.61643,-122.38390         2015-04-13-16:11:39             37.79562,-122.43083         37.61493,-122.38980         
+	5       780         903         5.6053         no            FILO      2015-04-13-16:11:47             37.80543,-122.44221         37.61643,-122.38390         2015-04-13-16:11:39             37.79562,-122.43083         37.61493,-122.38980         
+
+
+current request: 2015-04-13-16:11:25
+request origin:  37.36448,-121.92338
+request dest:    37.37506,-121.90895
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       102         904         0.3120         yes           FIFO      2015-04-13-16:08:44             37.78613,-122.44205         37.78879,-122.41360         2015-04-13-16:11:53             37.78866,-122.43270         37.78978,-122.40376         
+
+
+current request: 2015-04-13-16:11:38
+request origin:  37.74500,-122.42002
+request dest:    37.61706,-122.38410
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       17          1015        0.5185         no            FIFO      2015-04-13-16:11:40             37.75756,-122.39291         37.79049,-122.39313         2015-04-13-16:11:57             37.76208,-122.38901         37.79228,-122.40426         
+
+
+current request: 2015-04-13-16:11:39
+request origin:  37.77881,-122.41455
+request dest:    37.78468,-122.43967
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1313        400         0.1811         no            FIFO      2015-04-13-16:11:51             37.75310,-122.43393         37.77562,-122.41860         2015-04-13-16:12:09             37.76105,-122.43387         37.77896,-122.39570         
+	1       993         400         0.2318         yes           FIFO      2015-04-13-16:01:52             37.76531,-122.45493         37.78393,-122.39461         2015-04-13-16:12:09             37.76105,-122.43387         37.77896,-122.39570         
+
+
+current request: 2015-04-13-16:11:49
+request origin:  37.74930,-122.42377
+request dest:    37.74937,-122.42373
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2332        2918        12.1378        no            FIFO      2015-04-13-16:07:41             37.78937,-122.40711         37.44643,-122.16727         2015-04-13-16:12:17             37.78827,-122.41780         37.41997,-122.13580         
+	1       2332        2918        10.1620        no            FILO      2015-04-13-16:07:41             37.78937,-122.40711         37.44643,-122.16727         2015-04-13-16:12:17             37.78827,-122.41780         37.41997,-122.13580         
+
+
+current request: 2015-04-13-16:12:20
+request origin:  37.36661,-121.92258
+request dest:    37.32197,-121.93664
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       10          2338        1.2269         yes           FIFO      2015-04-13-16:03:58             37.75706,-122.46615         37.78834,-122.40921         2015-04-13-16:12:45             37.76419,-122.45728         37.78653,-122.40170         
+	1       10          2338        0.9897         yes           FILO      2015-04-13-16:03:58             37.75706,-122.46615         37.78834,-122.40921         2015-04-13-16:12:45             37.76419,-122.45728         37.78653,-122.40170         
+
+
+current request: 2015-04-13-16:12:26
+request origin:  37.86941,-122.28059
+request dest:    37.86995,-122.26804
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       573         2819        0.7291         yes           FIFO      2015-04-13-16:04:35             37.74165,-122.42130         37.78114,-122.39600         2015-04-13-16:12:56             37.75455,-122.41056         37.78508,-122.39600         
+
+
+current request: 2015-04-13-16:12:54
+request origin:  37.80523,-122.29514
+request dest:    37.78099,-122.23942
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2916        1419        0.1014         no            FIFO      2015-04-13-16:09:57             37.80610,-122.41982         37.79207,-122.39974         2015-04-13-16:13:24             37.80070,-122.40722         37.78464,-122.39480         
+
+
+current request: 2015-04-13-16:13:21
+request origin:  37.93200,-122.32827
+request dest:    37.90880,-122.29499
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1313        1521        0.2909         no            FIFO      2015-04-13-16:11:51             37.75310,-122.43393         37.77562,-122.41860         2015-04-13-16:13:51             37.75644,-122.42640         37.79278,-122.40450         
+	1       785         1521        0.3124         no            FIFO      2015-04-13-16:13:45             37.76146,-122.42530         37.78240,-122.39891         2015-04-13-16:13:51             37.75644,-122.42640         37.79278,-122.40450         
+	2       1521        785         0.5517         no            FILO      2015-04-13-16:13:51             37.75644,-122.42640         37.79278,-122.40450         2015-04-13-16:13:45             37.76146,-122.42530         37.78240,-122.39891         
+
+
+current request: 2015-04-13-16:13:51
+request origin:  37.77664,-122.39538
+request dest:    37.78806,-122.40270
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       898         1422        0.4325         no            FIFO      2015-04-13-16:08:57             37.77545,-122.39724         37.77541,-122.41820         2015-04-13-16:14:19             37.77658,-122.39548         37.77556,-122.41851         
+	1       898         1422        0.4197         no            FILO      2015-04-13-16:08:57             37.77545,-122.39724         37.77541,-122.41820         2015-04-13-16:14:19             37.77658,-122.39548         37.77556,-122.41851         
+
+
+current request: 2015-04-13-16:14:01
+request origin:  37.79781,-122.21064
+request dest:    37.81043,-122.26563
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       694         698         0.4336         no            FILO      2015-04-13-16:12:12             37.36448,-121.92338         37.34733,-121.93890         2015-04-13-16:14:26             37.36448,-121.92338         37.35315,-121.93756         
+
+
+current request: 2015-04-13-16:14:48
+request origin:  37.78692,-122.42810
+request dest:    37.78891,-122.40849
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2049        3116        0.4249         no            FILO      2015-04-13-16:14:15             37.78664,-122.43421         37.78884,-122.40380         2015-04-13-16:14:48             37.78692,-122.42810         37.78891,-122.40849         
+	1       1418        3021        1.0031         no            FIFO      2015-04-13-16:12:29             37.61443,-122.38540         37.56841,-122.32620         2015-04-13-16:15:06             37.62131,-122.37896         37.55857,-122.27638         
+	2       2446        1739        5.3199         no            FIFO      2015-04-13-16:15:09             37.61709,-122.38395         37.42097,-122.20910         2015-04-13-16:15:11             37.61769,-122.38676         37.35846,-122.01480         
+	3       781         2446        5.3642         no            FILO      2015-04-13-16:11:52             37.61672,-122.38661         37.35731,-122.01190         2015-04-13-16:15:09             37.61709,-122.38395         37.42097,-122.20910         
+	4       781         1739        12.8606        no            FIFO      2015-04-13-16:11:52             37.61672,-122.38661         37.35731,-122.01190         2015-04-13-16:15:11             37.61769,-122.38676         37.35846,-122.01480         
+	5       781         1739        12.9992        no            FILO      2015-04-13-16:11:52             37.61672,-122.38661         37.35731,-122.01190         2015-04-13-16:15:11             37.61769,-122.38676         37.35846,-122.01480         
+	6       1739        2446        5.4192         no            FILO      2015-04-13-16:15:11             37.61769,-122.38676         37.35846,-122.01480         2015-04-13-16:15:09             37.61709,-122.38395         37.42097,-122.20910         
+
+
+current request: 2015-04-13-16:14:49
+request origin:  37.55975,-122.32669
+request dest:    37.56006,-122.32690
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1628        1217        0.2175         no            FIFO      2015-04-13-16:12:03             37.78371,-122.39841         37.80887,-122.41251         2015-04-13-16:15:19             37.79362,-122.39647         37.80622,-122.41860         
+
+
+current request: 2015-04-13-16:14:58
+request origin:  37.84024,-122.26248
+request dest:    37.80275,-122.25393
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3019        2343        0.4080         no            FIFO      2015-04-13-16:13:51             37.77664,-122.39538         37.78806,-122.40270         2015-04-13-16:15:23             37.77672,-122.39539         37.78916,-122.40374         
+	1       3019        2343        0.3326         no            FILO      2015-04-13-16:13:51             37.77664,-122.39538         37.78806,-122.40270         2015-04-13-16:15:23             37.77672,-122.39539         37.78916,-122.40374         
+
+
+current request: 2015-04-13-16:15:05
+request origin:  37.36395,-121.92894
+request dest:    37.39041,-122.02300
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3013        2245        0.9477         yes           FIFO      2015-04-13-16:08:42             37.78562,-122.48778         37.79123,-122.39910         2015-04-13-16:15:35             37.77900,-122.46012         37.78791,-122.39970         
+	1       3013        2245        1.0132         yes           FILO      2015-04-13-16:08:42             37.78562,-122.48778         37.79123,-122.39910         2015-04-13-16:15:35             37.77900,-122.46012         37.78791,-122.39970         
+
+
+current request: 2015-04-13-16:15:08
+request origin:  37.29029,-121.88647
+request dest:    37.32997,-121.90230
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2534        2246        0.0205         yes           FIFO      2015-04-13-16:07:59             37.78982,-122.42218         37.78351,-122.40751         2015-04-13-16:15:38             37.79036,-122.41689         37.77932,-122.39190         
+	1       2430        2246        0.3784         yes           FIFO      2015-04-13-16:06:42             37.79831,-122.43378         37.78111,-122.38856         2015-04-13-16:15:38             37.79036,-122.41689         37.77932,-122.39190         
+	2       2430        2246        0.4675         yes           FILO      2015-04-13-16:06:42             37.79831,-122.43378         37.78111,-122.38856         2015-04-13-16:15:38             37.79036,-122.41689         37.77932,-122.39190         
+	3       2246        2821        0.1545         no            FIFO      2015-04-13-16:15:38             37.79036,-122.41689         37.77932,-122.39190         2015-04-13-16:15:18             37.78523,-122.40439         37.77937,-122.39331         
+	4       2246        2821        0.2085         no            FILO      2015-04-13-16:15:38             37.79036,-122.41689         37.77932,-122.39190         2015-04-13-16:15:18             37.78523,-122.40439         37.77937,-122.39331         
+
+
+current request: 2015-04-13-16:15:18
+request origin:  37.78523,-122.40439
+request dest:    37.77937,-122.39331
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2243        409         0.1219         no            FIFO      2015-04-13-16:14:32             37.78960,-122.40192         37.78326,-122.44077         2015-04-13-16:15:48             37.79502,-122.41514         37.78944,-122.44470         
+
+
+current request: 2015-04-13-16:15:20
+request origin:  37.74984,-122.42530
+request dest:    37.76558,-122.42880
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1199        2727        0.2563         yes           FIFO      2015-04-13-16:04:28             37.77464,-122.42263         37.77906,-122.39556         2015-04-13-16:15:50             37.77682,-122.41012         37.77923,-122.39310         
+
+
+current request: 2015-04-13-16:16:13
+request origin:  37.77460,-122.39992
+request dest:    37.75176,-122.40570
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2813        3023        0.1310         no            FIFO      2015-04-13-16:10:22             37.78047,-122.40808         37.78260,-122.39430         2015-04-13-16:16:43             37.78069,-122.40401         37.78720,-122.38888         
+
+
+current request: 2015-04-13-16:16:18
+request origin:  37.83673,-122.29643
+request dest:    37.88118,-122.27400
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1426        1318        0.0902         no            FIFO      2015-04-13-16:15:47             37.80114,-122.42841         37.80657,-122.42052         2015-04-13-16:16:37             37.80286,-122.42809         37.80570,-122.41287         
+
+
+current request: 2015-04-13-16:16:39
+request origin:  37.79576,-122.42904
+request dest:    37.79049,-122.42310
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2319        501         5.0216         yes           FIFO      2015-04-13-16:00:12             37.51374,-122.27332         37.78451,-122.39749         2015-04-13-16:17:08             37.55975,-122.32669         37.78694,-122.40220         
+	1       2319        501         4.8389         yes           FILO      2015-04-13-16:00:12             37.51374,-122.27332         37.78451,-122.39749         2015-04-13-16:17:08             37.55975,-122.32669         37.78694,-122.40220         
+
+
+current request: 2015-04-13-16:16:54
+request origin:  37.86591,-122.29904
+request dest:    37.80624,-122.24892
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2452        1319        0.4111         no            FILO      2015-04-13-16:16:21             37.78884,-122.39261         37.78070,-122.45520         2015-04-13-16:16:58             37.78703,-122.39364         37.78186,-122.42220         
+
+
+current request: 2015-04-13-16:17:30
+request origin:  37.78038,-122.39502
+request dest:    37.79153,-122.39840
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       18          2622        0.2224         yes           FIFO      2015-04-13-16:12:37             37.80160,-122.40766         37.77896,-122.41491         2015-04-13-16:17:59             37.79555,-122.40377         37.76807,-122.42010         
+
+
+current request: 2015-04-13-16:17:38
+request origin:  37.79263,-122.41359
+request dest:    37.79334,-122.39860
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2235        1027        0.0825         yes           FIFO      2015-04-13-16:09:42             37.78331,-122.45107         37.78204,-122.42000         2015-04-13-16:18:07             37.78128,-122.43343         37.78445,-122.40845         
+
+
+current request: 2015-04-13-16:17:47
+request origin:  37.61497,-122.38973
+request dest:    37.79055,-122.41305
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3122        3026        5.0345         no            FIFO      2015-04-13-16:17:13             37.61811,-122.38716         37.78606,-122.40122         2015-04-13-16:17:47             37.61497,-122.38973         37.79055,-122.41305         
+	1       3122        3026        4.7443         no            FILO      2015-04-13-16:17:13             37.61811,-122.38716         37.78606,-122.40122         2015-04-13-16:17:47             37.61497,-122.38973         37.79055,-122.41305         
+
+
+current request: 2015-04-13-16:17:59
+request origin:  37.80061,-122.44137
+request dest:    37.80815,-122.40890
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       107         1532        0.2693         yes           FIFO      2015-04-13-16:13:14             37.79514,-122.39736         37.77259,-122.40237         2015-04-13-16:18:20             37.78602,-122.39421         37.77185,-122.40496         
+	1       2036        117         7.4353         yes           FIFO      2015-04-13-16:08:21             37.41984,-122.12498         37.61719,-122.38452         2015-04-13-16:18:22             37.45292,-122.15926         37.61527,-122.38463         
+	2       2036        117         7.5040         yes           FILO      2015-04-13-16:08:21             37.41984,-122.12498         37.61719,-122.38452         2015-04-13-16:18:22             37.45292,-122.15926         37.61527,-122.38463         
+
+
+current request: 2015-04-13-16:18:02
+request origin:  37.65491,-122.40468
+request dest:    37.77486,-122.39429
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1522        1854        1.7383         no            FIFO      2015-04-13-16:14:16             37.71128,-122.39307         37.78286,-122.41068         2015-04-13-16:18:31             37.71132,-122.40704         37.78448,-122.40750         
+	1       1522        1854        1.6513         no            FILO      2015-04-13-16:14:16             37.71128,-122.39307         37.78286,-122.41068         2015-04-13-16:18:31             37.71132,-122.40704         37.78448,-122.40750         
+	2       2337        1854        1.8157         no            FIFO      2015-04-13-16:11:55             37.69743,-122.42054         37.78792,-122.40299         2015-04-13-16:18:31             37.71132,-122.40704         37.78448,-122.40750         
+	3       2337        1854        2.0111         no            FILO      2015-04-13-16:11:55             37.69743,-122.42054         37.78792,-122.40299         2015-04-13-16:18:31             37.71132,-122.40704         37.78448,-122.40750         
+
+
+current request: 2015-04-13-16:18:10
+request origin:  37.78014,-122.46727
+request dest:    37.78661,-122.44860
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       410         2156        1.3947         no            FILO      2015-04-13-16:18:33             37.36448,-121.92338         37.41707,-122.07940         2015-04-13-16:18:39             37.37851,-121.93840         37.38185,-122.03746         
+
+
+current request: 2015-04-13-16:18:29
+request origin:  37.45479,-122.22027
+request dest:    37.37201,-121.92780
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       791         1536        1.3917         no            FIFO      2015-04-13-16:16:54             37.36949,-121.92882         37.33643,-122.00311         2015-04-13-16:18:59             37.36448,-121.92338         37.31845,-122.05258         
+	1       502         1644        3.0645         no            FIFO      2015-04-13-16:16:22             37.70810,-122.21530         37.80628,-122.26687         2015-04-13-16:18:50             37.71108,-122.21164         37.81183,-122.26060         
+	2       502         1644        2.8866         no            FILO      2015-04-13-16:16:22             37.70810,-122.21530         37.80628,-122.26687         2015-04-13-16:18:50             37.71108,-122.21164         37.81183,-122.26060         
+
+
+current request: 2015-04-13-16:19:15
+request origin:  37.77784,-122.41262
+request dest:    37.76681,-122.41070
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1630        2733        3.9310         yes           FIFO      2015-04-13-16:13:04             37.77813,-122.44099         37.61804,-122.38620         2015-04-13-16:19:40             37.79309,-122.43166         37.61793,-122.38557         
+	1       1630        2733        3.9195         yes           FILO      2015-04-13-16:13:04             37.77813,-122.44099         37.61804,-122.38620         2015-04-13-16:19:40             37.79309,-122.43166         37.61793,-122.38557         
+
+
+current request: 2015-04-13-16:19:31
+request origin:  37.95063,-121.97827
+request dest:    37.97842,-122.03900
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3114        2931        0.1999         yes           FIFO      2015-04-13-16:13:28             37.80535,-122.42322         37.79474,-122.39420         2015-04-13-16:20:00             37.80601,-122.41135         37.79149,-122.39625         
+
+
+current request: 2015-04-13-16:19:43
+request origin:  37.83278,-122.25197
+request dest:    37.82932,-122.26608
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2627        1133        1.0698         no            FILO      2015-04-13-16:19:50             37.44307,-122.16490         37.48498,-122.22628         2015-04-13-16:20:13             37.44207,-122.16383         37.47379,-122.20230         
+	1       1133        2627        1.1425         no            FIFO      2015-04-13-16:20:13             37.44207,-122.16383         37.47379,-122.20230         2015-04-13-16:19:50             37.44307,-122.16490         37.48498,-122.22628         
+
+
+current request: 2015-04-13-16:19:53
+request origin:  37.78913,-122.40369
+request dest:    37.78453,-122.40889
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1022        121         0.4451         no            FIFO      2015-04-13-16:15:51             37.73820,-122.41672         37.78204,-122.39510         2015-04-13-16:20:23             37.74933,-122.42115         37.78932,-122.40782         
+	1       3028        602         0.1979         no            FILO      2015-04-13-16:19:09             37.77194,-122.40707         37.79248,-122.40750         2015-04-13-16:20:17             37.77613,-122.40966         37.78633,-122.40774         
+
+
+current request: 2015-04-13-16:20:16
+request origin:  37.79588,-122.41846
+request dest:    37.79229,-122.39968
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1845        2552        0.9796         no            FIFO      2015-04-13-16:12:20             37.36661,-121.92258         37.32197,-121.93664         2015-04-13-16:20:41             37.36448,-121.92338         37.30374,-121.96348         
+
+
+current request: 2015-04-13-16:20:21
+request origin:  37.39232,-122.09499
+request dest:    37.44810,-122.15897
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2446        1031        3.5978         no            FIFO      2015-04-13-16:15:09             37.61709,-122.38395         37.42097,-122.20910         2015-04-13-16:20:50             37.61779,-122.39145         37.33391,-121.88890         
+
+
+current request: 2015-04-13-16:20:29
+request origin:  37.76753,-122.42641
+request dest:    37.75282,-122.40830
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1751        1134        0.3328         no            FIFO      2015-04-13-16:20:58             37.80320,-122.41545         37.79520,-122.39857         2015-04-13-16:20:43             37.80071,-122.41544         37.79272,-122.39253         
+	1       1134        1751        0.2702         no            FILO      2015-04-13-16:20:43             37.80071,-122.41544         37.79272,-122.39253         2015-04-13-16:20:58             37.80320,-122.41545         37.79520,-122.39857         
+
+
+current request: 2015-04-13-16:20:33
+request origin:  37.80246,-122.25298
+request dest:    37.86917,-122.29990
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1944        2628        0.2437         yes           FIFO      2015-04-13-16:13:07             37.29694,-121.94983         37.33787,-121.93850         2015-04-13-16:21:01             37.31271,-121.95117         37.36523,-121.92420         
+
+
+current request: 2015-04-13-16:20:42
+request origin:  37.77772,-122.40547
+request dest:    37.77784,-122.40570
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       505         2256        0.0560         no            FIFO      2015-04-13-16:19:02             37.77545,-122.41645         37.79229,-122.39460         2015-04-13-16:21:11             37.78004,-122.40283         37.79954,-122.40001         
+	1       797         915         0.2794         no            FIFO      2015-04-13-16:18:59             37.78265,-122.39039         37.79032,-122.42330         2015-04-13-16:21:11             37.78973,-122.38851         37.79771,-122.43120         
+	2       1429        1438        0.7477         no            FIFO      2015-04-13-16:16:25             37.74966,-122.49066         37.77541,-122.41810         2015-04-13-16:21:11             37.74607,-122.47665         37.80783,-122.41741         
+
+
+current request: 2015-04-13-16:21:13
+request origin:  37.81727,-122.27780
+request dest:    37.61471,-122.38970
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1122        2064        0.1528         yes           FIFO      2015-04-13-16:13:55             37.78899,-122.40836         37.80051,-122.42260         2015-04-13-16:21:42             37.78744,-122.41403         37.80635,-122.42050         
+
+
+current request: 2015-04-13-16:21:33
+request origin:  38.40275,-122.82713
+request dest:    38.47165,-122.74046
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1440        712         0.4217         no            FIFO      2015-04-13-16:22:00             37.76660,-122.41815         37.80142,-122.40112         2015-04-13-16:22:03             37.77618,-122.41711         37.79749,-122.40200         
+	1       1440        712         0.6329         no            FILO      2015-04-13-16:22:00             37.76660,-122.41815         37.80142,-122.40112         2015-04-13-16:22:03             37.77618,-122.41711         37.79749,-122.40200         
+
+
+current request: 2015-04-13-16:21:36
+request origin:  37.31931,-121.97508
+request dest:    37.40486,-121.93134
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1221        918         3.9775         no            FIFO      2015-04-13-16:19:29             37.61490,-122.38578         37.77978,-122.39150         2015-04-13-16:22:04             37.61502,-122.38680         37.77792,-122.42630         
+	1       1221        918         3.9179         no            FILO      2015-04-13-16:19:29             37.61490,-122.38578         37.77978,-122.39150         2015-04-13-16:22:04             37.61502,-122.38680         37.77792,-122.42630         
+
+
+current request: 2015-04-13-16:21:40
+request origin:  37.77921,-122.40958
+request dest:    37.77522,-122.41810
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3109        419         3.0826         no            FIFO      2015-04-13-16:11:38             37.74500,-122.42002         37.61706,-122.38410         2015-04-13-16:22:08             37.75802,-122.43584         37.61780,-122.38537         
+	1       3109        419         3.1378         no            FILO      2015-04-13-16:11:38             37.74500,-122.42002         37.61706,-122.38410         2015-04-13-16:22:08             37.75802,-122.43584         37.61780,-122.38537         
+	2       1635        419         3.7603         yes           FIFO      2015-04-13-16:15:28             37.76287,-122.46430         37.61670,-122.38380         2015-04-13-16:22:08             37.75802,-122.43584         37.61780,-122.38537         
+	3       1635        419         3.8384         yes           FILO      2015-04-13-16:15:28             37.76287,-122.46430         37.61670,-122.38380         2015-04-13-16:22:08             37.75802,-122.43584         37.61780,-122.38537         
+
+
+current request: 2015-04-13-16:21:45
+request origin:  37.39412,-122.10101
+request dest:    37.61723,-122.38410
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       914         2460        0.1762         no            FIFO      2015-04-13-16:20:36             37.80356,-122.40427         37.79357,-122.39799         2015-04-13-16:22:12             37.80079,-122.40477         37.79176,-122.39300         
+
+
+current request: 2015-04-13-16:22:07
+request origin:  37.78639,-122.40998
+request dest:    37.79275,-122.40435
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1032        223         5.0450         no            FIFO      2015-04-13-16:21:04             37.61780,-122.38568         37.48458,-122.20270         2015-04-13-16:22:37             37.60392,-122.37563         37.48305,-122.14990         
+
+
+current request: 2015-04-13-16:22:37
+request origin:  37.76322,-122.46914
+request dest:    37.78918,-122.40916
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2463        2461        1.3871         no            FIFO      2015-04-13-16:23:04             37.74308,-122.48462         37.78817,-122.40980         2015-04-13-16:22:37             37.76322,-122.46914         37.78918,-122.40916         
+	1       2463        2461        1.3358         no            FILO      2015-04-13-16:23:04             37.74308,-122.48462         37.78817,-122.40980         2015-04-13-16:22:37             37.76322,-122.46914         37.78918,-122.40916         
+
+
+current request: 2015-04-13-16:22:55
+request origin:  37.79254,-122.44325
+request dest:    37.77657,-122.41790
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       35          1963        0.2966         no            FIFO      2015-04-13-16:22:55             37.79254,-122.44325         37.77657,-122.41790         2015-04-13-16:23:23             37.79067,-122.43244         37.77528,-122.42074         
+	1       35          1963        0.3099         no            FILO      2015-04-13-16:22:55             37.79254,-122.44325         37.77657,-122.41790         2015-04-13-16:23:23             37.79067,-122.43244         37.77528,-122.42074         
+	2       1633        2742        1.0015         no            FIFO      2015-04-13-16:15:05             37.36395,-121.92894         37.39041,-122.02300         2015-04-13-16:23:18             37.36448,-121.92338         37.41970,-122.17100         
+
+
+current request: 2015-04-13-16:23:10
+request origin:  37.79604,-122.21246
+request dest:    37.80746,-122.26760
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       576         420         1.7506         yes           FIFO      2015-04-13-16:06:43             37.50372,-122.31838         37.61792,-122.38560         2015-04-13-16:23:40             37.55090,-122.33717         37.61602,-122.39010         
+	1       576         420         1.7381         yes           FILO      2015-04-13-16:06:43             37.50372,-122.31838         37.61792,-122.38560         2015-04-13-16:23:40             37.55090,-122.33717         37.61602,-122.39010         
+
+
+current request: 2015-04-13-16:23:29
+request origin:  37.33079,-121.88184
+request dest:    37.36659,-121.92550
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1936        3136        0.3445         no            FIFO      2015-04-13-16:08:42             37.75350,-122.44326         37.77186,-122.40937         2015-04-13-16:23:58             37.75990,-122.43410         37.78573,-122.40720         
+
+
+current request: 2015-04-13-16:23:42
+request origin:  37.79283,-122.39379
+request dest:    37.78411,-122.39500
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2150        923         0.2721         yes           FIFO      2015-04-13-16:16:57             37.79735,-122.44701         37.79323,-122.40194         2015-04-13-16:24:08             37.79367,-122.42463         37.79062,-122.39040         
+	1       2553        129         0.7295         no            FILO      2015-04-13-16:21:21             37.74911,-122.42621         37.79053,-122.39660         2015-04-13-16:24:01             37.76072,-122.42403         37.78362,-122.39900         
+
+
+current request: 2015-04-13-16:23:47
+request origin:  37.77393,-122.39624
+request dest:    37.77533,-122.41828
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       415         1442        0.1837         yes           FIFO      2015-04-13-16:19:56             37.77240,-122.41617         37.78630,-122.39262         2015-04-13-16:24:15             37.78006,-122.40409         37.78909,-122.38896         
+	1       1437        1327        0.3744         yes           FIFO      2015-04-13-16:19:44             37.76357,-122.39812         37.78452,-122.39819         2015-04-13-16:24:17             37.76304,-122.39754         37.78679,-122.39980         
+
+
+current request: 2015-04-13-16:24:07
+request origin:  37.78707,-122.39113
+request dest:    37.77480,-122.40320
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3030        132         0.1527         yes           FIFO      2015-04-13-16:20:16             37.79588,-122.41846         37.79229,-122.39968         2015-04-13-16:24:33             37.79551,-122.41361         37.78342,-122.39320         
+
+
+current request: 2015-04-13-16:24:14
+request origin:  37.41978,-122.15061
+request dest:    37.42735,-122.16203
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       706         1253        0.3357         yes           FILO      2015-04-13-16:19:16             37.78535,-122.44615         37.79014,-122.40940         2015-04-13-16:24:38             37.78875,-122.43743         37.78915,-122.41680         
+	1       1131        515         0.0999         yes           FIFO      2015-04-13-16:19:46             37.79473,-122.41461         37.78232,-122.40740         2015-04-13-16:24:38             37.79633,-122.41242         37.77443,-122.39820         
+
+
+current request: 2015-04-13-16:24:27
+request origin:  37.36949,-121.92882
+request dest:    37.38569,-121.97258
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       710         607         0.1919         no            FIFO      2015-04-13-16:20:40             37.79587,-122.39801         37.78857,-122.40540         2015-04-13-16:24:57             37.79705,-122.39805         37.78596,-122.40548         
+
+
+current request: 2015-04-13-16:24:41
+request origin:  37.61688,-122.38383
+request dest:    37.40244,-122.05670
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1857        1550        5.2756         no            FIFO      2015-04-13-16:21:52             37.80388,-122.40702         37.61644,-122.38390         2015-04-13-16:25:09             37.78716,-122.41204         37.61532,-122.38970         
+	1       1857        1550        5.2433         no            FILO      2015-04-13-16:21:52             37.80388,-122.40702         37.61644,-122.38390         2015-04-13-16:25:09             37.78716,-122.41204         37.61532,-122.38970         
+
+
+current request: 2015-04-13-16:24:45
+request origin:  37.89147,-122.28187
+request dest:    37.71217,-122.21234
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1548        228         1.1250         no            FIFO      2015-04-13-16:23:43             37.61491,-122.38569         37.65557,-122.38401         2015-04-13-16:25:14             37.61705,-122.38462         37.66716,-122.38314         
+	1       2716        926         0.2172         yes           FIFO      2015-04-13-16:09:41             37.77620,-122.39408         37.79763,-122.43163         2015-04-13-16:25:14             37.78792,-122.41252         37.80418,-122.44889         
+
+
+current request: 2015-04-13-16:25:13
+request origin:  37.64390,-122.48787
+request dest:    37.78162,-122.39159
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2636        2635        0.3119         no            FIFO      2015-04-13-16:25:42             37.78458,-122.40865         37.80652,-122.42061         2015-04-13-16:25:25             37.79026,-122.41452         37.80696,-122.41726         
+	1       2636        2635        0.3186         no            FILO      2015-04-13-16:25:42             37.78458,-122.40865         37.80652,-122.42061         2015-04-13-16:25:25             37.79026,-122.41452         37.80696,-122.41726         
+
+
+current request: 2015-04-13-16:25:45
+request origin:  37.78103,-122.47293
+request dest:    37.78710,-122.38852
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1142        134         0.2991         no            FIFO      2015-04-13-16:26:08             37.79959,-122.25694         37.80966,-122.26449         2015-04-13-16:25:54             37.79868,-122.25825         37.80986,-122.26507         
+	1       1142        134         0.2778         no            FILO      2015-04-13-16:26:08             37.79959,-122.25694         37.80966,-122.26449         2015-04-13-16:25:54             37.79868,-122.25825         37.80986,-122.26507         
+	2       134         1142        0.2947         no            FIFO      2015-04-13-16:25:54             37.79868,-122.25825         37.80986,-122.26507         2015-04-13-16:26:08             37.79959,-122.25694         37.80966,-122.26449         
+	3       134         1142        0.3179         no            FILO      2015-04-13-16:25:54             37.79868,-122.25825         37.80986,-122.26507         2015-04-13-16:26:08             37.79959,-122.25694         37.80966,-122.26449         
+	4       2528        2558        3.8123         yes           FIFO      2015-04-13-16:03:45             37.85038,-122.47967         37.61708,-122.38390         2015-04-13-16:26:06             37.77350,-122.45239         37.61511,-122.38970         
+	5       2528        2558        3.7882         yes           FILO      2015-04-13-16:03:45             37.85038,-122.47967         37.61708,-122.38390         2015-04-13-16:26:06             37.77350,-122.45239         37.61511,-122.38970         
+
+
+current request: 2015-04-13-16:26:00
+request origin:  37.30951,-122.03151
+request dest:    37.32109,-122.04330
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1447        608         0.0792         no            FIFO      2015-04-13-16:26:28             37.79493,-122.42134         37.79270,-122.40477         2015-04-13-16:26:04             37.79240,-122.41522         37.79194,-122.39170         
+
+
+current request: 2015-04-13-16:26:08
+request origin:  37.37567,-121.91832
+request dest:    37.33637,-121.90327
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1226        1237        0.3032         yes           FIFO      2015-04-13-16:21:30             37.78778,-122.41436         37.78397,-122.39550         2015-04-13-16:26:33             37.78914,-122.41452         37.78257,-122.39300         
+	1       2355        2942        0.4700         no            FIFO      2015-04-13-16:22:26             37.73930,-122.41579         37.76783,-122.41064         2015-04-13-16:26:31             37.74597,-122.41361         37.77056,-122.40320         
+	2       2355        2262        0.0982         no            FIFO      2015-04-13-16:22:26             37.73930,-122.41579         37.76783,-122.41064         2015-04-13-16:26:38             37.75431,-122.41240         37.77548,-122.41840         
+
+
+current request: 2015-04-13-16:26:22
+request origin:  37.36518,-121.95694
+request dest:    37.30217,-121.97690
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       39          137         0.2568         no            FIFO      2015-04-13-16:24:45             37.76282,-122.42115         37.77610,-122.39280         2015-04-13-16:26:52             37.76273,-122.40711         37.78158,-122.39180         
+
+
+current request: 2015-04-13-16:26:38
+request origin:  37.75431,-122.41240
+request dest:    37.77548,-122.41840
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       128         1239        0.0742         no            FIFO      2015-04-13-16:23:42             37.79283,-122.39379         37.78411,-122.39500         2015-04-13-16:27:06             37.79064,-122.39738         37.78053,-122.39382         
+	1       2740        1045        0.3515         yes           FIFO      2015-04-13-16:21:54             37.61760,-122.38500         37.63366,-122.42250         2015-04-13-16:27:05             37.62131,-122.37896         37.62807,-122.42547         
+	2       1764        519         2.8955         no            FIFO      2015-04-13-16:27:03             37.76074,-122.39758         37.61509,-122.38480         2015-04-13-16:26:45             37.78596,-122.39682         37.61797,-122.38579         
+	3       1764        519         3.0579         no            FILO      2015-04-13-16:27:03             37.76074,-122.39758         37.61509,-122.38480         2015-04-13-16:26:45             37.78596,-122.39682         37.61797,-122.38579         
+	4       519         1764        4.4575         no            FIFO      2015-04-13-16:26:45             37.78596,-122.39682         37.61797,-122.38579         2015-04-13-16:27:03             37.76074,-122.39758         37.61509,-122.38480         
+	5       519         1764        4.2947         no            FILO      2015-04-13-16:26:45             37.78596,-122.39682         37.61797,-122.38579         2015-04-13-16:27:03             37.76074,-122.39758         37.61509,-122.38480         
+
+
+current request: 2015-04-13-16:27:04
+request origin:  37.70245,-122.47860
+request dest:    37.78786,-122.38764
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2932        2560        0.9233         no            FIFO      2015-04-13-16:20:21             37.39232,-122.09499         37.44810,-122.15897         2015-04-13-16:27:33             37.40278,-122.11160         37.48412,-122.14790         
+
+
+current request: 2015-04-13-16:27:44
+request origin:  37.77644,-122.39432
+request dest:    37.77895,-122.41470
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       317         613         0.1602         no            FILO      2015-04-13-16:19:29             37.77490,-122.39420         37.78860,-122.40350         2015-04-13-16:27:59             37.77661,-122.39470         37.78262,-122.40340         
+	1       317         2170        0.2704         yes           FIFO      2015-04-13-16:19:29             37.77490,-122.39420         37.78860,-122.40350         2015-04-13-16:28:11             37.77644,-122.39432         37.79792,-122.40090         
+	2       2071        330         0.1325         no            FIFO      2015-04-13-16:28:12             37.76848,-122.42709         37.77108,-122.40880         2015-04-13-16:28:11             37.76860,-122.42940         37.78140,-122.39146         
+	3       920         931         0.8872         no            FIFO      2015-04-13-16:23:44             37.79123,-122.39756         37.78329,-122.44060         2015-04-13-16:27:56             37.79223,-122.40123         37.78484,-122.43982         
+	4       920         931         0.9424         no            FILO      2015-04-13-16:23:44             37.79123,-122.39756         37.78329,-122.44060         2015-04-13-16:27:56             37.79223,-122.40123         37.78484,-122.43982         
+	5       1330        3144        0.4106         no            FIFO      2015-04-13-16:26:41             37.78026,-122.41638         37.79675,-122.43829         2015-04-13-16:28:04             37.77698,-122.41786         37.79836,-122.44967         
+
+
+current request: 2015-04-13-16:27:47
+request origin:  37.95234,-122.35121
+request dest:    37.93574,-122.35280
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2546        615         0.7910         yes           FIFO      2015-04-13-16:14:21             37.71170,-122.42869         37.78921,-122.40350         2015-04-13-16:28:16             37.74998,-122.42318         37.79725,-122.40575         
+
+
+current request: 2015-04-13-16:27:59
+request origin:  37.77661,-122.39470
+request dest:    37.78262,-122.40340
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1036        1145        0.3768         yes           FIFO      2015-04-13-16:23:47             37.77393,-122.39624         37.77533,-122.41828         2015-04-13-16:28:28             37.77673,-122.39546         37.77543,-122.41820         
+	1       1036        1145        0.3805         yes           FILO      2015-04-13-16:23:47             37.77393,-122.39624         37.77533,-122.41828         2015-04-13-16:28:28             37.77673,-122.39546         37.77543,-122.41820         
+	2       1124        331         1.1214         yes           FIFO      2015-04-13-16:16:09             37.35293,-121.99724         37.42283,-122.08814         2015-04-13-16:28:24             37.37719,-122.02758         37.42430,-122.09536         
+
+
+current request: 2015-04-13-16:28:19
+request origin:  37.80051,-122.44391
+request dest:    37.78529,-122.39640
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2557        1870        0.1861         no            FIFO      2015-04-13-16:25:20             37.80348,-122.40828         37.77568,-122.41860         2015-04-13-16:28:48             37.79410,-122.40427         37.77799,-122.41590         
+	1       2557        1870        0.3573         no            FILO      2015-04-13-16:25:20             37.80348,-122.40828         37.77568,-122.41860         2015-04-13-16:28:48             37.79410,-122.40427         37.77799,-122.41590         
+
+
+current request: 2015-04-13-16:28:30
+request origin:  36.97953,-121.98220
+request dest:    36.97436,-122.01994
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       613         2946        0.1568         no            FIFO      2015-04-13-16:27:59             37.77661,-122.39470         37.78262,-122.40340         2015-04-13-16:28:49             37.77680,-122.39539         37.78633,-122.40175         
+
+
+current request: 2015-04-13-16:29:33
+request origin:  37.78672,-122.43810
+request dest:    37.61660,-122.38382
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1144        2948        0.5088         yes           FIFO      2015-04-13-16:28:19             37.80051,-122.44391         37.78529,-122.39640         2015-04-13-16:30:03             37.79935,-122.44733         37.79600,-122.39510         
+
+
+current request: 2015-04-13-16:30:02
+request origin:  37.65600,-122.40516
+request dest:    37.66628,-122.39784
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2941        1558        0.6688         no            FIFO      2015-04-13-16:26:28             37.78347,-122.48035         37.77793,-122.42210         2015-04-13-16:30:24             37.77904,-122.46573         37.78888,-122.40371         
+	1       716         1558        1.3219         yes           FILO      2015-04-13-16:25:45             37.78103,-122.47293         37.78710,-122.38852         2015-04-13-16:30:24             37.77904,-122.46573         37.78888,-122.40371         
+	2       2152        1149        2.9388         yes           FIFO      2015-04-13-16:17:49             37.54585,-122.29104         37.78562,-122.44858         2015-04-13-16:30:32             37.55422,-122.31929         37.77308,-122.38720         
+	3       2152        1149        4.4782         yes           FILO      2015-04-13-16:17:49             37.54585,-122.29104         37.78562,-122.44858         2015-04-13-16:30:32             37.55422,-122.31929         37.77308,-122.38720         
+
+
+current request: 2015-04-13-16:30:12
+request origin:  37.77582,-122.41657
+request dest:    37.76476,-122.40300
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2465        426         5.2117         yes           FILO      2015-04-13-16:24:41             37.61688,-122.38383         37.40244,-122.05670         2015-04-13-16:30:39             37.61771,-122.38525         37.48151,-122.15602         
+
+
+current request: 2015-04-13-16:30:16
+request origin:  37.92842,-122.05545
+request dest:    37.92582,-122.01898
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1146        2367        0.9029         no            FIFO      2015-04-13-16:29:43             37.75937,-122.47645         37.78431,-122.40760         2015-04-13-16:30:44             37.76524,-122.46565         37.80625,-122.40512         
+
+
+current request: 2015-04-13-16:30:23
+request origin:  37.78938,-122.41216
+request dest:    37.76389,-122.45659
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2361        2266        3.5156         no            FIFO      2015-04-13-16:26:23             37.62025,-122.38359         37.77688,-122.39540         2015-04-13-16:30:50             37.61778,-122.38686         37.87588,-122.45900         
+
+
+current request: 2015-04-13-16:30:28
+request origin:  37.78929,-122.40699
+request dest:    37.79147,-122.39230
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2941        1337        0.3601         no            FIFO      2015-04-13-16:26:28             37.78347,-122.48035         37.77793,-122.42210         2015-04-13-16:30:55             37.78382,-122.45989         37.79162,-122.39310         
+	1       1337        2173        0.2569         no            FIFO      2015-04-13-16:30:55             37.78382,-122.45989         37.79162,-122.39310         2015-04-13-16:30:46             37.77148,-122.44698         37.78344,-122.39610         
+
+
+current request: 2015-04-13-16:30:43
+request origin:  37.79850,-122.40196
+request dest:    37.78263,-122.40771
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1661        2643        0.2583         no            FILO      2015-04-13-16:27:19             37.79311,-122.42241         37.79227,-122.39380         2015-04-13-16:31:04             37.79275,-122.42238         37.79806,-122.40417         
+	1       2173        2950        0.1350         no            FIFO      2015-04-13-16:30:46             37.77148,-122.44698         37.78344,-122.39610         2015-04-13-16:31:10             37.76338,-122.42763         37.78663,-122.40280         
+
+
+current request: 2015-04-13-16:30:47
+request origin:  37.85273,-122.21209
+request dest:    37.86901,-122.27120
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3043        1338        2.3926         no            FILO      2015-04-13-16:27:04             37.70245,-122.47860         37.78786,-122.38764         2015-04-13-16:31:15             37.69972,-122.47965         37.78386,-122.41760         
+
+
+current request: 2015-04-13-16:31:05
+request origin:  37.79456,-122.39448
+request dest:    37.78631,-122.40940
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       425         824         0.0456         no            FIFO      2015-04-13-16:30:31             37.79122,-122.44146         37.77618,-122.41710         2015-04-13-16:31:07             37.78056,-122.43288         37.76702,-122.40014         
+
+
+current request: 2015-04-13-16:31:09
+request origin:  37.79540,-122.39443
+request dest:    37.80887,-122.41274
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1332        2372        0.3593         no            FIFO      2015-04-13-16:27:44             37.77644,-122.39432         37.77895,-122.41470         2015-04-13-16:31:37             37.77639,-122.39600         37.77559,-122.41860         
+
+
+current request: 2015-04-13-16:31:33
+request origin:  37.76407,-122.40607
+request dest:    37.78008,-122.38976
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2753        3152        0.5053         no            FIFO      2015-04-13-16:31:59             37.79996,-122.44173         37.78467,-122.40850         2015-04-13-16:32:01             37.79968,-122.44535         37.79087,-122.39894         
+	1       3152        2753        0.6374         no            FILO      2015-04-13-16:32:01             37.79968,-122.44535         37.79087,-122.39894         2015-04-13-16:31:59             37.79996,-122.44173         37.78467,-122.40850         
+
+
+current request: 2015-04-13-16:31:38
+request origin:  37.72290,-122.03596
+request dest:    37.67365,-122.08160
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2263        2848        0.5542         yes           FIFO      2015-04-13-16:28:15             37.44395,-122.16513         37.41926,-122.14123         2015-04-13-16:32:05             37.44385,-122.16333         37.40284,-122.11656         
+
+
+current request: 2015-04-13-16:31:55
+request origin:  37.77056,-122.44706
+request dest:    37.78440,-122.39823
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2947        2177        0.4890         no            FILO      2015-04-13-16:29:15             37.78989,-122.41028         37.76339,-122.40149         2015-04-13-16:32:25             37.79095,-122.40932         37.77066,-122.40478         
+
+
+current request: 2015-04-13-16:32:05
+request origin:  37.78563,-122.41039
+request dest:    37.78777,-122.40314
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2749        3053        0.0768         yes           FIFO      2015-04-13-16:28:45             37.80038,-122.40105         37.78517,-122.39620         2015-04-13-16:32:30             37.79210,-122.39816         37.78227,-122.39250         
+
+
+current request: 2015-04-13-16:32:11
+request origin:  37.75856,-122.46663
+request dest:    37.77428,-122.45452
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1960        431         5.7229         yes           FIFO      2015-04-13-16:21:45             37.39412,-122.10101         37.61723,-122.38410         2015-04-13-16:32:41             37.42495,-122.15175         37.61797,-122.38580         
+	1       1960        431         5.6412         yes           FILO      2015-04-13-16:21:45             37.39412,-122.10101         37.61723,-122.38410         2015-04-13-16:32:41             37.42495,-122.15175         37.61797,-122.38580         
+
+
+current request: 2015-04-13-16:32:26
+request origin:  37.81579,-122.24416
+request dest:    37.80890,-122.26767
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1047        432         0.9575         no            FIFO      2015-04-13-16:31:55             37.77056,-122.44706         37.78440,-122.39823         2015-04-13-16:32:51             37.77296,-122.44077         37.78121,-122.39593         
+	1       1047        432         0.9092         no            FILO      2015-04-13-16:31:55             37.77056,-122.44706         37.78440,-122.39823         2015-04-13-16:32:51             37.77296,-122.44077         37.78121,-122.39593         
+
+
+current request: 2015-04-13-16:32:38
+request origin:  37.72606,-122.43966
+request dest:    37.76375,-122.45679
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2171        1668        4.7209         yes           FIFO      2015-04-13-16:29:33             37.78672,-122.43810         37.61660,-122.38382         2015-04-13-16:33:05             37.79466,-122.42233         37.61647,-122.38380         
+	1       2171        1668        4.7139         yes           FILO      2015-04-13-16:29:33             37.78672,-122.43810         37.61660,-122.38382         2015-04-13-16:33:05             37.79466,-122.42233         37.61647,-122.38380         
+	2       2728        1668        4.8435         yes           FIFO      2015-04-13-16:16:10             37.87472,-122.45742         37.61528,-122.38480         2015-04-13-16:33:05             37.79466,-122.42233         37.61647,-122.38380         
+	3       2728        1668        4.9016         yes           FILO      2015-04-13-16:16:10             37.87472,-122.45742         37.61528,-122.38480         2015-04-13-16:33:05             37.79466,-122.42233         37.61647,-122.38380         
+
+
+current request: 2015-04-13-16:32:44
+request origin:  37.48589,-122.23198
+request dest:    37.48524,-122.20280
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2171        146         4.4998         yes           FIFO      2015-04-13-16:29:33             37.78672,-122.43810         37.61660,-122.38382         2015-04-13-16:33:10             37.76628,-122.42192         37.61533,-122.38987         
+	1       2171        146         4.4787         yes           FILO      2015-04-13-16:29:33             37.78672,-122.43810         37.61660,-122.38382         2015-04-13-16:33:10             37.76628,-122.42192         37.61533,-122.38987         
+
+
+current request: 2015-04-13-16:32:57
+request origin:  37.78655,-122.40612
+request dest:    37.79169,-122.41060
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       148         1242        0.0958         no            FIFO      2015-04-13-16:33:24             37.79259,-122.42411         37.77771,-122.39583         2015-04-13-16:33:21             37.78913,-122.40725         37.77943,-122.39040         
+
+
+current request: 2015-04-13-16:33:07
+request origin:  37.59880,-122.36648
+request dest:    37.58921,-122.34126
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1872        1669        0.9409         no            FIFO      2015-04-13-16:30:23             37.78938,-122.41216         37.76389,-122.45659         2015-04-13-16:33:37             37.78947,-122.40587         37.76578,-122.46650         
+	1       2563        1669        0.7755         no            FIFO      2015-04-13-16:29:19             37.78526,-122.39971         37.78062,-122.47140         2015-04-13-16:33:37             37.78947,-122.40587         37.76578,-122.46650         
+
+
+current request: 2015-04-13-16:33:25
+request origin:  37.37405,-122.03525
+request dest:    37.38239,-121.91190
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2563        2851        0.8151         no            FILO      2015-04-13-16:29:19             37.78526,-122.39971         37.78062,-122.47140         2015-04-13-16:33:53             37.78668,-122.39254         37.77911,-122.45190         
+
+
+current request: 2015-04-13-16:33:35
+request origin:  37.77937,-122.41472
+request dest:    37.80238,-122.47580
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2474        1243        3.1488         no            FIFO      2015-04-13-16:30:54             37.61612,-122.39018         37.77467,-122.44835         2015-04-13-16:34:03             37.61759,-122.38582         37.79014,-122.39460         
+
+
+current request: 2015-04-13-16:33:49
+request origin:  37.77613,-122.40966
+request dest:    37.76789,-122.41080
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2565        337         0.1313         no            FIFO      2015-04-13-16:31:58             37.80675,-122.41146         37.79258,-122.39810         2015-04-13-16:34:18             37.80148,-122.40897         37.77767,-122.39152         
+	1       2175        1158        4.9428         no            FIFO      2015-04-13-16:31:22             37.76192,-122.47759         37.61563,-122.38440         2015-04-13-16:34:17             37.76297,-122.46698         37.61472,-122.38630         
+	2       2175        1158        4.9299         no            FILO      2015-04-13-16:31:22             37.76192,-122.47759         37.61563,-122.38440         2015-04-13-16:34:17             37.76297,-122.46698         37.61472,-122.38630         
+
+
+current request: 2015-04-13-16:34:05
+request origin:  37.30580,-121.98351
+request dest:    37.33342,-122.02950
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2945        1245        0.6415         yes           FIFO      2015-04-13-16:28:30             36.97953,-121.98220         36.97436,-122.01994         2015-04-13-16:34:35             36.98180,-121.97919         36.97591,-122.02614         
+
+
+current request: 2015-04-13-16:34:15
+request origin:  37.71609,-122.44503
+request dest:    37.75152,-122.43098
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       238         1977        0.1096         no            FIFO      2015-04-13-16:33:44             37.80303,-122.42552         37.78725,-122.42180         2015-04-13-16:34:16             37.79893,-122.42860         37.77732,-122.40730         
+	1       2564        2959        0.7705         no            FIFO      2015-04-13-16:31:52             37.66911,-122.39014         37.61486,-122.38960         2015-04-13-16:34:43             37.65116,-122.38392         37.61486,-122.38529         
+	2       2564        2959        0.7852         no            FILO      2015-04-13-16:31:52             37.66911,-122.39014         37.61486,-122.38960         2015-04-13-16:34:43             37.65116,-122.38392         37.61486,-122.38529         
+	3       1156        55          7.6151         no            FILO      2015-04-13-16:33:26             37.62131,-122.37896         37.38440,-122.04330         2015-04-13-16:34:40             37.61767,-122.38650         37.41949,-122.14194         
+
+
+current request: 2015-04-13-16:34:53
+request origin:  37.50420,-122.21356
+request dest:    37.48577,-122.23107
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       823         2960        0.0620         yes           FIFO      2015-04-13-16:30:43             37.79850,-122.40196         37.78263,-122.40771         2015-04-13-16:35:23             37.79202,-122.40694         37.77347,-122.40370         
+	1       2755        2960        0.3659         yes           FILO      2015-04-13-16:32:39             37.79167,-122.41034         37.76337,-122.40140         2015-04-13-16:35:23             37.79202,-122.40694         37.77347,-122.40370         
+
+
+current request: 2015-04-13-16:35:01
+request origin:  37.48535,-122.20326
+request dest:    37.48308,-122.15010
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2181        938         0.0792         no            FIFO      2015-04-13-16:33:31             37.78744,-122.41403         37.78794,-122.39690         2015-04-13-16:35:25             37.78868,-122.40772         37.78382,-122.39570         
+	1       937         938         0.2178         no            FILO      2015-04-13-16:33:42             37.78773,-122.40819         37.78166,-122.38715         2015-04-13-16:35:25             37.78868,-122.40772         37.78382,-122.39570         
+
+
+current request: 2015-04-13-16:35:07
+request origin:  37.77488,-122.40316
+request dest:    37.72454,-122.44881
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3057        153         0.3840         no            FIFO      2015-04-13-16:32:58             37.79584,-122.43361         37.79097,-122.39735         2015-04-13-16:35:36             37.79683,-122.43680         37.77776,-122.39270         
+	1       2853        153         0.2994         no            FIFO      2015-04-13-16:35:36             37.79032,-122.43966         37.78477,-122.40847         2015-04-13-16:35:36             37.79683,-122.43680         37.77776,-122.39270         
+
+
+current request: 2015-04-13-16:35:14
+request origin:  37.79164,-122.40713
+request dest:    37.78772,-122.40840
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2651        1056        0.2084         no            FIFO      2015-04-13-16:35:42             37.75441,-122.40225         37.78048,-122.41250         2015-04-13-16:35:15             37.76385,-122.40325         37.78351,-122.40558         
+
+
+current request: 2015-04-13-16:35:55
+request origin:  37.51832,-122.26597
+request dest:    37.62738,-122.40080
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2752        625         0.2032         yes           FIFO      2015-04-13-16:30:17             37.79201,-122.43096         37.79270,-122.40490         2015-04-13-16:36:17             37.79369,-122.42148         37.79135,-122.39894         
+	1       438         625         0.2805         no            FIFO      2015-04-13-16:36:25             37.79665,-122.43173         37.78883,-122.40390         2015-04-13-16:36:17             37.79369,-122.42148         37.79135,-122.39894         
+	2       2759        836         0.3082         no            FIFO      2015-04-13-16:36:02             37.77303,-122.40195         37.79420,-122.39273         2015-04-13-16:36:07             37.77638,-122.39849         37.79364,-122.39710         
+	3       2759        836         0.3693         no            FILO      2015-04-13-16:36:02             37.77303,-122.40195         37.79420,-122.39273         2015-04-13-16:36:07             37.77638,-122.39849         37.79364,-122.39710         
+
+
+current request: 2015-04-13-16:36:10
+request origin:  37.72758,-122.14967
+request dest:    37.72163,-122.16086
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2853        1984        0.2857         no            FIFO      2015-04-13-16:35:36             37.79032,-122.43966         37.78477,-122.40847         2015-04-13-16:36:11             37.78638,-122.42906         37.78888,-122.40415         
+	1       2853        1250        0.3669         no            FIFO      2015-04-13-16:35:36             37.79032,-122.43966         37.78477,-122.40847         2015-04-13-16:36:32             37.79182,-122.43419         37.77705,-122.40830         
+
+
+current request: 2015-04-13-16:36:13
+request origin:  37.56821,-122.32393
+request dest:    37.59966,-122.38676
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2163        1252        2.0697         yes           FILO      2015-04-13-16:24:45             37.89147,-122.28187         37.71217,-122.21234         2015-04-13-16:36:43             37.84036,-122.28149         37.74043,-122.20100         
+
+
+current request: 2015-04-13-16:36:18
+request origin:  37.78790,-122.38979
+request dest:    37.79323,-122.40170
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       152         2652        0.5329         no            FIFO      2015-04-13-16:34:48             37.76999,-122.43835         37.78609,-122.40800         2015-04-13-16:36:47             37.77568,-122.43129         37.78620,-122.40190         
+	1       1251        2761        0.4416         no            FIFO      2015-04-13-16:36:34             37.79985,-122.44209         37.78751,-122.38760         2015-04-13-16:36:48             37.79206,-122.43258         37.78969,-122.39414         
+	2       1251        2761        0.7405         no            FILO      2015-04-13-16:36:34             37.79985,-122.44209         37.78751,-122.38760         2015-04-13-16:36:48             37.79206,-122.43258         37.78969,-122.39414         
+
+
+current request: 2015-04-13-16:36:42
+request origin:  37.54685,-122.30763
+request dest:    37.41342,-121.96158
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1984        1253        0.0777         no            FIFO      2015-04-13-16:36:11             37.78638,-122.42906         37.78888,-122.40415         2015-04-13-16:37:00             37.78913,-122.41661         37.79349,-122.39757         
+
+
+current request: 2015-04-13-16:37:30
+request origin:  37.80133,-122.42934
+request dest:    37.78819,-122.39550
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1677        1467        0.3761         no            FIFO      2015-04-13-16:37:57             37.80315,-122.43641         37.79837,-122.40240         2015-04-13-16:37:30             37.80133,-122.42934         37.78819,-122.39550         
+
+
+current request: 2015-04-13-16:38:43
+request origin:  37.42135,-122.16178
+request dest:    37.42107,-122.17350
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2649        630         1.9842         no            FIFO      2015-04-13-16:33:59             37.77638,-122.39258         37.65456,-122.39610         2015-04-13-16:39:09             37.79277,-122.40307         37.59258,-122.36307         
+	1       2757        841         3.3354         yes           FIFO      2015-04-13-16:33:29             37.77884,-122.43893         37.60070,-122.37437         2015-04-13-16:39:07             37.76302,-122.42480         37.61789,-122.38570         
+	2       2757        841         4.3799         yes           FILO      2015-04-13-16:33:29             37.77884,-122.43893         37.60070,-122.37437         2015-04-13-16:39:07             37.76302,-122.42480         37.61789,-122.38570         
+
+
+current request: 2015-04-13-16:38:49
+request origin:  37.68936,-122.47233
+request dest:    37.70657,-122.46875
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1682        2480        1.1400         no            FIFO      2015-04-13-16:39:16             37.60041,-122.38974         37.55883,-122.27756         2015-04-13-16:39:02             37.61825,-122.38510         37.56825,-122.28483         
+	1       1682        2480        1.6971         no            FILO      2015-04-13-16:39:16             37.60041,-122.38974         37.55883,-122.27756         2015-04-13-16:39:02             37.61825,-122.38510         37.56825,-122.28483         
+	2       2480        1682        1.9606         no            FIFO      2015-04-13-16:39:02             37.61825,-122.38510         37.56825,-122.28483         2015-04-13-16:39:16             37.60041,-122.38974         37.55883,-122.27756         
+
+
+current request: 2015-04-13-16:38:53
+request origin:  37.79590,-122.41504
+request dest:    37.78531,-122.40880
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1349        842         0.2911         no            FIFO      2015-04-13-16:36:46             37.76374,-122.38894         37.79402,-122.39664         2015-04-13-16:39:23             37.77821,-122.39120         37.79472,-122.40020         
+
+
+current request: 2015-04-13-16:39:25
+request origin:  37.76668,-122.42874
+request dest:    37.77364,-122.44080
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1891        3064        7.2856         no            FIFO      2015-04-13-16:39:55             37.78532,-122.40044         37.55896,-122.27710         2015-04-13-16:39:27             37.78083,-122.41334         37.53384,-122.25890         
+	1       1891        3064        5.6766         no            FILO      2015-04-13-16:39:55             37.78532,-122.40044         37.55896,-122.27710         2015-04-13-16:39:27             37.78083,-122.41334         37.53384,-122.25890         
+	2       3064        1891        5.6923         no            FIFO      2015-04-13-16:39:27             37.78083,-122.41334         37.53384,-122.25890         2015-04-13-16:39:55             37.78532,-122.40044         37.55896,-122.27710         
+	3       3064        1891        7.2952         no            FILO      2015-04-13-16:39:27             37.78083,-122.41334         37.53384,-122.25890         2015-04-13-16:39:55             37.78532,-122.40044         37.55896,-122.27710         
+
+
+current request: 2015-04-13-16:40:08
+request origin:  37.79365,-122.39559
+request dest:    37.78019,-122.39108
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2190        1168        0.2100         no            FIFO      2015-04-13-16:39:11             37.75454,-122.42878         37.78338,-122.40874         2015-04-13-16:40:37             37.76827,-122.42374         37.78907,-122.38900         
+
+
+current request: 2015-04-13-16:40:29
+request origin:  37.67215,-122.08413
+request dest:    37.65837,-122.05990
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       40          3170        1.5081         yes           FIFO      2015-04-13-16:25:13             37.64390,-122.48787         37.78162,-122.39159         2015-04-13-16:40:56             37.69996,-122.46333         37.78778,-122.40115         
+	1       1466        2767        6.9892         yes           FILO      2015-04-13-16:36:48             37.61557,-122.38422         37.37377,-121.93230         2015-04-13-16:40:56             37.61718,-122.38418         37.42032,-122.07518         
+
+
+current request: 2015-04-13-16:41:11
+request origin:  37.77234,-122.14958
+request dest:    37.84037,-122.28532
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       507         254         7.5924         yes           FIFO      2015-04-13-16:20:00             37.34509,-121.92588         37.61755,-122.38755         2015-04-13-16:41:38             37.42218,-122.08835         37.61782,-122.38530         
+	1       507         254         7.6593         yes           FILO      2015-04-13-16:20:00             37.34509,-121.92588         37.61755,-122.38755         2015-04-13-16:41:38             37.42218,-122.08835         37.61782,-122.38530         
+
+
+current request: 2015-04-13-16:41:17
+request origin:  37.55123,-122.27738
+request dest:    37.54998,-122.31698
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1889        2579        0.2204         no            FIFO      2015-04-13-16:38:14             37.77858,-122.41820         37.77726,-122.39533         2015-04-13-16:41:43             37.77652,-122.41173         37.78160,-122.39241         
+	1       1067        2579        0.2465         no            FIFO      2015-04-13-16:41:28             37.76817,-122.42539         37.77995,-122.39140         2015-04-13-16:41:43             37.77652,-122.41173         37.78160,-122.39241         
+
+
+current request: 2015-04-13-16:41:27
+request origin:  37.79272,-122.41473
+request dest:    37.79267,-122.40407
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       323         3172        2.6318         yes           FIFO      2015-04-13-16:24:02             37.44630,-122.14931         37.61703,-122.38390         2015-04-13-16:41:57             37.49900,-122.25811         37.61698,-122.38390         
+	1       323         3172        2.6339         yes           FILO      2015-04-13-16:24:02             37.44630,-122.14931         37.61703,-122.38390         2015-04-13-16:41:57             37.49900,-122.25811         37.61698,-122.38390         
+
+
+current request: 2015-04-13-16:41:33
+request origin:  37.79367,-122.39339
+request dest:    37.43376,-122.44130
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       244         1266        2.1681         yes           FIFO      2015-04-13-16:35:55             37.51832,-122.26597         37.62738,-122.40080         2015-04-13-16:42:03             37.53891,-122.27092         37.61802,-122.38625         
+	1       244         1266        2.9943         yes           FILO      2015-04-13-16:35:55             37.51832,-122.26597         37.62738,-122.40080         2015-04-13-16:42:03             37.53891,-122.27092         37.61802,-122.38625         
+
+
+current request: 2015-04-13-16:41:39
+request origin:  37.75124,-122.41916
+request dest:    37.61776,-122.38535
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1445        1358        1.7235         yes           FIFO      2015-04-13-16:26:17             37.82853,-122.26842         37.77117,-122.40250         2015-04-13-16:42:07             37.83189,-122.27988         37.77620,-122.41799         
+
+
+current request: 2015-04-13-16:41:46
+request origin:  37.79210,-122.39801
+request dest:    37.80265,-122.41450
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       539         1071        0.0753         no            FIFO      2015-04-13-16:42:14             37.78943,-122.40377         37.78880,-122.42040         2015-04-13-16:42:11             37.79279,-122.40476         37.78605,-122.41870         
+	1       1071        539         0.1152         no            FIFO      2015-04-13-16:42:11             37.79279,-122.40476         37.78605,-122.41870         2015-04-13-16:42:14             37.78943,-122.40377         37.78880,-122.42040         
+
+
+current request: 2015-04-13-16:41:58
+request origin:  37.75697,-122.23286
+request dest:    37.78051,-122.27870
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1166        1788        1.5721         no            FIFO      2015-04-13-16:40:03             37.61475,-122.38202         37.54592,-122.29030         2015-04-13-16:42:26             37.61787,-122.38535         37.48300,-122.15044         
+	1       1788        1070        5.4656         no            FIFO      2015-04-13-16:42:26             37.61787,-122.38535         37.48300,-122.15044         2015-04-13-16:42:00             37.61790,-122.38683         37.40661,-121.93960         
+	2       1070        1788        5.5193         no            FILO      2015-04-13-16:42:00             37.61790,-122.38683         37.40661,-121.93960         2015-04-13-16:42:26             37.61787,-122.38535         37.48300,-122.15044         
+
+
+current request: 2015-04-13-16:42:01
+request origin:  37.71604,-121.84897
+request dest:    37.66175,-121.87363
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1359        3174        0.3335         no            FIFO      2015-04-13-16:42:17             37.75873,-122.41247         37.78745,-122.39925         2015-04-13-16:42:30             37.77138,-122.40510         37.78901,-122.40110         
+
+
+current request: 2015-04-13-16:42:25
+request origin:  37.77469,-122.41546
+request dest:    37.78580,-122.43493
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2279        1997        0.4375         yes           FIFO      2015-04-13-16:39:41             37.80018,-122.44053         37.79082,-122.40190         2015-04-13-16:42:53             37.80301,-122.42529         37.78854,-122.39930         
+	1       527         2195        4.0702         no            FIFO      2015-04-13-16:35:20             37.61822,-122.38563         37.78903,-122.43722         2015-04-13-16:42:51             37.61680,-122.38437         37.79105,-122.40160         
+	2       527         2195        4.2063         no            FILO      2015-04-13-16:35:20             37.61822,-122.38563         37.78903,-122.43722         2015-04-13-16:42:51             37.61680,-122.38437         37.79105,-122.40160         
+
+
+current request: 2015-04-13-16:42:35
+request origin:  37.79344,-122.42110
+request dest:    37.77596,-122.41195
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       33          2581        0.8130         yes           FIFO      2015-04-13-16:21:56             37.38548,-122.04479         37.53098,-122.26460         2015-04-13-16:43:05             37.44498,-122.16526         37.61528,-122.38463         
+	1       2575        2581        4.1037         no            FILO      2015-04-13-16:39:13             37.46126,-122.16652         37.76210,-122.41450         2015-04-13-16:43:05             37.44498,-122.16526         37.61528,-122.38463         
+
+
+current request: 2015-04-13-16:42:54
+request origin:  37.71885,-122.48167
+request dest:    37.73824,-122.49799
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1790        163         2.3665         no            FIFO      2015-04-13-16:43:01             37.62806,-122.39991         37.78565,-122.40554         2015-04-13-16:43:24             37.61793,-122.38442         37.77741,-122.44519         
+	1       163         1790        3.1995         no            FIFO      2015-04-13-16:43:24             37.61793,-122.38442         37.77741,-122.44519         2015-04-13-16:43:01             37.62806,-122.39991         37.78565,-122.40554         
+	2       163         1790        2.9729         no            FILO      2015-04-13-16:43:24             37.61793,-122.38442         37.77741,-122.44519         2015-04-13-16:43:01             37.62806,-122.39991         37.78565,-122.40554         
+
+
+current request: 2015-04-13-16:43:00
+request origin:  37.76300,-122.41289
+request dest:    37.78360,-122.39904
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       67          69          3.1699         no            FILO      2015-04-13-16:41:33             37.79367,-122.39339         37.43376,-122.44130         2015-04-13-16:43:30             37.78557,-122.39991         37.61790,-122.38560         
+
+
+current request: 2015-04-13-16:43:42
+request origin:  37.59740,-122.38425
+request dest:    37.56759,-122.34030
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2867        1999        0.3280         no            FIFO      2015-04-13-16:44:12             37.60480,-122.37661         37.58070,-122.34330         2015-04-13-16:43:42             37.59740,-122.38425         37.56759,-122.34030         
+
+
+current request: 2015-04-13-16:43:55
+request origin:  37.78149,-122.23808
+request dest:    37.61519,-122.38479
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1792        71          4.8155         no            FIFO      2015-04-13-16:43:59             37.61570,-122.38441         37.77751,-122.41810         2015-04-13-16:44:18             37.61507,-122.38488         37.79214,-122.39850         
+	1       1792        71          4.1005         no            FILO      2015-04-13-16:43:59             37.61570,-122.38441         37.77751,-122.41810         2015-04-13-16:44:18             37.61507,-122.38488         37.79214,-122.39850         
+	2       71          1792        4.1343         no            FIFO      2015-04-13-16:44:18             37.61507,-122.38488         37.79214,-122.39850         2015-04-13-16:43:59             37.61570,-122.38441         37.77751,-122.41810         
+	3       71          1792        4.8468         no            FILO      2015-04-13-16:44:18             37.61507,-122.38488         37.79214,-122.39850         2015-04-13-16:43:59             37.61570,-122.38441         37.77751,-122.41810         
+
+
+current request: 2015-04-13-16:44:15
+request origin:  37.36537,-121.91301
+request dest:    37.38593,-121.92870
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2980        447         0.4377         no            FIFO      2015-04-13-16:44:23             37.76786,-122.42420         37.78927,-122.40136         2015-04-13-16:44:45             37.77164,-122.43126         37.79450,-122.39964         
+	1       447         2980        0.2439         no            FIFO      2015-04-13-16:44:45             37.77164,-122.43126         37.79450,-122.39964         2015-04-13-16:44:23             37.76786,-122.42420         37.78927,-122.40136         
+	2       447         2980        0.5199         no            FILO      2015-04-13-16:44:45             37.77164,-122.43126         37.79450,-122.39964         2015-04-13-16:44:23             37.76786,-122.42420         37.78927,-122.40136         
+
+
+current request: 2015-04-13-16:44:16
+request origin:  37.79973,-122.41511
+request dest:    37.78130,-122.41804
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1166        1177        1.3425         no            FIFO      2015-04-13-16:40:03             37.61475,-122.38202         37.54592,-122.29030         2015-04-13-16:44:46             37.61782,-122.38536         37.41964,-122.21197         
+	1       1177        737         4.3311         no            FIFO      2015-04-13-16:44:46             37.61782,-122.38536         37.41964,-122.21197         2015-04-13-16:44:39             37.62973,-122.36218         37.44440,-122.16120         
+	2       1177        737         4.1689         no            FILO      2015-04-13-16:44:46             37.61782,-122.38536         37.41964,-122.21197         2015-04-13-16:44:39             37.62973,-122.36218         37.44440,-122.16120         
+	3       737         1177        3.9513         no            FIFO      2015-04-13-16:44:39             37.62973,-122.36218         37.44440,-122.16120         2015-04-13-16:44:46             37.61782,-122.38536         37.41964,-122.21197         
+	4       737         1177        4.3477         no            FILO      2015-04-13-16:44:39             37.62973,-122.36218         37.44440,-122.16120         2015-04-13-16:44:46             37.61782,-122.38536         37.41964,-122.21197         
+
+
+current request: 2015-04-13-16:44:44
+request origin:  37.78942,-122.39764
+request dest:    37.76595,-122.40270
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1993        2394        9.2771         no            FILO      2015-04-13-16:41:29             37.61798,-122.38528         37.33607,-121.89059         2015-04-13-16:45:14             37.61492,-122.38318         37.39093,-122.06487         
+
+
+current request: 2015-04-13-16:45:07
+request origin:  37.79426,-122.43865
+request dest:    37.78131,-122.46532
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1072        1479        0.3803         no            FIFO      2015-04-13-16:44:17             37.78141,-122.45098         37.78443,-122.40898         2015-04-13-16:45:19             37.78776,-122.44098         37.79146,-122.40250         
+
+
+current request: 2015-04-13-16:45:32
+request origin:  37.77151,-122.40519
+request dest:    37.76940,-122.42450
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       845         451         0.1362         no            FIFO      2015-04-13-16:41:27             37.79272,-122.41473         37.79267,-122.40407         2015-04-13-16:46:01             37.79144,-122.41527         37.79514,-122.39890         
+
+
+current request: 2015-04-13-16:45:35
+request origin:  37.34763,-121.88210
+request dest:    37.36526,-121.92410
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2002        2671        3.7310         no            FIFO      2015-04-13-16:46:03             37.77393,-122.39624         37.61770,-122.38517         2015-04-13-16:45:41             37.79549,-122.39921         37.61799,-122.38580         
+	1       2002        2671        3.7489         no            FILO      2015-04-13-16:46:03             37.77393,-122.39624         37.61770,-122.38517         2015-04-13-16:45:41             37.79549,-122.39921         37.61799,-122.38580         
+	2       2671        2002        4.9545         no            FIFO      2015-04-13-16:45:41             37.79549,-122.39921         37.61799,-122.38580         2015-04-13-16:46:03             37.77393,-122.39624         37.61770,-122.38517         
+	3       2671        2002        4.9367         no            FILO      2015-04-13-16:45:41             37.79549,-122.39921         37.61799,-122.38580         2015-04-13-16:46:03             37.77393,-122.39624         37.61770,-122.38517         
+
+
+current request: 2015-04-13-16:45:38
+request origin:  37.77892,-122.40181
+request dest:    37.48450,-122.15014
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3182        2982        0.3169         no            FIFO      2015-04-13-16:46:08             37.74651,-122.41435         37.77525,-122.41820         2015-04-13-16:46:05             37.75631,-122.42163         37.77610,-122.42152         
+
+
+current request: 2015-04-13-16:45:40
+request origin:  37.85625,-122.25779
+request dest:    37.87137,-122.25264
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2093        263         3.3697         no            FIFO      2015-04-13-16:41:39             37.75124,-122.41916         37.61776,-122.38535         2015-04-13-16:46:10             37.75899,-122.39650         37.61509,-122.38490         
+	1       2093        263         3.2201         no            FILO      2015-04-13-16:41:39             37.75124,-122.41916         37.61776,-122.38535         2015-04-13-16:46:10             37.75899,-122.39650         37.61509,-122.38490         
+
+
+current request: 2015-04-13-16:45:52
+request origin:  37.86618,-122.25197
+request dest:    37.61796,-122.38590
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3177        2005        0.5208         no            FIFO      2015-04-13-16:44:10             37.76571,-122.42503         37.78218,-122.39160         2015-04-13-16:46:17             37.76240,-122.42386         37.77992,-122.39440         
+	1       3177        2005        0.6951         no            FILO      2015-04-13-16:44:10             37.76571,-122.42503         37.78218,-122.39160         2015-04-13-16:46:17             37.76240,-122.42386         37.77992,-122.39440         
+	2       1179        1181        4.7140         no            FIFO      2015-04-13-16:45:15             37.61782,-122.38537         37.79240,-122.39897         2015-04-13-16:46:04             37.61777,-122.38689         37.78215,-122.40440         
+	3       1179        1181        5.2665         no            FILO      2015-04-13-16:45:15             37.61782,-122.38537         37.79240,-122.39897         2015-04-13-16:46:04             37.61777,-122.38689         37.78215,-122.40440         
+
+
+current request: 2015-04-13-16:46:00
+request origin:  37.80501,-122.41187
+request dest:    37.79198,-122.40214
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       733         3184        0.2424         no            FIFO      2015-04-13-16:42:43             37.79359,-122.39580         37.78927,-122.43150         2015-04-13-16:46:30             37.78461,-122.40748         37.78821,-122.44012         
+
+
+current request: 2015-04-13-16:46:06
+request origin:  37.80227,-122.41810
+request dest:    37.78138,-122.40490
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2494        961         0.2362         yes           FIFO      2015-04-13-16:44:16             37.79973,-122.41511         37.78130,-122.41804         2015-04-13-16:46:36             37.79245,-122.41501         37.77693,-122.41720         
+
+
+current request: 2015-04-13-16:46:43
+request origin:  37.78727,-122.45554
+request dest:    37.79226,-122.42100
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1582        1078        0.4165         no            FIFO      2015-04-13-16:46:02             37.80127,-122.43003         37.79493,-122.39354         2015-04-13-16:47:05             37.79947,-122.42428         37.78721,-122.39450         
+
+
+current request: 2015-04-13-16:46:51
+request origin:  37.61663,-122.38819
+request dest:    37.29283,-121.98270
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1802        2198        5.3491         no            FIFO      2015-04-13-16:47:21             37.60508,-122.39206         37.44089,-122.15523         2015-04-13-16:46:51             37.61663,-122.38819         37.29283,-121.98270         
+	1       2198        1802        5.6557         no            FILO      2015-04-13-16:46:51             37.61663,-122.38819         37.29283,-121.98270         2015-04-13-16:47:21             37.60508,-122.39206         37.44089,-122.15523         
+
+
+current request: 2015-04-13-16:47:01
+request origin:  37.32320,-121.98339
+request dest:    37.29781,-121.97231
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2858        1182        0.1685         yes           FILO      2015-04-13-16:39:44             37.78663,-122.41182         37.77659,-122.39212         2015-04-13-16:47:26             37.78294,-122.40326         37.77825,-122.39419         
+	1       1903        2403        0.3418         no            FIFO      2015-04-13-16:46:04             37.77224,-122.39137         37.77753,-122.41600         2015-04-13-16:47:31             37.77691,-122.39535         37.77570,-122.41830         
+
+
+current request: 2015-04-13-16:47:38
+request origin:  37.85486,-122.27300
+request dest:    37.71189,-122.21220
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       745         2102        1.0014         no            FIFO      2015-04-13-16:48:08             37.46694,-122.23964         37.53405,-122.33574         2015-04-13-16:47:43             37.47240,-122.21883         37.61611,-122.39010         
+
+
+current request: 2015-04-13-16:47:41
+request origin:  37.43033,-122.19613
+request dest:    37.48878,-122.21890
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2499        746         0.2761         no            FIFO      2015-04-13-16:47:58             37.80396,-122.41663         37.79186,-122.40125         2015-04-13-16:48:09             37.79910,-122.41561         37.78947,-122.39483         
+	1       1183        2405        0.4274         no            FILO      2015-04-13-16:47:41             37.76876,-122.43690         37.76755,-122.39084         2015-04-13-16:48:09             37.76770,-122.43053         37.76707,-122.40670         
+
+
+current request: 2015-04-13-16:47:45
+request origin:  37.79131,-122.40075
+request dest:    37.80272,-122.40303
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2479        545         0.9020         yes           FILO      2015-04-13-16:38:49             37.36448,-121.92338         37.34136,-122.01530         2015-04-13-16:48:14             37.35395,-121.95265         37.33728,-122.00280         
+
+
+current request: 2015-04-13-16:48:14
+request origin:  37.77303,-122.41692
+request dest:    37.79259,-122.40196
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2973        3074        0.2424         yes           FIFO      2015-04-13-16:41:58             37.75697,-122.23286         37.78051,-122.27870         2015-04-13-16:48:37             37.76276,-122.25561         37.80486,-122.29556         
+	1       448         2586        0.3909         no            FIFO      2015-04-13-16:45:11             37.38538,-122.02033         37.37431,-122.05549         2015-04-13-16:48:43             37.38209,-122.03093         37.37633,-122.05400         
+	2       448         2586        0.4907         no            FILO      2015-04-13-16:45:11             37.38538,-122.02033         37.37431,-122.05549         2015-04-13-16:48:43             37.38209,-122.03093         37.37633,-122.05400         
+	3       1899        2880        0.1540         yes           FILO      2015-04-13-16:44:43             37.79295,-122.40236         37.77488,-122.41050         2015-04-13-16:48:44             37.78977,-122.40486         37.78176,-122.40800         
+
+
+current request: 2015-04-13-16:48:18
+request origin:  37.52352,-122.26709
+request dest:    37.36958,-121.92910
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       648         1805        4.9393         no            FIFO      2015-04-13-16:47:21             37.77995,-122.39616         37.61538,-122.38453         2015-04-13-16:48:47             37.78629,-122.40138         37.61479,-122.38648         
+	1       648         1805        4.9129         no            FILO      2015-04-13-16:47:21             37.77995,-122.39616         37.61538,-122.38453         2015-04-13-16:48:47             37.78629,-122.40138         37.61479,-122.38648         
+
+
+current request: 2015-04-13-16:48:25
+request origin:  37.37191,-122.07201
+request dest:    37.55716,-121.97674
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1483        267         0.2905         no            FILO      2015-04-13-16:47:49             37.78238,-122.42016         37.77952,-122.39487         2015-04-13-16:48:55             37.78262,-122.41802         37.78511,-122.39729         
+
+
+current request: 2015-04-13-16:48:29
+request origin:  37.32883,-121.84276
+request dest:    37.33007,-121.90230
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3189        2990        4.8911         no            FIFO      2015-04-13-16:48:56             37.61794,-122.38692         37.77701,-122.41560         2015-04-13-16:48:35             37.61801,-122.38699         37.80151,-122.40110         
+	1       3189        2990        3.5978         no            FILO      2015-04-13-16:48:56             37.61794,-122.38692         37.77701,-122.41560         2015-04-13-16:48:35             37.61801,-122.38699         37.80151,-122.40110         
+	2       2990        3189        3.5933         no            FIFO      2015-04-13-16:48:35             37.61801,-122.38699         37.80151,-122.40110         2015-04-13-16:48:56             37.61794,-122.38692         37.77701,-122.41560         
+	3       2990        3189        4.8864         no            FILO      2015-04-13-16:48:35             37.61801,-122.38699         37.80151,-122.40110         2015-04-13-16:48:56             37.61794,-122.38692         37.77701,-122.41560         
+
+
+current request: 2015-04-13-16:48:52
+request origin:  37.71135,-122.21132
+request dest:    37.79313,-122.39940
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1365        1082        0.3535         yes           FIFO      2015-04-13-16:43:40             37.77839,-122.41224         37.80487,-122.40470         2015-04-13-16:49:16             37.78690,-122.41182         37.80836,-122.40960         
+	1       1081        2682        4.4617         no            FIFO      2015-04-13-16:49:14             37.71168,-122.21103         37.77210,-122.40746         2015-04-13-16:48:52             37.71135,-122.21132         37.79313,-122.39940         
+	2       1081        2682        4.2871         no            FILO      2015-04-13-16:49:14             37.71168,-122.21103         37.77210,-122.40746         2015-04-13-16:48:52             37.71135,-122.21132         37.79313,-122.39940         
+	3       2682        1081        4.2847         no            FIFO      2015-04-13-16:48:52             37.71135,-122.21132         37.79313,-122.39940         2015-04-13-16:49:14             37.71168,-122.21103         37.77210,-122.40746         
+	4       2682        1081        4.4565         no            FILO      2015-04-13-16:48:52             37.71135,-122.21132         37.79313,-122.39940         2015-04-13-16:49:14             37.71168,-122.21103         37.77210,-122.40746         
+
+
+current request: 2015-04-13-16:49:22
+request origin:  37.67523,-122.47430
+request dest:    37.78527,-122.43932
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2295        1807        0.4159         no            FIFO      2015-04-13-16:49:45             37.76364,-122.40569         37.78670,-122.40669         2015-04-13-16:49:48             37.76653,-122.41210         37.79142,-122.40682         
+
+
+current request: 2015-04-13-16:49:40
+request origin:  37.61603,-122.39015
+request dest:    37.38422,-122.00470
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2779        1590        0.0976         yes           FIFO      2015-04-13-16:46:00             37.80501,-122.41187         37.79198,-122.40214         2015-04-13-16:50:08             37.80620,-122.41265         37.79516,-122.40044         
+
+
+current request: 2015-04-13-16:50:16
+request origin:  37.75756,-122.44096
+request dest:    37.78335,-122.39320
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1377        1282        0.3643         no            FILO      2015-04-13-16:50:21             37.79196,-122.43475         37.79289,-122.39455         2015-04-13-16:50:42             37.79666,-122.42610         37.79013,-122.40210         
+	1       1488        1282        0.2737         no            FIFO      2015-04-13-16:48:58             37.79359,-122.42457         37.79278,-122.40361         2015-04-13-16:50:42             37.79666,-122.42610         37.79013,-122.40210         
+
+
+current request: 2015-04-13-16:50:20
+request origin:  37.91748,-122.05591
+request dest:    37.94373,-122.05680
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1373        750         0.6392         no            FIFO      2015-04-13-16:47:41             37.43033,-122.19613         37.48878,-122.21890         2015-04-13-16:50:47             37.42795,-122.20837         37.48623,-122.20309         
+
+
+current request: 2015-04-13-16:50:40
+request origin:  37.79829,-122.45055
+request dest:    37.90195,-122.54090
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1174        655         1.6289         yes           FIFO      2015-04-13-16:43:40             37.36448,-121.92338         37.38217,-122.03516         2015-04-13-16:51:02             37.36470,-121.92360         37.42168,-122.16140         
+	1       2404        2884        3.4729         no            FILO      2015-04-13-16:47:43             37.54075,-122.30414         37.41914,-122.14600         2015-04-13-16:51:06             37.53654,-122.29893         37.45464,-122.18500         
+
+
+current request: 2015-04-13-16:50:48
+request origin:  37.71036,-121.79963
+request dest:    37.66331,-121.80430
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2882        1283        4.5797         no            FIFO      2015-04-13-16:49:09             37.77762,-122.40871         37.61656,-122.38380         2015-04-13-16:51:15             37.78780,-122.40881         37.61780,-122.38540         
+	1       2882        1283        4.6561         no            FILO      2015-04-13-16:49:09             37.77762,-122.40871         37.61656,-122.38380         2015-04-13-16:51:15             37.78780,-122.40881         37.61780,-122.38540         
+	2       2588        2108        0.2531         no            FIFO      2015-04-13-16:50:16             37.75756,-122.44096         37.78335,-122.39320         2015-04-13-16:51:15             37.74817,-122.43586         37.77650,-122.39567         
+
+
+current request: 2015-04-13-16:51:12
+request origin:  37.86417,-122.24939
+request dest:    37.86943,-122.26816
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1281        2684        1.6378         no            FIFO      2015-04-13-16:50:40             37.79829,-122.45055         37.90195,-122.54090         2015-04-13-16:51:22             37.78986,-122.43596         37.94872,-122.50957         
+
+
+current request: 2015-04-13-16:51:25
+request origin:  37.74071,-122.20099
+request dest:    37.74046,-122.20090
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       657         2011        0.5379         no            FIFO      2015-04-13-16:51:54             37.80059,-122.43862         37.79330,-122.39737         2015-04-13-16:51:55             37.79773,-122.42976         37.79422,-122.40020         
+	1       657         2011        0.6689         no            FILO      2015-04-13-16:51:54             37.80059,-122.43862         37.79330,-122.39737         2015-04-13-16:51:55             37.79773,-122.42976         37.79422,-122.40020         
+
+
+current request: 2015-04-13-16:51:29
+request origin:  37.40016,-121.96096
+request dest:    37.40014,-121.96096
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2393        972         0.8063         yes           FIFO      2015-04-13-16:45:11             37.77033,-122.46925         37.80175,-122.41950         2015-04-13-16:51:57             37.77110,-122.44837         37.80768,-122.41303         
+
+
+current request: 2015-04-13-16:51:38
+request origin:  37.79911,-122.43619
+request dest:    37.79035,-122.43730
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       77          1699        0.7046         no            FIFO      2015-04-13-16:50:09             37.37007,-121.92946         37.38831,-121.97250         2015-04-13-16:52:02             37.37132,-121.92258         37.38562,-121.98870         
+	1       1912        1285        0.2969         no            FILO      2015-04-13-16:52:04             37.80735,-122.41417         37.78459,-122.40410         2015-04-13-16:52:06             37.80382,-122.40982         37.78858,-122.39922         
+	2       862         81          0.8046         no            FIFO      2015-04-13-16:51:02             37.38746,-122.08448         37.42463,-122.07274         2015-04-13-16:51:54             37.39444,-122.07635         37.42561,-122.07130         
+	3       862         81          0.7433         no            FILO      2015-04-13-16:51:02             37.38746,-122.08448         37.42463,-122.07274         2015-04-13-16:51:54             37.39444,-122.07635         37.42561,-122.07130         
+
+
+current request: 2015-04-13-16:51:44
+request origin:  37.40603,-121.94029
+request dest:    37.42931,-121.92620
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       960         864         0.1083         no            FIFO      2015-04-13-16:45:40             37.85625,-122.25779         37.87137,-122.25264         2015-04-13-16:52:14             37.85616,-122.26076         37.86907,-122.25458         
+	1       960         864         0.2590         no            FILO      2015-04-13-16:45:40             37.85625,-122.25779         37.87137,-122.25264         2015-04-13-16:52:14             37.85616,-122.26076         37.86907,-122.25458         
+
+
+current request: 2015-04-13-16:51:56
+request origin:  37.39417,-122.07630
+request dest:    37.41556,-122.02432
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2781        2506        0.5088         yes           FIFO      2015-04-13-16:49:33             37.79085,-122.41313         37.78119,-122.39119         2015-04-13-16:52:26             37.78986,-122.41253         37.78113,-122.39118         
+	1       2781        2506        0.5069         yes           FILO      2015-04-13-16:49:33             37.79085,-122.41313         37.78119,-122.39119         2015-04-13-16:52:26             37.78986,-122.41253         37.78113,-122.39118         
+
+
+current request: 2015-04-13-16:52:22
+request origin:  37.61734,-122.38723
+request dest:    37.51816,-122.25210
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       748         1701        0.3986         no            FIFO      2015-04-13-16:49:31             37.77663,-122.39566         37.77521,-122.41835         2015-04-13-16:52:50             37.77460,-122.39992         37.77533,-122.41810         
+	1       748         1701        0.4092         no            FILO      2015-04-13-16:49:31             37.77663,-122.39566         37.77521,-122.41835         2015-04-13-16:52:50             37.77460,-122.39992         37.77533,-122.41810         
+
+
+current request: 2015-04-13-16:52:29
+request origin:  37.76500,-122.40500
+request dest:    37.78775,-122.40510
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2391        865         6.7739         yes           FIFO      2015-04-13-16:43:43             37.44150,-122.21358         37.61668,-122.38379         2015-04-13-16:52:56             37.44707,-122.22576         37.61563,-122.38442         
+	1       2391        865         6.8038         yes           FILO      2015-04-13-16:43:43             37.44150,-122.21358         37.61668,-122.38379         2015-04-13-16:52:56             37.44707,-122.22576         37.61563,-122.38442         
+
+
+current request: 2015-04-13-16:52:37
+request origin:  37.80076,-122.40694
+request dest:    37.80029,-122.40137
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       362         1496        0.1763         no            FIFO      2015-04-13-16:53:03             37.79460,-122.43877         37.77517,-122.42127         2015-04-13-16:53:07             37.79853,-122.43608         37.77853,-122.41440         
+	1       1496        362         0.2343         no            FIFO      2015-04-13-16:53:07             37.79853,-122.43608         37.77853,-122.41440         2015-04-13-16:53:03             37.79460,-122.43877         37.77517,-122.42127         
+
+
+current request: 2015-04-13-16:53:04
+request origin:  37.76443,-122.40283
+request dest:    37.77045,-122.40640
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2875        1192        4.5773         no            FIFO      2015-04-13-16:47:37             37.76228,-122.44210         37.61773,-122.38520         2015-04-13-16:53:34             37.75398,-122.43522         37.61501,-122.38488         
+	1       2875        1192        4.4280         no            FILO      2015-04-13-16:47:37             37.76228,-122.44210         37.61773,-122.38520         2015-04-13-16:53:34             37.75398,-122.43522         37.61501,-122.38488         
+
+
+current request: 2015-04-13-16:53:25
+request origin:  37.33867,-121.94050
+request dest:    37.34699,-121.93990
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2110        1703        0.5707         no            FIFO      2015-04-13-16:51:44             37.40603,-121.94029         37.42931,-121.92620         2015-04-13-16:53:46             37.41218,-121.94050         37.42929,-121.92590         
+	1       2110        1703        0.5643         no            FILO      2015-04-13-16:51:44             37.40603,-121.94029         37.42931,-121.92620         2015-04-13-16:53:46             37.41218,-121.94050         37.42929,-121.92590         
+	2       980         3000        0.6443         no            FIFO      2015-04-13-16:53:36             37.78451,-122.44041         37.79090,-122.40256         2015-04-13-16:53:45             37.78415,-122.43315         37.79108,-122.40410         
+	3       980         3000        0.7065         no            FILO      2015-04-13-16:53:36             37.78451,-122.44041         37.79090,-122.40256         2015-04-13-16:53:45             37.78415,-122.43315         37.79108,-122.40410         
+	4       1092        980         0.8067         no            FILO      2015-04-13-16:53:55             37.77974,-122.44785         37.79102,-122.39247         2015-04-13-16:53:36             37.78451,-122.44041         37.79090,-122.40256         
+	5       1092        3000        0.5423         no            FILO      2015-04-13-16:53:55             37.77974,-122.44785         37.79102,-122.39247         2015-04-13-16:53:45             37.78415,-122.43315         37.79108,-122.40410         
+
+
+current request: 2015-04-13-16:53:40
+request origin:  37.79982,-122.42087
+request dest:    37.78837,-122.40270
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2287        3082        0.4764         yes           FIFO      2015-04-13-16:47:18             37.75692,-122.40138         37.78515,-122.46560         2015-04-13-16:54:08             37.75861,-122.39506         37.77629,-122.46400         
+
+
+current request: 2015-04-13-16:53:44
+request origin:  37.75737,-122.42682
+request dest:    37.76675,-122.43333
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2676        1704        8.1825         yes           FIFO      2015-04-13-16:47:06             37.37639,-122.06208         37.61790,-122.38695         2015-04-13-16:54:13             37.38987,-122.11928         37.61797,-122.38582         
+	1       2676        1704        8.2134         yes           FILO      2015-04-13-16:47:06             37.37639,-122.06208         37.61790,-122.38695         2015-04-13-16:54:13             37.38987,-122.11928         37.61797,-122.38582         
+
+
+current request: 2015-04-13-16:54:11
+request origin:  37.33604,-121.90307
+request dest:    37.26158,-121.81190
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       454         2414        0.6850         yes           FIFO      2015-04-13-16:46:31             37.36264,-122.02845         37.38824,-121.96390         2015-04-13-16:54:33             37.36097,-122.00477         37.39832,-121.93864         
+
+
+current request: 2015-04-13-16:54:12
+request origin:  37.33289,-121.88924
+request dest:    37.37009,-121.92977
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1914        3196        2.7189         no            FILO      2015-04-13-16:52:22             37.61734,-122.38723         37.51816,-122.25210         2015-04-13-16:54:42             37.61769,-122.38542         37.55942,-122.27680         
+
+
+current request: 2015-04-13-16:54:44
+request origin:  37.49015,-122.45290
+request dest:    37.46485,-122.42912
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       281         2792        0.2613         no            FIFO      2015-04-13-16:55:05             37.76883,-122.39536         37.79300,-122.39470         2015-04-13-16:55:02             37.77667,-122.39187         37.79653,-122.40250         
+	1       752         1597        5.3938         no            FIFO      2015-04-13-16:52:49             37.61731,-122.38437         37.78685,-122.41250         2015-04-13-16:55:04             37.61769,-122.38644         37.78552,-122.40932         
+	2       752         1597        5.4831         no            FILO      2015-04-13-16:52:49             37.61731,-122.38437         37.78685,-122.41250         2015-04-13-16:55:04             37.61769,-122.38644         37.78552,-122.40932         
+
+
+current request: 2015-04-13-16:54:48
+request origin:  37.90641,-122.31288
+request dest:    37.71512,-122.21340
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       180         1497        0.0967         no            FIFO      2015-04-13-16:55:15             37.78151,-122.40377         37.77546,-122.41840         2015-04-13-16:54:55             37.77838,-122.41209         37.77529,-122.41820         
+	1       180         1497        0.0992         no            FILO      2015-04-13-16:55:15             37.78151,-122.40377         37.77546,-122.41840         2015-04-13-16:54:55             37.77838,-122.41209         37.77529,-122.41820         
+	2       1702        180         0.2877         no            FILO      2015-04-13-16:52:54             37.78624,-122.40226         37.77328,-122.42188         2015-04-13-16:55:15             37.78151,-122.40377         37.77546,-122.41840         
+	3       279         2892        0.2693         no            FIFO      2015-04-13-16:54:49             37.78598,-122.44540         37.77977,-122.41860         2015-04-13-16:55:17             37.78420,-122.43886         37.78277,-122.39770         
+	4       3000        2892        0.1487         no            FIFO      2015-04-13-16:53:45             37.78415,-122.43315         37.79108,-122.40410         2015-04-13-16:55:17             37.78420,-122.43886         37.78277,-122.39770         
+	5       3083        2212        0.3864         no            FILO      2015-04-13-16:54:16             37.79416,-122.43740         37.79342,-122.39699         2015-04-13-16:55:18             37.79512,-122.42589         37.79081,-122.40360         
+	6       2892        2891        0.2828         no            FIFO      2015-04-13-16:55:17             37.78420,-122.43886         37.78277,-122.39770         2015-04-13-16:55:11             37.77487,-122.43791         37.77591,-122.38998         
+
+
+current request: 2015-04-13-16:54:50
+request origin:  37.76617,-122.41837
+request dest:    37.75125,-122.43560
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3180        282         6.5354         yes           FIFO      2015-04-13-16:45:52             37.86618,-122.25197         37.61796,-122.38590         2015-04-13-16:55:20             37.81748,-122.25612         37.61699,-122.38390         
+	1       3180        282         6.5272         yes           FILO      2015-04-13-16:45:52             37.86618,-122.25197         37.61796,-122.38590         2015-04-13-16:55:20             37.81748,-122.25612         37.61699,-122.38390         
+
+
+current request: 2015-04-13-16:54:55
+request origin:  37.77838,-122.41209
+request dest:    37.77529,-122.41820
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3181        2415        0.0840         yes           FIFO      2015-04-13-16:46:06             37.80227,-122.41810         37.78138,-122.40490         2015-04-13-16:55:24             37.79079,-122.41026         37.77771,-122.39720         
+	1       1705        280         1.0805         no            FIFO      2015-04-13-16:54:22             37.76825,-122.44758         37.80763,-122.42030         2015-04-13-16:55:04             37.77092,-122.44515         37.80541,-122.42230         
+	2       1705        280         1.2308         no            FILO      2015-04-13-16:54:22             37.76825,-122.44758         37.80763,-122.42030         2015-04-13-16:55:04             37.77092,-122.44515         37.80541,-122.42230         
+
+
+current request: 2015-04-13-16:55:08
+request origin:  37.27154,-121.83754
+request dest:    37.29890,-121.86900
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3079        1599        2.1995         no            FIFO      2015-04-13-16:52:18             37.77264,-122.39728         37.62747,-122.42581         2015-04-13-16:55:35             37.79475,-122.40053         37.61518,-122.38974         
+
+
+current request: 2015-04-13-16:55:30
+request origin:  37.79018,-122.42191
+request dest:    37.77865,-122.39140
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3001        872         0.2072         no            FILO      2015-04-13-16:54:59             37.80655,-122.40994         37.79040,-122.39700         2015-04-13-16:55:46             37.80624,-122.41027         37.79823,-122.40310         
+
+
+current request: 2015-04-13-16:55:39
+request origin:  37.99931,-122.03988
+request dest:    37.96041,-122.07136
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       967         560         4.9234         yes           FILO      2015-04-13-16:49:40             37.61603,-122.39015         37.38422,-122.00470         2015-04-13-16:56:09             37.61761,-122.38679         37.53640,-122.06310         
+
+
+current request: 2015-04-13-16:55:58
+request origin:  37.78354,-122.39822
+request dest:    37.76224,-122.41120
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3000        2214        0.2967         no            FIFO      2015-04-13-16:53:45             37.78415,-122.43315         37.79108,-122.40410         2015-04-13-16:56:27             37.79156,-122.42461         37.79163,-122.40415         
+	1       3000        2214        0.2992         no            FILO      2015-04-13-16:53:45             37.78415,-122.43315         37.79108,-122.40410         2015-04-13-16:56:27             37.79156,-122.42461         37.79163,-122.40415         
+
+
+current request: 2015-04-13-16:56:22
+request origin:  37.78043,-122.40912
+request dest:    37.78879,-122.44260
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1707        1532        8.6399         no            FIFO      2015-04-13-16:55:22             37.78641,-122.40201         37.44297,-122.16045         2015-04-13-16:56:52             37.77179,-122.40518         37.41690,-121.95485         
+
+
+current request: 2015-04-13-16:56:39
+request origin:  37.77673,-122.42308
+request dest:    37.66636,-122.38420
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2121        2313        0.4224         no            FILO      2015-04-13-16:55:23             37.80010,-122.43462         37.79354,-122.39590         2015-04-13-16:57:06             37.79590,-122.42753         37.79255,-122.40429         
+	1       2416        2020        2.7378         no            FILO      2015-04-13-16:56:05             37.78489,-122.40894         37.61741,-122.38430         2015-04-13-16:56:39             37.77673,-122.42308         37.66636,-122.38420         
+
+
+current request: 2015-04-13-16:56:50
+request origin:  37.42584,-122.15888
+request dest:    37.47656,-122.14194
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2789        1712        0.1976         yes           FIFO      2015-04-13-16:52:34             37.78540,-122.43518         37.76430,-122.43280         2015-04-13-16:57:16             37.78313,-122.43974         37.75918,-122.42150         
+	1       1194        1097        0.1662         no            FIFO      2015-04-13-16:55:27             37.75015,-122.44044         37.78529,-122.43930         2015-04-13-16:57:15             37.76696,-122.43181         37.78730,-122.44750         
+
+
+current request: 2015-04-13-16:56:56
+request origin:  37.85614,-122.27769
+request dest:    37.86469,-122.25842
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       983         1919        3.3292         no            FIFO      2015-04-13-16:55:28             37.74338,-122.43211         37.61498,-122.38693         2015-04-13-16:57:23             37.75590,-122.42847         37.61779,-122.38530         
+	1       983         1919        3.4645         no            FILO      2015-04-13-16:55:28             37.74338,-122.43211         37.61498,-122.38693         2015-04-13-16:57:23             37.75590,-122.42847         37.61779,-122.38530         
+
+
+current request: 2015-04-13-16:57:19
+request origin:  37.39058,-121.97448
+request dest:    37.40273,-121.98428
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2304        2129        0.0744         no            FIFO      2015-04-13-16:53:40             37.79982,-122.42087         37.78837,-122.40270         2015-04-13-16:57:41             37.80029,-122.42480         37.79408,-122.39750         
+
+
+current request: 2015-04-13-16:57:23
+request origin:  37.82911,-122.26704
+request dest:    37.83939,-122.29820
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3003        1503        0.3052         no            FIFO      2015-04-13-16:55:30             37.79018,-122.42191         37.77865,-122.39140         2015-04-13-16:57:51             37.78892,-122.41051         37.78105,-122.39092         
+	1       3003        1503        0.3553         no            FILO      2015-04-13-16:55:30             37.79018,-122.42191         37.77865,-122.39140         2015-04-13-16:57:51             37.78892,-122.41051         37.78105,-122.39092         
+
+
+current request: 2015-04-13-16:57:26
+request origin:  37.36470,-121.92360
+request dest:    37.38320,-121.92640
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       1195        2215        5.7798         no            FIFO      2015-04-13-16:57:26             37.61702,-122.38424         37.48508,-122.14700         2015-04-13-16:57:55             37.61781,-122.38540         37.37112,-122.01680         
+	1       2215        1195        5.8468         no            FILO      2015-04-13-16:57:55             37.61781,-122.38540         37.37112,-122.01680         2015-04-13-16:57:26             37.61702,-122.38424         37.48508,-122.14700         
+
+
+current request: 2015-04-13-16:57:36
+request origin:  37.48626,-122.23291
+request dest:    37.49387,-122.22876
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2019        2314        5.5469         no            FIFO      2015-04-13-16:56:03             37.61777,-122.38500         37.78601,-122.41090         2015-04-13-16:58:02             37.61813,-122.38597         37.78881,-122.40860         
+	1       2019        2314        5.4032         no            FILO      2015-04-13-16:56:03             37.61777,-122.38500         37.78601,-122.41090         2015-04-13-16:58:02             37.61813,-122.38597         37.78881,-122.40860         
+
+
+current request: 2015-04-13-16:57:48
+request origin:  37.73949,-122.14738
+request dest:    37.71226,-122.21270
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2591        1393        0.3010         no            FIFO      2015-04-13-16:55:58             37.78354,-122.39822         37.76224,-122.41120         2015-04-13-16:58:18             37.78027,-122.40512         37.74749,-122.42030         
+
+
+current request: 2015-04-13-16:58:50
+request origin:  37.77045,-122.44478
+request dest:    37.61549,-122.38445
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       3084        761         0.2305         no            FIFO      2015-04-13-16:55:25             37.79628,-122.39465         37.80643,-122.41426         2015-04-13-16:59:20             37.79519,-122.40072         37.80585,-122.42209         
+
+
+current request: 2015-04-13-16:59:05
+request origin:  37.79284,-122.40073
+request dest:    37.79671,-122.43140
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2115        565         0.8986         yes           FIFO      2015-04-13-16:54:12             37.33289,-121.88924         37.37009,-121.92977         2015-04-13-16:59:35             37.33341,-121.88439         37.39782,-121.93250         
+
+
+current request: 2015-04-13-16:59:25
+request origin:  37.61855,-122.38368
+request dest:    37.42063,-121.92440
+
+	index   masterIx    minionIx    avgSavings     isExtended?   drop      masterReqTime                   masterOrigin                masterDest                  minionReqTime                   minionOrigin                minionDest                  
+	0       2592        1295        0.4045         no            FILO      2015-04-13-16:56:29             37.77353,-122.43887         37.77895,-122.39564         2015-04-13-16:59:53             37.77036,-122.43207         37.78235,-122.40690         
+	1       2686        2219        3.3010         yes           FIFO      2015-04-13-16:52:19             37.36987,-121.92916         37.42069,-122.17104         2015-04-13-16:59:47             37.37007,-121.92946         37.49219,-122.23190         
+	2       2513        1295        0.2204         no            FIFO      2015-04-13-16:57:00             37.76610,-122.43970         37.77364,-122.41180         2015-04-13-16:59:53             37.77036,-122.43207         37.78235,-122.40690         
+	3       2695        3203        11.9030        no            FIFO      2015-04-13-16:59:25             37.61855,-122.38368         37.42063,-121.92440         2015-04-13-16:59:49             37.61786,-122.38669         37.36269,-121.92144         
+	4       2695        3203        10.0986        no            FILO      2015-04-13-16:59:25             37.61855,-122.38368         37.42063,-121.92440         2015-04-13-16:59:49             37.61786,-122.38669         37.36269,-121.92144         
+	5       3203        2695        10.1861        no            FIFO      2015-04-13-16:59:49             37.61786,-122.38669         37.36269,-121.92144         2015-04-13-16:59:25             37.61855,-122.38368         37.42063,-121.92440         
+	6       3203        2695        12.0018        no            FILO      2015-04-13-16:59:49             37.61786,-122.38669         37.36269,-121.92144         2015-04-13-16:59:25             37.61855,-122.38368         37.42063,-121.92440         
+
+

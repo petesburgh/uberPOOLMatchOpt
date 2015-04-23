@@ -36,8 +36,7 @@ using namespace std;
 
 class DataContainer {
 public:
-    DataContainer();
-    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const int _batchWindowInSec, const double pctPoolUsers, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen);
+    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen);
     virtual ~DataContainer();
     
     // methods called by main()
@@ -51,7 +50,6 @@ public:
         
     // getters
     const std::string getInputPath()   const { return _inputPath; }
- //   const std::string getOutputPath() const { return _outputPath; }
     const std::string getCsvFilename() const { return _csvFilename; }
     const std::vector<TripData*>* getAllTrips() const { return &_allTrips; }
     const std::vector<TripData*>* getUberPoolTrips() const { return &_uberPOOLTrips; }
@@ -60,7 +58,7 @@ public:
     const std::set<Rider*, RiderIndexComp>* getAllUberPoolRiders() const { return &_uberPoolRiders; }
     const time_t getTimeline() const { return _timeline; }
     const int getUpFrontBatchWindowLenInSec() const { return _batchWindowInSec; }
-    const double getPctPoolUsers() const { return _pctPoolUsers; }
+    const double getOptInRate() const { return _optInRate; }
     const time_t getSimEndTime() const { return _simEndTime; }
     
     // get objects to instantiate algorithms
@@ -75,7 +73,11 @@ public:
     // get print methods
     const bool printDebugFiles() const { return _printDebugFiles; }
     const bool printToScreen() const { return _printToScreen; }
-   
+    
+    // set instance-specific attributes
+   // void setOptInRate(double optInRate) { _optInRate = optInRate; }
+   void setBatchWindowInSeconds(int batchWindow) { _batchWindowInSec = batchWindow; }
+    
    
 private:
     // I/O
@@ -83,13 +85,12 @@ private:
     std::string _csvFilename; // name of csv file containing snapshot data
     std::string _timelineStr; // string of timeline defining snapshot
     int _batchWindowInSec;    // length of up-front batch window
-    double _pctPoolUsers;     // percent of users requesting uberX that define POOL requests
+    const double _optInRate;        // percent of users requesting uberX that define POOL requests
     time_t _timeline;         // time_t represented converted from inputted string
     time_t _simEndTime;       // end time of simulation (i.e. do not consider trips after this time)
     bool _printDebugFiles;    // bool to determine whether/not to print debug files
     bool _printToScreen;      // cout data
-    
-    
+        
     // entities across DB snapshot
     std::vector<TripData*> _allTrips;      // ALL trips
     std::vector<TripData*> _uberPOOLTrips; // POOL trips

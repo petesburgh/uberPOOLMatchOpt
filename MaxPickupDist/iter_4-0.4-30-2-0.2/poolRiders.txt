@@ -1,0 +1,5161 @@
+
+----------------------------------------
+
+          summary of riders
+
+----------------------------------------
+
+
+
+rider ID:    9bd1588a-84ba-4f23-8937-bca85cdf9f09
+rider index: 0
+	TRIP: 0  (rider ID 9bd1588a-84ba-4f23-8937-bca85cdf9f09)
+
+rider ID:    4bfb2deb-fa09-4e75-9517-52aaa4aec1a4
+rider index: 1
+	TRIP: 1  (rider ID 4bfb2deb-fa09-4e75-9517-52aaa4aec1a4)
+	TRIP: 32  (rider ID 4bfb2deb-fa09-4e75-9517-52aaa4aec1a4)
+
+rider ID:    af0cb423-3b39-42c3-b536-30dd0366e8cb
+rider index: 5
+	TRIP: 5  (rider ID af0cb423-3b39-42c3-b536-30dd0366e8cb)
+
+rider ID:    ce3abfc6-4078-4bbe-b4f1-9378c6f5c4ba
+rider index: 6
+	TRIP: 6  (rider ID ce3abfc6-4078-4bbe-b4f1-9378c6f5c4ba)
+
+rider ID:    f40262a7-098e-4232-aecf-dcca29a9488d
+rider index: 10
+	TRIP: 10  (rider ID f40262a7-098e-4232-aecf-dcca29a9488d)
+
+rider ID:    ce9fa42f-4153-4583-b84b-f63010906b39
+rider index: 13
+	TRIP: 13  (rider ID ce9fa42f-4153-4583-b84b-f63010906b39)
+
+rider ID:    bf710285-f36e-4172-9156-2dad4c69b4a5
+rider index: 14
+	TRIP: 14  (rider ID bf710285-f36e-4172-9156-2dad4c69b4a5)
+
+rider ID:    a52f31a5-f804-4bc9-b7ba-dfafa66e95cd
+rider index: 17
+	TRIP: 17  (rider ID a52f31a5-f804-4bc9-b7ba-dfafa66e95cd)
+
+rider ID:    ed9409f4-5cdf-4caa-a686-0fc80a2950c5
+rider index: 18
+	TRIP: 18  (rider ID ed9409f4-5cdf-4caa-a686-0fc80a2950c5)
+
+rider ID:    00548aaf-ed2a-40b9-b692-e6db999486ff
+rider index: 19
+	TRIP: 19  (rider ID 00548aaf-ed2a-40b9-b692-e6db999486ff)
+
+rider ID:    d57b08eb-8655-40fb-91d2-cc9002dc751c
+rider index: 26
+	TRIP: 26  (rider ID d57b08eb-8655-40fb-91d2-cc9002dc751c)
+
+rider ID:    160b3730-5a1a-488f-a8a1-360fa0545e10
+rider index: 32
+	TRIP: 33  (rider ID 160b3730-5a1a-488f-a8a1-360fa0545e10)
+
+rider ID:    ae806250-5d80-47c1-9578-ddf26b5efe2b
+rider index: 33
+	TRIP: 34  (rider ID ae806250-5d80-47c1-9578-ddf26b5efe2b)
+
+rider ID:    55c288f6-4084-48da-a3fc-e74ca3a8d296
+rider index: 35
+	TRIP: 36  (rider ID 55c288f6-4084-48da-a3fc-e74ca3a8d296)
+
+rider ID:    cb9d7abb-5ed6-437b-a70a-52c611283185
+rider index: 39
+	TRIP: 40  (rider ID cb9d7abb-5ed6-437b-a70a-52c611283185)
+
+rider ID:    de918300-88cf-45c2-8704-8a036045b472
+rider index: 40
+	TRIP: 41  (rider ID de918300-88cf-45c2-8704-8a036045b472)
+
+rider ID:    c42c9556-b953-4259-821c-25b0626393db
+rider index: 45
+	TRIP: 46  (rider ID c42c9556-b953-4259-821c-25b0626393db)
+
+rider ID:    1f4ea08b-db19-4c2b-96d9-fd124aa44440
+rider index: 48
+	TRIP: 49  (rider ID 1f4ea08b-db19-4c2b-96d9-fd124aa44440)
+
+rider ID:    9d664b80-b77e-4564-a131-a778f3ef8c59
+rider index: 52
+	TRIP: 53  (rider ID 9d664b80-b77e-4564-a131-a778f3ef8c59)
+
+rider ID:    ace4a1b5-4e33-4de8-95c6-5bcc2c53b694
+rider index: 53
+	TRIP: 54  (rider ID ace4a1b5-4e33-4de8-95c6-5bcc2c53b694)
+
+rider ID:    6823b571-db07-41a7-81d8-7572ca8dc45b
+rider index: 54
+	TRIP: 55  (rider ID 6823b571-db07-41a7-81d8-7572ca8dc45b)
+
+rider ID:    35b85916-0265-47c0-9351-514583637584
+rider index: 55
+	TRIP: 56  (rider ID 35b85916-0265-47c0-9351-514583637584)
+
+rider ID:    a44c5a01-edce-4531-9c56-a92f469bfe88
+rider index: 59
+	TRIP: 60  (rider ID a44c5a01-edce-4531-9c56-a92f469bfe88)
+
+rider ID:    5a25c22c-d391-4133-8a32-91726c25ca2a
+rider index: 63
+	TRIP: 64  (rider ID 5a25c22c-d391-4133-8a32-91726c25ca2a)
+
+rider ID:    6c684005-8883-41bd-a91c-5b89ae052d5a
+rider index: 66
+	TRIP: 67  (rider ID 6c684005-8883-41bd-a91c-5b89ae052d5a)
+
+rider ID:    7eb00ed4-0151-4029-a682-5c97360f5f7e
+rider index: 67
+	TRIP: 68  (rider ID 7eb00ed4-0151-4029-a682-5c97360f5f7e)
+
+rider ID:    81ec9f80-6a4f-4ed1-b362-7034ac0e4823
+rider index: 69
+	TRIP: 70  (rider ID 81ec9f80-6a4f-4ed1-b362-7034ac0e4823)
+
+rider ID:    d1b1fee0-7bc0-42f9-8734-b270266a6059
+rider index: 71
+	TRIP: 72  (rider ID d1b1fee0-7bc0-42f9-8734-b270266a6059)
+
+rider ID:    e1b46c8e-3da4-44d7-80ed-c1d4904d8efe
+rider index: 72
+	TRIP: 73  (rider ID e1b46c8e-3da4-44d7-80ed-c1d4904d8efe)
+
+rider ID:    89502ef3-7214-4955-b322-76d2eb101722
+rider index: 77
+	TRIP: 78  (rider ID 89502ef3-7214-4955-b322-76d2eb101722)
+
+rider ID:    75406b5b-3576-495a-8764-333ab6c44307
+rider index: 81
+	TRIP: 82  (rider ID 75406b5b-3576-495a-8764-333ab6c44307)
+
+rider ID:    f31f218b-198a-4dbe-8c1f-227e488bd720
+rider index: 82
+	TRIP: 83  (rider ID f31f218b-198a-4dbe-8c1f-227e488bd720)
+
+rider ID:    1b1a65d1-9a7f-4ee9-9a43-2bb568f1a092
+rider index: 90
+	TRIP: 91  (rider ID 1b1a65d1-9a7f-4ee9-9a43-2bb568f1a092)
+
+rider ID:    f77d44bc-d73d-4ec4-a1fe-56c5a9e921fd
+rider index: 91
+	TRIP: 92  (rider ID f77d44bc-d73d-4ec4-a1fe-56c5a9e921fd)
+
+rider ID:    a840c6c7-214d-4633-acef-47a52273adfd
+rider index: 92
+	TRIP: 93  (rider ID a840c6c7-214d-4633-acef-47a52273adfd)
+
+rider ID:    0dcfa1c9-e7e2-45d0-be35-e5daa2f520a2
+rider index: 98
+	TRIP: 99  (rider ID 0dcfa1c9-e7e2-45d0-be35-e5daa2f520a2)
+
+rider ID:    ca35598f-ce3c-4ffb-a078-4ccca4bee831
+rider index: 102
+	TRIP: 103  (rider ID ca35598f-ce3c-4ffb-a078-4ccca4bee831)
+
+rider ID:    9842c728-a06e-4947-8288-f73d46bbaf9e
+rider index: 103
+	TRIP: 104  (rider ID 9842c728-a06e-4947-8288-f73d46bbaf9e)
+
+rider ID:    ecd34a04-44cf-482a-b0ae-2a8332f96b63
+rider index: 104
+	TRIP: 105  (rider ID ecd34a04-44cf-482a-b0ae-2a8332f96b63)
+
+rider ID:    c5c64d88-fe75-471c-9225-e1a943fc096e
+rider index: 107
+	TRIP: 108  (rider ID c5c64d88-fe75-471c-9225-e1a943fc096e)
+
+rider ID:    f6b73267-4303-4aa9-88e3-f267f8c6d2f5
+rider index: 116
+	TRIP: 117  (rider ID f6b73267-4303-4aa9-88e3-f267f8c6d2f5)
+
+rider ID:    6cd2c265-6777-4db3-977f-b3a4e9205948
+rider index: 117
+	TRIP: 118  (rider ID 6cd2c265-6777-4db3-977f-b3a4e9205948)
+
+rider ID:    721984d1-44b6-400c-9372-9a18f275ce49
+rider index: 119
+	TRIP: 120  (rider ID 721984d1-44b6-400c-9372-9a18f275ce49)
+
+rider ID:    117848a3-f301-410f-a6ad-654d8d53e27e
+rider index: 120
+	TRIP: 121  (rider ID 117848a3-f301-410f-a6ad-654d8d53e27e)
+
+rider ID:    a5530713-7c21-4c40-aa3d-41be9046cc88
+rider index: 121
+	TRIP: 122  (rider ID a5530713-7c21-4c40-aa3d-41be9046cc88)
+
+rider ID:    8514bd41-0ad6-4ed0-8c8a-ae7be28c77df
+rider index: 122
+	TRIP: 123  (rider ID 8514bd41-0ad6-4ed0-8c8a-ae7be28c77df)
+
+rider ID:    093d9b87-5c8b-43ae-a863-d0dc92033d7c
+rider index: 124
+	TRIP: 125  (rider ID 093d9b87-5c8b-43ae-a863-d0dc92033d7c)
+
+rider ID:    ab23f0b6-6d39-44a4-8e04-07ffdb9dd8b6
+rider index: 127
+	TRIP: 128  (rider ID ab23f0b6-6d39-44a4-8e04-07ffdb9dd8b6)
+
+rider ID:    fa89f6f5-aee8-4ac4-bed4-6f363b6c1526
+rider index: 128
+	TRIP: 129  (rider ID fa89f6f5-aee8-4ac4-bed4-6f363b6c1526)
+
+rider ID:    49b994f9-e58e-4515-bed1-184e8e2b3451
+rider index: 129
+	TRIP: 130  (rider ID 49b994f9-e58e-4515-bed1-184e8e2b3451)
+
+rider ID:    43a35a7c-d09e-4d05-af6b-06643c911d89
+rider index: 132
+	TRIP: 133  (rider ID 43a35a7c-d09e-4d05-af6b-06643c911d89)
+
+rider ID:    1aaf751b-61b8-4e77-b929-986fe7ad24df
+rider index: 134
+	TRIP: 135  (rider ID 1aaf751b-61b8-4e77-b929-986fe7ad24df)
+
+rider ID:    f905afba-6034-4f5a-ad4a-37f92a63a9cb
+rider index: 135
+	TRIP: 136  (rider ID f905afba-6034-4f5a-ad4a-37f92a63a9cb)
+
+rider ID:    5a56d0ea-e530-4048-842d-3b0fc5f7e650
+rider index: 137
+	TRIP: 138  (rider ID 5a56d0ea-e530-4048-842d-3b0fc5f7e650)
+
+rider ID:    bdccba66-e56a-4635-9310-4575ca04968c
+rider index: 143
+	TRIP: 144  (rider ID bdccba66-e56a-4635-9310-4575ca04968c)
+
+rider ID:    d984490c-b615-4769-8be0-1f549b585368
+rider index: 146
+	TRIP: 147  (rider ID d984490c-b615-4769-8be0-1f549b585368)
+
+rider ID:    2f12bee0-3b4e-479a-aee7-1dc23da61846
+rider index: 148
+	TRIP: 149  (rider ID 2f12bee0-3b4e-479a-aee7-1dc23da61846)
+
+rider ID:    51a8252e-1955-44b5-be29-42084bdf8dcd
+rider index: 152
+	TRIP: 153  (rider ID 51a8252e-1955-44b5-be29-42084bdf8dcd)
+
+rider ID:    1a501c4f-12c6-40eb-91a1-af10c75e63e1
+rider index: 153
+	TRIP: 154  (rider ID 1a501c4f-12c6-40eb-91a1-af10c75e63e1)
+
+rider ID:    9f65c085-5cbf-4a25-8041-6aa9e6d347c5
+rider index: 154
+	TRIP: 155  (rider ID 9f65c085-5cbf-4a25-8041-6aa9e6d347c5)
+
+rider ID:    468d8be1-b107-4695-925b-f65ceb083d77
+rider index: 156
+	TRIP: 157  (rider ID 468d8be1-b107-4695-925b-f65ceb083d77)
+
+rider ID:    1845bc02-2904-45b3-995d-f09dab362371
+rider index: 160
+	TRIP: 161  (rider ID 1845bc02-2904-45b3-995d-f09dab362371)
+
+rider ID:    2d6470d0-b07c-4413-9221-ef65b9b9464a
+rider index: 162
+	TRIP: 163  (rider ID 2d6470d0-b07c-4413-9221-ef65b9b9464a)
+
+rider ID:    64d6ba90-50f3-43bf-864b-bbc343e6bee3
+rider index: 163
+	TRIP: 164  (rider ID 64d6ba90-50f3-43bf-864b-bbc343e6bee3)
+
+rider ID:    0c7be0d3-5baf-4be7-9be6-7a0644a31d51
+rider index: 164
+	TRIP: 165  (rider ID 0c7be0d3-5baf-4be7-9be6-7a0644a31d51)
+
+rider ID:    dd786012-bbef-4018-898d-2b74bec8358b
+rider index: 167
+	TRIP: 168  (rider ID dd786012-bbef-4018-898d-2b74bec8358b)
+
+rider ID:    6f0e1c91-a71e-4fa4-b630-5dc761889946
+rider index: 170
+	TRIP: 171  (rider ID 6f0e1c91-a71e-4fa4-b630-5dc761889946)
+	TRIP: 2635  (rider ID 6f0e1c91-a71e-4fa4-b630-5dc761889946)
+
+rider ID:    dee533f2-b941-4f59-b9b6-353c7812fef9
+rider index: 172
+	TRIP: 173  (rider ID dee533f2-b941-4f59-b9b6-353c7812fef9)
+
+rider ID:    4b7b751f-28cc-46d0-81f4-2c5f5a71dd06
+rider index: 173
+	TRIP: 174  (rider ID 4b7b751f-28cc-46d0-81f4-2c5f5a71dd06)
+
+rider ID:    1f91de39-39f2-414f-8804-c2e37bdcb3bd
+rider index: 174
+	TRIP: 175  (rider ID 1f91de39-39f2-414f-8804-c2e37bdcb3bd)
+
+rider ID:    13ca0e78-2ecc-4e14-a53d-0daf99c5cc13
+rider index: 175
+	TRIP: 176  (rider ID 13ca0e78-2ecc-4e14-a53d-0daf99c5cc13)
+
+rider ID:    173f694c-6ca1-44e5-b2ca-94ce8c360dd7
+rider index: 176
+	TRIP: 177  (rider ID 173f694c-6ca1-44e5-b2ca-94ce8c360dd7)
+
+rider ID:    37d3fdda-e860-451e-8378-cf9c78bd426a
+rider index: 177
+	TRIP: 178  (rider ID 37d3fdda-e860-451e-8378-cf9c78bd426a)
+	TRIP: 2874  (rider ID 37d3fdda-e860-451e-8378-cf9c78bd426a)
+
+rider ID:    d53aae43-2db2-4448-a082-3a9e04d0615a
+rider index: 180
+	TRIP: 181  (rider ID d53aae43-2db2-4448-a082-3a9e04d0615a)
+
+rider ID:    0419c914-f60a-4376-8695-bc004dd1cc3e
+rider index: 185
+	TRIP: 186  (rider ID 0419c914-f60a-4376-8695-bc004dd1cc3e)
+
+rider ID:    0dfa3aca-07e5-4b2e-9fd8-66c8f23ac7d9
+rider index: 188
+	TRIP: 189  (rider ID 0dfa3aca-07e5-4b2e-9fd8-66c8f23ac7d9)
+
+rider ID:    cfd404d6-209a-4145-a339-50be3181f276
+rider index: 205
+	TRIP: 206  (rider ID cfd404d6-209a-4145-a339-50be3181f276)
+
+rider ID:    cc0bc438-1de7-46ef-9a95-32ce5996e8ea
+rider index: 208
+	TRIP: 209  (rider ID cc0bc438-1de7-46ef-9a95-32ce5996e8ea)
+
+rider ID:    60d87fd9-7f8d-4f9d-8a65-9d9e398ae406
+rider index: 219
+	TRIP: 220  (rider ID 60d87fd9-7f8d-4f9d-8a65-9d9e398ae406)
+
+rider ID:    0fa26c45-1afc-481f-b7ff-65fefa996fff
+rider index: 223
+	TRIP: 224  (rider ID 0fa26c45-1afc-481f-b7ff-65fefa996fff)
+
+rider ID:    2a78003f-78dd-4220-a3f7-e2b11c73a002
+rider index: 228
+	TRIP: 229  (rider ID 2a78003f-78dd-4220-a3f7-e2b11c73a002)
+
+rider ID:    8cba3564-5a49-49cf-b497-15838acee5b0
+rider index: 233
+	TRIP: 234  (rider ID 8cba3564-5a49-49cf-b497-15838acee5b0)
+
+rider ID:    d4ccc9a3-8954-4bc5-8541-628bc10351ad
+rider index: 236
+	TRIP: 237  (rider ID d4ccc9a3-8954-4bc5-8541-628bc10351ad)
+
+rider ID:    f8b711dd-b891-41e3-8502-be316dad1ce4
+rider index: 238
+	TRIP: 239  (rider ID f8b711dd-b891-41e3-8502-be316dad1ce4)
+
+rider ID:    3c0a9c72-8857-4f7c-b91a-e1956bbce173
+rider index: 244
+	TRIP: 245  (rider ID 3c0a9c72-8857-4f7c-b91a-e1956bbce173)
+
+rider ID:    ea8675e6-3fd2-43c5-8a01-3f8b0275c0a3
+rider index: 245
+	TRIP: 246  (rider ID ea8675e6-3fd2-43c5-8a01-3f8b0275c0a3)
+
+rider ID:    193dcd00-6909-4be3-88bd-8e50a2b37d05
+rider index: 247
+	TRIP: 248  (rider ID 193dcd00-6909-4be3-88bd-8e50a2b37d05)
+
+rider ID:    c0b7ee15-7bd4-405d-981b-ce8ebf6e66c2
+rider index: 250
+	TRIP: 251  (rider ID c0b7ee15-7bd4-405d-981b-ce8ebf6e66c2)
+
+rider ID:    4039648e-8b47-4cc1-abc8-8b19163c2d62
+rider index: 251
+	TRIP: 252  (rider ID 4039648e-8b47-4cc1-abc8-8b19163c2d62)
+
+rider ID:    255b0707-744f-44fa-8725-cdc79b1ed601
+rider index: 254
+	TRIP: 255  (rider ID 255b0707-744f-44fa-8725-cdc79b1ed601)
+
+rider ID:    03d6a961-5be6-4a76-a783-884139cec8a6
+rider index: 258
+	TRIP: 259  (rider ID 03d6a961-5be6-4a76-a783-884139cec8a6)
+
+rider ID:    843416cd-2fb8-43f0-a048-627c4697c5c8
+rider index: 262
+	TRIP: 263  (rider ID 843416cd-2fb8-43f0-a048-627c4697c5c8)
+
+rider ID:    99a298a0-2fbf-43fe-9dfe-df9ad48266db
+rider index: 263
+	TRIP: 264  (rider ID 99a298a0-2fbf-43fe-9dfe-df9ad48266db)
+
+rider ID:    43eef509-63dd-4615-b1e2-51f427a34a45
+rider index: 266
+	TRIP: 267  (rider ID 43eef509-63dd-4615-b1e2-51f427a34a45)
+
+rider ID:    95b27395-74dd-4950-9bf9-15a445e6950a
+rider index: 267
+	TRIP: 268  (rider ID 95b27395-74dd-4950-9bf9-15a445e6950a)
+
+rider ID:    575b5a5f-df84-429b-9c65-3ec4ce2cc095
+rider index: 268
+	TRIP: 269  (rider ID 575b5a5f-df84-429b-9c65-3ec4ce2cc095)
+
+rider ID:    82d85c37-2f3b-4e7f-86a8-7fbd3c7185e8
+rider index: 269
+	TRIP: 270  (rider ID 82d85c37-2f3b-4e7f-86a8-7fbd3c7185e8)
+
+rider ID:    62441979-fca2-4726-8485-e9eb406a0c67
+rider index: 272
+	TRIP: 273  (rider ID 62441979-fca2-4726-8485-e9eb406a0c67)
+
+rider ID:    8d5ff776-e7a4-4e86-9634-bf9127276d47
+rider index: 273
+	TRIP: 274  (rider ID 8d5ff776-e7a4-4e86-9634-bf9127276d47)
+
+rider ID:    2c84645d-0748-4dbf-b397-5acd3776ff50
+rider index: 275
+	TRIP: 276  (rider ID 2c84645d-0748-4dbf-b397-5acd3776ff50)
+
+rider ID:    65871d80-1284-469d-8f7f-88046c14f22f
+rider index: 279
+	TRIP: 280  (rider ID 65871d80-1284-469d-8f7f-88046c14f22f)
+
+rider ID:    2b2b0eb9-d282-4172-9007-f8f21356a716
+rider index: 280
+	TRIP: 281  (rider ID 2b2b0eb9-d282-4172-9007-f8f21356a716)
+
+rider ID:    2663409f-fa5e-4714-9376-96b08d629938
+rider index: 281
+	TRIP: 282  (rider ID 2663409f-fa5e-4714-9376-96b08d629938)
+
+rider ID:    4c170cce-b163-4856-8bbd-679011b2aa46
+rider index: 282
+	TRIP: 283  (rider ID 4c170cce-b163-4856-8bbd-679011b2aa46)
+
+rider ID:    aa0b16d1-aace-48cf-bca4-096881c06cca
+rider index: 284
+	TRIP: 285  (rider ID aa0b16d1-aace-48cf-bca4-096881c06cca)
+
+rider ID:    d6cdb3fe-66d0-457f-a3be-7d598a67cdf9
+rider index: 286
+	TRIP: 287  (rider ID d6cdb3fe-66d0-457f-a3be-7d598a67cdf9)
+
+rider ID:    301c7883-cc9a-4f4c-a77a-7b98d8a12d0a
+rider index: 289
+	TRIP: 290  (rider ID 301c7883-cc9a-4f4c-a77a-7b98d8a12d0a)
+
+rider ID:    5145e685-1d03-456a-9c11-12094592df87
+rider index: 291
+	TRIP: 292  (rider ID 5145e685-1d03-456a-9c11-12094592df87)
+
+rider ID:    1f693032-a034-4ab8-99bb-ea4037e58292
+rider index: 293
+	TRIP: 294  (rider ID 1f693032-a034-4ab8-99bb-ea4037e58292)
+
+rider ID:    91ebf34c-88ec-4ef4-8998-25a29e3efef4
+rider index: 294
+	TRIP: 295  (rider ID 91ebf34c-88ec-4ef4-8998-25a29e3efef4)
+
+rider ID:    a8a7329a-1d41-4c6b-8a5d-c0a91246192c
+rider index: 295
+	TRIP: 296  (rider ID a8a7329a-1d41-4c6b-8a5d-c0a91246192c)
+
+rider ID:    dd541867-9a35-4633-994d-41b49f85bea5
+rider index: 296
+	TRIP: 297  (rider ID dd541867-9a35-4633-994d-41b49f85bea5)
+
+rider ID:    6d4d15cc-9051-4ec9-b329-6b3a1c31d95d
+rider index: 304
+	TRIP: 305  (rider ID 6d4d15cc-9051-4ec9-b329-6b3a1c31d95d)
+
+rider ID:    c77a7b17-cdf4-47d2-aeb0-de1282556e58
+rider index: 306
+	TRIP: 307  (rider ID c77a7b17-cdf4-47d2-aeb0-de1282556e58)
+
+rider ID:    84747c0b-b40b-4774-9aef-cd09e99d811a
+rider index: 307
+	TRIP: 308  (rider ID 84747c0b-b40b-4774-9aef-cd09e99d811a)
+
+rider ID:    bc843453-1fe4-42dd-af52-21eda48095b6
+rider index: 309
+	TRIP: 310  (rider ID bc843453-1fe4-42dd-af52-21eda48095b6)
+
+rider ID:    fe18f9b4-80bb-43cf-b3ed-eb6b49161791
+rider index: 314
+	TRIP: 315  (rider ID fe18f9b4-80bb-43cf-b3ed-eb6b49161791)
+
+rider ID:    90d4c87a-4664-4edb-b8aa-9ac6c4d3c295
+rider index: 316
+	TRIP: 317  (rider ID 90d4c87a-4664-4edb-b8aa-9ac6c4d3c295)
+
+rider ID:    865b70d8-8241-43fc-b79c-248295816dbb
+rider index: 317
+	TRIP: 318  (rider ID 865b70d8-8241-43fc-b79c-248295816dbb)
+
+rider ID:    073e28f8-e024-40b1-b4cf-c84f2ec18bdd
+rider index: 323
+	TRIP: 324  (rider ID 073e28f8-e024-40b1-b4cf-c84f2ec18bdd)
+
+rider ID:    ae1914e7-969f-4cb6-b9c2-5db012a75228
+rider index: 324
+	TRIP: 325  (rider ID ae1914e7-969f-4cb6-b9c2-5db012a75228)
+
+rider ID:    0d6e18c6-d516-4bf3-902c-6d199f70c0cf
+rider index: 326
+	TRIP: 327  (rider ID 0d6e18c6-d516-4bf3-902c-6d199f70c0cf)
+
+rider ID:    64156b99-2b21-4652-958f-ed73f6a57e25
+rider index: 330
+	TRIP: 331  (rider ID 64156b99-2b21-4652-958f-ed73f6a57e25)
+
+rider ID:    4f01c389-06a3-41dc-8178-cea5431ff59b
+rider index: 331
+	TRIP: 332  (rider ID 4f01c389-06a3-41dc-8178-cea5431ff59b)
+
+rider ID:    60a7ca40-3e23-43a9-958a-ad37a6d1e51c
+rider index: 332
+	TRIP: 333  (rider ID 60a7ca40-3e23-43a9-958a-ad37a6d1e51c)
+
+rider ID:    c6dff8ac-c176-4caa-8d5f-8c2d49b8791d
+rider index: 335
+	TRIP: 336  (rider ID c6dff8ac-c176-4caa-8d5f-8c2d49b8791d)
+
+rider ID:    d8c1d5ae-433e-46a8-a876-c7b39fe40db6
+rider index: 336
+	TRIP: 337  (rider ID d8c1d5ae-433e-46a8-a876-c7b39fe40db6)
+
+rider ID:    44e25e0c-da59-4a49-9dcf-ec1a60e91016
+rider index: 337
+	TRIP: 338  (rider ID 44e25e0c-da59-4a49-9dcf-ec1a60e91016)
+
+rider ID:    206ade48-316c-4d06-be3a-8241b35f3cc3
+rider index: 338
+	TRIP: 339  (rider ID 206ade48-316c-4d06-be3a-8241b35f3cc3)
+
+rider ID:    7a26f67e-180b-409d-886b-dfd4113bb5d5
+rider index: 339
+	TRIP: 340  (rider ID 7a26f67e-180b-409d-886b-dfd4113bb5d5)
+
+rider ID:    259529f5-94f4-4ee8-b1f7-d6dca63796b1
+rider index: 348
+	TRIP: 349  (rider ID 259529f5-94f4-4ee8-b1f7-d6dca63796b1)
+
+rider ID:    450d98b4-d4a8-4734-a020-3ebcf3d6d0f7
+rider index: 355
+	TRIP: 356  (rider ID 450d98b4-d4a8-4734-a020-3ebcf3d6d0f7)
+
+rider ID:    52405e0a-7659-49ec-b555-3c3a440e73e1
+rider index: 357
+	TRIP: 358  (rider ID 52405e0a-7659-49ec-b555-3c3a440e73e1)
+
+rider ID:    92a3ee7a-3c83-461e-8ac3-a3e931b9748f
+rider index: 361
+	TRIP: 362  (rider ID 92a3ee7a-3c83-461e-8ac3-a3e931b9748f)
+
+rider ID:    131e39cb-99a7-49ad-ab54-fd5c568cbeb4
+rider index: 362
+	TRIP: 363  (rider ID 131e39cb-99a7-49ad-ab54-fd5c568cbeb4)
+
+rider ID:    0c08774e-c4e8-4471-92e4-cfa355855389
+rider index: 366
+	TRIP: 367  (rider ID 0c08774e-c4e8-4471-92e4-cfa355855389)
+
+rider ID:    31c7ef63-646e-4e95-b640-e94544b32a44
+rider index: 368
+	TRIP: 369  (rider ID 31c7ef63-646e-4e95-b640-e94544b32a44)
+
+rider ID:    a9efcb38-fb97-4f53-ba86-ef9c2923d019
+rider index: 373
+	TRIP: 374  (rider ID a9efcb38-fb97-4f53-ba86-ef9c2923d019)
+
+rider ID:    ae6f5332-b4b0-47ae-83b3-031194a42399
+rider index: 374
+	TRIP: 375  (rider ID ae6f5332-b4b0-47ae-83b3-031194a42399)
+
+rider ID:    69099094-d679-4bf8-92ad-57d5c482446e
+rider index: 382
+	TRIP: 383  (rider ID 69099094-d679-4bf8-92ad-57d5c482446e)
+
+rider ID:    fe133a16-fbed-4d01-81d2-c608948f8ca2
+rider index: 384
+	TRIP: 385  (rider ID fe133a16-fbed-4d01-81d2-c608948f8ca2)
+
+rider ID:    d3767e83-460e-480f-9d8e-9343d2924f35
+rider index: 385
+	TRIP: 386  (rider ID d3767e83-460e-480f-9d8e-9343d2924f35)
+
+rider ID:    20954cdc-ac09-46c0-8960-f1a89b578eae
+rider index: 387
+	TRIP: 388  (rider ID 20954cdc-ac09-46c0-8960-f1a89b578eae)
+
+rider ID:    76dc233b-d217-4c7f-a4e8-564da653e415
+rider index: 388
+	TRIP: 389  (rider ID 76dc233b-d217-4c7f-a4e8-564da653e415)
+
+rider ID:    623d33af-992a-43b3-adf3-16652636c0eb
+rider index: 393
+	TRIP: 394  (rider ID 623d33af-992a-43b3-adf3-16652636c0eb)
+
+rider ID:    1c323748-8892-4905-9857-878145f7a8b5
+rider index: 396
+	TRIP: 397  (rider ID 1c323748-8892-4905-9857-878145f7a8b5)
+
+rider ID:    7b032bc7-cf5d-4634-b620-a80e3d649f99
+rider index: 398
+	TRIP: 399  (rider ID 7b032bc7-cf5d-4634-b620-a80e3d649f99)
+
+rider ID:    4a3dd865-eb22-438d-a183-c41664c1660d
+rider index: 399
+	TRIP: 400  (rider ID 4a3dd865-eb22-438d-a183-c41664c1660d)
+	TRIP: 2105  (rider ID 4a3dd865-eb22-438d-a183-c41664c1660d)
+
+rider ID:    561545f2-70d7-4d8e-8d22-5c8846d540c1
+rider index: 400
+	TRIP: 401  (rider ID 561545f2-70d7-4d8e-8d22-5c8846d540c1)
+
+rider ID:    eec66db7-20f4-4f55-9afa-3c2501dc1739
+rider index: 405
+	TRIP: 406  (rider ID eec66db7-20f4-4f55-9afa-3c2501dc1739)
+
+rider ID:    61bdf5e1-1b9e-4ef6-b9ff-8f1cf9b28fb7
+rider index: 407
+	TRIP: 408  (rider ID 61bdf5e1-1b9e-4ef6-b9ff-8f1cf9b28fb7)
+
+rider ID:    b0e6d0ee-3487-4d5b-b4e3-beac6ca1bd11
+rider index: 409
+	TRIP: 410  (rider ID b0e6d0ee-3487-4d5b-b4e3-beac6ca1bd11)
+
+rider ID:    0f1d0ced-bef1-4f80-9a99-4e69311c7a29
+rider index: 410
+	TRIP: 411  (rider ID 0f1d0ced-bef1-4f80-9a99-4e69311c7a29)
+
+rider ID:    946ad73d-fafb-46fb-834c-e47f768a77e2
+rider index: 411
+	TRIP: 412  (rider ID 946ad73d-fafb-46fb-834c-e47f768a77e2)
+	TRIP: 1909  (rider ID 946ad73d-fafb-46fb-834c-e47f768a77e2)
+	TRIP: 2034  (rider ID 946ad73d-fafb-46fb-834c-e47f768a77e2)
+
+rider ID:    e1e78753-2b99-48ac-a2a9-c8ba0a82ba4e
+rider index: 414
+	TRIP: 415  (rider ID e1e78753-2b99-48ac-a2a9-c8ba0a82ba4e)
+
+rider ID:    30b8703d-b4bb-41b9-aade-47f6182a76eb
+rider index: 415
+	TRIP: 416  (rider ID 30b8703d-b4bb-41b9-aade-47f6182a76eb)
+
+rider ID:    8830a1c6-3fb1-4e80-ba5f-2498e6c9ecc4
+rider index: 416
+	TRIP: 417  (rider ID 8830a1c6-3fb1-4e80-ba5f-2498e6c9ecc4)
+
+rider ID:    5603273e-892b-470a-b4f9-de439c9dfa98
+rider index: 417
+	TRIP: 418  (rider ID 5603273e-892b-470a-b4f9-de439c9dfa98)
+
+rider ID:    eadb39f8-dd79-4444-8a80-61fcbe67e83a
+rider index: 419
+	TRIP: 420  (rider ID eadb39f8-dd79-4444-8a80-61fcbe67e83a)
+
+rider ID:    a9373d21-bd80-4291-816a-0a87b6312566
+rider index: 420
+	TRIP: 421  (rider ID a9373d21-bd80-4291-816a-0a87b6312566)
+
+rider ID:    3b3db422-812b-4ce4-b9f3-e09932efd101
+rider index: 425
+	TRIP: 426  (rider ID 3b3db422-812b-4ce4-b9f3-e09932efd101)
+
+rider ID:    21dc0c76-6845-4755-9275-2b76a8ade3a1
+rider index: 426
+	TRIP: 427  (rider ID 21dc0c76-6845-4755-9275-2b76a8ade3a1)
+
+rider ID:    8155fec3-7e80-4266-a890-77d5439541c6
+rider index: 431
+	TRIP: 432  (rider ID 8155fec3-7e80-4266-a890-77d5439541c6)
+
+rider ID:    e3768931-71c0-404e-a9ad-ddd212995108
+rider index: 432
+	TRIP: 433  (rider ID e3768931-71c0-404e-a9ad-ddd212995108)
+
+rider ID:    2d5e5a05-de66-48f1-8a07-3d665f7b839e
+rider index: 435
+	TRIP: 436  (rider ID 2d5e5a05-de66-48f1-8a07-3d665f7b839e)
+
+rider ID:    d73c1217-2e9f-4b09-9646-4c6303f04b26
+rider index: 437
+	TRIP: 438  (rider ID d73c1217-2e9f-4b09-9646-4c6303f04b26)
+
+rider ID:    9a5c03df-f05c-440f-bce1-29e6ff5e4b62
+rider index: 438
+	TRIP: 439  (rider ID 9a5c03df-f05c-440f-bce1-29e6ff5e4b62)
+
+rider ID:    b55bad5b-d9e6-450f-aef6-2b383f4f1bcf
+rider index: 444
+	TRIP: 445  (rider ID b55bad5b-d9e6-450f-aef6-2b383f4f1bcf)
+
+rider ID:    51c3d29e-1dc1-4f1b-ae3b-bcd78451ca7a
+rider index: 445
+	TRIP: 446  (rider ID 51c3d29e-1dc1-4f1b-ae3b-bcd78451ca7a)
+
+rider ID:    6430641f-a5fc-4411-b259-6faacbf6db3a
+rider index: 447
+	TRIP: 448  (rider ID 6430641f-a5fc-4411-b259-6faacbf6db3a)
+
+rider ID:    afb64699-baef-49bc-97b3-d9409611df10
+rider index: 448
+	TRIP: 449  (rider ID afb64699-baef-49bc-97b3-d9409611df10)
+	TRIP: 1957  (rider ID afb64699-baef-49bc-97b3-d9409611df10)
+
+rider ID:    5065755c-49f2-49ac-b8fc-6a039c9f8f4a
+rider index: 451
+	TRIP: 452  (rider ID 5065755c-49f2-49ac-b8fc-6a039c9f8f4a)
+
+rider ID:    20b0a713-47cf-46dc-8984-b8da37b57157
+rider index: 454
+	TRIP: 455  (rider ID 20b0a713-47cf-46dc-8984-b8da37b57157)
+
+rider ID:    5b1f35e0-428f-49a9-8621-68e356d38141
+rider index: 457
+	TRIP: 458  (rider ID 5b1f35e0-428f-49a9-8621-68e356d38141)
+
+rider ID:    4d9fb7a8-e8f4-40ea-a113-38f6ec727f83
+rider index: 458
+	TRIP: 459  (rider ID 4d9fb7a8-e8f4-40ea-a113-38f6ec727f83)
+
+rider ID:    497ab5ce-e895-4e4d-b628-88b76ca3a374
+rider index: 462
+	TRIP: 463  (rider ID 497ab5ce-e895-4e4d-b628-88b76ca3a374)
+	TRIP: 3096  (rider ID 497ab5ce-e895-4e4d-b628-88b76ca3a374)
+
+rider ID:    5b853c85-70dd-4ad7-b077-002857399881
+rider index: 466
+	TRIP: 467  (rider ID 5b853c85-70dd-4ad7-b077-002857399881)
+
+rider ID:    b90a2627-a5b1-4fc8-8fd6-5ae9f4c111d7
+rider index: 468
+	TRIP: 469  (rider ID b90a2627-a5b1-4fc8-8fd6-5ae9f4c111d7)
+
+rider ID:    e1ad27db-5a80-402a-a6dd-2db09e0e9557
+rider index: 469
+	TRIP: 470  (rider ID e1ad27db-5a80-402a-a6dd-2db09e0e9557)
+
+rider ID:    210afeee-a011-45a5-be55-355e85d54394
+rider index: 470
+	TRIP: 471  (rider ID 210afeee-a011-45a5-be55-355e85d54394)
+
+rider ID:    5fcf612a-b06a-4e64-a898-0af2c4d10834
+rider index: 472
+	TRIP: 473  (rider ID 5fcf612a-b06a-4e64-a898-0af2c4d10834)
+
+rider ID:    1e65d3c2-e5b5-432e-853e-d81635c13bfa
+rider index: 473
+	TRIP: 474  (rider ID 1e65d3c2-e5b5-432e-853e-d81635c13bfa)
+
+rider ID:    aba53c8a-c324-4f4b-b0c5-b1c3f94a3cd5
+rider index: 476
+	TRIP: 477  (rider ID aba53c8a-c324-4f4b-b0c5-b1c3f94a3cd5)
+
+rider ID:    2804ba39-6903-4973-ad1e-71fb078e226d
+rider index: 478
+	TRIP: 479  (rider ID 2804ba39-6903-4973-ad1e-71fb078e226d)
+
+rider ID:    04a99112-e055-4627-95c2-35c0e2c34e39
+rider index: 480
+	TRIP: 481  (rider ID 04a99112-e055-4627-95c2-35c0e2c34e39)
+
+rider ID:    a4eed9cd-ba37-4787-850b-7fc654744c8a
+rider index: 482
+	TRIP: 483  (rider ID a4eed9cd-ba37-4787-850b-7fc654744c8a)
+
+rider ID:    c69ef4b2-b1a2-41c1-ab2f-a31ef9f30889
+rider index: 483
+	TRIP: 484  (rider ID c69ef4b2-b1a2-41c1-ab2f-a31ef9f30889)
+
+rider ID:    69c316bb-98ef-4269-818d-309eb32c9a48
+rider index: 487
+	TRIP: 488  (rider ID 69c316bb-98ef-4269-818d-309eb32c9a48)
+
+rider ID:    1b0cca38-bed5-4d0e-a003-3628343dd86d
+rider index: 488
+	TRIP: 489  (rider ID 1b0cca38-bed5-4d0e-a003-3628343dd86d)
+	TRIP: 990  (rider ID 1b0cca38-bed5-4d0e-a003-3628343dd86d)
+
+rider ID:    0c2ee2bc-3451-4154-8b8e-666952424422
+rider index: 495
+	TRIP: 496  (rider ID 0c2ee2bc-3451-4154-8b8e-666952424422)
+
+rider ID:    a205c0b0-4ed2-491e-af79-cccd41e2931e
+rider index: 496
+	TRIP: 497  (rider ID a205c0b0-4ed2-491e-af79-cccd41e2931e)
+
+rider ID:    1e36966f-396b-43f2-b4b5-c43025c84ed5
+rider index: 497
+	TRIP: 498  (rider ID 1e36966f-396b-43f2-b4b5-c43025c84ed5)
+
+rider ID:    1fd35bb0-1b76-4573-8c8f-8007db09b77e
+rider index: 501
+	TRIP: 502  (rider ID 1fd35bb0-1b76-4573-8c8f-8007db09b77e)
+	TRIP: 1652  (rider ID 1fd35bb0-1b76-4573-8c8f-8007db09b77e)
+
+rider ID:    46b1de50-8844-439d-a4fd-6ed80a117311
+rider index: 502
+	TRIP: 503  (rider ID 46b1de50-8844-439d-a4fd-6ed80a117311)
+
+rider ID:    221b7cba-8df1-4e09-9659-76948da2ccbd
+rider index: 503
+	TRIP: 504  (rider ID 221b7cba-8df1-4e09-9659-76948da2ccbd)
+
+rider ID:    1b42769d-9ff8-46a5-a564-38c9da3c69a4
+rider index: 505
+	TRIP: 506  (rider ID 1b42769d-9ff8-46a5-a564-38c9da3c69a4)
+
+rider ID:    91de30a0-0b2f-4f5e-b7d0-f1d0a0a44c89
+rider index: 507
+	TRIP: 508  (rider ID 91de30a0-0b2f-4f5e-b7d0-f1d0a0a44c89)
+
+rider ID:    eb332790-728f-475c-88c3-585b7de15956
+rider index: 508
+	TRIP: 509  (rider ID eb332790-728f-475c-88c3-585b7de15956)
+
+rider ID:    1fb58d0f-ecd7-4e2d-a96f-0a4cadf116da
+rider index: 510
+	TRIP: 511  (rider ID 1fb58d0f-ecd7-4e2d-a96f-0a4cadf116da)
+
+rider ID:    239ccdf7-cc26-438e-91bf-e5351412b914
+rider index: 515
+	TRIP: 516  (rider ID 239ccdf7-cc26-438e-91bf-e5351412b914)
+
+rider ID:    d443b910-be84-42bb-a402-6bf6885079fa
+rider index: 519
+	TRIP: 520  (rider ID d443b910-be84-42bb-a402-6bf6885079fa)
+
+rider ID:    b1607cdb-969d-4d17-af4f-ec51b82da462
+rider index: 523
+	TRIP: 524  (rider ID b1607cdb-969d-4d17-af4f-ec51b82da462)
+
+rider ID:    885257d3-ff18-451a-ad4f-98d669bbf479
+rider index: 527
+	TRIP: 528  (rider ID 885257d3-ff18-451a-ad4f-98d669bbf479)
+
+rider ID:    c5affa09-981e-4f78-9ecd-a55245f7278d
+rider index: 530
+	TRIP: 531  (rider ID c5affa09-981e-4f78-9ecd-a55245f7278d)
+
+rider ID:    8b803bbb-8e84-435c-bbde-d690848f03ef
+rider index: 531
+	TRIP: 532  (rider ID 8b803bbb-8e84-435c-bbde-d690848f03ef)
+
+rider ID:    4cd6dba4-8ee0-4b31-ba07-6f07740cff6c
+rider index: 532
+	TRIP: 533  (rider ID 4cd6dba4-8ee0-4b31-ba07-6f07740cff6c)
+
+rider ID:    1f074c68-bfa5-4c6b-bef4-206919fb7fdc
+rider index: 535
+	TRIP: 536  (rider ID 1f074c68-bfa5-4c6b-bef4-206919fb7fdc)
+
+rider ID:    5485af25-c26c-455f-ae05-b85bb8f2609e
+rider index: 536
+	TRIP: 537  (rider ID 5485af25-c26c-455f-ae05-b85bb8f2609e)
+
+rider ID:    f2a53d6f-a3bd-4d3c-b0e5-19d670780535
+rider index: 537
+	TRIP: 538  (rider ID f2a53d6f-a3bd-4d3c-b0e5-19d670780535)
+
+rider ID:    ee48f596-c83a-4f49-974a-a7303d1d9c42
+rider index: 539
+	TRIP: 540  (rider ID ee48f596-c83a-4f49-974a-a7303d1d9c42)
+
+rider ID:    a5dc191f-7ac9-4839-b786-8f11bd73e792
+rider index: 541
+	TRIP: 542  (rider ID a5dc191f-7ac9-4839-b786-8f11bd73e792)
+
+rider ID:    5e597166-85a0-4e9f-a06e-eb6219f24666
+rider index: 543
+	TRIP: 544  (rider ID 5e597166-85a0-4e9f-a06e-eb6219f24666)
+
+rider ID:    70096b31-b276-4da5-8285-7fe3454a2653
+rider index: 545
+	TRIP: 546  (rider ID 70096b31-b276-4da5-8285-7fe3454a2653)
+
+rider ID:    350552f7-a5f3-4d48-af25-b11f10939747
+rider index: 552
+	TRIP: 553  (rider ID 350552f7-a5f3-4d48-af25-b11f10939747)
+
+rider ID:    cdcdb5e2-a121-4345-88a5-fc6b8ee5b7d3
+rider index: 555
+	TRIP: 556  (rider ID cdcdb5e2-a121-4345-88a5-fc6b8ee5b7d3)
+
+rider ID:    14ccc141-99c4-45e1-8fe6-d05e7684f3d0
+rider index: 559
+	TRIP: 560  (rider ID 14ccc141-99c4-45e1-8fe6-d05e7684f3d0)
+
+rider ID:    098b6109-b9db-4b43-a38e-897c7272ff1b
+rider index: 560
+	TRIP: 561  (rider ID 098b6109-b9db-4b43-a38e-897c7272ff1b)
+
+rider ID:    41049057-3233-43d3-ad09-405c06f1ce10
+rider index: 563
+	TRIP: 564  (rider ID 41049057-3233-43d3-ad09-405c06f1ce10)
+
+rider ID:    b51f8329-19e4-428e-a850-d8172df91951
+rider index: 564
+	TRIP: 565  (rider ID b51f8329-19e4-428e-a850-d8172df91951)
+
+rider ID:    10300008-5fe8-4ab0-8eb9-5cfb12b8847a
+rider index: 565
+	TRIP: 566  (rider ID 10300008-5fe8-4ab0-8eb9-5cfb12b8847a)
+
+rider ID:    78e30472-9608-4017-bd9e-f1e3bb262fd9
+rider index: 570
+	TRIP: 571  (rider ID 78e30472-9608-4017-bd9e-f1e3bb262fd9)
+
+rider ID:    847fcdb2-1321-443e-9299-e7a4f40ad988
+rider index: 572
+	TRIP: 573  (rider ID 847fcdb2-1321-443e-9299-e7a4f40ad988)
+
+rider ID:    fd7b673e-1bdf-42c5-a92e-9b61b0295517
+rider index: 573
+	TRIP: 574  (rider ID fd7b673e-1bdf-42c5-a92e-9b61b0295517)
+
+rider ID:    71411429-b9bd-41f7-8c01-7325a8812e2a
+rider index: 574
+	TRIP: 575  (rider ID 71411429-b9bd-41f7-8c01-7325a8812e2a)
+
+rider ID:    bffb5bad-62f6-4e36-ba9c-df9abe4111b6
+rider index: 576
+	TRIP: 577  (rider ID bffb5bad-62f6-4e36-ba9c-df9abe4111b6)
+
+rider ID:    7769b2c6-7ab9-4b4a-b727-53e57d522df0
+rider index: 579
+	TRIP: 580  (rider ID 7769b2c6-7ab9-4b4a-b727-53e57d522df0)
+
+rider ID:    668657b9-c075-4eed-8c38-db3021427923
+rider index: 580
+	TRIP: 581  (rider ID 668657b9-c075-4eed-8c38-db3021427923)
+
+rider ID:    b858331b-33a7-4184-b725-4995099417d1
+rider index: 583
+	TRIP: 584  (rider ID b858331b-33a7-4184-b725-4995099417d1)
+
+rider ID:    42c4961a-f6bb-4285-b9b6-0655275fcd45
+rider index: 585
+	TRIP: 586  (rider ID 42c4961a-f6bb-4285-b9b6-0655275fcd45)
+
+rider ID:    f4663f87-2a68-4ded-827b-0708fd7ee26b
+rider index: 588
+	TRIP: 589  (rider ID f4663f87-2a68-4ded-827b-0708fd7ee26b)
+
+rider ID:    a3c0ea13-061e-46a5-934d-e755916d56c2
+rider index: 590
+	TRIP: 591  (rider ID a3c0ea13-061e-46a5-934d-e755916d56c2)
+
+rider ID:    18e3db07-f930-4aa4-bcc0-494ae9c6dbf3
+rider index: 591
+	TRIP: 592  (rider ID 18e3db07-f930-4aa4-bcc0-494ae9c6dbf3)
+
+rider ID:    52f50351-fb4c-4605-bcca-d200fc16a919
+rider index: 592
+	TRIP: 593  (rider ID 52f50351-fb4c-4605-bcca-d200fc16a919)
+
+rider ID:    ed8d49fe-a3ea-460c-865e-4bb8d5a4c1a7
+rider index: 597
+	TRIP: 598  (rider ID ed8d49fe-a3ea-460c-865e-4bb8d5a4c1a7)
+
+rider ID:    2ba088f8-9d06-4f27-8d5f-1f3feb35496d
+rider index: 600
+	TRIP: 601  (rider ID 2ba088f8-9d06-4f27-8d5f-1f3feb35496d)
+
+rider ID:    d2ecc27a-76d1-4371-ba8a-6eb6707638e6
+rider index: 601
+	TRIP: 602  (rider ID d2ecc27a-76d1-4371-ba8a-6eb6707638e6)
+
+rider ID:    f8d006e2-7ab2-40c0-af19-76e6f9b9b64a
+rider index: 602
+	TRIP: 603  (rider ID f8d006e2-7ab2-40c0-af19-76e6f9b9b64a)
+
+rider ID:    90053dca-1332-400c-a4d4-27d14b827818
+rider index: 604
+	TRIP: 605  (rider ID 90053dca-1332-400c-a4d4-27d14b827818)
+
+rider ID:    a544e3d6-09d6-4649-bb52-b3f669aa7542
+rider index: 607
+	TRIP: 608  (rider ID a544e3d6-09d6-4649-bb52-b3f669aa7542)
+
+rider ID:    d33addd8-0bc7-42d0-bad5-21b3a03beebb
+rider index: 608
+	TRIP: 609  (rider ID d33addd8-0bc7-42d0-bad5-21b3a03beebb)
+
+rider ID:    0d4a9549-8ac0-42e6-abf4-3e01c68a3a6f
+rider index: 609
+	TRIP: 610  (rider ID 0d4a9549-8ac0-42e6-abf4-3e01c68a3a6f)
+
+rider ID:    ecbea7a6-8c23-407d-adec-4fec7c2c0e73
+rider index: 613
+	TRIP: 614  (rider ID ecbea7a6-8c23-407d-adec-4fec7c2c0e73)
+
+rider ID:    e6f79f79-bada-4219-9781-b4b45b42dcae
+rider index: 615
+	TRIP: 616  (rider ID e6f79f79-bada-4219-9781-b4b45b42dcae)
+
+rider ID:    5f3221c6-0386-4d03-997e-3e0de1f55c23
+rider index: 616
+	TRIP: 617  (rider ID 5f3221c6-0386-4d03-997e-3e0de1f55c23)
+
+rider ID:    4a3f6ed5-a5ae-4ba2-bf0b-00029c6b00c4
+rider index: 617
+	TRIP: 618  (rider ID 4a3f6ed5-a5ae-4ba2-bf0b-00029c6b00c4)
+
+rider ID:    eabc151e-ff27-4d45-ac38-6cc8611c288b
+rider index: 623
+	TRIP: 624  (rider ID eabc151e-ff27-4d45-ac38-6cc8611c288b)
+
+rider ID:    3d027738-5b2c-46c7-8563-2429e51b6d8a
+rider index: 625
+	TRIP: 626  (rider ID 3d027738-5b2c-46c7-8563-2429e51b6d8a)
+
+rider ID:    854bbfcf-1ad3-4e82-87df-4d1506cc75a7
+rider index: 629
+	TRIP: 630  (rider ID 854bbfcf-1ad3-4e82-87df-4d1506cc75a7)
+
+rider ID:    e354df41-d378-4f36-abbe-50da7de3fe85
+rider index: 630
+	TRIP: 631  (rider ID e354df41-d378-4f36-abbe-50da7de3fe85)
+
+rider ID:    2b68914a-0aec-4f50-b8d9-0109488675a3
+rider index: 638
+	TRIP: 639  (rider ID 2b68914a-0aec-4f50-b8d9-0109488675a3)
+
+rider ID:    3e85b17d-43f8-40de-b403-c2f9f2da2c1a
+rider index: 639
+	TRIP: 640  (rider ID 3e85b17d-43f8-40de-b403-c2f9f2da2c1a)
+
+rider ID:    f65a2c57-f77d-40d0-968e-e05478f29691
+rider index: 648
+	TRIP: 649  (rider ID f65a2c57-f77d-40d0-968e-e05478f29691)
+
+rider ID:    12f66f88-ebc8-4345-a8cf-f2bac1357087
+rider index: 651
+	TRIP: 652  (rider ID 12f66f88-ebc8-4345-a8cf-f2bac1357087)
+
+rider ID:    cb1e47c4-3660-4e04-b446-71afe1b6513d
+rider index: 652
+	TRIP: 653  (rider ID cb1e47c4-3660-4e04-b446-71afe1b6513d)
+
+rider ID:    237c2298-836e-476c-9cb7-da63a566a59f
+rider index: 653
+	TRIP: 654  (rider ID 237c2298-836e-476c-9cb7-da63a566a59f)
+
+rider ID:    37375fee-8e11-45e9-a976-a5f98faed4e1
+rider index: 654
+	TRIP: 655  (rider ID 37375fee-8e11-45e9-a976-a5f98faed4e1)
+
+rider ID:    cf545c83-5899-4f7c-91cf-98b4565485e8
+rider index: 655
+	TRIP: 656  (rider ID cf545c83-5899-4f7c-91cf-98b4565485e8)
+
+rider ID:    0d3717a1-8c60-46aa-9845-3f0eb4fc6e78
+rider index: 657
+	TRIP: 658  (rider ID 0d3717a1-8c60-46aa-9845-3f0eb4fc6e78)
+
+rider ID:    173fe85d-aefb-48a5-ad95-d671266d81c9
+rider index: 664
+	TRIP: 665  (rider ID 173fe85d-aefb-48a5-ad95-d671266d81c9)
+
+rider ID:    9397c88a-beb1-4971-8349-5b82e876715f
+rider index: 665
+	TRIP: 666  (rider ID 9397c88a-beb1-4971-8349-5b82e876715f)
+
+rider ID:    caae50b1-7868-4b82-bd01-84484a05c461
+rider index: 667
+	TRIP: 668  (rider ID caae50b1-7868-4b82-bd01-84484a05c461)
+
+rider ID:    14790cf2-9ceb-4706-afe6-e3facd3da9bf
+rider index: 668
+	TRIP: 669  (rider ID 14790cf2-9ceb-4706-afe6-e3facd3da9bf)
+
+rider ID:    7325d27b-eb5a-4f5b-b445-088e761fb064
+rider index: 669
+	TRIP: 670  (rider ID 7325d27b-eb5a-4f5b-b445-088e761fb064)
+
+rider ID:    05c7c782-ec17-49b1-9a67-3af004907c01
+rider index: 671
+	TRIP: 672  (rider ID 05c7c782-ec17-49b1-9a67-3af004907c01)
+
+rider ID:    a58f990a-4744-4250-aa1f-dc81b5999534
+rider index: 672
+	TRIP: 673  (rider ID a58f990a-4744-4250-aa1f-dc81b5999534)
+
+rider ID:    e35dd8e5-b3da-4bdf-b02a-847b42d195c5
+rider index: 674
+	TRIP: 675  (rider ID e35dd8e5-b3da-4bdf-b02a-847b42d195c5)
+
+rider ID:    2120c417-7fcb-4a02-a289-acdfdc808667
+rider index: 675
+	TRIP: 676  (rider ID 2120c417-7fcb-4a02-a289-acdfdc808667)
+
+rider ID:    24b1ef89-91f0-4eb6-b9f2-6645c05e7416
+rider index: 679
+	TRIP: 680  (rider ID 24b1ef89-91f0-4eb6-b9f2-6645c05e7416)
+
+rider ID:    aebb61ae-6574-43ee-b41b-4fbcba8a2240
+rider index: 691
+	TRIP: 692  (rider ID aebb61ae-6574-43ee-b41b-4fbcba8a2240)
+
+rider ID:    b9f66afa-efad-4dc6-a74e-b1cad25c244c
+rider index: 694
+	TRIP: 695  (rider ID b9f66afa-efad-4dc6-a74e-b1cad25c244c)
+
+rider ID:    0b372fe9-405f-4b18-9aa3-562b935ea2f0
+rider index: 698
+	TRIP: 699  (rider ID 0b372fe9-405f-4b18-9aa3-562b935ea2f0)
+
+rider ID:    533eee0a-9498-486f-af32-460416b984dc
+rider index: 706
+	TRIP: 707  (rider ID 533eee0a-9498-486f-af32-460416b984dc)
+
+rider ID:    58db3676-2bd9-435a-8fcd-c8a70625f420
+rider index: 709
+	TRIP: 710  (rider ID 58db3676-2bd9-435a-8fcd-c8a70625f420)
+
+rider ID:    5a4291fd-cef4-42c2-9ebc-cf49571194f1
+rider index: 710
+	TRIP: 711  (rider ID 5a4291fd-cef4-42c2-9ebc-cf49571194f1)
+
+rider ID:    2de61c85-d698-45bb-8b2a-e7bed1dfc262
+rider index: 712
+	TRIP: 713  (rider ID 2de61c85-d698-45bb-8b2a-e7bed1dfc262)
+
+rider ID:    c4ae11b2-7697-4eb5-8ad0-6d4d9d9b05bf
+rider index: 713
+	TRIP: 714  (rider ID c4ae11b2-7697-4eb5-8ad0-6d4d9d9b05bf)
+
+rider ID:    2658df90-71e0-464d-8ed7-fbc6c04f110c
+rider index: 714
+	TRIP: 715  (rider ID 2658df90-71e0-464d-8ed7-fbc6c04f110c)
+
+rider ID:    23511208-b1d2-4a04-9eab-70f812fef08b
+rider index: 715
+	TRIP: 716  (rider ID 23511208-b1d2-4a04-9eab-70f812fef08b)
+
+rider ID:    26a1eba1-d64e-4aaa-96da-85f0bef0eee0
+rider index: 716
+	TRIP: 717  (rider ID 26a1eba1-d64e-4aaa-96da-85f0bef0eee0)
+
+rider ID:    d9c9aec7-4e69-481f-8028-634e35a27133
+rider index: 731
+	TRIP: 732  (rider ID d9c9aec7-4e69-481f-8028-634e35a27133)
+
+rider ID:    cc5f05fa-a8d6-4349-ba87-919d162ef7c8
+rider index: 733
+	TRIP: 734  (rider ID cc5f05fa-a8d6-4349-ba87-919d162ef7c8)
+
+rider ID:    4ff2fec2-c667-40d5-9a6f-a4dd20b076bd
+rider index: 737
+	TRIP: 738  (rider ID 4ff2fec2-c667-40d5-9a6f-a4dd20b076bd)
+
+rider ID:    d85889e5-7984-4633-8fd1-cfcb435ea22d
+rider index: 745
+	TRIP: 746  (rider ID d85889e5-7984-4633-8fd1-cfcb435ea22d)
+
+rider ID:    4bb5854c-c82e-4378-9ac2-23858ec32d16
+rider index: 746
+	TRIP: 747  (rider ID 4bb5854c-c82e-4378-9ac2-23858ec32d16)
+
+rider ID:    58077b85-57f0-46b8-a744-e8be9a4cff60
+rider index: 748
+	TRIP: 749  (rider ID 58077b85-57f0-46b8-a744-e8be9a4cff60)
+
+rider ID:    c10f139a-b149-431e-b5c3-4ee2ff02b97c
+rider index: 750
+	TRIP: 751  (rider ID c10f139a-b149-431e-b5c3-4ee2ff02b97c)
+
+rider ID:    1ec71de9-00dc-4bd7-bf83-a47daaf28f29
+rider index: 752
+	TRIP: 753  (rider ID 1ec71de9-00dc-4bd7-bf83-a47daaf28f29)
+
+rider ID:    ad064a44-ec01-445c-9de7-cf8ff4c877d5
+rider index: 754
+	TRIP: 755  (rider ID ad064a44-ec01-445c-9de7-cf8ff4c877d5)
+
+rider ID:    733fb743-9927-417a-9c1e-eda93d6d971c
+rider index: 757
+	TRIP: 758  (rider ID 733fb743-9927-417a-9c1e-eda93d6d971c)
+
+rider ID:    a93abd1a-91c6-4857-bd62-a5ba73d38f01
+rider index: 761
+	TRIP: 762  (rider ID a93abd1a-91c6-4857-bd62-a5ba73d38f01)
+
+rider ID:    cb922e6c-4d35-4ba6-b018-8b5c199ea54c
+rider index: 763
+	TRIP: 764  (rider ID cb922e6c-4d35-4ba6-b018-8b5c199ea54c)
+
+rider ID:    47130c1f-a2a9-45c0-a66f-938f83f5d837
+rider index: 765
+	TRIP: 766  (rider ID 47130c1f-a2a9-45c0-a66f-938f83f5d837)
+
+rider ID:    37defad1-802d-42db-a29b-4619617e5298
+rider index: 766
+	TRIP: 767  (rider ID 37defad1-802d-42db-a29b-4619617e5298)
+
+rider ID:    851f9b55-3235-40af-92fd-5950db92e690
+rider index: 768
+	TRIP: 769  (rider ID 851f9b55-3235-40af-92fd-5950db92e690)
+
+rider ID:    e44f5c66-364c-4297-9648-ef8ae8074696
+rider index: 769
+	TRIP: 770  (rider ID e44f5c66-364c-4297-9648-ef8ae8074696)
+
+rider ID:    6922e328-1b98-4b13-8ba6-2ea6d6fad9b9
+rider index: 770
+	TRIP: 771  (rider ID 6922e328-1b98-4b13-8ba6-2ea6d6fad9b9)
+
+rider ID:    51802c04-6abb-488d-bb09-a36710fa03ac
+rider index: 773
+	TRIP: 774  (rider ID 51802c04-6abb-488d-bb09-a36710fa03ac)
+
+rider ID:    3c455367-dce7-4a28-9ebd-acfeebbcee6c
+rider index: 774
+	TRIP: 775  (rider ID 3c455367-dce7-4a28-9ebd-acfeebbcee6c)
+
+rider ID:    4516c821-95eb-4db7-b9de-046aed1e29bf
+rider index: 778
+	TRIP: 779  (rider ID 4516c821-95eb-4db7-b9de-046aed1e29bf)
+
+rider ID:    7d192167-f955-4155-9b7a-1be018c28bc2
+rider index: 780
+	TRIP: 781  (rider ID 7d192167-f955-4155-9b7a-1be018c28bc2)
+
+rider ID:    2ede7eec-493f-4ec5-93f7-ac4f47cecd17
+rider index: 781
+	TRIP: 782  (rider ID 2ede7eec-493f-4ec5-93f7-ac4f47cecd17)
+
+rider ID:    9917f8d7-1c1d-4568-b58f-25709a0ae095
+rider index: 782
+	TRIP: 783  (rider ID 9917f8d7-1c1d-4568-b58f-25709a0ae095)
+
+rider ID:    52692862-7d05-43a1-81df-4c0b2732ce84
+rider index: 783
+	TRIP: 784  (rider ID 52692862-7d05-43a1-81df-4c0b2732ce84)
+
+rider ID:    6133b793-983e-4a9e-9286-0f726f139f8f
+rider index: 785
+	TRIP: 786  (rider ID 6133b793-983e-4a9e-9286-0f726f139f8f)
+
+rider ID:    a507f00d-a2d4-45f8-8150-3726a61db434
+rider index: 790
+	TRIP: 791  (rider ID a507f00d-a2d4-45f8-8150-3726a61db434)
+
+rider ID:    a667834d-3c1a-428d-a277-230108e22f99
+rider index: 791
+	TRIP: 792  (rider ID a667834d-3c1a-428d-a277-230108e22f99)
+
+rider ID:    997648cb-42b6-4520-81a1-0032d0699f25
+rider index: 797
+	TRIP: 798  (rider ID 997648cb-42b6-4520-81a1-0032d0699f25)
+	TRIP: 3031  (rider ID 997648cb-42b6-4520-81a1-0032d0699f25)
+
+rider ID:    d2620655-d2d0-4e53-a838-aab2ffaa0988
+rider index: 799
+	TRIP: 800  (rider ID d2620655-d2d0-4e53-a838-aab2ffaa0988)
+
+rider ID:    504afd5d-3b22-4698-b0fe-30629f761f1c
+rider index: 803
+	TRIP: 804  (rider ID 504afd5d-3b22-4698-b0fe-30629f761f1c)
+
+rider ID:    693880dc-d547-4017-9128-a0ea6184c8c5
+rider index: 806
+	TRIP: 807  (rider ID 693880dc-d547-4017-9128-a0ea6184c8c5)
+
+rider ID:    fdcadd6d-9cb2-4a97-960d-6845970abd99
+rider index: 814
+	TRIP: 815  (rider ID fdcadd6d-9cb2-4a97-960d-6845970abd99)
+
+rider ID:    f7801e42-7f02-43fe-a23c-93434c047f10
+rider index: 815
+	TRIP: 816  (rider ID f7801e42-7f02-43fe-a23c-93434c047f10)
+
+rider ID:    0b3c5ee6-5079-492c-ba9b-2aba25b421b4
+rider index: 819
+	TRIP: 821  (rider ID 0b3c5ee6-5079-492c-ba9b-2aba25b421b4)
+
+rider ID:    e0cb0a65-d9fb-400f-82a2-a568ac32de4d
+rider index: 822
+	TRIP: 824  (rider ID e0cb0a65-d9fb-400f-82a2-a568ac32de4d)
+
+rider ID:    13ddedd2-4c23-4bd5-9c0f-85f22f8c6672
+rider index: 823
+	TRIP: 825  (rider ID 13ddedd2-4c23-4bd5-9c0f-85f22f8c6672)
+
+rider ID:    52030766-83f8-427f-980e-2621c10865c4
+rider index: 824
+	TRIP: 826  (rider ID 52030766-83f8-427f-980e-2621c10865c4)
+
+rider ID:    aa67acbd-362a-4a90-9e02-a62720702a4c
+rider index: 826
+	TRIP: 828  (rider ID aa67acbd-362a-4a90-9e02-a62720702a4c)
+
+rider ID:    1ae2018c-c9bb-4c89-babe-94b06c4993cb
+rider index: 836
+	TRIP: 838  (rider ID 1ae2018c-c9bb-4c89-babe-94b06c4993cb)
+
+rider ID:    fcad5446-5bd2-4ba2-877c-1359a10bca57
+rider index: 837
+	TRIP: 839  (rider ID fcad5446-5bd2-4ba2-877c-1359a10bca57)
+
+rider ID:    c3ef01ce-2f61-4513-b81e-3efbed22445e
+rider index: 838
+	TRIP: 840  (rider ID c3ef01ce-2f61-4513-b81e-3efbed22445e)
+
+rider ID:    02131e82-cfa4-40c9-8694-38e3b6d7fb1a
+rider index: 840
+	TRIP: 842  (rider ID 02131e82-cfa4-40c9-8694-38e3b6d7fb1a)
+
+rider ID:    da0c7024-9fa6-4e0c-81d8-fbe1b68ce240
+rider index: 841
+	TRIP: 843  (rider ID da0c7024-9fa6-4e0c-81d8-fbe1b68ce240)
+
+rider ID:    8d6d46ed-ed10-4577-8992-418cdf25bf43
+rider index: 842
+	TRIP: 844  (rider ID 8d6d46ed-ed10-4577-8992-418cdf25bf43)
+
+rider ID:    0164f2f3-4d9b-4f27-94c3-f55873409be0
+rider index: 845
+	TRIP: 847  (rider ID 0164f2f3-4d9b-4f27-94c3-f55873409be0)
+
+rider ID:    33ba6eb5-ce6b-4cda-baf1-caaa90bceecd
+rider index: 846
+	TRIP: 848  (rider ID 33ba6eb5-ce6b-4cda-baf1-caaa90bceecd)
+
+rider ID:    20af948b-a03e-4b3f-a7af-ef61764d8bd3
+rider index: 851
+	TRIP: 853  (rider ID 20af948b-a03e-4b3f-a7af-ef61764d8bd3)
+
+rider ID:    030a9f91-96ad-4ed1-9caf-e4b5ccd0baab
+rider index: 855
+	TRIP: 857  (rider ID 030a9f91-96ad-4ed1-9caf-e4b5ccd0baab)
+
+rider ID:    014b6324-cd28-4788-8657-16cd47ce308a
+rider index: 862
+	TRIP: 864  (rider ID 014b6324-cd28-4788-8657-16cd47ce308a)
+
+rider ID:    a93c82fa-9cef-4838-b57d-22d32715901a
+rider index: 863
+	TRIP: 865  (rider ID a93c82fa-9cef-4838-b57d-22d32715901a)
+
+rider ID:    f3b3f79d-16fc-438d-9a70-40837e57f946
+rider index: 864
+	TRIP: 866  (rider ID f3b3f79d-16fc-438d-9a70-40837e57f946)
+
+rider ID:    f98eae25-97ab-4632-abe8-4537f146b6ae
+rider index: 865
+	TRIP: 867  (rider ID f98eae25-97ab-4632-abe8-4537f146b6ae)
+
+rider ID:    50eb61b7-2100-4035-835f-e1401d43d00d
+rider index: 868
+	TRIP: 870  (rider ID 50eb61b7-2100-4035-835f-e1401d43d00d)
+
+rider ID:    72221d60-c3b6-4bc9-882e-6f3a9a5c0ff7
+rider index: 871
+	TRIP: 873  (rider ID 72221d60-c3b6-4bc9-882e-6f3a9a5c0ff7)
+
+rider ID:    67a85682-a380-4fc1-8f5b-e771e39d090d
+rider index: 872
+	TRIP: 874  (rider ID 67a85682-a380-4fc1-8f5b-e771e39d090d)
+
+rider ID:    57bda294-33f4-4ae5-b3f0-54817ec6dc2d
+rider index: 873
+	TRIP: 875  (rider ID 57bda294-33f4-4ae5-b3f0-54817ec6dc2d)
+
+rider ID:    c2a185f7-68f6-49be-9f33-be00429d8acf
+rider index: 874
+	TRIP: 876  (rider ID c2a185f7-68f6-49be-9f33-be00429d8acf)
+
+rider ID:    c9c0aa45-d6d8-453c-89c8-063607dc1477
+rider index: 879
+	TRIP: 881  (rider ID c9c0aa45-d6d8-453c-89c8-063607dc1477)
+
+rider ID:    3b7fc9f8-8692-49fe-bf34-02daa7b09db6
+rider index: 880
+	TRIP: 882  (rider ID 3b7fc9f8-8692-49fe-bf34-02daa7b09db6)
+
+rider ID:    a0340c86-d7cf-4834-ae91-30f05ef42c10
+rider index: 883
+	TRIP: 885  (rider ID a0340c86-d7cf-4834-ae91-30f05ef42c10)
+
+rider ID:    a7d6705f-d0c1-4846-b493-3c139b206507
+rider index: 891
+	TRIP: 893  (rider ID a7d6705f-d0c1-4846-b493-3c139b206507)
+
+rider ID:    180de25c-ebd0-4b8d-81b6-d01a7946cad9
+rider index: 892
+	TRIP: 894  (rider ID 180de25c-ebd0-4b8d-81b6-d01a7946cad9)
+
+rider ID:    f9161fb8-72cd-4d44-89d0-2f010328ae33
+rider index: 898
+	TRIP: 900  (rider ID f9161fb8-72cd-4d44-89d0-2f010328ae33)
+
+rider ID:    60db72fb-77fc-4968-bdbf-92988d5819f6
+rider index: 899
+	TRIP: 901  (rider ID 60db72fb-77fc-4968-bdbf-92988d5819f6)
+
+rider ID:    f7bff2a4-8849-495d-b3a4-efa954ab1772
+rider index: 900
+	TRIP: 902  (rider ID f7bff2a4-8849-495d-b3a4-efa954ab1772)
+
+rider ID:    9388dc0d-a0c4-4937-8562-dac7833997e2
+rider index: 901
+	TRIP: 903  (rider ID 9388dc0d-a0c4-4937-8562-dac7833997e2)
+
+rider ID:    f72dfbd6-97e6-46b8-8b5c-cc615a6318af
+rider index: 903
+	TRIP: 905  (rider ID f72dfbd6-97e6-46b8-8b5c-cc615a6318af)
+
+rider ID:    8df40fcc-71c3-4831-916d-ea2573d8df3c
+rider index: 904
+	TRIP: 906  (rider ID 8df40fcc-71c3-4831-916d-ea2573d8df3c)
+
+rider ID:    8df4558f-b3cd-4a10-8966-341f46d22f3f
+rider index: 907
+	TRIP: 909  (rider ID 8df4558f-b3cd-4a10-8966-341f46d22f3f)
+
+rider ID:    bf4b84be-88ab-49cb-9f12-b6cece790229
+rider index: 908
+	TRIP: 910  (rider ID bf4b84be-88ab-49cb-9f12-b6cece790229)
+
+rider ID:    cc0b5d25-5a51-418c-8c04-1799d7b9c174
+rider index: 910
+	TRIP: 912  (rider ID cc0b5d25-5a51-418c-8c04-1799d7b9c174)
+
+rider ID:    38a77266-a068-4a4b-97a4-fb24ccfaece0
+rider index: 912
+	TRIP: 914  (rider ID 38a77266-a068-4a4b-97a4-fb24ccfaece0)
+
+rider ID:    f9938499-c8b0-44cb-9e93-103b49c21a4d
+rider index: 914
+	TRIP: 916  (rider ID f9938499-c8b0-44cb-9e93-103b49c21a4d)
+
+rider ID:    0f88ba2a-2445-4958-8129-7afb603cd83d
+rider index: 915
+	TRIP: 917  (rider ID 0f88ba2a-2445-4958-8129-7afb603cd83d)
+
+rider ID:    a265b0d6-07db-4d1a-810d-a65e4fa82dc0
+rider index: 916
+	TRIP: 918  (rider ID a265b0d6-07db-4d1a-810d-a65e4fa82dc0)
+
+rider ID:    1e4e9bfe-d5a1-44e5-8299-046e696a6f22
+rider index: 918
+	TRIP: 920  (rider ID 1e4e9bfe-d5a1-44e5-8299-046e696a6f22)
+
+rider ID:    a7faa1f4-a511-42c4-bea6-4c13c92dbbf1
+rider index: 920
+	TRIP: 922  (rider ID a7faa1f4-a511-42c4-bea6-4c13c92dbbf1)
+
+rider ID:    abc72af5-2431-40a7-ace3-114a1a9eef6a
+rider index: 922
+	TRIP: 924  (rider ID abc72af5-2431-40a7-ace3-114a1a9eef6a)
+
+rider ID:    7165310e-ece3-41d9-ae9b-432558d776b1
+rider index: 923
+	TRIP: 925  (rider ID 7165310e-ece3-41d9-ae9b-432558d776b1)
+
+rider ID:    bf32360a-e611-42a5-85f4-39e121b25cf6
+rider index: 926
+	TRIP: 928  (rider ID bf32360a-e611-42a5-85f4-39e121b25cf6)
+
+rider ID:    45109a8b-361f-40a1-89f7-a7e1c370aa65
+rider index: 929
+	TRIP: 931  (rider ID 45109a8b-361f-40a1-89f7-a7e1c370aa65)
+	TRIP: 2441  (rider ID 45109a8b-361f-40a1-89f7-a7e1c370aa65)
+
+rider ID:    45a5b45f-949f-4d6e-bca9-ce88cfd16fc3
+rider index: 931
+	TRIP: 933  (rider ID 45a5b45f-949f-4d6e-bca9-ce88cfd16fc3)
+
+rider ID:    dddee45d-1fb2-49cc-b0fb-52e0553844e4
+rider index: 935
+	TRIP: 937  (rider ID dddee45d-1fb2-49cc-b0fb-52e0553844e4)
+
+rider ID:    ac87fd5c-7878-4a82-be6e-df0de3bd22bf
+rider index: 937
+	TRIP: 939  (rider ID ac87fd5c-7878-4a82-be6e-df0de3bd22bf)
+
+rider ID:    8da05160-b066-401a-92fe-1ab02bf7d625
+rider index: 938
+	TRIP: 940  (rider ID 8da05160-b066-401a-92fe-1ab02bf7d625)
+
+rider ID:    86d88dd8-d95d-460c-8968-af06bc74b635
+rider index: 939
+	TRIP: 941  (rider ID 86d88dd8-d95d-460c-8968-af06bc74b635)
+
+rider ID:    83bed6a9-5d8e-4a30-a551-0120b67244f2
+rider index: 940
+	TRIP: 942  (rider ID 83bed6a9-5d8e-4a30-a551-0120b67244f2)
+
+rider ID:    201293a7-9f32-4182-b536-26f2d37ff9e7
+rider index: 945
+	TRIP: 947  (rider ID 201293a7-9f32-4182-b536-26f2d37ff9e7)
+
+rider ID:    9c7a05a1-83ca-4ea5-aac9-81f77a6ebeaf
+rider index: 946
+	TRIP: 948  (rider ID 9c7a05a1-83ca-4ea5-aac9-81f77a6ebeaf)
+
+rider ID:    c28ddc4e-3927-4560-998f-5468f0dbbb6f
+rider index: 947
+	TRIP: 949  (rider ID c28ddc4e-3927-4560-998f-5468f0dbbb6f)
+
+rider ID:    c198eb3b-fc43-440d-a7af-d254352e6e8b
+rider index: 950
+	TRIP: 952  (rider ID c198eb3b-fc43-440d-a7af-d254352e6e8b)
+
+rider ID:    63ab90b0-9061-4641-9d54-a65ba89f1e88
+rider index: 955
+	TRIP: 957  (rider ID 63ab90b0-9061-4641-9d54-a65ba89f1e88)
+
+rider ID:    eecf0940-8adb-4622-b53d-395f660976d2
+rider index: 960
+	TRIP: 962  (rider ID eecf0940-8adb-4622-b53d-395f660976d2)
+	TRIP: 2071  (rider ID eecf0940-8adb-4622-b53d-395f660976d2)
+
+rider ID:    60c774c9-182f-4179-abd2-27cdf385b545
+rider index: 961
+	TRIP: 963  (rider ID 60c774c9-182f-4179-abd2-27cdf385b545)
+
+rider ID:    61a86afd-67d4-4cec-9f1f-7f247c35005d
+rider index: 967
+	TRIP: 969  (rider ID 61a86afd-67d4-4cec-9f1f-7f247c35005d)
+
+rider ID:    776ba915-0fc6-4a9f-beae-f467065a4aa2
+rider index: 969
+	TRIP: 971  (rider ID 776ba915-0fc6-4a9f-beae-f467065a4aa2)
+	TRIP: 2822  (rider ID 776ba915-0fc6-4a9f-beae-f467065a4aa2)
+
+rider ID:    b5a4c2c7-1ae2-437a-b316-44c8691d0466
+rider index: 972
+	TRIP: 974  (rider ID b5a4c2c7-1ae2-437a-b316-44c8691d0466)
+
+rider ID:    549d33ba-5e79-4abe-91a4-36148b97260d
+rider index: 980
+	TRIP: 982  (rider ID 549d33ba-5e79-4abe-91a4-36148b97260d)
+
+rider ID:    863ff96b-b95a-46ad-b25e-4ee315f67323
+rider index: 983
+	TRIP: 986  (rider ID 863ff96b-b95a-46ad-b25e-4ee315f67323)
+
+rider ID:    5c8edca8-9206-47f0-8e1b-b075e1d0f889
+rider index: 987
+	TRIP: 991  (rider ID 5c8edca8-9206-47f0-8e1b-b075e1d0f889)
+
+rider ID:    8b6d3180-5bd1-4717-8c1d-faa6b30f6351
+rider index: 989
+	TRIP: 993  (rider ID 8b6d3180-5bd1-4717-8c1d-faa6b30f6351)
+
+rider ID:    90dbd01a-fd6e-4941-88d8-c0c810378374
+rider index: 993
+	TRIP: 997  (rider ID 90dbd01a-fd6e-4941-88d8-c0c810378374)
+
+rider ID:    95d0f450-c01e-47e7-9700-ed122271565e
+rider index: 999
+	TRIP: 1003  (rider ID 95d0f450-c01e-47e7-9700-ed122271565e)
+
+rider ID:    feb0822a-e727-4a9b-8d6f-1060f0894140
+rider index: 1002
+	TRIP: 1006  (rider ID feb0822a-e727-4a9b-8d6f-1060f0894140)
+
+rider ID:    1d8cee35-7245-46fd-9b8f-a22ecb5f888a
+rider index: 1003
+	TRIP: 1007  (rider ID 1d8cee35-7245-46fd-9b8f-a22ecb5f888a)
+
+rider ID:    d3aa19c4-965b-4dea-a10b-30d0fca4837f
+rider index: 1005
+	TRIP: 1009  (rider ID d3aa19c4-965b-4dea-a10b-30d0fca4837f)
+
+rider ID:    dcb1eab5-c302-4afa-b19f-d1fd607770f4
+rider index: 1006
+	TRIP: 1010  (rider ID dcb1eab5-c302-4afa-b19f-d1fd607770f4)
+
+rider ID:    551468e3-e563-471e-a46f-7447398484d6
+rider index: 1012
+	TRIP: 1016  (rider ID 551468e3-e563-471e-a46f-7447398484d6)
+
+rider ID:    3ad9482c-6b37-42f6-bc3b-c20621ef8d90
+rider index: 1015
+	TRIP: 1019  (rider ID 3ad9482c-6b37-42f6-bc3b-c20621ef8d90)
+
+rider ID:    e33cb1ba-6a34-406b-b756-73938a1486d6
+rider index: 1016
+	TRIP: 1020  (rider ID e33cb1ba-6a34-406b-b756-73938a1486d6)
+
+rider ID:    1d7445d2-1597-43c8-b4af-a0c9854c44db
+rider index: 1021
+	TRIP: 1025  (rider ID 1d7445d2-1597-43c8-b4af-a0c9854c44db)
+
+rider ID:    1777226d-448b-40ed-a39d-7793b2b920f6
+rider index: 1022
+	TRIP: 1026  (rider ID 1777226d-448b-40ed-a39d-7793b2b920f6)
+
+rider ID:    aa62f09e-0377-4470-b733-7a2e7908f080
+rider index: 1024
+	TRIP: 1028  (rider ID aa62f09e-0377-4470-b733-7a2e7908f080)
+
+rider ID:    1c8f3c13-6c36-47e7-9c54-706134c629aa
+rider index: 1027
+	TRIP: 1031  (rider ID 1c8f3c13-6c36-47e7-9c54-706134c629aa)
+
+rider ID:    078d91ec-5b0f-4726-a3ba-bf3fe16bcc0b
+rider index: 1029
+	TRIP: 1033  (rider ID 078d91ec-5b0f-4726-a3ba-bf3fe16bcc0b)
+
+rider ID:    beb829b6-db91-4be6-82c3-04e613833d18
+rider index: 1031
+	TRIP: 1035  (rider ID beb829b6-db91-4be6-82c3-04e613833d18)
+
+rider ID:    77dfa35c-24b1-4f1a-aae8-c06fe1e78701
+rider index: 1032
+	TRIP: 1036  (rider ID 77dfa35c-24b1-4f1a-aae8-c06fe1e78701)
+
+rider ID:    ba4f8202-8a2b-427b-b9f1-6828206d5bcc
+rider index: 1036
+	TRIP: 1040  (rider ID ba4f8202-8a2b-427b-b9f1-6828206d5bcc)
+
+rider ID:    b9f5b378-f5a4-40b9-8854-d6b39f2b1670
+rider index: 1043
+	TRIP: 1047  (rider ID b9f5b378-f5a4-40b9-8854-d6b39f2b1670)
+
+rider ID:    9b1204f0-6884-434d-8f8a-a6953822ce00
+rider index: 1045
+	TRIP: 1049  (rider ID 9b1204f0-6884-434d-8f8a-a6953822ce00)
+
+rider ID:    c4bb16ea-df8b-40d9-b817-d0f3b2e31e46
+rider index: 1047
+	TRIP: 1051  (rider ID c4bb16ea-df8b-40d9-b817-d0f3b2e31e46)
+
+rider ID:    217843c3-7f7e-4847-8f4d-b36247a670d0
+rider index: 1050
+	TRIP: 1054  (rider ID 217843c3-7f7e-4847-8f4d-b36247a670d0)
+
+rider ID:    f9e4d3ce-568c-4a91-87da-634e89636aff
+rider index: 1053
+	TRIP: 1057  (rider ID f9e4d3ce-568c-4a91-87da-634e89636aff)
+
+rider ID:    a3b234fe-7300-44cd-ad24-91e71a910692
+rider index: 1054
+	TRIP: 1058  (rider ID a3b234fe-7300-44cd-ad24-91e71a910692)
+
+rider ID:    fd2831b7-00d1-4244-bbc6-f3c0d22cf98f
+rider index: 1056
+	TRIP: 1060  (rider ID fd2831b7-00d1-4244-bbc6-f3c0d22cf98f)
+
+rider ID:    cd4f63b0-8359-4a75-9ba2-72f21ab6394c
+rider index: 1060
+	TRIP: 1064  (rider ID cd4f63b0-8359-4a75-9ba2-72f21ab6394c)
+
+rider ID:    827e4449-6218-4a2c-99f9-e05afdc0ea6b
+rider index: 1061
+	TRIP: 1065  (rider ID 827e4449-6218-4a2c-99f9-e05afdc0ea6b)
+
+rider ID:    64014347-4c01-4004-bcb0-615ba367903e
+rider index: 1067
+	TRIP: 1071  (rider ID 64014347-4c01-4004-bcb0-615ba367903e)
+
+rider ID:    f352eaff-6b0f-456b-a66e-645581a0fe36
+rider index: 1070
+	TRIP: 1074  (rider ID f352eaff-6b0f-456b-a66e-645581a0fe36)
+
+rider ID:    c6439ca7-3a4d-4c67-8212-be2087b46c81
+rider index: 1071
+	TRIP: 1075  (rider ID c6439ca7-3a4d-4c67-8212-be2087b46c81)
+
+rider ID:    4d010a72-23bb-40a2-9b00-c520191e4e40
+rider index: 1072
+	TRIP: 1076  (rider ID 4d010a72-23bb-40a2-9b00-c520191e4e40)
+
+rider ID:    45903fde-4881-4345-b28b-074f0af1ad94
+rider index: 1074
+	TRIP: 1078  (rider ID 45903fde-4881-4345-b28b-074f0af1ad94)
+
+rider ID:    83148de2-d136-4346-91fc-974d06574917
+rider index: 1075
+	TRIP: 1079  (rider ID 83148de2-d136-4346-91fc-974d06574917)
+
+rider ID:    bb977e35-de36-425e-9e34-cfd7e6d39375
+rider index: 1078
+	TRIP: 1082  (rider ID bb977e35-de36-425e-9e34-cfd7e6d39375)
+
+rider ID:    74bfb3cc-1e0d-48b2-bc18-11178923e7f6
+rider index: 1080
+	TRIP: 1084  (rider ID 74bfb3cc-1e0d-48b2-bc18-11178923e7f6)
+
+rider ID:    3de57fc6-ac00-42c2-87be-9fe4f550121d
+rider index: 1081
+	TRIP: 1085  (rider ID 3de57fc6-ac00-42c2-87be-9fe4f550121d)
+
+rider ID:    9b03331e-f8f1-4335-b51b-f443c04dbb2e
+rider index: 1082
+	TRIP: 1086  (rider ID 9b03331e-f8f1-4335-b51b-f443c04dbb2e)
+
+rider ID:    2f9a17c3-cb73-4fea-b106-eb5a56d9aaa5
+rider index: 1083
+	TRIP: 1087  (rider ID 2f9a17c3-cb73-4fea-b106-eb5a56d9aaa5)
+
+rider ID:    4db23ff8-0c8c-4e06-9d0f-12491619a94a
+rider index: 1088
+	TRIP: 1092  (rider ID 4db23ff8-0c8c-4e06-9d0f-12491619a94a)
+
+rider ID:    ab57fbfb-875f-42b0-aa8a-fd19218b8c9c
+rider index: 1089
+	TRIP: 1093  (rider ID ab57fbfb-875f-42b0-aa8a-fd19218b8c9c)
+
+rider ID:    2e135d21-ab16-4505-b0b7-153e286a2045
+rider index: 1090
+	TRIP: 1094  (rider ID 2e135d21-ab16-4505-b0b7-153e286a2045)
+
+rider ID:    5f481950-fa2a-447e-bbe0-cefe46c5598e
+rider index: 1091
+	TRIP: 1095  (rider ID 5f481950-fa2a-447e-bbe0-cefe46c5598e)
+
+rider ID:    a3564920-937e-42bd-b6f0-24648d329824
+rider index: 1092
+	TRIP: 1096  (rider ID a3564920-937e-42bd-b6f0-24648d329824)
+
+rider ID:    ca7f9fc3-79f2-4db9-9a00-102a37220425
+rider index: 1097
+	TRIP: 1101  (rider ID ca7f9fc3-79f2-4db9-9a00-102a37220425)
+
+rider ID:    066849c3-0bf5-4fe8-b2ea-2d03cccb2157
+rider index: 1103
+	TRIP: 1107  (rider ID 066849c3-0bf5-4fe8-b2ea-2d03cccb2157)
+
+rider ID:    5d454f7a-410a-4c1a-a95f-faab26028b4f
+rider index: 1104
+	TRIP: 1108  (rider ID 5d454f7a-410a-4c1a-a95f-faab26028b4f)
+
+rider ID:    cf5a97e3-a0cf-4cb7-bd7a-6ee1504a405b
+rider index: 1105
+	TRIP: 1109  (rider ID cf5a97e3-a0cf-4cb7-bd7a-6ee1504a405b)
+
+rider ID:    dd5b2a15-2314-4fd3-800c-3cea7b4559be
+rider index: 1107
+	TRIP: 1111  (rider ID dd5b2a15-2314-4fd3-800c-3cea7b4559be)
+
+rider ID:    0e3072fd-d499-46b5-9bd5-63c6d7084a77
+rider index: 1110
+	TRIP: 1114  (rider ID 0e3072fd-d499-46b5-9bd5-63c6d7084a77)
+
+rider ID:    700cb456-e0c2-4299-ab13-3af89b41558c
+rider index: 1111
+	TRIP: 1115  (rider ID 700cb456-e0c2-4299-ab13-3af89b41558c)
+
+rider ID:    e769b7fb-6520-4fd1-ac1e-d41242a2f714
+rider index: 1114
+	TRIP: 1119  (rider ID e769b7fb-6520-4fd1-ac1e-d41242a2f714)
+
+rider ID:    9e99a7b6-546b-4091-a110-5d2942bc6311
+rider index: 1116
+	TRIP: 1121  (rider ID 9e99a7b6-546b-4091-a110-5d2942bc6311)
+
+rider ID:    e5e5b758-f528-4692-9ac7-5483c2c9a77a
+rider index: 1118
+	TRIP: 1123  (rider ID e5e5b758-f528-4692-9ac7-5483c2c9a77a)
+
+rider ID:    bfa5fd8b-ad13-4d98-9e1d-2b8ee9cd4c9b
+rider index: 1119
+	TRIP: 1124  (rider ID bfa5fd8b-ad13-4d98-9e1d-2b8ee9cd4c9b)
+
+rider ID:    f2cb79fd-a43e-4a8a-bb70-024ef3065e9d
+rider index: 1122
+	TRIP: 1127  (rider ID f2cb79fd-a43e-4a8a-bb70-024ef3065e9d)
+
+rider ID:    539a7376-7fd0-4b33-b5be-a73c26f1bb71
+rider index: 1123
+	TRIP: 1128  (rider ID 539a7376-7fd0-4b33-b5be-a73c26f1bb71)
+
+rider ID:    13902755-aaf5-4518-8815-7e21ca3a47a8
+rider index: 1124
+	TRIP: 1129  (rider ID 13902755-aaf5-4518-8815-7e21ca3a47a8)
+
+rider ID:    0ec386d7-3f1b-4018-9788-9c93f5996f8e
+rider index: 1125
+	TRIP: 1130  (rider ID 0ec386d7-3f1b-4018-9788-9c93f5996f8e)
+
+rider ID:    5f603e67-00e9-4777-83ea-4905cf630fd2
+rider index: 1126
+	TRIP: 1131  (rider ID 5f603e67-00e9-4777-83ea-4905cf630fd2)
+
+rider ID:    3c22ab27-4f4d-454e-8940-c6642449bb12
+rider index: 1131
+	TRIP: 1136  (rider ID 3c22ab27-4f4d-454e-8940-c6642449bb12)
+
+rider ID:    b794278a-3d54-4f8a-88a1-4a3feb6dfd18
+rider index: 1133
+	TRIP: 1138  (rider ID b794278a-3d54-4f8a-88a1-4a3feb6dfd18)
+
+rider ID:    713fc22c-ecf6-4985-8d7c-9794a43b0f89
+rider index: 1134
+	TRIP: 1139  (rider ID 713fc22c-ecf6-4985-8d7c-9794a43b0f89)
+
+rider ID:    30b2b6c7-0284-47f0-acb8-eaf61d100736
+rider index: 1137
+	TRIP: 1142  (rider ID 30b2b6c7-0284-47f0-acb8-eaf61d100736)
+
+rider ID:    e0bc10e6-bcbf-41ed-83a3-1a089fa092d2
+rider index: 1139
+	TRIP: 1144  (rider ID e0bc10e6-bcbf-41ed-83a3-1a089fa092d2)
+
+rider ID:    58e9515d-00fb-4772-8b1b-570f92136d2c
+rider index: 1142
+	TRIP: 1147  (rider ID 58e9515d-00fb-4772-8b1b-570f92136d2c)
+
+rider ID:    dfd19321-a6a7-4b1e-8d07-425ab1cda9cb
+rider index: 1143
+	TRIP: 1148  (rider ID dfd19321-a6a7-4b1e-8d07-425ab1cda9cb)
+
+rider ID:    8feffa7b-d13d-47f8-9b99-34c0021ba876
+rider index: 1144
+	TRIP: 1149  (rider ID 8feffa7b-d13d-47f8-9b99-34c0021ba876)
+
+rider ID:    03420be1-e1f2-4e71-ba88-21011029592e
+rider index: 1145
+	TRIP: 1150  (rider ID 03420be1-e1f2-4e71-ba88-21011029592e)
+	TRIP: 3240  (rider ID 03420be1-e1f2-4e71-ba88-21011029592e)
+
+rider ID:    816258eb-cc4b-44f0-9d5d-1fb546a502c7
+rider index: 1146
+	TRIP: 1151  (rider ID 816258eb-cc4b-44f0-9d5d-1fb546a502c7)
+
+rider ID:    6f0ec825-1058-4b8c-a71a-e5179bd8277b
+rider index: 1149
+	TRIP: 1154  (rider ID 6f0ec825-1058-4b8c-a71a-e5179bd8277b)
+
+rider ID:    3a424ff6-99ce-4275-ac0a-5050d6d160a1
+rider index: 1153
+	TRIP: 1158  (rider ID 3a424ff6-99ce-4275-ac0a-5050d6d160a1)
+
+rider ID:    e6bea109-92f6-47e7-94d0-7729b8b8fb74
+rider index: 1154
+	TRIP: 1159  (rider ID e6bea109-92f6-47e7-94d0-7729b8b8fb74)
+
+rider ID:    064cd2e5-a62c-4bcb-bf2c-6880711adef7
+rider index: 1156
+	TRIP: 1161  (rider ID 064cd2e5-a62c-4bcb-bf2c-6880711adef7)
+
+rider ID:    e72298a0-2d1e-4566-a9e6-4517b42f20c9
+rider index: 1157
+	TRIP: 1162  (rider ID e72298a0-2d1e-4566-a9e6-4517b42f20c9)
+
+rider ID:    09cea2c2-1608-4fd0-a317-f8f5aca3a98a
+rider index: 1158
+	TRIP: 1163  (rider ID 09cea2c2-1608-4fd0-a317-f8f5aca3a98a)
+
+rider ID:    aeec0cdf-c420-4728-bef8-baad159bf5bc
+rider index: 1166
+	TRIP: 1171  (rider ID aeec0cdf-c420-4728-bef8-baad159bf5bc)
+
+rider ID:    89ea05b3-5f5d-4352-bc3f-93e8537360a1
+rider index: 1167
+	TRIP: 1172  (rider ID 89ea05b3-5f5d-4352-bc3f-93e8537360a1)
+
+rider ID:    f43f7859-7a17-43a8-b023-fb48ae106c29
+rider index: 1168
+	TRIP: 1173  (rider ID f43f7859-7a17-43a8-b023-fb48ae106c29)
+
+rider ID:    92f97065-e181-4fa2-ac30-5a2e57c7347d
+rider index: 1172
+	TRIP: 1177  (rider ID 92f97065-e181-4fa2-ac30-5a2e57c7347d)
+
+rider ID:    5925452e-43d1-47a2-bbee-0b9a83d11dfc
+rider index: 1174
+	TRIP: 1179  (rider ID 5925452e-43d1-47a2-bbee-0b9a83d11dfc)
+
+rider ID:    93cad16d-ab50-4d9e-b8fd-9a9943b349cb
+rider index: 1177
+	TRIP: 1182  (rider ID 93cad16d-ab50-4d9e-b8fd-9a9943b349cb)
+
+rider ID:    b8eb8c33-0d11-42dc-a026-c5a23140e549
+rider index: 1179
+	TRIP: 1184  (rider ID b8eb8c33-0d11-42dc-a026-c5a23140e549)
+
+rider ID:    61f2fc29-ff5f-482b-93d6-5c0c0fb6d7ce
+rider index: 1180
+	TRIP: 1185  (rider ID 61f2fc29-ff5f-482b-93d6-5c0c0fb6d7ce)
+
+rider ID:    f83ea60d-53f2-4ea5-ba99-caede6f3b442
+rider index: 1181
+	TRIP: 1186  (rider ID f83ea60d-53f2-4ea5-ba99-caede6f3b442)
+
+rider ID:    07d111d4-21dd-435f-9527-79e5e26351a9
+rider index: 1182
+	TRIP: 1187  (rider ID 07d111d4-21dd-435f-9527-79e5e26351a9)
+
+rider ID:    58509939-6ce8-4432-8791-e7c37cb4cba3
+rider index: 1183
+	TRIP: 1188  (rider ID 58509939-6ce8-4432-8791-e7c37cb4cba3)
+
+rider ID:    64d38368-8fae-4a51-bed8-eae291e99cbc
+rider index: 1184
+	TRIP: 1189  (rider ID 64d38368-8fae-4a51-bed8-eae291e99cbc)
+
+rider ID:    2fca84a6-0efe-4933-bb23-92152f6fc9aa
+rider index: 1186
+	TRIP: 1191  (rider ID 2fca84a6-0efe-4933-bb23-92152f6fc9aa)
+
+rider ID:    dcfc67c9-f9f3-464e-8865-97f2ec0c22f8
+rider index: 1189
+	TRIP: 1194  (rider ID dcfc67c9-f9f3-464e-8865-97f2ec0c22f8)
+
+rider ID:    53893a55-aa09-4ecc-a4c8-7d32d7fb16ae
+rider index: 1190
+	TRIP: 1195  (rider ID 53893a55-aa09-4ecc-a4c8-7d32d7fb16ae)
+
+rider ID:    0bedc7a2-a900-40d1-b3b0-400cbc6050aa
+rider index: 1192
+	TRIP: 1197  (rider ID 0bedc7a2-a900-40d1-b3b0-400cbc6050aa)
+
+rider ID:    d1a9dbc6-1709-4cbc-8c69-8fa3c29346d9
+rider index: 1194
+	TRIP: 1199  (rider ID d1a9dbc6-1709-4cbc-8c69-8fa3c29346d9)
+
+rider ID:    96f8b60e-4bd7-4c26-905d-80d21744341d
+rider index: 1195
+	TRIP: 1200  (rider ID 96f8b60e-4bd7-4c26-905d-80d21744341d)
+
+rider ID:    5b34c79f-1c95-4897-994d-68326a13b7a1
+rider index: 1198
+	TRIP: 1203  (rider ID 5b34c79f-1c95-4897-994d-68326a13b7a1)
+
+rider ID:    d997ddaa-0cd6-4544-b5c5-7cbb032c6d4d
+rider index: 1199
+	TRIP: 1204  (rider ID d997ddaa-0cd6-4544-b5c5-7cbb032c6d4d)
+
+rider ID:    7b72c65f-e1e6-438c-99bf-be4ca170c36a
+rider index: 1201
+	TRIP: 1206  (rider ID 7b72c65f-e1e6-438c-99bf-be4ca170c36a)
+
+rider ID:    cb84dc79-531d-4943-9558-b7ce9db24228
+rider index: 1203
+	TRIP: 1208  (rider ID cb84dc79-531d-4943-9558-b7ce9db24228)
+
+rider ID:    38996db6-07c2-4ae9-9476-d64b360f2d7b
+rider index: 1207
+	TRIP: 1212  (rider ID 38996db6-07c2-4ae9-9476-d64b360f2d7b)
+
+rider ID:    15a87fe0-ed54-4aa4-b046-7f6433b5f2aa
+rider index: 1211
+	TRIP: 1216  (rider ID 15a87fe0-ed54-4aa4-b046-7f6433b5f2aa)
+
+rider ID:    18bf96ea-02de-441c-a034-a7aa6b625a7c
+rider index: 1212
+	TRIP: 1217  (rider ID 18bf96ea-02de-441c-a034-a7aa6b625a7c)
+
+rider ID:    7e5773ec-50da-4590-bbe6-1030b418e3bf
+rider index: 1217
+	TRIP: 1222  (rider ID 7e5773ec-50da-4590-bbe6-1030b418e3bf)
+
+rider ID:    c076c4ad-d064-4b24-a4b3-814fdcb68b15
+rider index: 1220
+	TRIP: 1225  (rider ID c076c4ad-d064-4b24-a4b3-814fdcb68b15)
+
+rider ID:    03d36852-fdd3-40b1-a9e4-3a2095bff50c
+rider index: 1221
+	TRIP: 1226  (rider ID 03d36852-fdd3-40b1-a9e4-3a2095bff50c)
+
+rider ID:    1081a534-4fe1-439c-8c3c-451924ab8d61
+rider index: 1222
+	TRIP: 1227  (rider ID 1081a534-4fe1-439c-8c3c-451924ab8d61)
+
+rider ID:    953f1ee8-36ae-4a38-b228-fedb84699798
+rider index: 1226
+	TRIP: 1231  (rider ID 953f1ee8-36ae-4a38-b228-fedb84699798)
+
+rider ID:    2dfb2b41-2b5b-4594-8068-128f7c43dc98
+rider index: 1228
+	TRIP: 1233  (rider ID 2dfb2b41-2b5b-4594-8068-128f7c43dc98)
+
+rider ID:    16903ccf-069e-42d4-aa21-6b02b540240a
+rider index: 1232
+	TRIP: 1237  (rider ID 16903ccf-069e-42d4-aa21-6b02b540240a)
+
+rider ID:    69e5a1cd-e77f-493d-ad92-f2c9578f28fd
+rider index: 1236
+	TRIP: 1241  (rider ID 69e5a1cd-e77f-493d-ad92-f2c9578f28fd)
+
+rider ID:    bc1e02ce-bcca-42cf-ad6f-81a806fbaa4c
+rider index: 1237
+	TRIP: 1242  (rider ID bc1e02ce-bcca-42cf-ad6f-81a806fbaa4c)
+
+rider ID:    a59e8389-8497-4508-b254-a1de25ccce8f
+rider index: 1239
+	TRIP: 1244  (rider ID a59e8389-8497-4508-b254-a1de25ccce8f)
+
+rider ID:    c8e409ac-7e4b-4207-9277-5475a729f352
+rider index: 1242
+	TRIP: 1247  (rider ID c8e409ac-7e4b-4207-9277-5475a729f352)
+
+rider ID:    01bb2346-bf24-4e14-a1f8-14bfb1b8bc10
+rider index: 1243
+	TRIP: 1248  (rider ID 01bb2346-bf24-4e14-a1f8-14bfb1b8bc10)
+
+rider ID:    4f91221d-c1a9-42a8-a684-6419c5a495eb
+rider index: 1245
+	TRIP: 1250  (rider ID 4f91221d-c1a9-42a8-a684-6419c5a495eb)
+
+rider ID:    9ebffbb8-df4e-4f54-a217-fc85fd87c918
+rider index: 1250
+	TRIP: 1255  (rider ID 9ebffbb8-df4e-4f54-a217-fc85fd87c918)
+
+rider ID:    b4ef44f7-be17-4b87-ac1d-935ff0d22fa7
+rider index: 1251
+	TRIP: 1256  (rider ID b4ef44f7-be17-4b87-ac1d-935ff0d22fa7)
+
+rider ID:    18885700-8230-4f77-9cd5-a2603498c983
+rider index: 1252
+	TRIP: 1257  (rider ID 18885700-8230-4f77-9cd5-a2603498c983)
+
+rider ID:    29b9df6d-bf92-47c7-bf79-eda7303e43c8
+rider index: 1253
+	TRIP: 1258  (rider ID 29b9df6d-bf92-47c7-bf79-eda7303e43c8)
+	TRIP: 1559  (rider ID 29b9df6d-bf92-47c7-bf79-eda7303e43c8)
+
+rider ID:    2c01bbcf-1ab4-44d8-a065-26757196f727
+rider index: 1266
+	TRIP: 1271  (rider ID 2c01bbcf-1ab4-44d8-a065-26757196f727)
+
+rider ID:    ac8c694b-e096-4480-a690-3979293d4d4b
+rider index: 1270
+	TRIP: 1275  (rider ID ac8c694b-e096-4480-a690-3979293d4d4b)
+
+rider ID:    79415aa4-a50e-4654-8698-3bf52f9300d5
+rider index: 1272
+	TRIP: 1277  (rider ID 79415aa4-a50e-4654-8698-3bf52f9300d5)
+
+rider ID:    e3ad048f-d59a-4d30-873b-7c7facff29a2
+rider index: 1275
+	TRIP: 1280  (rider ID e3ad048f-d59a-4d30-873b-7c7facff29a2)
+
+rider ID:    1b8dfef3-c46a-4e2f-adc6-3c4f3e05e147
+rider index: 1278
+	TRIP: 1283  (rider ID 1b8dfef3-c46a-4e2f-adc6-3c4f3e05e147)
+
+rider ID:    08b358cf-85fd-4527-8d0e-feccbf253491
+rider index: 1281
+	TRIP: 1286  (rider ID 08b358cf-85fd-4527-8d0e-feccbf253491)
+
+rider ID:    4e1b569b-4104-4963-b812-da3eff8c0814
+rider index: 1282
+	TRIP: 1287  (rider ID 4e1b569b-4104-4963-b812-da3eff8c0814)
+
+rider ID:    be751fda-ab12-43db-98be-4466873003be
+rider index: 1283
+	TRIP: 1288  (rider ID be751fda-ab12-43db-98be-4466873003be)
+
+rider ID:    74528d82-e980-4ea7-9fc8-de9a35cbeca7
+rider index: 1285
+	TRIP: 1290  (rider ID 74528d82-e980-4ea7-9fc8-de9a35cbeca7)
+
+rider ID:    8e95e9c7-0720-411b-a1d2-aa25989a885e
+rider index: 1293
+	TRIP: 1298  (rider ID 8e95e9c7-0720-411b-a1d2-aa25989a885e)
+
+rider ID:    5e56c27a-14d1-4f43-a7a3-9d566cd29727
+rider index: 1295
+	TRIP: 1300  (rider ID 5e56c27a-14d1-4f43-a7a3-9d566cd29727)
+
+rider ID:    9a387aad-9ec2-49c6-a6ea-7cc69100a9aa
+rider index: 1299
+	TRIP: 1304  (rider ID 9a387aad-9ec2-49c6-a6ea-7cc69100a9aa)
+
+rider ID:    7ab1e943-6260-484e-a733-fe7d856be7aa
+rider index: 1301
+	TRIP: 1306  (rider ID 7ab1e943-6260-484e-a733-fe7d856be7aa)
+
+rider ID:    7c732cb1-485b-4d34-99bb-6e2832254de8
+rider index: 1303
+	TRIP: 1308  (rider ID 7c732cb1-485b-4d34-99bb-6e2832254de8)
+
+rider ID:    d1b81b82-3f40-4f65-bcb1-f6e8ba3045a8
+rider index: 1305
+	TRIP: 1310  (rider ID d1b81b82-3f40-4f65-bcb1-f6e8ba3045a8)
+
+rider ID:    e0a75b3c-3434-42f3-ad86-4cccf3e8144b
+rider index: 1308
+	TRIP: 1313  (rider ID e0a75b3c-3434-42f3-ad86-4cccf3e8144b)
+
+rider ID:    a432acd5-1fb7-4e5f-bbff-2150002fa510
+rider index: 1313
+	TRIP: 1318  (rider ID a432acd5-1fb7-4e5f-bbff-2150002fa510)
+
+rider ID:    84223d95-55dc-41ea-907e-d7e200677d99
+rider index: 1315
+	TRIP: 1320  (rider ID 84223d95-55dc-41ea-907e-d7e200677d99)
+
+rider ID:    87141562-5b83-42af-abbc-451b9e72cd8d
+rider index: 1318
+	TRIP: 1323  (rider ID 87141562-5b83-42af-abbc-451b9e72cd8d)
+
+rider ID:    faa2b37a-0fa3-4f1d-8e1d-c634161f37c1
+rider index: 1319
+	TRIP: 1324  (rider ID faa2b37a-0fa3-4f1d-8e1d-c634161f37c1)
+
+rider ID:    34740539-111b-4702-9d2f-1a0e55f2631f
+rider index: 1327
+	TRIP: 1332  (rider ID 34740539-111b-4702-9d2f-1a0e55f2631f)
+
+rider ID:    db7cc9ff-8ddd-4dc1-a5e3-1630994b2ba6
+rider index: 1328
+	TRIP: 1333  (rider ID db7cc9ff-8ddd-4dc1-a5e3-1630994b2ba6)
+
+rider ID:    07bd4be8-618f-43fc-8ae7-9c8e1d8b0b40
+rider index: 1330
+	TRIP: 1335  (rider ID 07bd4be8-618f-43fc-8ae7-9c8e1d8b0b40)
+
+rider ID:    e45f7f5c-68cf-4fff-bc10-70eaa4e2a332
+rider index: 1332
+	TRIP: 1337  (rider ID e45f7f5c-68cf-4fff-bc10-70eaa4e2a332)
+
+rider ID:    7c5ea06f-9318-4baf-8f68-eabd03152b35
+rider index: 1334
+	TRIP: 1339  (rider ID 7c5ea06f-9318-4baf-8f68-eabd03152b35)
+
+rider ID:    fc98f994-ffac-4568-bd51-1c3ae7bd9f78
+rider index: 1337
+	TRIP: 1342  (rider ID fc98f994-ffac-4568-bd51-1c3ae7bd9f78)
+
+rider ID:    b69aca05-e8ae-42b2-932c-ac6ec4bca69c
+rider index: 1338
+	TRIP: 1343  (rider ID b69aca05-e8ae-42b2-932c-ac6ec4bca69c)
+
+rider ID:    b3e86e50-a1f8-4ab3-bc7e-ec28390528c7
+rider index: 1348
+	TRIP: 1353  (rider ID b3e86e50-a1f8-4ab3-bc7e-ec28390528c7)
+
+rider ID:    2f1122ce-97f8-4591-b8bd-b3046dccbf49
+rider index: 1349
+	TRIP: 1354  (rider ID 2f1122ce-97f8-4591-b8bd-b3046dccbf49)
+
+rider ID:    31c3c38f-ea72-4d83-a1f3-0d1f529479a0
+rider index: 1351
+	TRIP: 1357  (rider ID 31c3c38f-ea72-4d83-a1f3-0d1f529479a0)
+
+rider ID:    14225d85-f7ea-478e-90b5-ce435446e838
+rider index: 1352
+	TRIP: 1358  (rider ID 14225d85-f7ea-478e-90b5-ce435446e838)
+
+rider ID:    aa187ed0-1b20-48cb-ad24-98a98877e6a9
+rider index: 1353
+	TRIP: 1359  (rider ID aa187ed0-1b20-48cb-ad24-98a98877e6a9)
+
+rider ID:    b610ecc7-4f6b-40a7-a382-00c1e4ef535d
+rider index: 1358
+	TRIP: 1364  (rider ID b610ecc7-4f6b-40a7-a382-00c1e4ef535d)
+
+rider ID:    3d320167-ada7-48a0-a521-3abcd142ffde
+rider index: 1359
+	TRIP: 1365  (rider ID 3d320167-ada7-48a0-a521-3abcd142ffde)
+
+rider ID:    e861a36e-1baf-45b4-b885-cec4d69917f5
+rider index: 1360
+	TRIP: 1366  (rider ID e861a36e-1baf-45b4-b885-cec4d69917f5)
+
+rider ID:    b20e4922-8049-4ccf-a60d-7322eb3d5dc8
+rider index: 1361
+	TRIP: 1367  (rider ID b20e4922-8049-4ccf-a60d-7322eb3d5dc8)
+
+rider ID:    356349e5-f3b9-4059-ae46-6241ff68ec29
+rider index: 1364
+	TRIP: 1370  (rider ID 356349e5-f3b9-4059-ae46-6241ff68ec29)
+
+rider ID:    fd575e7c-db43-45a5-a839-b98194f8465e
+rider index: 1365
+	TRIP: 1371  (rider ID fd575e7c-db43-45a5-a839-b98194f8465e)
+
+rider ID:    d02ef192-81e3-4240-b6eb-0db342147c67
+rider index: 1371
+	TRIP: 1377  (rider ID d02ef192-81e3-4240-b6eb-0db342147c67)
+
+rider ID:    1ab961cd-b05b-42e8-bddc-8643f73394a5
+rider index: 1373
+	TRIP: 1379  (rider ID 1ab961cd-b05b-42e8-bddc-8643f73394a5)
+
+rider ID:    16486719-e961-4595-88b3-ed1033735ecc
+rider index: 1377
+	TRIP: 1383  (rider ID 16486719-e961-4595-88b3-ed1033735ecc)
+
+rider ID:    cc2ca05b-d1a8-4831-88e6-d82b285a77be
+rider index: 1379
+	TRIP: 1385  (rider ID cc2ca05b-d1a8-4831-88e6-d82b285a77be)
+
+rider ID:    4141f272-ab17-4496-8f9f-811df79f022b
+rider index: 1386
+	TRIP: 1393  (rider ID 4141f272-ab17-4496-8f9f-811df79f022b)
+
+rider ID:    f0b06cf3-c55d-4a91-8552-f50129b54147
+rider index: 1388
+	TRIP: 1395  (rider ID f0b06cf3-c55d-4a91-8552-f50129b54147)
+
+rider ID:    4cea6684-0c81-4f0b-b331-615f36fe7cff
+rider index: 1393
+	TRIP: 1400  (rider ID 4cea6684-0c81-4f0b-b331-615f36fe7cff)
+
+rider ID:    1fa75be4-3976-4f8f-a4f9-cf9b750d0ff0
+rider index: 1394
+	TRIP: 1401  (rider ID 1fa75be4-3976-4f8f-a4f9-cf9b750d0ff0)
+
+rider ID:    d785294c-e337-447e-b644-d69ab96788e2
+rider index: 1395
+	TRIP: 1402  (rider ID d785294c-e337-447e-b644-d69ab96788e2)
+
+rider ID:    2b51fe5b-b6bb-4937-88b4-3e33bfaa2cdb
+rider index: 1399
+	TRIP: 1406  (rider ID 2b51fe5b-b6bb-4937-88b4-3e33bfaa2cdb)
+
+rider ID:    b2f7f4fd-e93f-4bf8-b329-51587b0e3933
+rider index: 1403
+	TRIP: 1410  (rider ID b2f7f4fd-e93f-4bf8-b329-51587b0e3933)
+
+rider ID:    5c7e724d-759f-4860-b0f0-c22dfd7a8577
+rider index: 1407
+	TRIP: 1414  (rider ID 5c7e724d-759f-4860-b0f0-c22dfd7a8577)
+
+rider ID:    e67dad3a-8dc6-42c8-9324-0ebf53eee0fb
+rider index: 1408
+	TRIP: 1415  (rider ID e67dad3a-8dc6-42c8-9324-0ebf53eee0fb)
+
+rider ID:    be0a8b24-2807-4899-97ce-02cf69a39377
+rider index: 1414
+	TRIP: 1421  (rider ID be0a8b24-2807-4899-97ce-02cf69a39377)
+
+rider ID:    ea80ce1e-281a-437e-a602-f39ba93a27a8
+rider index: 1415
+	TRIP: 1422  (rider ID ea80ce1e-281a-437e-a602-f39ba93a27a8)
+
+rider ID:    04566630-7b2f-4172-b26c-b9ecc758ea8f
+rider index: 1418
+	TRIP: 1425  (rider ID 04566630-7b2f-4172-b26c-b9ecc758ea8f)
+
+rider ID:    c7029ff6-aaa0-4ead-b8ea-ab88d9587645
+rider index: 1419
+	TRIP: 1426  (rider ID c7029ff6-aaa0-4ead-b8ea-ab88d9587645)
+
+rider ID:    0496f4a4-31e1-48cd-a7ed-91643878cb3d
+rider index: 1420
+	TRIP: 1427  (rider ID 0496f4a4-31e1-48cd-a7ed-91643878cb3d)
+
+rider ID:    8389cca1-3255-4507-809c-92a607b398b9
+rider index: 1421
+	TRIP: 1428  (rider ID 8389cca1-3255-4507-809c-92a607b398b9)
+
+rider ID:    17feb251-4187-4645-884c-89f2813ea7ed
+rider index: 1422
+	TRIP: 1429  (rider ID 17feb251-4187-4645-884c-89f2813ea7ed)
+
+rider ID:    fca546f7-695d-4cbe-a241-bb9132402b94
+rider index: 1426
+	TRIP: 1433  (rider ID fca546f7-695d-4cbe-a241-bb9132402b94)
+
+rider ID:    3d2b0812-33f0-4600-92c0-918cd5a493d3
+rider index: 1428
+	TRIP: 1435  (rider ID 3d2b0812-33f0-4600-92c0-918cd5a493d3)
+
+rider ID:    0742db20-88ad-45f2-aa86-e867a03a25be
+rider index: 1429
+	TRIP: 1436  (rider ID 0742db20-88ad-45f2-aa86-e867a03a25be)
+
+rider ID:    a03436cf-536a-4a21-9a80-23358b303eaf
+rider index: 1432
+	TRIP: 1439  (rider ID a03436cf-536a-4a21-9a80-23358b303eaf)
+
+rider ID:    12927e80-0454-4add-9fe3-76c36db8f61b
+rider index: 1437
+	TRIP: 1444  (rider ID 12927e80-0454-4add-9fe3-76c36db8f61b)
+
+rider ID:    75c06e85-de99-482e-9904-becdadb2c946
+rider index: 1438
+	TRIP: 1445  (rider ID 75c06e85-de99-482e-9904-becdadb2c946)
+
+rider ID:    6870406b-8a6b-4233-95bd-37fd076aa770
+rider index: 1439
+	TRIP: 1446  (rider ID 6870406b-8a6b-4233-95bd-37fd076aa770)
+
+rider ID:    e383c56f-99f2-4687-9bd1-8337348f62d3
+rider index: 1440
+	TRIP: 1447  (rider ID e383c56f-99f2-4687-9bd1-8337348f62d3)
+
+rider ID:    9575912d-76a1-4d84-a94d-e725ccf3cea4
+rider index: 1441
+	TRIP: 1448  (rider ID 9575912d-76a1-4d84-a94d-e725ccf3cea4)
+
+rider ID:    68aa021d-e632-460a-8055-6728510ed67c
+rider index: 1442
+	TRIP: 1449  (rider ID 68aa021d-e632-460a-8055-6728510ed67c)
+
+rider ID:    6ec8563b-aefa-41e2-98e3-5c175cfc8278
+rider index: 1445
+	TRIP: 1452  (rider ID 6ec8563b-aefa-41e2-98e3-5c175cfc8278)
+
+rider ID:    6d6c1c83-e0b5-4029-83d6-a4363c0517da
+rider index: 1446
+	TRIP: 1453  (rider ID 6d6c1c83-e0b5-4029-83d6-a4363c0517da)
+
+rider ID:    d1c420e7-6872-42c4-9297-294688c583de
+rider index: 1447
+	TRIP: 1454  (rider ID d1c420e7-6872-42c4-9297-294688c583de)
+
+rider ID:    891ed3e1-826a-41b8-af48-0d57624bd0d0
+rider index: 1452
+	TRIP: 1459  (rider ID 891ed3e1-826a-41b8-af48-0d57624bd0d0)
+
+rider ID:    6f5cc38f-9c7a-447f-83e0-39c3e5a0cf6d
+rider index: 1460
+	TRIP: 1467  (rider ID 6f5cc38f-9c7a-447f-83e0-39c3e5a0cf6d)
+	TRIP: 2823  (rider ID 6f5cc38f-9c7a-447f-83e0-39c3e5a0cf6d)
+
+rider ID:    7274bf15-bb19-4081-b8ae-b5e91c917b77
+rider index: 1461
+	TRIP: 1468  (rider ID 7274bf15-bb19-4081-b8ae-b5e91c917b77)
+
+rider ID:    68e34246-7ce6-4142-859d-b689d4b8d1ee
+rider index: 1463
+	TRIP: 1470  (rider ID 68e34246-7ce6-4142-859d-b689d4b8d1ee)
+
+rider ID:    f75298d0-aedf-496f-9ef3-d36b518be301
+rider index: 1466
+	TRIP: 1473  (rider ID f75298d0-aedf-496f-9ef3-d36b518be301)
+
+rider ID:    1e199db2-06b6-4ddc-ac4a-813da27e4a14
+rider index: 1467
+	TRIP: 1474  (rider ID 1e199db2-06b6-4ddc-ac4a-813da27e4a14)
+
+rider ID:    22c4bdb1-6f81-403b-ae85-7b34c20c8857
+rider index: 1471
+	TRIP: 1478  (rider ID 22c4bdb1-6f81-403b-ae85-7b34c20c8857)
+
+rider ID:    ff3f8af2-de7f-4bd0-8658-d7f67edb9240
+rider index: 1479
+	TRIP: 1486  (rider ID ff3f8af2-de7f-4bd0-8658-d7f67edb9240)
+
+rider ID:    98f17142-5248-4eba-a46d-6895d1fe4b15
+rider index: 1482
+	TRIP: 1489  (rider ID 98f17142-5248-4eba-a46d-6895d1fe4b15)
+
+rider ID:    590dee51-310a-4eb9-ab62-77e5f6eb418d
+rider index: 1483
+	TRIP: 1490  (rider ID 590dee51-310a-4eb9-ab62-77e5f6eb418d)
+
+rider ID:    66f160f0-8e5d-4002-8ae2-1708fa6fc0b5
+rider index: 1484
+	TRIP: 1491  (rider ID 66f160f0-8e5d-4002-8ae2-1708fa6fc0b5)
+
+rider ID:    3ba9810c-f00e-4f6c-a1a5-479755e2700f
+rider index: 1488
+	TRIP: 1495  (rider ID 3ba9810c-f00e-4f6c-a1a5-479755e2700f)
+
+rider ID:    e169182a-e8ec-4c5e-b17d-27ae8e97a42b
+rider index: 1489
+	TRIP: 1496  (rider ID e169182a-e8ec-4c5e-b17d-27ae8e97a42b)
+
+rider ID:    6ea81369-50b6-419c-8b6e-e36c88c1f2a5
+rider index: 1490
+	TRIP: 1497  (rider ID 6ea81369-50b6-419c-8b6e-e36c88c1f2a5)
+
+rider ID:    8601e1b0-e182-4c83-b5f9-a65f61a4155f
+rider index: 1493
+	TRIP: 1500  (rider ID 8601e1b0-e182-4c83-b5f9-a65f61a4155f)
+
+rider ID:    cf63d1c3-acf8-46fd-b135-a20709d2d93b
+rider index: 1496
+	TRIP: 1503  (rider ID cf63d1c3-acf8-46fd-b135-a20709d2d93b)
+
+rider ID:    9a6c7d7d-9f95-4a80-8fcf-7f7de7ff1c45
+rider index: 1497
+	TRIP: 1504  (rider ID 9a6c7d7d-9f95-4a80-8fcf-7f7de7ff1c45)
+
+rider ID:    2775fdf4-0431-4cd5-8822-3703eb384b77
+rider index: 1500
+	TRIP: 1507  (rider ID 2775fdf4-0431-4cd5-8822-3703eb384b77)
+
+rider ID:    b5e90881-b8b6-4545-bd72-34225afebbbb
+rider index: 1501
+	TRIP: 1508  (rider ID b5e90881-b8b6-4545-bd72-34225afebbbb)
+
+rider ID:    c77b44cb-344b-4e80-8d2c-d263180a4f0f
+rider index: 1502
+	TRIP: 1509  (rider ID c77b44cb-344b-4e80-8d2c-d263180a4f0f)
+
+rider ID:    8d9ace3a-993d-4002-baff-abe639a683f4
+rider index: 1503
+	TRIP: 1510  (rider ID 8d9ace3a-993d-4002-baff-abe639a683f4)
+
+rider ID:    17166266-60dc-4063-841a-e9747dba9ee9
+rider index: 1504
+	TRIP: 1511  (rider ID 17166266-60dc-4063-841a-e9747dba9ee9)
+
+rider ID:    5f8c3d61-1113-4186-b0cf-1f008753f00a
+rider index: 1505
+	TRIP: 1512  (rider ID 5f8c3d61-1113-4186-b0cf-1f008753f00a)
+
+rider ID:    fcd7df87-8cf2-44fd-94ce-dfb402296658
+rider index: 1506
+	TRIP: 1513  (rider ID fcd7df87-8cf2-44fd-94ce-dfb402296658)
+
+rider ID:    36cc6be9-cda4-4241-a8de-b85c09316275
+rider index: 1509
+	TRIP: 1517  (rider ID 36cc6be9-cda4-4241-a8de-b85c09316275)
+
+rider ID:    23313915-6390-4e96-ac2c-8a348534f79b
+rider index: 1510
+	TRIP: 1518  (rider ID 23313915-6390-4e96-ac2c-8a348534f79b)
+
+rider ID:    e4375a3d-78c7-4b97-9601-037db3c5ccbe
+rider index: 1511
+	TRIP: 1519  (rider ID e4375a3d-78c7-4b97-9601-037db3c5ccbe)
+
+rider ID:    a8b37ab8-3fd5-4945-b5d3-e7529c1b2927
+rider index: 1514
+	TRIP: 1522  (rider ID a8b37ab8-3fd5-4945-b5d3-e7529c1b2927)
+
+rider ID:    5081f934-03a2-4d70-ba1b-1a55e1f50471
+rider index: 1515
+	TRIP: 1523  (rider ID 5081f934-03a2-4d70-ba1b-1a55e1f50471)
+
+rider ID:    dcad166e-f950-434c-8826-785c8ee97d48
+rider index: 1518
+	TRIP: 1526  (rider ID dcad166e-f950-434c-8826-785c8ee97d48)
+
+rider ID:    0d80a34f-ce68-44fb-b181-07489ca67654
+rider index: 1519
+	TRIP: 1527  (rider ID 0d80a34f-ce68-44fb-b181-07489ca67654)
+
+rider ID:    722be36d-388f-41b7-9783-e9ff2578bec2
+rider index: 1521
+	TRIP: 1529  (rider ID 722be36d-388f-41b7-9783-e9ff2578bec2)
+
+rider ID:    483ac278-2ff4-43b3-9a74-ec341292521e
+rider index: 1522
+	TRIP: 1530  (rider ID 483ac278-2ff4-43b3-9a74-ec341292521e)
+
+rider ID:    77a9752c-c312-47f7-bf09-931ace6dfead
+rider index: 1524
+	TRIP: 1532  (rider ID 77a9752c-c312-47f7-bf09-931ace6dfead)
+
+rider ID:    878daab7-01a2-44ea-8d46-c1462c48231b
+rider index: 1525
+	TRIP: 1533  (rider ID 878daab7-01a2-44ea-8d46-c1462c48231b)
+
+rider ID:    91a82146-8884-4543-b62f-ccfa9c6dffbf
+rider index: 1527
+	TRIP: 1535  (rider ID 91a82146-8884-4543-b62f-ccfa9c6dffbf)
+
+rider ID:    e5a5f59e-a7e8-4de8-b033-770b5f7f5a39
+rider index: 1528
+	TRIP: 1536  (rider ID e5a5f59e-a7e8-4de8-b033-770b5f7f5a39)
+
+rider ID:    bf8fe4fe-82a5-421d-ab14-73850b508083
+rider index: 1531
+	TRIP: 1540  (rider ID bf8fe4fe-82a5-421d-ab14-73850b508083)
+
+rider ID:    f6e87bdb-ca66-42d7-baa3-aa7842193d1d
+rider index: 1532
+	TRIP: 1541  (rider ID f6e87bdb-ca66-42d7-baa3-aa7842193d1d)
+	TRIP: 2616  (rider ID f6e87bdb-ca66-42d7-baa3-aa7842193d1d)
+
+rider ID:    7804685b-0e45-403c-8e08-214e8475a841
+rider index: 1533
+	TRIP: 1542  (rider ID 7804685b-0e45-403c-8e08-214e8475a841)
+
+rider ID:    42b5ce0f-8890-4de3-a9e6-fdf75a6d8a19
+rider index: 1535
+	TRIP: 1544  (rider ID 42b5ce0f-8890-4de3-a9e6-fdf75a6d8a19)
+
+rider ID:    4021115c-cc2a-4254-8980-e30326de0341
+rider index: 1536
+	TRIP: 1545  (rider ID 4021115c-cc2a-4254-8980-e30326de0341)
+
+rider ID:    ce9de363-6968-47f4-b120-6b08532b0119
+rider index: 1546
+	TRIP: 1555  (rider ID ce9de363-6968-47f4-b120-6b08532b0119)
+
+rider ID:    3df52892-8d3b-4a29-8dbd-2f21105d0bd3
+rider index: 1548
+	TRIP: 1557  (rider ID 3df52892-8d3b-4a29-8dbd-2f21105d0bd3)
+
+rider ID:    a767cce5-536d-4095-a700-e79bbd71754d
+rider index: 1549
+	TRIP: 1558  (rider ID a767cce5-536d-4095-a700-e79bbd71754d)
+
+rider ID:    2a1a5d7c-ac98-42ef-8609-3ea765e3eed9
+rider index: 1550
+	TRIP: 1560  (rider ID 2a1a5d7c-ac98-42ef-8609-3ea765e3eed9)
+
+rider ID:    20de9357-3300-4498-b43d-448259aa0f3e
+rider index: 1557
+	TRIP: 1567  (rider ID 20de9357-3300-4498-b43d-448259aa0f3e)
+
+rider ID:    6ad4a0d9-675d-4a19-833f-f7ff659794bf
+rider index: 1558
+	TRIP: 1568  (rider ID 6ad4a0d9-675d-4a19-833f-f7ff659794bf)
+
+rider ID:    90370b9b-409c-4eb0-ac22-3ef03c09d719
+rider index: 1563
+	TRIP: 1573  (rider ID 90370b9b-409c-4eb0-ac22-3ef03c09d719)
+
+rider ID:    5eff8134-9da2-4da7-83d7-e2175d408a0b
+rider index: 1568
+	TRIP: 1578  (rider ID 5eff8134-9da2-4da7-83d7-e2175d408a0b)
+
+rider ID:    28ee1ef8-ce87-4d18-a413-893d8f79f0e6
+rider index: 1569
+	TRIP: 1579  (rider ID 28ee1ef8-ce87-4d18-a413-893d8f79f0e6)
+
+rider ID:    cae93d13-3d18-4bef-bd9d-80a8dafedbc6
+rider index: 1573
+	TRIP: 1583  (rider ID cae93d13-3d18-4bef-bd9d-80a8dafedbc6)
+
+rider ID:    e3b04084-1811-48b5-a1d1-6631752000b3
+rider index: 1575
+	TRIP: 1585  (rider ID e3b04084-1811-48b5-a1d1-6631752000b3)
+
+rider ID:    af6801a1-742d-427c-9a04-8ada337949f4
+rider index: 1577
+	TRIP: 1587  (rider ID af6801a1-742d-427c-9a04-8ada337949f4)
+
+rider ID:    26fcc351-4f6f-4695-9c95-6ff758c047a6
+rider index: 1578
+	TRIP: 1588  (rider ID 26fcc351-4f6f-4695-9c95-6ff758c047a6)
+
+rider ID:    62410bd5-16a0-4971-bda7-e87bc2a84e1a
+rider index: 1582
+	TRIP: 1592  (rider ID 62410bd5-16a0-4971-bda7-e87bc2a84e1a)
+
+rider ID:    680eda82-357d-48d3-8ee4-0d038bd4a7cd
+rider index: 1586
+	TRIP: 1596  (rider ID 680eda82-357d-48d3-8ee4-0d038bd4a7cd)
+
+rider ID:    3b244f62-2b0e-419f-b549-d847cbf6425c
+rider index: 1588
+	TRIP: 1598  (rider ID 3b244f62-2b0e-419f-b549-d847cbf6425c)
+
+rider ID:    eb8f0578-a405-466f-8f4a-30527b3c718a
+rider index: 1590
+	TRIP: 1600  (rider ID eb8f0578-a405-466f-8f4a-30527b3c718a)
+
+rider ID:    f5e3044d-4b4e-46a1-9327-ff1ca02ba4c0
+rider index: 1597
+	TRIP: 1607  (rider ID f5e3044d-4b4e-46a1-9327-ff1ca02ba4c0)
+
+rider ID:    09512921-998d-404e-922b-b7cd58590f4c
+rider index: 1599
+	TRIP: 1609  (rider ID 09512921-998d-404e-922b-b7cd58590f4c)
+
+rider ID:    1013747a-ac70-4b18-b8b7-ec55e9361aeb
+rider index: 1604
+	TRIP: 1614  (rider ID 1013747a-ac70-4b18-b8b7-ec55e9361aeb)
+
+rider ID:    ca191c16-7f11-4c0d-a89a-de34a2d2827c
+rider index: 1606
+	TRIP: 1616  (rider ID ca191c16-7f11-4c0d-a89a-de34a2d2827c)
+
+rider ID:    c0a24df8-b124-4927-8fb8-58f81054867b
+rider index: 1608
+	TRIP: 1618  (rider ID c0a24df8-b124-4927-8fb8-58f81054867b)
+
+rider ID:    2454e0eb-42fb-47dc-8c5d-dd254770fc96
+rider index: 1609
+	TRIP: 1619  (rider ID 2454e0eb-42fb-47dc-8c5d-dd254770fc96)
+
+rider ID:    d0f470c7-5af1-4945-b691-3dceca60434e
+rider index: 1611
+	TRIP: 1621  (rider ID d0f470c7-5af1-4945-b691-3dceca60434e)
+
+rider ID:    6e2657bf-129b-4437-97bc-7a6f071974ec
+rider index: 1613
+	TRIP: 1623  (rider ID 6e2657bf-129b-4437-97bc-7a6f071974ec)
+
+rider ID:    bc6abe5e-9538-49b8-a737-81c7a17452f2
+rider index: 1618
+	TRIP: 1628  (rider ID bc6abe5e-9538-49b8-a737-81c7a17452f2)
+
+rider ID:    5d377b3b-2ab9-4770-9612-5f6723cdb9f0
+rider index: 1620
+	TRIP: 1630  (rider ID 5d377b3b-2ab9-4770-9612-5f6723cdb9f0)
+
+rider ID:    211eaa25-6746-4a4e-b51d-05b21bc3eea8
+rider index: 1628
+	TRIP: 1638  (rider ID 211eaa25-6746-4a4e-b51d-05b21bc3eea8)
+
+rider ID:    e3d1fc7a-dae0-4eae-94aa-e170ade80cb5
+rider index: 1630
+	TRIP: 1640  (rider ID e3d1fc7a-dae0-4eae-94aa-e170ade80cb5)
+
+rider ID:    da45832f-4919-42a7-bf3d-4c076a014846
+rider index: 1633
+	TRIP: 1643  (rider ID da45832f-4919-42a7-bf3d-4c076a014846)
+
+rider ID:    8d810c8f-2a0c-4e2a-bd5b-277493f9ce95
+rider index: 1634
+	TRIP: 1644  (rider ID 8d810c8f-2a0c-4e2a-bd5b-277493f9ce95)
+
+rider ID:    eadaf11e-e19b-4802-a3ab-29df91225506
+rider index: 1635
+	TRIP: 1645  (rider ID eadaf11e-e19b-4802-a3ab-29df91225506)
+
+rider ID:    f1451020-3750-4ba3-b7be-a49343e9ad3d
+rider index: 1640
+	TRIP: 1650  (rider ID f1451020-3750-4ba3-b7be-a49343e9ad3d)
+
+rider ID:    d9fe5bc5-3783-408c-9ddc-026aaed0d399
+rider index: 1642
+	TRIP: 1653  (rider ID d9fe5bc5-3783-408c-9ddc-026aaed0d399)
+
+rider ID:    101d99c9-752f-45af-8caf-a07b9529623e
+rider index: 1644
+	TRIP: 1655  (rider ID 101d99c9-752f-45af-8caf-a07b9529623e)
+
+rider ID:    a58414d8-4bf7-4f13-a750-913400abca24
+rider index: 1646
+	TRIP: 1657  (rider ID a58414d8-4bf7-4f13-a750-913400abca24)
+
+rider ID:    f1092c11-caf0-4d69-916f-dfd2b1970dca
+rider index: 1649
+	TRIP: 1660  (rider ID f1092c11-caf0-4d69-916f-dfd2b1970dca)
+
+rider ID:    85decc5e-156c-49cf-bc99-8ea4aef8d1a5
+rider index: 1651
+	TRIP: 1662  (rider ID 85decc5e-156c-49cf-bc99-8ea4aef8d1a5)
+
+rider ID:    28df0730-ec45-40c4-8982-1c0a5153d3cc
+rider index: 1653
+	TRIP: 1664  (rider ID 28df0730-ec45-40c4-8982-1c0a5153d3cc)
+
+rider ID:    be2f42f1-c840-4a1e-805d-08c81dc10de7
+rider index: 1655
+	TRIP: 1666  (rider ID be2f42f1-c840-4a1e-805d-08c81dc10de7)
+
+rider ID:    57f359c2-ac46-45f6-94a6-b75c7f683af7
+rider index: 1661
+	TRIP: 1672  (rider ID 57f359c2-ac46-45f6-94a6-b75c7f683af7)
+
+rider ID:    63a63eb7-18d2-4c22-80f2-144c0c36ac8e
+rider index: 1662
+	TRIP: 1673  (rider ID 63a63eb7-18d2-4c22-80f2-144c0c36ac8e)
+
+rider ID:    6caf3acd-5fba-4bd7-b8a2-c42a162ec683
+rider index: 1663
+	TRIP: 1674  (rider ID 6caf3acd-5fba-4bd7-b8a2-c42a162ec683)
+
+rider ID:    02327c3b-0ab6-4998-9370-289f45908895
+rider index: 1667
+	TRIP: 1678  (rider ID 02327c3b-0ab6-4998-9370-289f45908895)
+
+rider ID:    30bb8aea-7a20-43e0-9628-dcaa419c2eec
+rider index: 1668
+	TRIP: 1679  (rider ID 30bb8aea-7a20-43e0-9628-dcaa419c2eec)
+
+rider ID:    09457a98-91b1-4b77-90a9-2a6ee1a3b236
+rider index: 1669
+	TRIP: 1680  (rider ID 09457a98-91b1-4b77-90a9-2a6ee1a3b236)
+
+rider ID:    d1080245-415a-4604-a395-f6061d4ab900
+rider index: 1670
+	TRIP: 1681  (rider ID d1080245-415a-4604-a395-f6061d4ab900)
+
+rider ID:    4fd38c76-d23c-4d80-8a37-7b0ea41bb500
+rider index: 1672
+	TRIP: 1683  (rider ID 4fd38c76-d23c-4d80-8a37-7b0ea41bb500)
+
+rider ID:    5b5fe7a9-a89b-4a13-959e-ee34ab820c99
+rider index: 1673
+	TRIP: 1684  (rider ID 5b5fe7a9-a89b-4a13-959e-ee34ab820c99)
+
+rider ID:    a9a37673-845f-42c2-9e1c-80f827fe55ce
+rider index: 1677
+	TRIP: 1688  (rider ID a9a37673-845f-42c2-9e1c-80f827fe55ce)
+
+rider ID:    7d784ac0-0011-4859-9c3a-6be9bb0486d9
+rider index: 1679
+	TRIP: 1690  (rider ID 7d784ac0-0011-4859-9c3a-6be9bb0486d9)
+
+rider ID:    fe2c96d6-6983-4d07-8ca5-a6a8983bcc51
+rider index: 1680
+	TRIP: 1691  (rider ID fe2c96d6-6983-4d07-8ca5-a6a8983bcc51)
+
+rider ID:    938b4130-0a9e-4cbc-b74b-442dd2dd944b
+rider index: 1682
+	TRIP: 1693  (rider ID 938b4130-0a9e-4cbc-b74b-442dd2dd944b)
+
+rider ID:    8ada0320-0f41-41a9-9868-79d0c66c109a
+rider index: 1683
+	TRIP: 1694  (rider ID 8ada0320-0f41-41a9-9868-79d0c66c109a)
+
+rider ID:    0005c6fc-8ccc-4126-b6ed-ce1f9de62596
+rider index: 1685
+	TRIP: 1696  (rider ID 0005c6fc-8ccc-4126-b6ed-ce1f9de62596)
+
+rider ID:    c3b908b9-a174-4a91-9263-99b2e5fccc91
+rider index: 1688
+	TRIP: 1699  (rider ID c3b908b9-a174-4a91-9263-99b2e5fccc91)
+
+rider ID:    56449983-d43b-4513-baf2-be6029fd30d9
+rider index: 1692
+	TRIP: 1703  (rider ID 56449983-d43b-4513-baf2-be6029fd30d9)
+
+rider ID:    8a8c43e4-ae63-4037-8185-484342419d8a
+rider index: 1695
+	TRIP: 1706  (rider ID 8a8c43e4-ae63-4037-8185-484342419d8a)
+
+rider ID:    29aafbec-7a67-4155-80be-99d16a2719cd
+rider index: 1699
+	TRIP: 1710  (rider ID 29aafbec-7a67-4155-80be-99d16a2719cd)
+
+rider ID:    7461ac64-9839-49e0-8779-da593c0c1a0e
+rider index: 1700
+	TRIP: 1711  (rider ID 7461ac64-9839-49e0-8779-da593c0c1a0e)
+
+rider ID:    5d25cc0b-8c1d-439f-9469-6275202ef415
+rider index: 1701
+	TRIP: 1712  (rider ID 5d25cc0b-8c1d-439f-9469-6275202ef415)
+
+rider ID:    d8e5ff21-499a-4fd8-969e-c2c09a3c4ea1
+rider index: 1702
+	TRIP: 1713  (rider ID d8e5ff21-499a-4fd8-969e-c2c09a3c4ea1)
+
+rider ID:    d541024a-fc82-46a6-8d26-9f6526ab349e
+rider index: 1703
+	TRIP: 1714  (rider ID d541024a-fc82-46a6-8d26-9f6526ab349e)
+
+rider ID:    811e2995-fc04-42b1-a4c4-977a8b0c874a
+rider index: 1704
+	TRIP: 1715  (rider ID 811e2995-fc04-42b1-a4c4-977a8b0c874a)
+
+rider ID:    d9aa80b1-e91b-4ce7-b3be-9625d4c0a2d0
+rider index: 1705
+	TRIP: 1716  (rider ID d9aa80b1-e91b-4ce7-b3be-9625d4c0a2d0)
+
+rider ID:    ae160508-03aa-4da5-8cb4-b059810e12a3
+rider index: 1707
+	TRIP: 1718  (rider ID ae160508-03aa-4da5-8cb4-b059810e12a3)
+
+rider ID:    c24b1df0-f1ea-4787-b8d0-2d8183cdcdc1
+rider index: 1711
+	TRIP: 1722  (rider ID c24b1df0-f1ea-4787-b8d0-2d8183cdcdc1)
+
+rider ID:    d4ac8d95-7b75-4af5-bf1f-555bcc18bb5e
+rider index: 1712
+	TRIP: 1723  (rider ID d4ac8d95-7b75-4af5-bf1f-555bcc18bb5e)
+
+rider ID:    713cb5f2-300d-49e7-8b3f-69edcdee489b
+rider index: 1717
+	TRIP: 1728  (rider ID 713cb5f2-300d-49e7-8b3f-69edcdee489b)
+
+rider ID:    d3858c45-ce6c-4f5c-a3ab-c17e5cc86353
+rider index: 1720
+	TRIP: 1731  (rider ID d3858c45-ce6c-4f5c-a3ab-c17e5cc86353)
+
+rider ID:    c16d81d9-9d9a-4f8c-9224-d6548124895f
+rider index: 1729
+	TRIP: 1740  (rider ID c16d81d9-9d9a-4f8c-9224-d6548124895f)
+
+rider ID:    7d89aa97-87cd-4ab1-8222-1cfb8bf535eb
+rider index: 1731
+	TRIP: 1742  (rider ID 7d89aa97-87cd-4ab1-8222-1cfb8bf535eb)
+
+rider ID:    d3d9b09d-62cc-4c01-b0dc-f8dac5744920
+rider index: 1735
+	TRIP: 1746  (rider ID d3d9b09d-62cc-4c01-b0dc-f8dac5744920)
+
+rider ID:    aaf38890-80d7-4cd3-92ce-8ddd4e5b9a7c
+rider index: 1738
+	TRIP: 1749  (rider ID aaf38890-80d7-4cd3-92ce-8ddd4e5b9a7c)
+
+rider ID:    2208c943-3b95-4fe7-8ab1-b7d38b7f724d
+rider index: 1739
+	TRIP: 1750  (rider ID 2208c943-3b95-4fe7-8ab1-b7d38b7f724d)
+
+rider ID:    e16fec16-ec7c-46f2-a301-89ba7655edb1
+rider index: 1743
+	TRIP: 1754  (rider ID e16fec16-ec7c-46f2-a301-89ba7655edb1)
+
+rider ID:    e5802fe7-deff-4b64-aeb8-6fb774948e91
+rider index: 1745
+	TRIP: 1756  (rider ID e5802fe7-deff-4b64-aeb8-6fb774948e91)
+
+rider ID:    15c9d3a4-285a-4702-96ec-f0add83fd3e4
+rider index: 1749
+	TRIP: 1760  (rider ID 15c9d3a4-285a-4702-96ec-f0add83fd3e4)
+
+rider ID:    530717a2-72e6-4142-8825-a5f3d97fdd87
+rider index: 1750
+	TRIP: 1761  (rider ID 530717a2-72e6-4142-8825-a5f3d97fdd87)
+
+rider ID:    6f0f5ece-28c1-44df-b1da-a1c5a3b2f880
+rider index: 1751
+	TRIP: 1762  (rider ID 6f0f5ece-28c1-44df-b1da-a1c5a3b2f880)
+
+rider ID:    b3d70878-f6fd-4ca8-b2b4-af28d12a672f
+rider index: 1752
+	TRIP: 1763  (rider ID b3d70878-f6fd-4ca8-b2b4-af28d12a672f)
+
+rider ID:    fef1ba5a-fc48-4422-a323-e32372151205
+rider index: 1753
+	TRIP: 1764  (rider ID fef1ba5a-fc48-4422-a323-e32372151205)
+
+rider ID:    3cdb9ddd-e74e-4101-b4d6-874885a13fc1
+rider index: 1757
+	TRIP: 1768  (rider ID 3cdb9ddd-e74e-4101-b4d6-874885a13fc1)
+
+rider ID:    47e52d04-6b28-418f-a9e3-a1721df3a9a4
+rider index: 1758
+	TRIP: 1769  (rider ID 47e52d04-6b28-418f-a9e3-a1721df3a9a4)
+
+rider ID:    83140b90-1859-45e6-a8cc-f148b9d5beaa
+rider index: 1759
+	TRIP: 1770  (rider ID 83140b90-1859-45e6-a8cc-f148b9d5beaa)
+
+rider ID:    4c3664bf-5a3f-4639-a1f0-ef4c92940880
+rider index: 1762
+	TRIP: 1773  (rider ID 4c3664bf-5a3f-4639-a1f0-ef4c92940880)
+
+rider ID:    36d4cc19-a3e3-4c62-a0a0-a04e48302c4b
+rider index: 1764
+	TRIP: 1775  (rider ID 36d4cc19-a3e3-4c62-a0a0-a04e48302c4b)
+
+rider ID:    7bb0a075-d358-4f62-bd0d-eb6c00ed4a8b
+rider index: 1783
+	TRIP: 1794  (rider ID 7bb0a075-d358-4f62-bd0d-eb6c00ed4a8b)
+
+rider ID:    ec8e798d-3dcd-4a95-9145-9a0ff2ad6097
+rider index: 1788
+	TRIP: 1799  (rider ID ec8e798d-3dcd-4a95-9145-9a0ff2ad6097)
+
+rider ID:    fc83441c-c6a4-4856-883f-8011dc99799e
+rider index: 1790
+	TRIP: 1801  (rider ID fc83441c-c6a4-4856-883f-8011dc99799e)
+
+rider ID:    c7fba3ec-61a7-4410-9134-b113c40d7109
+rider index: 1792
+	TRIP: 1803  (rider ID c7fba3ec-61a7-4410-9134-b113c40d7109)
+
+rider ID:    4481e231-77ea-47b0-9315-bb6825a7a72c
+rider index: 1799
+	TRIP: 1810  (rider ID 4481e231-77ea-47b0-9315-bb6825a7a72c)
+
+rider ID:    29a9b315-05a5-416c-834a-a4c2aad3f8e0
+rider index: 1801
+	TRIP: 1812  (rider ID 29a9b315-05a5-416c-834a-a4c2aad3f8e0)
+
+rider ID:    e86d2c8e-29e0-41d6-9ab5-d19a1e2187db
+rider index: 1802
+	TRIP: 1813  (rider ID e86d2c8e-29e0-41d6-9ab5-d19a1e2187db)
+
+rider ID:    d985713c-dcec-4861-a97f-cde971bfecb2
+rider index: 1803
+	TRIP: 1814  (rider ID d985713c-dcec-4861-a97f-cde971bfecb2)
+
+rider ID:    c0bdb7a0-600a-4b99-949f-af1928c82e60
+rider index: 1805
+	TRIP: 1816  (rider ID c0bdb7a0-600a-4b99-949f-af1928c82e60)
+
+rider ID:    81f835e8-4887-47bc-a56d-9ad4e95170b6
+rider index: 1807
+	TRIP: 1818  (rider ID 81f835e8-4887-47bc-a56d-9ad4e95170b6)
+
+rider ID:    a97549a7-b185-47a9-b15f-ab6bab1bfffd
+rider index: 1808
+	TRIP: 1819  (rider ID a97549a7-b185-47a9-b15f-ab6bab1bfffd)
+
+rider ID:    34c2ef36-059e-4c68-ae85-f29fc7fceb0b
+rider index: 1810
+	TRIP: 1821  (rider ID 34c2ef36-059e-4c68-ae85-f29fc7fceb0b)
+
+rider ID:    3e576a47-9871-465d-bb0b-2f71f632658b
+rider index: 1815
+	TRIP: 1826  (rider ID 3e576a47-9871-465d-bb0b-2f71f632658b)
+
+rider ID:    a645a4a4-6126-472c-916d-1c4819d46195
+rider index: 1820
+	TRIP: 1831  (rider ID a645a4a4-6126-472c-916d-1c4819d46195)
+
+rider ID:    adc6a5be-4d6f-4696-9ed0-519c5da7eb18
+rider index: 1827
+	TRIP: 1838  (rider ID adc6a5be-4d6f-4696-9ed0-519c5da7eb18)
+
+rider ID:    7d1771ab-8f6b-4d39-8630-c915d2383a07
+rider index: 1828
+	TRIP: 1839  (rider ID 7d1771ab-8f6b-4d39-8630-c915d2383a07)
+
+rider ID:    ead7902d-66d7-4814-a1ad-0cbc65701b3f
+rider index: 1829
+	TRIP: 1840  (rider ID ead7902d-66d7-4814-a1ad-0cbc65701b3f)
+
+rider ID:    a064cc9a-388a-4951-83c0-5e58804dbdf2
+rider index: 1839
+	TRIP: 1850  (rider ID a064cc9a-388a-4951-83c0-5e58804dbdf2)
+
+rider ID:    2306a830-d6ee-4e78-9b65-b17dd36905b4
+rider index: 1841
+	TRIP: 1852  (rider ID 2306a830-d6ee-4e78-9b65-b17dd36905b4)
+
+rider ID:    d283058e-789a-4b4a-a3c9-192627545975
+rider index: 1842
+	TRIP: 1853  (rider ID d283058e-789a-4b4a-a3c9-192627545975)
+
+rider ID:    84958659-78ff-4695-a9b0-704eafcbfef6
+rider index: 1845
+	TRIP: 1856  (rider ID 84958659-78ff-4695-a9b0-704eafcbfef6)
+
+rider ID:    5594ab5d-4280-4490-84bd-70be3a07932b
+rider index: 1853
+	TRIP: 1864  (rider ID 5594ab5d-4280-4490-84bd-70be3a07932b)
+
+rider ID:    94d0eef6-dc48-471d-8c1b-5fa7a0b101db
+rider index: 1854
+	TRIP: 1865  (rider ID 94d0eef6-dc48-471d-8c1b-5fa7a0b101db)
+
+rider ID:    3ebb6be5-cf30-46cd-8917-f0cb3ed0b3c5
+rider index: 1856
+	TRIP: 1867  (rider ID 3ebb6be5-cf30-46cd-8917-f0cb3ed0b3c5)
+
+rider ID:    2df49d22-08d8-46aa-880a-206125e58bdb
+rider index: 1857
+	TRIP: 1868  (rider ID 2df49d22-08d8-46aa-880a-206125e58bdb)
+
+rider ID:    0467be41-7b10-4dce-b6c3-1590dce0df33
+rider index: 1858
+	TRIP: 1869  (rider ID 0467be41-7b10-4dce-b6c3-1590dce0df33)
+
+rider ID:    9afc5b2e-dba1-4f5d-bf89-8c4d3a540a11
+rider index: 1860
+	TRIP: 1871  (rider ID 9afc5b2e-dba1-4f5d-bf89-8c4d3a540a11)
+
+rider ID:    8b937652-f8cd-4d9f-af96-65554a6ea01a
+rider index: 1868
+	TRIP: 1879  (rider ID 8b937652-f8cd-4d9f-af96-65554a6ea01a)
+
+rider ID:    ff9f74c9-e497-441f-bf07-a726ecd49d27
+rider index: 1870
+	TRIP: 1881  (rider ID ff9f74c9-e497-441f-bf07-a726ecd49d27)
+
+rider ID:    8c468266-b998-4a67-b7e8-28db4c9c60a0
+rider index: 1871
+	TRIP: 1882  (rider ID 8c468266-b998-4a67-b7e8-28db4c9c60a0)
+
+rider ID:    bbde2ef8-17ec-4cf1-aaa4-4f454a8c50ab
+rider index: 1872
+	TRIP: 1883  (rider ID bbde2ef8-17ec-4cf1-aaa4-4f454a8c50ab)
+
+rider ID:    bd4a1f1b-79ed-4ad3-ac43-0c1f1770e97a
+rider index: 1873
+	TRIP: 1884  (rider ID bd4a1f1b-79ed-4ad3-ac43-0c1f1770e97a)
+
+rider ID:    7fcac859-650c-4e0e-9087-b8f8ed036f13
+rider index: 1874
+	TRIP: 1885  (rider ID 7fcac859-650c-4e0e-9087-b8f8ed036f13)
+
+rider ID:    1569db4e-497b-4fd0-ae67-db30db91a59a
+rider index: 1889
+	TRIP: 1900  (rider ID 1569db4e-497b-4fd0-ae67-db30db91a59a)
+
+rider ID:    aca162c7-1d88-4988-9c41-7c48d0804499
+rider index: 1891
+	TRIP: 1902  (rider ID aca162c7-1d88-4988-9c41-7c48d0804499)
+
+rider ID:    7b739a9e-ae1b-4b43-bc72-d0a4d97abbc3
+rider index: 1894
+	TRIP: 1905  (rider ID 7b739a9e-ae1b-4b43-bc72-d0a4d97abbc3)
+
+rider ID:    b5f5d627-1fc8-4e04-aed1-5d97950b0c38
+rider index: 1895
+	TRIP: 1906  (rider ID b5f5d627-1fc8-4e04-aed1-5d97950b0c38)
+
+rider ID:    14cd01b6-a1ee-4cb2-809e-f4d4432f5e00
+rider index: 1898
+	TRIP: 1910  (rider ID 14cd01b6-a1ee-4cb2-809e-f4d4432f5e00)
+
+rider ID:    d0fe18f1-e74f-445a-96e7-cf43ce541ab3
+rider index: 1899
+	TRIP: 1911  (rider ID d0fe18f1-e74f-445a-96e7-cf43ce541ab3)
+
+rider ID:    8c668659-3024-47c9-a92c-11956a4a30be
+rider index: 1903
+	TRIP: 1915  (rider ID 8c668659-3024-47c9-a92c-11956a4a30be)
+
+rider ID:    e9dc0f13-491c-455e-9fef-18aac56669ed
+rider index: 1905
+	TRIP: 1917  (rider ID e9dc0f13-491c-455e-9fef-18aac56669ed)
+
+rider ID:    51db84a9-968c-41b1-943e-87603e531db5
+rider index: 1906
+	TRIP: 1918  (rider ID 51db84a9-968c-41b1-943e-87603e531db5)
+
+rider ID:    619cd334-6399-407f-add9-10b5d29f76eb
+rider index: 1912
+	TRIP: 1924  (rider ID 619cd334-6399-407f-add9-10b5d29f76eb)
+
+rider ID:    e0301849-453d-4533-8eb9-2a1785901300
+rider index: 1913
+	TRIP: 1925  (rider ID e0301849-453d-4533-8eb9-2a1785901300)
+
+rider ID:    c94b68a3-1335-4e0c-8dd3-39f74d93be4d
+rider index: 1914
+	TRIP: 1926  (rider ID c94b68a3-1335-4e0c-8dd3-39f74d93be4d)
+
+rider ID:    371f3c8d-ddc5-4f82-943a-b9cf88553de8
+rider index: 1917
+	TRIP: 1929  (rider ID 371f3c8d-ddc5-4f82-943a-b9cf88553de8)
+
+rider ID:    3c7ee489-4832-4ee3-a368-3ab76ec8c430
+rider index: 1919
+	TRIP: 1931  (rider ID 3c7ee489-4832-4ee3-a368-3ab76ec8c430)
+
+rider ID:    90048280-ca64-429c-ab5c-73d421d75f20
+rider index: 1922
+	TRIP: 1934  (rider ID 90048280-ca64-429c-ab5c-73d421d75f20)
+
+rider ID:    22266391-3861-49dd-a309-e902d25b2754
+rider index: 1926
+	TRIP: 1938  (rider ID 22266391-3861-49dd-a309-e902d25b2754)
+
+rider ID:    06403220-c54c-46d9-bd42-949432116f4d
+rider index: 1928
+	TRIP: 1940  (rider ID 06403220-c54c-46d9-bd42-949432116f4d)
+
+rider ID:    d5630fc0-b10c-42eb-bced-37fd26067c93
+rider index: 1931
+	TRIP: 1943  (rider ID d5630fc0-b10c-42eb-bced-37fd26067c93)
+
+rider ID:    bec2b9b4-e228-4dfd-b7f2-6fe359339929
+rider index: 1934
+	TRIP: 1946  (rider ID bec2b9b4-e228-4dfd-b7f2-6fe359339929)
+
+rider ID:    1175c01d-66d6-4a31-b635-aa6468654111
+rider index: 1935
+	TRIP: 1947  (rider ID 1175c01d-66d6-4a31-b635-aa6468654111)
+
+rider ID:    a69f736b-f6af-4962-a1c3-65817df2280e
+rider index: 1936
+	TRIP: 1948  (rider ID a69f736b-f6af-4962-a1c3-65817df2280e)
+
+rider ID:    c97f71d6-6f8f-43d9-8597-62d6eba8627b
+rider index: 1938
+	TRIP: 1950  (rider ID c97f71d6-6f8f-43d9-8597-62d6eba8627b)
+
+rider ID:    fe9011c1-e5d0-412e-8ca0-4921112d0e5c
+rider index: 1941
+	TRIP: 1953  (rider ID fe9011c1-e5d0-412e-8ca0-4921112d0e5c)
+
+rider ID:    eb859113-5901-4e44-bc0f-d08153487131
+rider index: 1943
+	TRIP: 1955  (rider ID eb859113-5901-4e44-bc0f-d08153487131)
+
+rider ID:    b161fca6-b75e-493c-813c-3a3484d71fe8
+rider index: 1944
+	TRIP: 1956  (rider ID b161fca6-b75e-493c-813c-3a3484d71fe8)
+
+rider ID:    1b1ef985-db23-4b06-860e-7184efe5f0af
+rider index: 1947
+	TRIP: 1960  (rider ID 1b1ef985-db23-4b06-860e-7184efe5f0af)
+
+rider ID:    f0a8888e-d660-4fc3-9204-09b8471e3f4d
+rider index: 1948
+	TRIP: 1961  (rider ID f0a8888e-d660-4fc3-9204-09b8471e3f4d)
+
+rider ID:    130c8a4e-8932-4b37-98c3-2501c3b14b78
+rider index: 1951
+	TRIP: 1964  (rider ID 130c8a4e-8932-4b37-98c3-2501c3b14b78)
+
+rider ID:    70e6ce0f-1e2a-4b6f-8cad-57a1095976cc
+rider index: 1957
+	TRIP: 1970  (rider ID 70e6ce0f-1e2a-4b6f-8cad-57a1095976cc)
+
+rider ID:    81a804a4-e4f8-4d7a-b658-c95caf95ff8a
+rider index: 1960
+	TRIP: 1973  (rider ID 81a804a4-e4f8-4d7a-b658-c95caf95ff8a)
+
+rider ID:    95642bb3-0b14-4b60-8e4e-2b12b87fa3ca
+rider index: 1963
+	TRIP: 1976  (rider ID 95642bb3-0b14-4b60-8e4e-2b12b87fa3ca)
+
+rider ID:    711faddc-2473-4b58-97c4-5c328220cbaa
+rider index: 1964
+	TRIP: 1977  (rider ID 711faddc-2473-4b58-97c4-5c328220cbaa)
+
+rider ID:    65d3314d-ee23-4046-9961-d17390ef4cfc
+rider index: 1965
+	TRIP: 1978  (rider ID 65d3314d-ee23-4046-9961-d17390ef4cfc)
+
+rider ID:    2b2bf54b-0a91-40d1-aa5a-7df78af8501e
+rider index: 1971
+	TRIP: 1984  (rider ID 2b2bf54b-0a91-40d1-aa5a-7df78af8501e)
+
+rider ID:    f98a8957-1b17-4b5d-af34-177e965a9bb1
+rider index: 1975
+	TRIP: 1988  (rider ID f98a8957-1b17-4b5d-af34-177e965a9bb1)
+
+rider ID:    8afaec08-2e95-459e-99c7-2bdf37c13fe2
+rider index: 1977
+	TRIP: 1990  (rider ID 8afaec08-2e95-459e-99c7-2bdf37c13fe2)
+
+rider ID:    638c9aec-f331-474e-95b9-313cc0db24a9
+rider index: 1979
+	TRIP: 1992  (rider ID 638c9aec-f331-474e-95b9-313cc0db24a9)
+
+rider ID:    15bd8265-b19e-4825-a999-cd2ca18ae5ca
+rider index: 1981
+	TRIP: 1994  (rider ID 15bd8265-b19e-4825-a999-cd2ca18ae5ca)
+
+rider ID:    6e4bc787-db77-4248-94f0-f61860e0f14d
+rider index: 1982
+	TRIP: 1995  (rider ID 6e4bc787-db77-4248-94f0-f61860e0f14d)
+
+rider ID:    13849f6a-231a-45ae-8b95-6225e8f8c5c8
+rider index: 1984
+	TRIP: 1997  (rider ID 13849f6a-231a-45ae-8b95-6225e8f8c5c8)
+
+rider ID:    0866177b-9f72-4be3-b50b-76d9bbe1337a
+rider index: 1989
+	TRIP: 2002  (rider ID 0866177b-9f72-4be3-b50b-76d9bbe1337a)
+
+rider ID:    e61eaf02-1636-45a3-8ec8-957d0e848c38
+rider index: 1990
+	TRIP: 2003  (rider ID e61eaf02-1636-45a3-8ec8-957d0e848c38)
+
+rider ID:    d8196790-2e5a-460b-a408-2a112f73bd1a
+rider index: 1993
+	TRIP: 2006  (rider ID d8196790-2e5a-460b-a408-2a112f73bd1a)
+
+rider ID:    70773a40-0564-4de7-9783-b11fb78a3efd
+rider index: 1994
+	TRIP: 2007  (rider ID 70773a40-0564-4de7-9783-b11fb78a3efd)
+
+rider ID:    3bb785c5-b9b8-4b70-8cb5-fcb13bb63505
+rider index: 1995
+	TRIP: 2008  (rider ID 3bb785c5-b9b8-4b70-8cb5-fcb13bb63505)
+
+rider ID:    63d55e0a-8744-4389-ae79-bb32f2d84c96
+rider index: 1997
+	TRIP: 2010  (rider ID 63d55e0a-8744-4389-ae79-bb32f2d84c96)
+
+rider ID:    404e2a94-3b10-495b-afda-f42cd75ea0e8
+rider index: 1998
+	TRIP: 2011  (rider ID 404e2a94-3b10-495b-afda-f42cd75ea0e8)
+
+rider ID:    c09c1107-d234-4209-9232-075b4b6854c3
+rider index: 1999
+	TRIP: 2012  (rider ID c09c1107-d234-4209-9232-075b4b6854c3)
+
+rider ID:    e21f1ce1-7a14-49e3-8850-59903bf916a7
+rider index: 2001
+	TRIP: 2014  (rider ID e21f1ce1-7a14-49e3-8850-59903bf916a7)
+
+rider ID:    cd9df722-7a81-4cb6-b5e6-6e3e3ac2f921
+rider index: 2002
+	TRIP: 2015  (rider ID cd9df722-7a81-4cb6-b5e6-6e3e3ac2f921)
+
+rider ID:    03e2a924-7ca4-4730-b7b6-ff201992c7ff
+rider index: 2004
+	TRIP: 2017  (rider ID 03e2a924-7ca4-4730-b7b6-ff201992c7ff)
+
+rider ID:    a948507e-3b71-4a97-b5db-3a0444321eff
+rider index: 2005
+	TRIP: 2018  (rider ID a948507e-3b71-4a97-b5db-3a0444321eff)
+
+rider ID:    8af3432b-a91b-408d-85b9-bacbcfd81abe
+rider index: 2006
+	TRIP: 2019  (rider ID 8af3432b-a91b-408d-85b9-bacbcfd81abe)
+
+rider ID:    cb1bdca0-8161-420f-85d8-be62ad95805b
+rider index: 2010
+	TRIP: 2023  (rider ID cb1bdca0-8161-420f-85d8-be62ad95805b)
+
+rider ID:    8add3ada-22cf-4cad-9605-5e245316134d
+rider index: 2011
+	TRIP: 2024  (rider ID 8add3ada-22cf-4cad-9605-5e245316134d)
+
+rider ID:    a9ad1e61-a3c9-4398-81e5-8822fc5b59de
+rider index: 2019
+	TRIP: 2032  (rider ID a9ad1e61-a3c9-4398-81e5-8822fc5b59de)
+
+rider ID:    413c1d5f-67e7-46b0-9153-d438615e6986
+rider index: 2020
+	TRIP: 2033  (rider ID 413c1d5f-67e7-46b0-9153-d438615e6986)
+
+rider ID:    2ca67222-b8a1-4c49-9a4c-057bb58e9a73
+rider index: 2021
+	TRIP: 2035  (rider ID 2ca67222-b8a1-4c49-9a4c-057bb58e9a73)
+
+rider ID:    29610dda-a374-4b27-b207-83203e2ad063
+rider index: 2030
+	TRIP: 2044  (rider ID 29610dda-a374-4b27-b207-83203e2ad063)
+
+rider ID:    0899fc5b-98fd-4da7-bb09-7fab5ded8810
+rider index: 2036
+	TRIP: 2050  (rider ID 0899fc5b-98fd-4da7-bb09-7fab5ded8810)
+
+rider ID:    35732287-0314-42f7-b52e-fc136db5289b
+rider index: 2039
+	TRIP: 2053  (rider ID 35732287-0314-42f7-b52e-fc136db5289b)
+
+rider ID:    fba14267-13dd-48a6-9dca-f92d7db242eb
+rider index: 2041
+	TRIP: 2055  (rider ID fba14267-13dd-48a6-9dca-f92d7db242eb)
+
+rider ID:    c25ae27d-777c-4cf5-8b82-dd4500c135cf
+rider index: 2047
+	TRIP: 2061  (rider ID c25ae27d-777c-4cf5-8b82-dd4500c135cf)
+
+rider ID:    3f4172dd-372c-48c4-9a9d-bc8db905cd4c
+rider index: 2049
+	TRIP: 2063  (rider ID 3f4172dd-372c-48c4-9a9d-bc8db905cd4c)
+
+rider ID:    78110236-2724-4942-bb5c-aa5114999666
+rider index: 2051
+	TRIP: 2065  (rider ID 78110236-2724-4942-bb5c-aa5114999666)
+
+rider ID:    70219859-07cf-473c-88d4-57ea09188dd1
+rider index: 2052
+	TRIP: 2066  (rider ID 70219859-07cf-473c-88d4-57ea09188dd1)
+
+rider ID:    30e519f4-c0a5-48c3-909a-fa65cda8b4e0
+rider index: 2056
+	TRIP: 2070  (rider ID 30e519f4-c0a5-48c3-909a-fa65cda8b4e0)
+
+rider ID:    d6237959-3010-4a4a-821c-184f554bb41e
+rider index: 2057
+	TRIP: 2072  (rider ID d6237959-3010-4a4a-821c-184f554bb41e)
+
+rider ID:    d81efcf8-7102-4018-b2b0-9b18b8fb01ec
+rider index: 2063
+	TRIP: 2078  (rider ID d81efcf8-7102-4018-b2b0-9b18b8fb01ec)
+
+rider ID:    95a2170a-0dbc-4f1a-aebd-eef4c439ed9b
+rider index: 2064
+	TRIP: 2079  (rider ID 95a2170a-0dbc-4f1a-aebd-eef4c439ed9b)
+
+rider ID:    2cb30216-4856-4152-8da2-54f0f06b49d4
+rider index: 2067
+	TRIP: 2082  (rider ID 2cb30216-4856-4152-8da2-54f0f06b49d4)
+
+rider ID:    19c9fa2d-6c71-41c7-a484-4f8d6dbf414a
+rider index: 2071
+	TRIP: 2086  (rider ID 19c9fa2d-6c71-41c7-a484-4f8d6dbf414a)
+
+rider ID:    ca93d393-8ca5-4770-8640-22070435ea39
+rider index: 2073
+	TRIP: 2088  (rider ID ca93d393-8ca5-4770-8640-22070435ea39)
+
+rider ID:    6168c477-f760-4a4c-8fbe-7e90703b1c2d
+rider index: 2076
+	TRIP: 2091  (rider ID 6168c477-f760-4a4c-8fbe-7e90703b1c2d)
+
+rider ID:    839f9416-06b4-4ad9-8f60-61380ec7571c
+rider index: 2078
+	TRIP: 2093  (rider ID 839f9416-06b4-4ad9-8f60-61380ec7571c)
+
+rider ID:    afabf7d3-e725-4505-b622-e40ff0586261
+rider index: 2089
+	TRIP: 2104  (rider ID afabf7d3-e725-4505-b622-e40ff0586261)
+
+rider ID:    17c8ed55-ea53-42bc-9956-41531a45bf24
+rider index: 2091
+	TRIP: 2107  (rider ID 17c8ed55-ea53-42bc-9956-41531a45bf24)
+
+rider ID:    43513f7d-a3d1-4254-851f-dd48fb98a180
+rider index: 2093
+	TRIP: 2109  (rider ID 43513f7d-a3d1-4254-851f-dd48fb98a180)
+
+rider ID:    88cc316f-82ab-46f8-a2b8-e81484beb22e
+rider index: 2099
+	TRIP: 2115  (rider ID 88cc316f-82ab-46f8-a2b8-e81484beb22e)
+
+rider ID:    e958e48a-1222-48a3-bee4-04e42fd90733
+rider index: 2101
+	TRIP: 2117  (rider ID e958e48a-1222-48a3-bee4-04e42fd90733)
+
+rider ID:    cf59b965-c4ac-4b77-8adb-da2f11042866
+rider index: 2102
+	TRIP: 2118  (rider ID cf59b965-c4ac-4b77-8adb-da2f11042866)
+
+rider ID:    c199d8d8-c6ac-4087-b365-1581266cacb2
+rider index: 2105
+	TRIP: 2121  (rider ID c199d8d8-c6ac-4087-b365-1581266cacb2)
+
+rider ID:    61b9137d-e182-4ebe-a664-031f6248da65
+rider index: 2108
+	TRIP: 2124  (rider ID 61b9137d-e182-4ebe-a664-031f6248da65)
+
+rider ID:    5e07c0f9-bf07-4604-9362-296163cab561
+rider index: 2110
+	TRIP: 2126  (rider ID 5e07c0f9-bf07-4604-9362-296163cab561)
+
+rider ID:    ad5161f2-d099-4ec3-9b9d-e3012f68fafe
+rider index: 2113
+	TRIP: 2129  (rider ID ad5161f2-d099-4ec3-9b9d-e3012f68fafe)
+
+rider ID:    e1342edd-ee9d-4025-bfaf-51e283861c24
+rider index: 2115
+	TRIP: 2131  (rider ID e1342edd-ee9d-4025-bfaf-51e283861c24)
+
+rider ID:    4d169d33-509e-4f57-9815-d351728cb6b9
+rider index: 2119
+	TRIP: 2135  (rider ID 4d169d33-509e-4f57-9815-d351728cb6b9)
+
+rider ID:    c9c1d58e-ce6b-4784-9456-dc4bcd70089a
+rider index: 2121
+	TRIP: 2137  (rider ID c9c1d58e-ce6b-4784-9456-dc4bcd70089a)
+
+rider ID:    358c94ad-1c10-4f66-9754-3bb401c1b168
+rider index: 2123
+	TRIP: 2139  (rider ID 358c94ad-1c10-4f66-9754-3bb401c1b168)
+
+rider ID:    dcb8ed76-6bc5-45f5-906d-d22abf086766
+rider index: 2126
+	TRIP: 2142  (rider ID dcb8ed76-6bc5-45f5-906d-d22abf086766)
+
+rider ID:    be82062a-7ee8-48a6-8468-359243617a3e
+rider index: 2129
+	TRIP: 2145  (rider ID be82062a-7ee8-48a6-8468-359243617a3e)
+
+rider ID:    96824ae6-9b58-44f5-a121-e9584b522b1b
+rider index: 2132
+	TRIP: 2148  (rider ID 96824ae6-9b58-44f5-a121-e9584b522b1b)
+
+rider ID:    2ea0f3cb-451a-4726-8116-b5152a25e5d5
+rider index: 2133
+	TRIP: 2149  (rider ID 2ea0f3cb-451a-4726-8116-b5152a25e5d5)
+
+rider ID:    eb5afdf4-6f52-45cc-915a-0b5b22cf9f50
+rider index: 2135
+	TRIP: 2151  (rider ID eb5afdf4-6f52-45cc-915a-0b5b22cf9f50)
+
+rider ID:    fe52e8e0-5f49-45df-b434-f8e6ee17e60c
+rider index: 2141
+	TRIP: 2157  (rider ID fe52e8e0-5f49-45df-b434-f8e6ee17e60c)
+
+rider ID:    ef8f0a71-6f44-4c80-ab11-1828e01a0eb4
+rider index: 2143
+	TRIP: 2159  (rider ID ef8f0a71-6f44-4c80-ab11-1828e01a0eb4)
+
+rider ID:    4f303cd3-7d14-4a8f-96fb-2dca1ef3d487
+rider index: 2144
+	TRIP: 2160  (rider ID 4f303cd3-7d14-4a8f-96fb-2dca1ef3d487)
+
+rider ID:    d078d075-5f6a-45f2-8c64-8f2a4e645f3a
+rider index: 2145
+	TRIP: 2161  (rider ID d078d075-5f6a-45f2-8c64-8f2a4e645f3a)
+
+rider ID:    e7156760-c582-484f-8eff-e8683f20c7b2
+rider index: 2148
+	TRIP: 2164  (rider ID e7156760-c582-484f-8eff-e8683f20c7b2)
+
+rider ID:    476ff7d9-8946-43c8-a8c3-b76a1da112df
+rider index: 2150
+	TRIP: 2166  (rider ID 476ff7d9-8946-43c8-a8c3-b76a1da112df)
+
+rider ID:    38524312-62c1-4f21-87d4-be058fecd792
+rider index: 2152
+	TRIP: 2168  (rider ID 38524312-62c1-4f21-87d4-be058fecd792)
+
+rider ID:    5bb43567-5af7-49ac-b950-c597ad980dfa
+rider index: 2153
+	TRIP: 2169  (rider ID 5bb43567-5af7-49ac-b950-c597ad980dfa)
+
+rider ID:    67b212a9-8e5a-406a-90fb-5c9ceffe43f2
+rider index: 2156
+	TRIP: 2172  (rider ID 67b212a9-8e5a-406a-90fb-5c9ceffe43f2)
+
+rider ID:    5ce22254-a1f0-4b1e-ae43-52ce8a0e17ff
+rider index: 2159
+	TRIP: 2175  (rider ID 5ce22254-a1f0-4b1e-ae43-52ce8a0e17ff)
+
+rider ID:    a505f0da-8103-4896-9668-4ac73568c4fa
+rider index: 2163
+	TRIP: 2179  (rider ID a505f0da-8103-4896-9668-4ac73568c4fa)
+
+rider ID:    d9d12c6e-0abc-4f21-9423-3ad15035017f
+rider index: 2165
+	TRIP: 2181  (rider ID d9d12c6e-0abc-4f21-9423-3ad15035017f)
+
+rider ID:    51ee65c2-a6bb-4429-ac6a-ab2d8febb07c
+rider index: 2167
+	TRIP: 2183  (rider ID 51ee65c2-a6bb-4429-ac6a-ab2d8febb07c)
+
+rider ID:    e453e6c7-565c-43d5-b7b4-63b57d8219eb
+rider index: 2170
+	TRIP: 2186  (rider ID e453e6c7-565c-43d5-b7b4-63b57d8219eb)
+
+rider ID:    03db629f-c13d-4873-900e-46910d077725
+rider index: 2171
+	TRIP: 2187  (rider ID 03db629f-c13d-4873-900e-46910d077725)
+
+rider ID:    b64eaf50-dbc6-450f-8c27-059bce0a6f1d
+rider index: 2173
+	TRIP: 2189  (rider ID b64eaf50-dbc6-450f-8c27-059bce0a6f1d)
+
+rider ID:    1956fe2b-ef69-4336-800a-37f3220b8e21
+rider index: 2174
+	TRIP: 2190  (rider ID 1956fe2b-ef69-4336-800a-37f3220b8e21)
+
+rider ID:    5662c123-cb46-44cc-adc6-49e1bee4a736
+rider index: 2175
+	TRIP: 2191  (rider ID 5662c123-cb46-44cc-adc6-49e1bee4a736)
+
+rider ID:    ee6b461b-07ad-4f8f-af4a-cce563469e52
+rider index: 2177
+	TRIP: 2193  (rider ID ee6b461b-07ad-4f8f-af4a-cce563469e52)
+
+rider ID:    7356860b-bfcf-4b62-a1fd-e08fbb08f524
+rider index: 2179
+	TRIP: 2195  (rider ID 7356860b-bfcf-4b62-a1fd-e08fbb08f524)
+
+rider ID:    a7219caf-4f8a-4469-a2d3-f38de8f067c2
+rider index: 2180
+	TRIP: 2196  (rider ID a7219caf-4f8a-4469-a2d3-f38de8f067c2)
+
+rider ID:    02e6cbe1-7370-4421-8ee7-e0a40aadf7df
+rider index: 2181
+	TRIP: 2197  (rider ID 02e6cbe1-7370-4421-8ee7-e0a40aadf7df)
+
+rider ID:    1fd43166-bc4f-4d45-80f1-699ae6bb2963
+rider index: 2182
+	TRIP: 2198  (rider ID 1fd43166-bc4f-4d45-80f1-699ae6bb2963)
+
+rider ID:    ad43276e-b602-4cae-87d5-38c89c0c438d
+rider index: 2184
+	TRIP: 2201  (rider ID ad43276e-b602-4cae-87d5-38c89c0c438d)
+
+rider ID:    6a6168df-cdc4-440a-b365-ede3d8996f00
+rider index: 2186
+	TRIP: 2203  (rider ID 6a6168df-cdc4-440a-b365-ede3d8996f00)
+
+rider ID:    8537d716-acfa-4e01-961d-eda42c7e44fe
+rider index: 2188
+	TRIP: 2205  (rider ID 8537d716-acfa-4e01-961d-eda42c7e44fe)
+
+rider ID:    d1140117-3c57-416a-a4b6-e42080e887be
+rider index: 2190
+	TRIP: 2207  (rider ID d1140117-3c57-416a-a4b6-e42080e887be)
+
+rider ID:    873c499f-afa0-4f5c-bd7c-062ac28c4e06
+rider index: 2192
+	TRIP: 2209  (rider ID 873c499f-afa0-4f5c-bd7c-062ac28c4e06)
+
+rider ID:    a121a028-6dd7-418a-b2b7-e1f6675dd5fd
+rider index: 2193
+	TRIP: 2210  (rider ID a121a028-6dd7-418a-b2b7-e1f6675dd5fd)
+
+rider ID:    88c4de7d-61c7-47b4-b116-0ee6ac1437fe
+rider index: 2195
+	TRIP: 2212  (rider ID 88c4de7d-61c7-47b4-b116-0ee6ac1437fe)
+
+rider ID:    4a08704d-7c03-4377-aa77-ee34bfe22fd3
+rider index: 2197
+	TRIP: 2214  (rider ID 4a08704d-7c03-4377-aa77-ee34bfe22fd3)
+
+rider ID:    ac767d1d-9bd1-4f78-8a5a-8e8fcf344905
+rider index: 2198
+	TRIP: 2215  (rider ID ac767d1d-9bd1-4f78-8a5a-8e8fcf344905)
+
+rider ID:    66325362-0475-4759-a3da-80e17823e991
+rider index: 2204
+	TRIP: 2221  (rider ID 66325362-0475-4759-a3da-80e17823e991)
+
+rider ID:    3079784d-a2d7-4df5-99e4-4220cead9ef6
+rider index: 2206
+	TRIP: 2223  (rider ID 3079784d-a2d7-4df5-99e4-4220cead9ef6)
+
+rider ID:    d02b63e2-f5ee-4a2b-83c0-ace34abebc3f
+rider index: 2207
+	TRIP: 2224  (rider ID d02b63e2-f5ee-4a2b-83c0-ace34abebc3f)
+
+rider ID:    7d0a76e5-363a-4a02-8d6b-f7c8a38730ee
+rider index: 2208
+	TRIP: 2225  (rider ID 7d0a76e5-363a-4a02-8d6b-f7c8a38730ee)
+
+rider ID:    68c9f937-f4d5-4aa9-91b8-d0203fa06908
+rider index: 2209
+	TRIP: 2226  (rider ID 68c9f937-f4d5-4aa9-91b8-d0203fa06908)
+
+rider ID:    7bc2deb6-1b5e-4310-bf8b-f9c599bc719f
+rider index: 2212
+	TRIP: 2229  (rider ID 7bc2deb6-1b5e-4310-bf8b-f9c599bc719f)
+
+rider ID:    589d9cdb-4d1d-4dac-b3e4-4f0c3eee1e9f
+rider index: 2214
+	TRIP: 2231  (rider ID 589d9cdb-4d1d-4dac-b3e4-4f0c3eee1e9f)
+
+rider ID:    21ed197c-8ac2-47d3-ae86-8fdc785b2b49
+rider index: 2215
+	TRIP: 2232  (rider ID 21ed197c-8ac2-47d3-ae86-8fdc785b2b49)
+
+rider ID:    399f9edf-8bb3-43db-967f-16c0f9f453da
+rider index: 2219
+	TRIP: 2236  (rider ID 399f9edf-8bb3-43db-967f-16c0f9f453da)
+
+rider ID:    10f49eec-f14a-4430-b24e-aa95e85cb816
+rider index: 2220
+	TRIP: 2237  (rider ID 10f49eec-f14a-4430-b24e-aa95e85cb816)
+
+rider ID:    d231725c-58fc-4653-983e-73d16f02e828
+rider index: 2221
+	TRIP: 2238  (rider ID d231725c-58fc-4653-983e-73d16f02e828)
+
+rider ID:    d130276f-0b28-424c-9c91-060d1b5e3774
+rider index: 2222
+	TRIP: 2239  (rider ID d130276f-0b28-424c-9c91-060d1b5e3774)
+
+rider ID:    5fdeceb4-dff8-40ce-abf9-80eb8960a107
+rider index: 2224
+	TRIP: 2241  (rider ID 5fdeceb4-dff8-40ce-abf9-80eb8960a107)
+
+rider ID:    3070eaea-b988-4dd9-80e3-9367fb84df22
+rider index: 2225
+	TRIP: 2242  (rider ID 3070eaea-b988-4dd9-80e3-9367fb84df22)
+
+rider ID:    037a4fd9-57c5-4e09-a3b0-56d5559afdfc
+rider index: 2226
+	TRIP: 2243  (rider ID 037a4fd9-57c5-4e09-a3b0-56d5559afdfc)
+
+rider ID:    107511c0-1b0c-4062-9eaf-cdd6bfe97f82
+rider index: 2227
+	TRIP: 2244  (rider ID 107511c0-1b0c-4062-9eaf-cdd6bfe97f82)
+
+rider ID:    8effba35-c544-4f94-ab86-658b802fa88d
+rider index: 2228
+	TRIP: 2245  (rider ID 8effba35-c544-4f94-ab86-658b802fa88d)
+
+rider ID:    0790c244-ad05-4c56-9a7e-06a6bcfae9ad
+rider index: 2230
+	TRIP: 2247  (rider ID 0790c244-ad05-4c56-9a7e-06a6bcfae9ad)
+
+rider ID:    0323cd2c-0d7c-4e5e-a9ca-ac013db95283
+rider index: 2231
+	TRIP: 2248  (rider ID 0323cd2c-0d7c-4e5e-a9ca-ac013db95283)
+
+rider ID:    4d07797c-ebdd-4541-ab8d-84b31b9f5582
+rider index: 2233
+	TRIP: 2250  (rider ID 4d07797c-ebdd-4541-ab8d-84b31b9f5582)
+
+rider ID:    88377532-27de-4875-b5da-cb9e2387f358
+rider index: 2235
+	TRIP: 2252  (rider ID 88377532-27de-4875-b5da-cb9e2387f358)
+
+rider ID:    695fe764-8730-4944-aea7-99c5a4c4846c
+rider index: 2243
+	TRIP: 2261  (rider ID 695fe764-8730-4944-aea7-99c5a4c4846c)
+
+rider ID:    7a6ee0ed-0276-444e-b4df-b15c546bd402
+rider index: 2245
+	TRIP: 2263  (rider ID 7a6ee0ed-0276-444e-b4df-b15c546bd402)
+
+rider ID:    5ef5d780-a312-4b86-9a5f-df2e73a062f7
+rider index: 2246
+	TRIP: 2264  (rider ID 5ef5d780-a312-4b86-9a5f-df2e73a062f7)
+
+rider ID:    11654607-8c34-4a12-ad80-2f80db2c2d74
+rider index: 2247
+	TRIP: 2265  (rider ID 11654607-8c34-4a12-ad80-2f80db2c2d74)
+
+rider ID:    06aaed17-81ec-47a4-847a-114e94900dda
+rider index: 2249
+	TRIP: 2267  (rider ID 06aaed17-81ec-47a4-847a-114e94900dda)
+
+rider ID:    d69dcff3-1c83-4fd0-a517-496f0fa6846a
+rider index: 2252
+	TRIP: 2271  (rider ID d69dcff3-1c83-4fd0-a517-496f0fa6846a)
+
+rider ID:    82aa4e20-f760-4887-a61c-fd19cbf14ecf
+rider index: 2256
+	TRIP: 2275  (rider ID 82aa4e20-f760-4887-a61c-fd19cbf14ecf)
+
+rider ID:    c578e272-5744-4767-bf2f-2f93b174f3f4
+rider index: 2261
+	TRIP: 2280  (rider ID c578e272-5744-4767-bf2f-2f93b174f3f4)
+
+rider ID:    9cbf9312-64c5-4936-8450-cb80daefc312
+rider index: 2262
+	TRIP: 2281  (rider ID 9cbf9312-64c5-4936-8450-cb80daefc312)
+
+rider ID:    a44e525a-e688-4ce9-b3c0-944ab750e846
+rider index: 2263
+	TRIP: 2282  (rider ID a44e525a-e688-4ce9-b3c0-944ab750e846)
+
+rider ID:    6a499a52-c36d-4592-bb0e-bd22c58c2591
+rider index: 2266
+	TRIP: 2285  (rider ID 6a499a52-c36d-4592-bb0e-bd22c58c2591)
+
+rider ID:    f06fe08e-208a-4973-9474-8e32a8969723
+rider index: 2269
+	TRIP: 2288  (rider ID f06fe08e-208a-4973-9474-8e32a8969723)
+
+rider ID:    db92a655-7778-4e8e-9a46-e5f090dbcb05
+rider index: 2274
+	TRIP: 2293  (rider ID db92a655-7778-4e8e-9a46-e5f090dbcb05)
+
+rider ID:    bf9f1fcc-4ce3-43c3-b200-1af2219f2020
+rider index: 2277
+	TRIP: 2296  (rider ID bf9f1fcc-4ce3-43c3-b200-1af2219f2020)
+
+rider ID:    e0f4833d-cee3-425d-9467-14bd99fc8e40
+rider index: 2279
+	TRIP: 2298  (rider ID e0f4833d-cee3-425d-9467-14bd99fc8e40)
+
+rider ID:    d372435b-8a32-4053-b43e-cb9265815fe5
+rider index: 2282
+	TRIP: 2301  (rider ID d372435b-8a32-4053-b43e-cb9265815fe5)
+
+rider ID:    4297051c-2329-4480-8318-3fe2212e2314
+rider index: 2287
+	TRIP: 2306  (rider ID 4297051c-2329-4480-8318-3fe2212e2314)
+	TRIP: 2622  (rider ID 4297051c-2329-4480-8318-3fe2212e2314)
+
+rider ID:    8e166789-4c6e-47ff-bf6e-da236ee6e751
+rider index: 2289
+	TRIP: 2308  (rider ID 8e166789-4c6e-47ff-bf6e-da236ee6e751)
+
+rider ID:    529467a3-e36e-4c7a-95a7-6b2f15511157
+rider index: 2295
+	TRIP: 2314  (rider ID 529467a3-e36e-4c7a-95a7-6b2f15511157)
+
+rider ID:    f8f96a31-04f2-44f7-918a-c54a3f49a61b
+rider index: 2303
+	TRIP: 2322  (rider ID f8f96a31-04f2-44f7-918a-c54a3f49a61b)
+
+rider ID:    fb20b5c5-a934-48f9-b3ad-6f2da0f8b08d
+rider index: 2304
+	TRIP: 2323  (rider ID fb20b5c5-a934-48f9-b3ad-6f2da0f8b08d)
+
+rider ID:    0a9defca-8873-45e3-a1b7-ce7f38f89ad2
+rider index: 2307
+	TRIP: 2326  (rider ID 0a9defca-8873-45e3-a1b7-ce7f38f89ad2)
+
+rider ID:    d73bcb47-439a-4974-aff8-95683ca6357d
+rider index: 2308
+	TRIP: 2327  (rider ID d73bcb47-439a-4974-aff8-95683ca6357d)
+
+rider ID:    084042ca-6590-45c7-a271-f50cb9572de2
+rider index: 2309
+	TRIP: 2328  (rider ID 084042ca-6590-45c7-a271-f50cb9572de2)
+
+rider ID:    2753df53-7233-4c67-a29d-43e4771ae9d4
+rider index: 2313
+	TRIP: 2332  (rider ID 2753df53-7233-4c67-a29d-43e4771ae9d4)
+
+rider ID:    acc931b6-9f05-478f-83e1-d680b8592883
+rider index: 2314
+	TRIP: 2333  (rider ID acc931b6-9f05-478f-83e1-d680b8592883)
+
+rider ID:    8f012027-242b-48d9-83ae-59a64a74efa8
+rider index: 2315
+	TRIP: 2334  (rider ID 8f012027-242b-48d9-83ae-59a64a74efa8)
+
+rider ID:    c097f8f0-6bd4-4ccc-a66b-fd23837a6f0f
+rider index: 2316
+	TRIP: 2335  (rider ID c097f8f0-6bd4-4ccc-a66b-fd23837a6f0f)
+
+rider ID:    ca2b942a-c875-43ca-85de-080e12108a81
+rider index: 2317
+	TRIP: 2336  (rider ID ca2b942a-c875-43ca-85de-080e12108a81)
+
+rider ID:    ed0232c3-2d58-4973-aa0c-54abd0196a77
+rider index: 2318
+	TRIP: 2337  (rider ID ed0232c3-2d58-4973-aa0c-54abd0196a77)
+
+rider ID:    424a233b-f5f5-46a0-b45e-c6eeb4b24ad2
+rider index: 2319
+	TRIP: 2338  (rider ID 424a233b-f5f5-46a0-b45e-c6eeb4b24ad2)
+
+rider ID:    3e13ed79-daac-4e85-b718-ab356e71bb29
+rider index: 2322
+	TRIP: 2341  (rider ID 3e13ed79-daac-4e85-b718-ab356e71bb29)
+
+rider ID:    689c1f61-fc21-4469-af90-1cd008cd9757
+rider index: 2329
+	TRIP: 2348  (rider ID 689c1f61-fc21-4469-af90-1cd008cd9757)
+
+rider ID:    ee7cb31d-1a9d-43fe-88d5-22011fcf781e
+rider index: 2330
+	TRIP: 2349  (rider ID ee7cb31d-1a9d-43fe-88d5-22011fcf781e)
+
+rider ID:    8721269f-b3db-45a7-bc85-3e3ac1688fcf
+rider index: 2331
+	TRIP: 2350  (rider ID 8721269f-b3db-45a7-bc85-3e3ac1688fcf)
+
+rider ID:    e10b4ded-b267-40cf-a74f-8878b66a6911
+rider index: 2332
+	TRIP: 2351  (rider ID e10b4ded-b267-40cf-a74f-8878b66a6911)
+
+rider ID:    23c574d2-f28f-4245-ada6-253743e4643b
+rider index: 2333
+	TRIP: 2352  (rider ID 23c574d2-f28f-4245-ada6-253743e4643b)
+
+rider ID:    1aa61edd-1c9c-4320-93c4-d3b3e5d78c91
+rider index: 2336
+	TRIP: 2355  (rider ID 1aa61edd-1c9c-4320-93c4-d3b3e5d78c91)
+
+rider ID:    a3c7a7c6-3226-42c1-84f3-6c77f67c2dcc
+rider index: 2337
+	TRIP: 2356  (rider ID a3c7a7c6-3226-42c1-84f3-6c77f67c2dcc)
+
+rider ID:    8a3e1257-827f-47c5-af36-c89bcf4b8dfb
+rider index: 2338
+	TRIP: 2357  (rider ID 8a3e1257-827f-47c5-af36-c89bcf4b8dfb)
+
+rider ID:    14fb0abb-947f-4794-b403-e6751480d38d
+rider index: 2343
+	TRIP: 2362  (rider ID 14fb0abb-947f-4794-b403-e6751480d38d)
+
+rider ID:    66c90292-ef79-4db9-858b-0e2c8e02c589
+rider index: 2346
+	TRIP: 2365  (rider ID 66c90292-ef79-4db9-858b-0e2c8e02c589)
+
+rider ID:    a403a773-3b91-4f96-bedf-0bf1de729057
+rider index: 2347
+	TRIP: 2366  (rider ID a403a773-3b91-4f96-bedf-0bf1de729057)
+
+rider ID:    5766d6de-5d97-420f-bac3-2605254e4b90
+rider index: 2351
+	TRIP: 2370  (rider ID 5766d6de-5d97-420f-bac3-2605254e4b90)
+
+rider ID:    4aabfb98-803c-4fe2-aa50-308db77c3e2b
+rider index: 2353
+	TRIP: 2372  (rider ID 4aabfb98-803c-4fe2-aa50-308db77c3e2b)
+
+rider ID:    d0e72889-cc87-470a-b345-024cd667c2e1
+rider index: 2355
+	TRIP: 2374  (rider ID d0e72889-cc87-470a-b345-024cd667c2e1)
+
+rider ID:    ebedd34c-ace9-4f02-8757-037d0c4d7e3f
+rider index: 2357
+	TRIP: 2376  (rider ID ebedd34c-ace9-4f02-8757-037d0c4d7e3f)
+
+rider ID:    6217ee1d-5afc-4def-babe-409d444a8b3c
+rider index: 2361
+	TRIP: 2380  (rider ID 6217ee1d-5afc-4def-babe-409d444a8b3c)
+
+rider ID:    5e684fb7-696c-42af-a677-bcaaf6788482
+rider index: 2365
+	TRIP: 2384  (rider ID 5e684fb7-696c-42af-a677-bcaaf6788482)
+
+rider ID:    4c906c51-8480-47dc-8d01-6587786743ea
+rider index: 2366
+	TRIP: 2385  (rider ID 4c906c51-8480-47dc-8d01-6587786743ea)
+
+rider ID:    5454a41c-ad2a-433d-b688-59b4c58d9b19
+rider index: 2367
+	TRIP: 2386  (rider ID 5454a41c-ad2a-433d-b688-59b4c58d9b19)
+
+rider ID:    1d6869a3-6033-48ed-a520-9abd4b91b30f
+rider index: 2371
+	TRIP: 2390  (rider ID 1d6869a3-6033-48ed-a520-9abd4b91b30f)
+
+rider ID:    2183c402-fea4-4e73-8d87-4d9146138490
+rider index: 2372
+	TRIP: 2391  (rider ID 2183c402-fea4-4e73-8d87-4d9146138490)
+
+rider ID:    e91684d4-8e4a-4e89-8d9f-1da1e661fd25
+rider index: 2373
+	TRIP: 2392  (rider ID e91684d4-8e4a-4e89-8d9f-1da1e661fd25)
+
+rider ID:    97e734a1-a5f1-4e1d-8dc6-8678f51283ea
+rider index: 2378
+	TRIP: 2397  (rider ID 97e734a1-a5f1-4e1d-8dc6-8678f51283ea)
+
+rider ID:    572a7bb6-3657-4a96-b183-ceaba7285c2e
+rider index: 2379
+	TRIP: 2398  (rider ID 572a7bb6-3657-4a96-b183-ceaba7285c2e)
+
+rider ID:    13a8f1bd-6d08-4766-a67c-70431b22211f
+rider index: 2382
+	TRIP: 2401  (rider ID 13a8f1bd-6d08-4766-a67c-70431b22211f)
+
+rider ID:    4a5b9963-bbf5-4113-9e63-80e7a8bd7175
+rider index: 2391
+	TRIP: 2410  (rider ID 4a5b9963-bbf5-4113-9e63-80e7a8bd7175)
+
+rider ID:    7d25c172-009d-4ca5-864d-09d6cba9049e
+rider index: 2393
+	TRIP: 2412  (rider ID 7d25c172-009d-4ca5-864d-09d6cba9049e)
+
+rider ID:    77276260-52a2-44c7-8811-f40ed54bde6e
+rider index: 2394
+	TRIP: 2413  (rider ID 77276260-52a2-44c7-8811-f40ed54bde6e)
+
+rider ID:    c34ac5cb-d4ad-476e-8f97-5c9026e69e52
+rider index: 2399
+	TRIP: 2418  (rider ID c34ac5cb-d4ad-476e-8f97-5c9026e69e52)
+
+rider ID:    c25d6476-79fc-4fe0-9752-05841132875e
+rider index: 2401
+	TRIP: 2420  (rider ID c25d6476-79fc-4fe0-9752-05841132875e)
+
+rider ID:    feaf7dcb-7510-4be1-968c-4e0f98b1eeae
+rider index: 2402
+	TRIP: 2421  (rider ID feaf7dcb-7510-4be1-968c-4e0f98b1eeae)
+
+rider ID:    873c5fca-68f8-42b2-845b-5705c3c476fb
+rider index: 2403
+	TRIP: 2422  (rider ID 873c5fca-68f8-42b2-845b-5705c3c476fb)
+
+rider ID:    5c08c14c-96c4-4c68-9298-8934dc5943f6
+rider index: 2404
+	TRIP: 2423  (rider ID 5c08c14c-96c4-4c68-9298-8934dc5943f6)
+
+rider ID:    a8cd35e5-02ba-4234-a055-b79e6d88f531
+rider index: 2405
+	TRIP: 2424  (rider ID a8cd35e5-02ba-4234-a055-b79e6d88f531)
+
+rider ID:    6f5f4f6b-83a3-4c7a-bfc4-20393e583667
+rider index: 2406
+	TRIP: 2425  (rider ID 6f5f4f6b-83a3-4c7a-bfc4-20393e583667)
+
+rider ID:    c844e2db-125d-4ba2-ade1-203e2a7526ff
+rider index: 2408
+	TRIP: 2427  (rider ID c844e2db-125d-4ba2-ade1-203e2a7526ff)
+
+rider ID:    0c66d9e9-040b-4bfb-8ad6-9c992a7c636b
+rider index: 2409
+	TRIP: 2428  (rider ID 0c66d9e9-040b-4bfb-8ad6-9c992a7c636b)
+
+rider ID:    f9be435e-90a1-468b-992e-99a191ff0b2e
+rider index: 2411
+	TRIP: 2430  (rider ID f9be435e-90a1-468b-992e-99a191ff0b2e)
+
+rider ID:    3e3fb87d-4c4c-4fae-b7a6-08669c3ab23f
+rider index: 2412
+	TRIP: 2431  (rider ID 3e3fb87d-4c4c-4fae-b7a6-08669c3ab23f)
+
+rider ID:    cad80583-ca60-4deb-85f5-957f47d5eb3e
+rider index: 2414
+	TRIP: 2433  (rider ID cad80583-ca60-4deb-85f5-957f47d5eb3e)
+
+rider ID:    e7907a8c-1021-425c-9272-d4d0e39d2b8e
+rider index: 2415
+	TRIP: 2434  (rider ID e7907a8c-1021-425c-9272-d4d0e39d2b8e)
+
+rider ID:    4075bebd-d4c5-4852-9980-c0f52907ca46
+rider index: 2416
+	TRIP: 2435  (rider ID 4075bebd-d4c5-4852-9980-c0f52907ca46)
+
+rider ID:    b3bd9e53-0b62-4787-a93c-f42ae528c448
+rider index: 2417
+	TRIP: 2436  (rider ID b3bd9e53-0b62-4787-a93c-f42ae528c448)
+
+rider ID:    0db40116-551d-4db9-af7c-aabfaa7e875b
+rider index: 2419
+	TRIP: 2438  (rider ID 0db40116-551d-4db9-af7c-aabfaa7e875b)
+
+rider ID:    469f0287-1c5a-4345-8784-cabf0293754a
+rider index: 2424
+	TRIP: 2444  (rider ID 469f0287-1c5a-4345-8784-cabf0293754a)
+
+rider ID:    f47ab06e-89d5-4012-9f0d-bb0983cd3abb
+rider index: 2425
+	TRIP: 2445  (rider ID f47ab06e-89d5-4012-9f0d-bb0983cd3abb)
+
+rider ID:    e095a6e0-4391-4204-8ba7-bbe46e2be59c
+rider index: 2427
+	TRIP: 2447  (rider ID e095a6e0-4391-4204-8ba7-bbe46e2be59c)
+
+rider ID:    77cd1a0a-00b8-4e95-9920-261d43b648c1
+rider index: 2428
+	TRIP: 2448  (rider ID 77cd1a0a-00b8-4e95-9920-261d43b648c1)
+
+rider ID:    4a3c17c0-7fed-4cfb-9e8c-9a21bc43289d
+rider index: 2430
+	TRIP: 2450  (rider ID 4a3c17c0-7fed-4cfb-9e8c-9a21bc43289d)
+
+rider ID:    4d503916-1ddb-4214-918b-9ef422119eea
+rider index: 2431
+	TRIP: 2451  (rider ID 4d503916-1ddb-4214-918b-9ef422119eea)
+
+rider ID:    44928998-aa15-4f03-90fe-b2c3b5d3c1d1
+rider index: 2432
+	TRIP: 2452  (rider ID 44928998-aa15-4f03-90fe-b2c3b5d3c1d1)
+
+rider ID:    9a6163fd-6f4c-49a1-9370-fc1786cc01dc
+rider index: 2433
+	TRIP: 2453  (rider ID 9a6163fd-6f4c-49a1-9370-fc1786cc01dc)
+
+rider ID:    877f3d50-0a70-40b9-bceb-d18f94f638b0
+rider index: 2434
+	TRIP: 2454  (rider ID 877f3d50-0a70-40b9-bceb-d18f94f638b0)
+
+rider ID:    fc7f496a-b479-4d4c-8954-69397393008f
+rider index: 2435
+	TRIP: 2455  (rider ID fc7f496a-b479-4d4c-8954-69397393008f)
+
+rider ID:    2dad5b08-2b3d-42b0-8878-93ee87b8daa3
+rider index: 2438
+	TRIP: 2458  (rider ID 2dad5b08-2b3d-42b0-8878-93ee87b8daa3)
+
+rider ID:    2cad8157-9edc-47aa-90ec-c09fbe8a2efd
+rider index: 2439
+	TRIP: 2459  (rider ID 2cad8157-9edc-47aa-90ec-c09fbe8a2efd)
+
+rider ID:    22ef2327-cd1d-4606-85ef-ddcac596182e
+rider index: 2441
+	TRIP: 2461  (rider ID 22ef2327-cd1d-4606-85ef-ddcac596182e)
+
+rider ID:    d9927d96-da34-4e6c-bbd4-0d932c356c80
+rider index: 2444
+	TRIP: 2464  (rider ID d9927d96-da34-4e6c-bbd4-0d932c356c80)
+
+rider ID:    ff07ecc3-617c-4386-9c39-5b8989edb213
+rider index: 2446
+	TRIP: 2466  (rider ID ff07ecc3-617c-4386-9c39-5b8989edb213)
+
+rider ID:    e26b6862-13c0-405e-bfc8-6bdb5c0dcb1c
+rider index: 2447
+	TRIP: 2467  (rider ID e26b6862-13c0-405e-bfc8-6bdb5c0dcb1c)
+
+rider ID:    080a1506-0570-4746-8e60-567b6be034c4
+rider index: 2449
+	TRIP: 2469  (rider ID 080a1506-0570-4746-8e60-567b6be034c4)
+
+rider ID:    031c0207-dce1-42b1-b108-c566bc4f4b15
+rider index: 2451
+	TRIP: 2471  (rider ID 031c0207-dce1-42b1-b108-c566bc4f4b15)
+
+rider ID:    27837919-db2b-472e-9657-a01a05bfa21c
+rider index: 2452
+	TRIP: 2472  (rider ID 27837919-db2b-472e-9657-a01a05bfa21c)
+
+rider ID:    27b096cf-65ed-4e90-a0f5-363cd3a5c054
+rider index: 2455
+	TRIP: 2475  (rider ID 27b096cf-65ed-4e90-a0f5-363cd3a5c054)
+
+rider ID:    34392872-a9c7-4b3c-b776-ab1888a79157
+rider index: 2460
+	TRIP: 2480  (rider ID 34392872-a9c7-4b3c-b776-ab1888a79157)
+
+rider ID:    294a9e00-0a41-4353-ada0-bf124facdb7b
+rider index: 2461
+	TRIP: 2481  (rider ID 294a9e00-0a41-4353-ada0-bf124facdb7b)
+
+rider ID:    4cba1f8c-4d8b-424c-8707-8dd51e4bd5c1
+rider index: 2463
+	TRIP: 2483  (rider ID 4cba1f8c-4d8b-424c-8707-8dd51e4bd5c1)
+
+rider ID:    c43eaf9c-75a0-4421-8270-7e425ea2e543
+rider index: 2465
+	TRIP: 2485  (rider ID c43eaf9c-75a0-4421-8270-7e425ea2e543)
+
+rider ID:    cdd37266-c27b-452e-aa38-2e7ce60596ff
+rider index: 2468
+	TRIP: 2488  (rider ID cdd37266-c27b-452e-aa38-2e7ce60596ff)
+
+rider ID:    a3228ce0-51aa-4172-b3bd-5fb28e31a023
+rider index: 2472
+	TRIP: 2492  (rider ID a3228ce0-51aa-4172-b3bd-5fb28e31a023)
+
+rider ID:    313eb0b5-ea69-4d3b-b3a8-484e76a24815
+rider index: 2474
+	TRIP: 2494  (rider ID 313eb0b5-ea69-4d3b-b3a8-484e76a24815)
+
+rider ID:    d955ed87-f272-4b23-a0a9-99f9dbd5d2d7
+rider index: 2477
+	TRIP: 2497  (rider ID d955ed87-f272-4b23-a0a9-99f9dbd5d2d7)
+
+rider ID:    b3cf64c8-9536-4cf3-9751-41c14483903a
+rider index: 2479
+	TRIP: 2499  (rider ID b3cf64c8-9536-4cf3-9751-41c14483903a)
+
+rider ID:    3533331b-a057-4983-a451-9f683d9d3e16
+rider index: 2480
+	TRIP: 2500  (rider ID 3533331b-a057-4983-a451-9f683d9d3e16)
+
+rider ID:    984c71d7-3bcd-40a9-995e-23e72eaaa4e6
+rider index: 2481
+	TRIP: 2501  (rider ID 984c71d7-3bcd-40a9-995e-23e72eaaa4e6)
+
+rider ID:    fd2d8dc8-f28d-4620-814f-5e9d5f56cd10
+rider index: 2486
+	TRIP: 2506  (rider ID fd2d8dc8-f28d-4620-814f-5e9d5f56cd10)
+
+rider ID:    1629c4ae-184e-4589-9dc8-5677cb3f0e49
+rider index: 2490
+	TRIP: 2510  (rider ID 1629c4ae-184e-4589-9dc8-5677cb3f0e49)
+
+rider ID:    7c56ec4d-dbca-4385-ae54-5a1c917e31fb
+rider index: 2494
+	TRIP: 2514  (rider ID 7c56ec4d-dbca-4385-ae54-5a1c917e31fb)
+
+rider ID:    e8c99cb9-3db3-45f0-ab47-ae738f564746
+rider index: 2499
+	TRIP: 2519  (rider ID e8c99cb9-3db3-45f0-ab47-ae738f564746)
+
+rider ID:    a58a3131-d21f-4d29-a031-8d5ce47bdea9
+rider index: 2501
+	TRIP: 2521  (rider ID a58a3131-d21f-4d29-a031-8d5ce47bdea9)
+
+rider ID:    342fcca6-e5b9-4535-b625-932eba2277e6
+rider index: 2505
+	TRIP: 2525  (rider ID 342fcca6-e5b9-4535-b625-932eba2277e6)
+
+rider ID:    78d24130-128e-439a-adf7-83ff338fc6d8
+rider index: 2506
+	TRIP: 2526  (rider ID 78d24130-128e-439a-adf7-83ff338fc6d8)
+
+rider ID:    09ea7705-2b9e-4697-868e-207601f68390
+rider index: 2507
+	TRIP: 2527  (rider ID 09ea7705-2b9e-4697-868e-207601f68390)
+
+rider ID:    c8d6ad16-e7df-4565-8378-a875d746f443
+rider index: 2510
+	TRIP: 2530  (rider ID c8d6ad16-e7df-4565-8378-a875d746f443)
+
+rider ID:    65bd27a4-9bcd-4fc8-a787-ae2ffd1b8490
+rider index: 2513
+	TRIP: 2534  (rider ID 65bd27a4-9bcd-4fc8-a787-ae2ffd1b8490)
+
+rider ID:    c0a3d8fa-2825-4ca1-aefd-3c54eb5389c0
+rider index: 2521
+	TRIP: 2542  (rider ID c0a3d8fa-2825-4ca1-aefd-3c54eb5389c0)
+
+rider ID:    3be4cd66-0620-4e07-8105-968fb2c68abf
+rider index: 2522
+	TRIP: 2543  (rider ID 3be4cd66-0620-4e07-8105-968fb2c68abf)
+
+rider ID:    e93a1106-d2f8-492d-93f3-369c434ba634
+rider index: 2526
+	TRIP: 2547  (rider ID e93a1106-d2f8-492d-93f3-369c434ba634)
+
+rider ID:    157f1eeb-12d3-4c07-9760-45438209dc68
+rider index: 2527
+	TRIP: 2548  (rider ID 157f1eeb-12d3-4c07-9760-45438209dc68)
+
+rider ID:    99dc6dd7-8fd5-4ece-8dec-70e8a3451a80
+rider index: 2528
+	TRIP: 2549  (rider ID 99dc6dd7-8fd5-4ece-8dec-70e8a3451a80)
+
+rider ID:    51a04405-1450-4bfd-b238-df31a5f97d13
+rider index: 2531
+	TRIP: 2552  (rider ID 51a04405-1450-4bfd-b238-df31a5f97d13)
+
+rider ID:    182b7535-91c8-4d99-a782-8a9b3d45410f
+rider index: 2534
+	TRIP: 2555  (rider ID 182b7535-91c8-4d99-a782-8a9b3d45410f)
+
+rider ID:    3d65c5f1-9213-41d5-ad6b-8b3e9b73b834
+rider index: 2537
+	TRIP: 2558  (rider ID 3d65c5f1-9213-41d5-ad6b-8b3e9b73b834)
+
+rider ID:    1337b2e7-3748-4a2e-83c0-48db1dd5e070
+rider index: 2539
+	TRIP: 2560  (rider ID 1337b2e7-3748-4a2e-83c0-48db1dd5e070)
+
+rider ID:    915abb16-1f27-4bb2-b2f5-26cf2e117227
+rider index: 2540
+	TRIP: 2561  (rider ID 915abb16-1f27-4bb2-b2f5-26cf2e117227)
+
+rider ID:    1684300c-4054-48c0-9aba-1d9e23ac0f56
+rider index: 2542
+	TRIP: 2563  (rider ID 1684300c-4054-48c0-9aba-1d9e23ac0f56)
+
+rider ID:    013ce4f2-9093-481a-8a2d-b23c034676a3
+rider index: 2545
+	TRIP: 2566  (rider ID 013ce4f2-9093-481a-8a2d-b23c034676a3)
+
+rider ID:    78a4e6c2-4b23-4867-b528-0c58d18abcf0
+rider index: 2546
+	TRIP: 2567  (rider ID 78a4e6c2-4b23-4867-b528-0c58d18abcf0)
+
+rider ID:    84f06a49-e5c0-4785-9081-3cfb0951f185
+rider index: 2552
+	TRIP: 2573  (rider ID 84f06a49-e5c0-4785-9081-3cfb0951f185)
+
+rider ID:    8f32d110-d469-44a5-9cc5-f3167cbba002
+rider index: 2553
+	TRIP: 2574  (rider ID 8f32d110-d469-44a5-9cc5-f3167cbba002)
+
+rider ID:    b6b94c2b-de95-497e-819f-fba6048c6a1b
+rider index: 2556
+	TRIP: 2577  (rider ID b6b94c2b-de95-497e-819f-fba6048c6a1b)
+
+rider ID:    57b44b89-652b-4df1-bde5-79cac81c1d5c
+rider index: 2557
+	TRIP: 2578  (rider ID 57b44b89-652b-4df1-bde5-79cac81c1d5c)
+
+rider ID:    6b2dd005-9fc4-47d4-88ef-881b21608368
+rider index: 2558
+	TRIP: 2579  (rider ID 6b2dd005-9fc4-47d4-88ef-881b21608368)
+
+rider ID:    b353439e-2215-4ab4-9213-43332d180024
+rider index: 2560
+	TRIP: 2581  (rider ID b353439e-2215-4ab4-9213-43332d180024)
+
+rider ID:    489ee799-fc23-4033-a6f4-0ed6b5d05d6d
+rider index: 2563
+	TRIP: 2584  (rider ID 489ee799-fc23-4033-a6f4-0ed6b5d05d6d)
+
+rider ID:    91e76cee-2d25-48b5-b7ad-e759607be224
+rider index: 2564
+	TRIP: 2585  (rider ID 91e76cee-2d25-48b5-b7ad-e759607be224)
+
+rider ID:    d2695a0d-2eff-4c4e-9075-f474c71f1be1
+rider index: 2565
+	TRIP: 2586  (rider ID d2695a0d-2eff-4c4e-9075-f474c71f1be1)
+
+rider ID:    d4687033-4e5a-486f-92de-fcb9f1604b89
+rider index: 2566
+	TRIP: 2587  (rider ID d4687033-4e5a-486f-92de-fcb9f1604b89)
+
+rider ID:    1d5da76b-9f88-4861-a9bc-23b535e36734
+rider index: 2575
+	TRIP: 2597  (rider ID 1d5da76b-9f88-4861-a9bc-23b535e36734)
+
+rider ID:    6f53e88c-a4a7-4c63-95e2-7a5c53900013
+rider index: 2579
+	TRIP: 2601  (rider ID 6f53e88c-a4a7-4c63-95e2-7a5c53900013)
+
+rider ID:    54b5628d-6584-4c93-82d6-59cd4bfb08d5
+rider index: 2581
+	TRIP: 2603  (rider ID 54b5628d-6584-4c93-82d6-59cd4bfb08d5)
+
+rider ID:    7a9f968f-ef6e-4fb2-a537-97d629f2755a
+rider index: 2586
+	TRIP: 2608  (rider ID 7a9f968f-ef6e-4fb2-a537-97d629f2755a)
+
+rider ID:    ba694282-94c7-436c-a55a-bcf82a73a59a
+rider index: 2588
+	TRIP: 2610  (rider ID ba694282-94c7-436c-a55a-bcf82a73a59a)
+
+rider ID:    ac235a1d-c09b-4cda-9d06-59516f804f79
+rider index: 2591
+	TRIP: 2613  (rider ID ac235a1d-c09b-4cda-9d06-59516f804f79)
+
+rider ID:    9241f304-54f7-43e6-a3ac-be04e186a4aa
+rider index: 2592
+	TRIP: 2615  (rider ID 9241f304-54f7-43e6-a3ac-be04e186a4aa)
+
+rider ID:    a5c5bf2c-103d-4c68-bf34-de720cbcebf1
+rider index: 2596
+	TRIP: 2620  (rider ID a5c5bf2c-103d-4c68-bf34-de720cbcebf1)
+
+rider ID:    f5a994d9-abd4-4534-adbf-c1c8314204a6
+rider index: 2600
+	TRIP: 2625  (rider ID f5a994d9-abd4-4534-adbf-c1c8314204a6)
+
+rider ID:    78e6be96-7a2c-417a-96b5-6da56d0facf7
+rider index: 2601
+	TRIP: 2626  (rider ID 78e6be96-7a2c-417a-96b5-6da56d0facf7)
+
+rider ID:    ddbb485b-3b12-4d8e-b5c0-b4d0c6cb13ff
+rider index: 2603
+	TRIP: 2628  (rider ID ddbb485b-3b12-4d8e-b5c0-b4d0c6cb13ff)
+
+rider ID:    c4c49c33-5a4f-4c21-af7b-e07820b2f0fb
+rider index: 2605
+	TRIP: 2630  (rider ID c4c49c33-5a4f-4c21-af7b-e07820b2f0fb)
+
+rider ID:    a0bd84d4-ef84-4799-9ad0-12c0cab2b1d6
+rider index: 2607
+	TRIP: 2632  (rider ID a0bd84d4-ef84-4799-9ad0-12c0cab2b1d6)
+
+rider ID:    2ef8f5dd-3d98-42f1-acd9-c40a5fcf3f1e
+rider index: 2610
+	TRIP: 2636  (rider ID 2ef8f5dd-3d98-42f1-acd9-c40a5fcf3f1e)
+
+rider ID:    cdf8f401-5237-44b5-9e70-27afe7b91bbf
+rider index: 2614
+	TRIP: 2640  (rider ID cdf8f401-5237-44b5-9e70-27afe7b91bbf)
+
+rider ID:    0cc56242-ab56-452a-923d-1778f1d0b98f
+rider index: 2617
+	TRIP: 2645  (rider ID 0cc56242-ab56-452a-923d-1778f1d0b98f)
+
+rider ID:    627917dd-eedf-4694-a903-c2dec3000aa8
+rider index: 2618
+	TRIP: 2646  (rider ID 627917dd-eedf-4694-a903-c2dec3000aa8)
+
+rider ID:    30c3c5c3-c88d-4989-b983-3892a7720139
+rider index: 2619
+	TRIP: 2647  (rider ID 30c3c5c3-c88d-4989-b983-3892a7720139)
+
+rider ID:    74ed8f62-ea7f-4641-a8d4-724cfafc61b8
+rider index: 2621
+	TRIP: 2649  (rider ID 74ed8f62-ea7f-4641-a8d4-724cfafc61b8)
+
+rider ID:    4803f204-31e7-4212-8fc8-760972f2425e
+rider index: 2622
+	TRIP: 2650  (rider ID 4803f204-31e7-4212-8fc8-760972f2425e)
+
+rider ID:    449e9c59-35a6-4e98-8f49-9591c3adb840
+rider index: 2627
+	TRIP: 2655  (rider ID 449e9c59-35a6-4e98-8f49-9591c3adb840)
+
+rider ID:    f161ed45-2d18-4675-95a0-56c77c4abb75
+rider index: 2628
+	TRIP: 2656  (rider ID f161ed45-2d18-4675-95a0-56c77c4abb75)
+
+rider ID:    210afe45-be32-4952-8b31-a374dfa5b97a
+rider index: 2631
+	TRIP: 2659  (rider ID 210afe45-be32-4952-8b31-a374dfa5b97a)
+
+rider ID:    370e1c09-7133-4bbe-a82f-e644a7068685
+rider index: 2633
+	TRIP: 2661  (rider ID 370e1c09-7133-4bbe-a82f-e644a7068685)
+
+rider ID:    d13224cf-4a07-4dc1-b54c-4109b22df917
+rider index: 2635
+	TRIP: 2663  (rider ID d13224cf-4a07-4dc1-b54c-4109b22df917)
+
+rider ID:    1f0aa424-2ee9-43a3-ad86-f9f53f2d34a8
+rider index: 2636
+	TRIP: 2664  (rider ID 1f0aa424-2ee9-43a3-ad86-f9f53f2d34a8)
+
+rider ID:    e834c141-c486-4a35-852d-7bb57d994c59
+rider index: 2640
+	TRIP: 2668  (rider ID e834c141-c486-4a35-852d-7bb57d994c59)
+
+rider ID:    1e19eea5-bfd8-418f-ac38-18d80617c03b
+rider index: 2643
+	TRIP: 2671  (rider ID 1e19eea5-bfd8-418f-ac38-18d80617c03b)
+
+rider ID:    951f5bbc-776b-444f-bb30-14fe78a731a4
+rider index: 2644
+	TRIP: 2672  (rider ID 951f5bbc-776b-444f-bb30-14fe78a731a4)
+
+rider ID:    cccdb846-171c-411e-b162-81bf2045b316
+rider index: 2646
+	TRIP: 2674  (rider ID cccdb846-171c-411e-b162-81bf2045b316)
+
+rider ID:    8ba24bf7-6d96-4411-a1b3-fc79ea0334b5
+rider index: 2647
+	TRIP: 2675  (rider ID 8ba24bf7-6d96-4411-a1b3-fc79ea0334b5)
+
+rider ID:    b2ae2d23-bce5-4fb9-986e-328836ae9148
+rider index: 2649
+	TRIP: 2677  (rider ID b2ae2d23-bce5-4fb9-986e-328836ae9148)
+
+rider ID:    8590c218-140a-4f6a-b354-926c0596d2cf
+rider index: 2651
+	TRIP: 2679  (rider ID 8590c218-140a-4f6a-b354-926c0596d2cf)
+
+rider ID:    4a56fecb-0f87-4a74-ae3e-007d65dcc54d
+rider index: 2652
+	TRIP: 2680  (rider ID 4a56fecb-0f87-4a74-ae3e-007d65dcc54d)
+
+rider ID:    dce8f66c-8838-4e1a-b016-2f4265aae9db
+rider index: 2653
+	TRIP: 2681  (rider ID dce8f66c-8838-4e1a-b016-2f4265aae9db)
+
+rider ID:    b92d4310-0c53-40f3-a9f0-7d93a1d0f0c2
+rider index: 2659
+	TRIP: 2687  (rider ID b92d4310-0c53-40f3-a9f0-7d93a1d0f0c2)
+
+rider ID:    bf4dd097-8e02-4fb7-b7ef-d3d4bdd73e88
+rider index: 2662
+	TRIP: 2690  (rider ID bf4dd097-8e02-4fb7-b7ef-d3d4bdd73e88)
+
+rider ID:    54aae963-0f81-48aa-80a2-0892407671ae
+rider index: 2663
+	TRIP: 2691  (rider ID 54aae963-0f81-48aa-80a2-0892407671ae)
+
+rider ID:    5310e712-bb68-4109-b422-9932d7eb53c7
+rider index: 2664
+	TRIP: 2692  (rider ID 5310e712-bb68-4109-b422-9932d7eb53c7)
+
+rider ID:    06cf7180-3a63-4f0b-987f-b8fffeb1fc7c
+rider index: 2665
+	TRIP: 2693  (rider ID 06cf7180-3a63-4f0b-987f-b8fffeb1fc7c)
+
+rider ID:    530c77d6-e23e-41c6-9a3d-991f29e95172
+rider index: 2667
+	TRIP: 2695  (rider ID 530c77d6-e23e-41c6-9a3d-991f29e95172)
+
+rider ID:    5b88816a-ff90-48f5-a3b3-fa6cc6654aa3
+rider index: 2668
+	TRIP: 2696  (rider ID 5b88816a-ff90-48f5-a3b3-fa6cc6654aa3)
+
+rider ID:    f18aab42-5732-4dfd-91b3-882debd8046a
+rider index: 2671
+	TRIP: 2699  (rider ID f18aab42-5732-4dfd-91b3-882debd8046a)
+
+rider ID:    f4b9ba92-a3b9-46aa-a470-b85a88d4845a
+rider index: 2673
+	TRIP: 2701  (rider ID f4b9ba92-a3b9-46aa-a470-b85a88d4845a)
+
+rider ID:    319a8b96-c19c-4697-9f22-e76d0dfa66c5
+rider index: 2675
+	TRIP: 2703  (rider ID 319a8b96-c19c-4697-9f22-e76d0dfa66c5)
+
+rider ID:    8c99e877-74cd-4306-89f0-46d00e265d40
+rider index: 2676
+	TRIP: 2704  (rider ID 8c99e877-74cd-4306-89f0-46d00e265d40)
+
+rider ID:    a78fca2a-7d35-4300-8ef0-ce003389ed20
+rider index: 2680
+	TRIP: 2709  (rider ID a78fca2a-7d35-4300-8ef0-ce003389ed20)
+
+rider ID:    45742001-04fb-42ae-bfbe-4184f0fcdd66
+rider index: 2682
+	TRIP: 2711  (rider ID 45742001-04fb-42ae-bfbe-4184f0fcdd66)
+
+rider ID:    dbd05dc8-4efd-4168-90cc-5c1722e3e32b
+rider index: 2684
+	TRIP: 2713  (rider ID dbd05dc8-4efd-4168-90cc-5c1722e3e32b)
+
+rider ID:    85c41bab-e208-445a-ad86-7c70a5d0c1a2
+rider index: 2686
+	TRIP: 2715  (rider ID 85c41bab-e208-445a-ad86-7c70a5d0c1a2)
+
+rider ID:    c4331aad-53cd-4a65-876b-013a46d86244
+rider index: 2688
+	TRIP: 2717  (rider ID c4331aad-53cd-4a65-876b-013a46d86244)
+
+rider ID:    d1081524-9eac-4bda-82a5-53e7f010d5f1
+rider index: 2690
+	TRIP: 2719  (rider ID d1081524-9eac-4bda-82a5-53e7f010d5f1)
+
+rider ID:    ba377b84-18aa-43d0-9c18-6ff03c7df9e0
+rider index: 2691
+	TRIP: 2720  (rider ID ba377b84-18aa-43d0-9c18-6ff03c7df9e0)
+
+rider ID:    0b21ca2d-a453-4696-8f50-356d7e6d6abb
+rider index: 2693
+	TRIP: 2722  (rider ID 0b21ca2d-a453-4696-8f50-356d7e6d6abb)
+
+rider ID:    162c7c94-f046-46e9-a31b-c79bb43ce697
+rider index: 2695
+	TRIP: 2724  (rider ID 162c7c94-f046-46e9-a31b-c79bb43ce697)
+
+rider ID:    4efbf7ab-19e0-4504-8911-8fb84052a55d
+rider index: 2696
+	TRIP: 2725  (rider ID 4efbf7ab-19e0-4504-8911-8fb84052a55d)
+
+rider ID:    b32ed263-e8a6-48bc-b56d-8f0c574fc700
+rider index: 2702
+	TRIP: 2731  (rider ID b32ed263-e8a6-48bc-b56d-8f0c574fc700)
+
+rider ID:    a175b836-c2b8-4fe1-8dc7-5a63cb900d85
+rider index: 2706
+	TRIP: 2735  (rider ID a175b836-c2b8-4fe1-8dc7-5a63cb900d85)
+
+rider ID:    340bbb8e-8946-4c5a-8cdb-65f2cb84e7b9
+rider index: 2707
+	TRIP: 2736  (rider ID 340bbb8e-8946-4c5a-8cdb-65f2cb84e7b9)
+
+rider ID:    a715a05c-85cf-4009-83ab-073491d8166b
+rider index: 2709
+	TRIP: 2738  (rider ID a715a05c-85cf-4009-83ab-073491d8166b)
+
+rider ID:    f30d4070-24ef-479a-a4ae-a6f1a49b7d39
+rider index: 2714
+	TRIP: 2743  (rider ID f30d4070-24ef-479a-a4ae-a6f1a49b7d39)
+
+rider ID:    d823aa3d-0e91-4c22-b019-248cdb374901
+rider index: 2716
+	TRIP: 2745  (rider ID d823aa3d-0e91-4c22-b019-248cdb374901)
+
+rider ID:    64084be8-1d51-4249-b8b0-4878343854de
+rider index: 2719
+	TRIP: 2748  (rider ID 64084be8-1d51-4249-b8b0-4878343854de)
+
+rider ID:    0bf4f776-bc5c-48e3-9671-bd1685a9c9e2
+rider index: 2723
+	TRIP: 2752  (rider ID 0bf4f776-bc5c-48e3-9671-bd1685a9c9e2)
+
+rider ID:    e7a18851-3a24-46b8-9291-5693398371e0
+rider index: 2727
+	TRIP: 2756  (rider ID e7a18851-3a24-46b8-9291-5693398371e0)
+
+rider ID:    13ada0c4-2de8-4704-9a53-d51365648127
+rider index: 2728
+	TRIP: 2757  (rider ID 13ada0c4-2de8-4704-9a53-d51365648127)
+
+rider ID:    98b5762d-3277-4638-bd7e-5cc61e72de78
+rider index: 2732
+	TRIP: 2761  (rider ID 98b5762d-3277-4638-bd7e-5cc61e72de78)
+
+rider ID:    b99f3693-fac1-4999-9d21-7952e2e437ab
+rider index: 2733
+	TRIP: 2762  (rider ID b99f3693-fac1-4999-9d21-7952e2e437ab)
+
+rider ID:    9ba7f7cc-044d-4fe0-aea6-f1d51018955d
+rider index: 2740
+	TRIP: 2769  (rider ID 9ba7f7cc-044d-4fe0-aea6-f1d51018955d)
+
+rider ID:    f2a82d92-9f35-42b9-afaf-f3b79728be5a
+rider index: 2741
+	TRIP: 2770  (rider ID f2a82d92-9f35-42b9-afaf-f3b79728be5a)
+
+rider ID:    1773cfea-708e-4002-a2a8-9f70c0640a0a
+rider index: 2742
+	TRIP: 2771  (rider ID 1773cfea-708e-4002-a2a8-9f70c0640a0a)
+
+rider ID:    45696a30-c5ca-4658-9310-cbdafd3e7386
+rider index: 2744
+	TRIP: 2773  (rider ID 45696a30-c5ca-4658-9310-cbdafd3e7386)
+
+rider ID:    8bc56737-2e45-4c5e-80ea-a082a06808df
+rider index: 2747
+	TRIP: 2776  (rider ID 8bc56737-2e45-4c5e-80ea-a082a06808df)
+
+rider ID:    f96271c9-cdad-481b-90a3-8f0bc28ff15f
+rider index: 2748
+	TRIP: 2777  (rider ID f96271c9-cdad-481b-90a3-8f0bc28ff15f)
+
+rider ID:    40cd383e-8b0b-4367-8313-3da5b7db116b
+rider index: 2749
+	TRIP: 2778  (rider ID 40cd383e-8b0b-4367-8313-3da5b7db116b)
+
+rider ID:    ff882308-5b75-4dce-aed6-d62c499a3511
+rider index: 2750
+	TRIP: 2779  (rider ID ff882308-5b75-4dce-aed6-d62c499a3511)
+
+rider ID:    ec6f8c45-abdf-44f8-ab3f-f09e165c99db
+rider index: 2752
+	TRIP: 2781  (rider ID ec6f8c45-abdf-44f8-ab3f-f09e165c99db)
+
+rider ID:    6abac398-cf9f-4b22-9de6-b76f0ce2c0ba
+rider index: 2753
+	TRIP: 2782  (rider ID 6abac398-cf9f-4b22-9de6-b76f0ce2c0ba)
+
+rider ID:    7a8b2f6b-b2ef-44d1-be7e-cbd43c38d8fe
+rider index: 2755
+	TRIP: 2784  (rider ID 7a8b2f6b-b2ef-44d1-be7e-cbd43c38d8fe)
+
+rider ID:    0aca84c0-345f-4b25-9999-4a00b97446ec
+rider index: 2757
+	TRIP: 2786  (rider ID 0aca84c0-345f-4b25-9999-4a00b97446ec)
+
+rider ID:    4e3efe74-8ab7-447a-b7c1-4d054a9cd706
+rider index: 2759
+	TRIP: 2788  (rider ID 4e3efe74-8ab7-447a-b7c1-4d054a9cd706)
+
+rider ID:    92a6639e-b06e-462f-a2e9-be73aa7e3e8c
+rider index: 2760
+	TRIP: 2789  (rider ID 92a6639e-b06e-462f-a2e9-be73aa7e3e8c)
+
+rider ID:    0a3b9c50-f7a4-44cf-80a7-e8a7077c88c4
+rider index: 2761
+	TRIP: 2790  (rider ID 0a3b9c50-f7a4-44cf-80a7-e8a7077c88c4)
+
+rider ID:    f2ffb4f5-1ebe-475a-ae41-3e64483039f4
+rider index: 2766
+	TRIP: 2795  (rider ID f2ffb4f5-1ebe-475a-ae41-3e64483039f4)
+
+rider ID:    6dabb80e-3fb5-4344-960a-ac04b7812c53
+rider index: 2767
+	TRIP: 2796  (rider ID 6dabb80e-3fb5-4344-960a-ac04b7812c53)
+
+rider ID:    ac05482b-808d-436a-8b62-7a7a162ed75b
+rider index: 2768
+	TRIP: 2797  (rider ID ac05482b-808d-436a-8b62-7a7a162ed75b)
+
+rider ID:    37177ee3-0e2a-455d-a29b-89cde7574219
+rider index: 2769
+	TRIP: 2798  (rider ID 37177ee3-0e2a-455d-a29b-89cde7574219)
+
+rider ID:    fb445db1-fbc9-40d4-9416-15c4bd4d398c
+rider index: 2778
+	TRIP: 2807  (rider ID fb445db1-fbc9-40d4-9416-15c4bd4d398c)
+
+rider ID:    2410c421-5e8a-42f7-9cbf-8b5d9b48265e
+rider index: 2779
+	TRIP: 2808  (rider ID 2410c421-5e8a-42f7-9cbf-8b5d9b48265e)
+
+rider ID:    f0ea71f7-7652-4605-b876-d3b695ad6c0f
+rider index: 2781
+	TRIP: 2810  (rider ID f0ea71f7-7652-4605-b876-d3b695ad6c0f)
+
+rider ID:    ff97336d-c4e3-4f8c-83c6-a8dd1ae5a938
+rider index: 2789
+	TRIP: 2818  (rider ID ff97336d-c4e3-4f8c-83c6-a8dd1ae5a938)
+
+rider ID:    6bc2fdaf-5410-462f-8b72-cd26925bf80b
+rider index: 2790
+	TRIP: 2819  (rider ID 6bc2fdaf-5410-462f-8b72-cd26925bf80b)
+
+rider ID:    71ea17b5-c752-493f-8970-6d2da5d3140d
+rider index: 2791
+	TRIP: 2820  (rider ID 71ea17b5-c752-493f-8970-6d2da5d3140d)
+
+rider ID:    ac9ead1e-78f4-4144-bb0b-ec74235ecfeb
+rider index: 2792
+	TRIP: 2821  (rider ID ac9ead1e-78f4-4144-bb0b-ec74235ecfeb)
+
+rider ID:    f5398821-7bd3-4714-b468-45c8b4f6a76c
+rider index: 2793
+	TRIP: 2824  (rider ID f5398821-7bd3-4714-b468-45c8b4f6a76c)
+
+rider ID:    d80e7609-a9b4-4b4f-8439-adc2bc099dac
+rider index: 2794
+	TRIP: 2825  (rider ID d80e7609-a9b4-4b4f-8439-adc2bc099dac)
+
+rider ID:    17fdbac8-ff3c-4cb6-877f-ec053f70210a
+rider index: 2796
+	TRIP: 2827  (rider ID 17fdbac8-ff3c-4cb6-877f-ec053f70210a)
+
+rider ID:    6c3d912a-9c83-45c3-9685-c1086812e7ab
+rider index: 2797
+	TRIP: 2828  (rider ID 6c3d912a-9c83-45c3-9685-c1086812e7ab)
+
+rider ID:    6d750fd8-1d5e-45de-b868-ebf6103dd4ab
+rider index: 2798
+	TRIP: 2829  (rider ID 6d750fd8-1d5e-45de-b868-ebf6103dd4ab)
+
+rider ID:    b5263f2a-2c9b-49e5-8df4-265e809537fc
+rider index: 2799
+	TRIP: 2830  (rider ID b5263f2a-2c9b-49e5-8df4-265e809537fc)
+
+rider ID:    7b7693c4-027d-40c6-844e-c7852d46a663
+rider index: 2800
+	TRIP: 2831  (rider ID 7b7693c4-027d-40c6-844e-c7852d46a663)
+
+rider ID:    0be2896b-015a-4ed6-8291-a985853ab733
+rider index: 2802
+	TRIP: 2833  (rider ID 0be2896b-015a-4ed6-8291-a985853ab733)
+
+rider ID:    0096a284-0053-4cf4-9de5-f43013e9c48f
+rider index: 2803
+	TRIP: 2834  (rider ID 0096a284-0053-4cf4-9de5-f43013e9c48f)
+
+rider ID:    9057133b-48da-44de-9ba9-7e4e204e1f90
+rider index: 2804
+	TRIP: 2836  (rider ID 9057133b-48da-44de-9ba9-7e4e204e1f90)
+
+rider ID:    ccbe23af-6595-4a5d-9493-59c7bd8e23c4
+rider index: 2807
+	TRIP: 2839  (rider ID ccbe23af-6595-4a5d-9493-59c7bd8e23c4)
+
+rider ID:    476848ef-55a9-4e7a-a9f0-ee68a0045f36
+rider index: 2812
+	TRIP: 2844  (rider ID 476848ef-55a9-4e7a-a9f0-ee68a0045f36)
+
+rider ID:    a7f01146-7a72-44ce-a048-d7a3692de074
+rider index: 2813
+	TRIP: 2845  (rider ID a7f01146-7a72-44ce-a048-d7a3692de074)
+
+rider ID:    e71666d7-dacd-4fdb-9a3f-e30d6a90b6d9
+rider index: 2815
+	TRIP: 2847  (rider ID e71666d7-dacd-4fdb-9a3f-e30d6a90b6d9)
+
+rider ID:    20c2585e-4db1-4ffc-b98e-7fbad6d05745
+rider index: 2819
+	TRIP: 2851  (rider ID 20c2585e-4db1-4ffc-b98e-7fbad6d05745)
+
+rider ID:    4db47e8a-e2eb-474f-9413-0e63759fe99a
+rider index: 2821
+	TRIP: 2853  (rider ID 4db47e8a-e2eb-474f-9413-0e63759fe99a)
+
+rider ID:    2b86bf5e-31be-4ec9-845d-8db4127c0968
+rider index: 2824
+	TRIP: 2856  (rider ID 2b86bf5e-31be-4ec9-845d-8db4127c0968)
+
+rider ID:    6349db66-b9e7-47dd-a3c9-538fb858d552
+rider index: 2827
+	TRIP: 2859  (rider ID 6349db66-b9e7-47dd-a3c9-538fb858d552)
+
+rider ID:    e26372a6-0a82-4daa-89fd-31dcd4c02096
+rider index: 2829
+	TRIP: 2861  (rider ID e26372a6-0a82-4daa-89fd-31dcd4c02096)
+
+rider ID:    cf49b138-36d6-418a-89a7-8b89dbf4d338
+rider index: 2831
+	TRIP: 2863  (rider ID cf49b138-36d6-418a-89a7-8b89dbf4d338)
+
+rider ID:    b5e06b02-cd59-4764-b1a8-25331c549dd1
+rider index: 2832
+	TRIP: 2864  (rider ID b5e06b02-cd59-4764-b1a8-25331c549dd1)
+
+rider ID:    cb7b0897-8aea-4635-8818-b37b342f081f
+rider index: 2833
+	TRIP: 2865  (rider ID cb7b0897-8aea-4635-8818-b37b342f081f)
+
+rider ID:    6de387dd-f3f8-4010-880c-75e1c04d1ef5
+rider index: 2834
+	TRIP: 2866  (rider ID 6de387dd-f3f8-4010-880c-75e1c04d1ef5)
+
+rider ID:    f2760a8c-c060-4b6d-8a1d-98d319560eb2
+rider index: 2839
+	TRIP: 2871  (rider ID f2760a8c-c060-4b6d-8a1d-98d319560eb2)
+
+rider ID:    0fd7a2a6-92fa-4265-a5d9-08fb3f089758
+rider index: 2843
+	TRIP: 2876  (rider ID 0fd7a2a6-92fa-4265-a5d9-08fb3f089758)
+
+rider ID:    0d18e4e1-624c-4ee3-a60f-9ed634b7ffbc
+rider index: 2845
+	TRIP: 2878  (rider ID 0d18e4e1-624c-4ee3-a60f-9ed634b7ffbc)
+
+rider ID:    caab95b3-5dfa-4bb6-b6f1-859a2aa6db4b
+rider index: 2847
+	TRIP: 2880  (rider ID caab95b3-5dfa-4bb6-b6f1-859a2aa6db4b)
+
+rider ID:    b3c0118d-7afe-4d29-bcde-dacdac8e7818
+rider index: 2848
+	TRIP: 2881  (rider ID b3c0118d-7afe-4d29-bcde-dacdac8e7818)
+
+rider ID:    cecd7bd7-afae-437e-acd6-733b1184ae4d
+rider index: 2850
+	TRIP: 2883  (rider ID cecd7bd7-afae-437e-acd6-733b1184ae4d)
+
+rider ID:    2ed6118b-a89c-4426-b9dc-f16d06fdadce
+rider index: 2851
+	TRIP: 2884  (rider ID 2ed6118b-a89c-4426-b9dc-f16d06fdadce)
+
+rider ID:    262e8ea2-6ce1-4c1f-add4-874cef7e774b
+rider index: 2852
+	TRIP: 2885  (rider ID 262e8ea2-6ce1-4c1f-add4-874cef7e774b)
+
+rider ID:    b8d5f265-b89f-4d9e-be72-677902ce808e
+rider index: 2853
+	TRIP: 2886  (rider ID b8d5f265-b89f-4d9e-be72-677902ce808e)
+
+rider ID:    9e96c6bd-5ad2-4bd6-a5d6-910107e38c18
+rider index: 2854
+	TRIP: 2887  (rider ID 9e96c6bd-5ad2-4bd6-a5d6-910107e38c18)
+
+rider ID:    af867bf2-5f29-4255-bb58-5b682ce44ed8
+rider index: 2855
+	TRIP: 2888  (rider ID af867bf2-5f29-4255-bb58-5b682ce44ed8)
+
+rider ID:    7833a99d-5f23-4d8d-993e-ed63db7b837b
+rider index: 2858
+	TRIP: 2891  (rider ID 7833a99d-5f23-4d8d-993e-ed63db7b837b)
+
+rider ID:    2ee526b7-f313-468b-8c07-e607166e6892
+rider index: 2861
+	TRIP: 2894  (rider ID 2ee526b7-f313-468b-8c07-e607166e6892)
+
+rider ID:    49153798-19aa-43bf-b861-3e73f6900141
+rider index: 2864
+	TRIP: 2897  (rider ID 49153798-19aa-43bf-b861-3e73f6900141)
+
+rider ID:    225f42d2-fedc-478a-9628-3e9acba3b590
+rider index: 2865
+	TRIP: 2898  (rider ID 225f42d2-fedc-478a-9628-3e9acba3b590)
+
+rider ID:    1f844cf0-554f-40ae-90c2-55ffcfed00c4
+rider index: 2867
+	TRIP: 2900  (rider ID 1f844cf0-554f-40ae-90c2-55ffcfed00c4)
+
+rider ID:    2841ace0-6d5f-4484-8650-9ea6074e7666
+rider index: 2868
+	TRIP: 2901  (rider ID 2841ace0-6d5f-4484-8650-9ea6074e7666)
+
+rider ID:    781c0f7a-54d2-4836-bff3-4ddc090db90b
+rider index: 2872
+	TRIP: 2905  (rider ID 781c0f7a-54d2-4836-bff3-4ddc090db90b)
+
+rider ID:    b83acc5a-7064-402c-b5f4-f12ad342fee3
+rider index: 2874
+	TRIP: 2907  (rider ID b83acc5a-7064-402c-b5f4-f12ad342fee3)
+
+rider ID:    d31d6b14-e346-4a5f-9c91-10d73aa092ff
+rider index: 2875
+	TRIP: 2908  (rider ID d31d6b14-e346-4a5f-9c91-10d73aa092ff)
+
+rider ID:    f7d60c44-4bff-4a60-905f-95f817b740f9
+rider index: 2880
+	TRIP: 2913  (rider ID f7d60c44-4bff-4a60-905f-95f817b740f9)
+
+rider ID:    11cbd39f-f779-46de-96d9-35e48db66b0e
+rider index: 2882
+	TRIP: 2915  (rider ID 11cbd39f-f779-46de-96d9-35e48db66b0e)
+
+rider ID:    087379de-80db-4db9-9852-d053a5f4d90b
+rider index: 2883
+	TRIP: 2916  (rider ID 087379de-80db-4db9-9852-d053a5f4d90b)
+
+rider ID:    79aacda7-4c81-4aa0-b012-3d63fc2179ad
+rider index: 2884
+	TRIP: 2917  (rider ID 79aacda7-4c81-4aa0-b012-3d63fc2179ad)
+
+rider ID:    8bcd58d5-bbdc-41da-ab09-b8b012d30c52
+rider index: 2891
+	TRIP: 2924  (rider ID 8bcd58d5-bbdc-41da-ab09-b8b012d30c52)
+
+rider ID:    d3e7caa6-a198-41a5-83f7-30cc7dd3c986
+rider index: 2892
+	TRIP: 2925  (rider ID d3e7caa6-a198-41a5-83f7-30cc7dd3c986)
+
+rider ID:    7162a3af-4a39-47a9-8dc9-01b906251b10
+rider index: 2893
+	TRIP: 2926  (rider ID 7162a3af-4a39-47a9-8dc9-01b906251b10)
+
+rider ID:    a1e714d3-2124-4713-8841-47c5e1ed3083
+rider index: 2902
+	TRIP: 2935  (rider ID a1e714d3-2124-4713-8841-47c5e1ed3083)
+
+rider ID:    bd8b14be-ca69-4552-848c-b66b68f109ee
+rider index: 2903
+	TRIP: 2936  (rider ID bd8b14be-ca69-4552-848c-b66b68f109ee)
+
+rider ID:    e1e732d3-9457-4b10-9867-4f1a08deb11c
+rider index: 2904
+	TRIP: 2937  (rider ID e1e732d3-9457-4b10-9867-4f1a08deb11c)
+
+rider ID:    18de4637-bf8e-4282-bd36-142f84ae9544
+rider index: 2907
+	TRIP: 2940  (rider ID 18de4637-bf8e-4282-bd36-142f84ae9544)
+
+rider ID:    8e307d19-6b30-460f-a6f9-940500692c14
+rider index: 2908
+	TRIP: 2941  (rider ID 8e307d19-6b30-460f-a6f9-940500692c14)
+
+rider ID:    1c877cd9-eaa4-4d90-88e0-5bcc3151a1f9
+rider index: 2910
+	TRIP: 2943  (rider ID 1c877cd9-eaa4-4d90-88e0-5bcc3151a1f9)
+
+rider ID:    c59eaa2b-bbe5-4c2d-af24-464d43491507
+rider index: 2911
+	TRIP: 2944  (rider ID c59eaa2b-bbe5-4c2d-af24-464d43491507)
+
+rider ID:    7fe40fe4-4332-40cc-a272-277bdb8a0e42
+rider index: 2912
+	TRIP: 2945  (rider ID 7fe40fe4-4332-40cc-a272-277bdb8a0e42)
+
+rider ID:    21e1220b-6d65-4e6e-be07-0d4d49f7839e
+rider index: 2916
+	TRIP: 2949  (rider ID 21e1220b-6d65-4e6e-be07-0d4d49f7839e)
+
+rider ID:    9cfc09e6-0344-4210-a4c0-6ed2c68c0540
+rider index: 2918
+	TRIP: 2951  (rider ID 9cfc09e6-0344-4210-a4c0-6ed2c68c0540)
+
+rider ID:    829cfd8a-a101-4b37-bc78-232f0bd80092
+rider index: 2924
+	TRIP: 2957  (rider ID 829cfd8a-a101-4b37-bc78-232f0bd80092)
+
+rider ID:    e6995455-6f78-44ab-9741-e476ca971204
+rider index: 2931
+	TRIP: 2964  (rider ID e6995455-6f78-44ab-9741-e476ca971204)
+
+rider ID:    d42010eb-b88e-49b8-a772-bc52cafa1574
+rider index: 2932
+	TRIP: 2965  (rider ID d42010eb-b88e-49b8-a772-bc52cafa1574)
+
+rider ID:    83e97b32-d942-4dd1-9c83-c716607abd1a
+rider index: 2941
+	TRIP: 2974  (rider ID 83e97b32-d942-4dd1-9c83-c716607abd1a)
+
+rider ID:    0debb8ab-466e-46cd-b917-7c8d4b74f57d
+rider index: 2942
+	TRIP: 2975  (rider ID 0debb8ab-466e-46cd-b917-7c8d4b74f57d)
+
+rider ID:    5fb2a3bf-4d9d-40cb-9a48-127258471a10
+rider index: 2945
+	TRIP: 2978  (rider ID 5fb2a3bf-4d9d-40cb-9a48-127258471a10)
+
+rider ID:    d1522262-952f-4b5a-8612-7a2242dc21d2
+rider index: 2946
+	TRIP: 2979  (rider ID d1522262-952f-4b5a-8612-7a2242dc21d2)
+
+rider ID:    33a59507-10aa-46d1-9f1d-5301bfef99d0
+rider index: 2947
+	TRIP: 2980  (rider ID 33a59507-10aa-46d1-9f1d-5301bfef99d0)
+
+rider ID:    d1455bbc-d67b-40c4-9307-3ce8b1bf896d
+rider index: 2948
+	TRIP: 2981  (rider ID d1455bbc-d67b-40c4-9307-3ce8b1bf896d)
+
+rider ID:    1eb2b6ea-40f3-4a6a-b29d-8c5774680bd4
+rider index: 2950
+	TRIP: 2983  (rider ID 1eb2b6ea-40f3-4a6a-b29d-8c5774680bd4)
+
+rider ID:    27e76124-aa02-4a47-b0eb-c38acc67359c
+rider index: 2955
+	TRIP: 2988  (rider ID 27e76124-aa02-4a47-b0eb-c38acc67359c)
+
+rider ID:    ed25ae7f-bd9a-4258-9cc1-ea5357d03d3f
+rider index: 2958
+	TRIP: 2991  (rider ID ed25ae7f-bd9a-4258-9cc1-ea5357d03d3f)
+
+rider ID:    2e77d4c8-08c5-496b-bee5-b5a4975b6a74
+rider index: 2959
+	TRIP: 2992  (rider ID 2e77d4c8-08c5-496b-bee5-b5a4975b6a74)
+
+rider ID:    130e721d-7128-4e6f-9131-2571ba415ff3
+rider index: 2960
+	TRIP: 2993  (rider ID 130e721d-7128-4e6f-9131-2571ba415ff3)
+
+rider ID:    08e5ec3e-d0ef-4cf8-8373-58a06f4492a5
+rider index: 2965
+	TRIP: 2998  (rider ID 08e5ec3e-d0ef-4cf8-8373-58a06f4492a5)
+
+rider ID:    78f82eca-6f62-43c9-815a-c9483f7df83c
+rider index: 2968
+	TRIP: 3002  (rider ID 78f82eca-6f62-43c9-815a-c9483f7df83c)
+
+rider ID:    4242fec6-2b49-4147-a3cf-55a48ed8e9a4
+rider index: 2973
+	TRIP: 3007  (rider ID 4242fec6-2b49-4147-a3cf-55a48ed8e9a4)
+
+rider ID:    6638f852-1376-4374-b03d-bd0d14aefbde
+rider index: 2974
+	TRIP: 3008  (rider ID 6638f852-1376-4374-b03d-bd0d14aefbde)
+
+rider ID:    8c584994-28d6-4472-b722-01411492bf55
+rider index: 2976
+	TRIP: 3010  (rider ID 8c584994-28d6-4472-b722-01411492bf55)
+
+rider ID:    29597cbd-6f9a-495d-9629-5e01c1f56db4
+rider index: 2980
+	TRIP: 3014  (rider ID 29597cbd-6f9a-495d-9629-5e01c1f56db4)
+
+rider ID:    cb3fdc4b-d8c7-478a-ba6e-1fc95ebb66aa
+rider index: 2982
+	TRIP: 3016  (rider ID cb3fdc4b-d8c7-478a-ba6e-1fc95ebb66aa)
+
+rider ID:    3db1ba80-de3b-4f67-b9a8-9eea16441f5e
+rider index: 2983
+	TRIP: 3017  (rider ID 3db1ba80-de3b-4f67-b9a8-9eea16441f5e)
+
+rider ID:    f063b876-9952-4b8f-933a-96bc6c44025f
+rider index: 2990
+	TRIP: 3024  (rider ID f063b876-9952-4b8f-933a-96bc6c44025f)
+
+rider ID:    21a9439b-91a9-49fe-8e36-f3f963843b49
+rider index: 2995
+	TRIP: 3029  (rider ID 21a9439b-91a9-49fe-8e36-f3f963843b49)
+
+rider ID:    c52be45b-a7ec-4822-911d-963cd4ed5bb7
+rider index: 2996
+	TRIP: 3030  (rider ID c52be45b-a7ec-4822-911d-963cd4ed5bb7)
+
+rider ID:    dbe6205b-54f3-4baa-b39a-dfd6dbd2e6c4
+rider index: 3000
+	TRIP: 3035  (rider ID dbe6205b-54f3-4baa-b39a-dfd6dbd2e6c4)
+
+rider ID:    360e09f5-467c-4e95-ae08-41d3846534d5
+rider index: 3001
+	TRIP: 3036  (rider ID 360e09f5-467c-4e95-ae08-41d3846534d5)
+
+rider ID:    5ef9ad71-13a3-4531-bb5f-6e7bf5a1a0c2
+rider index: 3002
+	TRIP: 3037  (rider ID 5ef9ad71-13a3-4531-bb5f-6e7bf5a1a0c2)
+
+rider ID:    203a9887-2831-4546-aa75-d18cc8257a91
+rider index: 3003
+	TRIP: 3038  (rider ID 203a9887-2831-4546-aa75-d18cc8257a91)
+
+rider ID:    1cae6ff7-4998-4f19-90fb-964ddd043ed1
+rider index: 3004
+	TRIP: 3039  (rider ID 1cae6ff7-4998-4f19-90fb-964ddd043ed1)
+
+rider ID:    ac9b8ff0-3ad6-4f48-867c-7206cfff284c
+rider index: 3006
+	TRIP: 3041  (rider ID ac9b8ff0-3ad6-4f48-867c-7206cfff284c)
+
+rider ID:    bd83815c-cd97-4412-ac47-637442933235
+rider index: 3007
+	TRIP: 3042  (rider ID bd83815c-cd97-4412-ac47-637442933235)
+
+rider ID:    79ed40bf-46be-41bc-a0a9-df0815237f9e
+rider index: 3008
+	TRIP: 3044  (rider ID 79ed40bf-46be-41bc-a0a9-df0815237f9e)
+
+rider ID:    80315b60-9df9-45a8-bbfc-55f6686bab9b
+rider index: 3009
+	TRIP: 3045  (rider ID 80315b60-9df9-45a8-bbfc-55f6686bab9b)
+
+rider ID:    85d4413b-87c6-498b-9e26-f2d58795c103
+rider index: 3013
+	TRIP: 3049  (rider ID 85d4413b-87c6-498b-9e26-f2d58795c103)
+
+rider ID:    f60f9488-fce4-41fa-a66f-771bd451700b
+rider index: 3015
+	TRIP: 3051  (rider ID f60f9488-fce4-41fa-a66f-771bd451700b)
+
+rider ID:    2e915b63-c9c6-45ad-bfa6-9d8e3d6a4230
+rider index: 3019
+	TRIP: 3055  (rider ID 2e915b63-c9c6-45ad-bfa6-9d8e3d6a4230)
+
+rider ID:    22c04bb9-b072-436e-bb57-381d0b7b7bde
+rider index: 3020
+	TRIP: 3056  (rider ID 22c04bb9-b072-436e-bb57-381d0b7b7bde)
+
+rider ID:    a82cd19e-74f7-4816-b39a-abea620f26ee
+rider index: 3021
+	TRIP: 3057  (rider ID a82cd19e-74f7-4816-b39a-abea620f26ee)
+
+rider ID:    bd7f975f-ac1e-495e-b901-4206b7ad68fe
+rider index: 3023
+	TRIP: 3059  (rider ID bd7f975f-ac1e-495e-b901-4206b7ad68fe)
+
+rider ID:    9dfc9197-d1db-4df9-8839-1b9f4fe98565
+rider index: 3024
+	TRIP: 3060  (rider ID 9dfc9197-d1db-4df9-8839-1b9f4fe98565)
+
+rider ID:    109e290c-5480-46a8-8f5b-826a79a7d31b
+rider index: 3026
+	TRIP: 3062  (rider ID 109e290c-5480-46a8-8f5b-826a79a7d31b)
+
+rider ID:    ccb4f8d2-75bc-4aad-8c4e-2626b684e9e0
+rider index: 3028
+	TRIP: 3064  (rider ID ccb4f8d2-75bc-4aad-8c4e-2626b684e9e0)
+
+rider ID:    af7fe1c2-8d3e-455f-8909-2c2dffe21af3
+rider index: 3030
+	TRIP: 3066  (rider ID af7fe1c2-8d3e-455f-8909-2c2dffe21af3)
+
+rider ID:    9d3d90cf-a062-4edc-b2e5-d48d5fd339a3
+rider index: 3034
+	TRIP: 3070  (rider ID 9d3d90cf-a062-4edc-b2e5-d48d5fd339a3)
+
+rider ID:    141469c8-7945-41bc-aff7-e5069c8e7379
+rider index: 3035
+	TRIP: 3071  (rider ID 141469c8-7945-41bc-aff7-e5069c8e7379)
+
+rider ID:    ec744939-fbe4-426e-9f6e-e61de9c264be
+rider index: 3043
+	TRIP: 3079  (rider ID ec744939-fbe4-426e-9f6e-e61de9c264be)
+
+rider ID:    098e8c85-b0d7-4949-ae13-2f03abd5ba0a
+rider index: 3049
+	TRIP: 3085  (rider ID 098e8c85-b0d7-4949-ae13-2f03abd5ba0a)
+
+rider ID:    b404e49b-2cf8-4e70-bfd9-93daf2951848
+rider index: 3053
+	TRIP: 3089  (rider ID b404e49b-2cf8-4e70-bfd9-93daf2951848)
+
+rider ID:    cae55fc2-378e-47a3-b9c0-072e4ecd107e
+rider index: 3054
+	TRIP: 3090  (rider ID cae55fc2-378e-47a3-b9c0-072e4ecd107e)
+
+rider ID:    12d84dbe-e9d7-45a8-b836-9f9fad88fcba
+rider index: 3057
+	TRIP: 3093  (rider ID 12d84dbe-e9d7-45a8-b836-9f9fad88fcba)
+
+rider ID:    6366677a-f7e7-4c0a-bb07-e4ff69486cd7
+rider index: 3059
+	TRIP: 3095  (rider ID 6366677a-f7e7-4c0a-bb07-e4ff69486cd7)
+
+rider ID:    8e8125ec-01b9-4434-ae35-c5829e9d2ac5
+rider index: 3060
+	TRIP: 3097  (rider ID 8e8125ec-01b9-4434-ae35-c5829e9d2ac5)
+
+rider ID:    42ce6870-01a2-43e2-8611-b669ce6f18b6
+rider index: 3064
+	TRIP: 3102  (rider ID 42ce6870-01a2-43e2-8611-b669ce6f18b6)
+
+rider ID:    644c2e86-ea73-4cf1-8ec1-525e651138cd
+rider index: 3065
+	TRIP: 3103  (rider ID 644c2e86-ea73-4cf1-8ec1-525e651138cd)
+
+rider ID:    881c2c56-a0c5-48d7-aa8e-8a4269790117
+rider index: 3070
+	TRIP: 3109  (rider ID 881c2c56-a0c5-48d7-aa8e-8a4269790117)
+
+rider ID:    270e656a-a06b-46b5-9b4c-70fe397e4142
+rider index: 3072
+	TRIP: 3111  (rider ID 270e656a-a06b-46b5-9b4c-70fe397e4142)
+
+rider ID:    47ceb648-ac04-4ac7-a31f-4ade8df22269
+rider index: 3074
+	TRIP: 3113  (rider ID 47ceb648-ac04-4ac7-a31f-4ade8df22269)
+
+rider ID:    4fc3b801-4255-4f57-88c3-fb33bc49d6cd
+rider index: 3079
+	TRIP: 3118  (rider ID 4fc3b801-4255-4f57-88c3-fb33bc49d6cd)
+
+rider ID:    eef39de5-3c85-45c9-aefb-9ef3c4fd66d8
+rider index: 3082
+	TRIP: 3121  (rider ID eef39de5-3c85-45c9-aefb-9ef3c4fd66d8)
+
+rider ID:    1f09d008-77f4-46bd-bb9b-730a02b4a61e
+rider index: 3083
+	TRIP: 3122  (rider ID 1f09d008-77f4-46bd-bb9b-730a02b4a61e)
+
+rider ID:    d2932e40-4457-487d-8eba-f50a91690d21
+rider index: 3084
+	TRIP: 3123  (rider ID d2932e40-4457-487d-8eba-f50a91690d21)
+
+rider ID:    33e7a24f-00f0-48f5-9a0c-cac6105a5d31
+rider index: 3087
+	TRIP: 3126  (rider ID 33e7a24f-00f0-48f5-9a0c-cac6105a5d31)
+
+rider ID:    da5ad0ef-104a-47e5-b7be-26bde59314dd
+rider index: 3088
+	TRIP: 3127  (rider ID da5ad0ef-104a-47e5-b7be-26bde59314dd)
+
+rider ID:    e5a694ec-ac15-4b89-8ef9-2c6539215892
+rider index: 3089
+	TRIP: 3128  (rider ID e5a694ec-ac15-4b89-8ef9-2c6539215892)
+
+rider ID:    9a1891bd-296b-4ab4-adc0-8633e421b1fb
+rider index: 3093
+	TRIP: 3132  (rider ID 9a1891bd-296b-4ab4-adc0-8633e421b1fb)
+
+rider ID:    74ac3b47-5b9d-462b-a10e-6b4ccb5cf58f
+rider index: 3098
+	TRIP: 3137  (rider ID 74ac3b47-5b9d-462b-a10e-6b4ccb5cf58f)
+
+rider ID:    b204c032-47fa-489c-856e-944d9616b51a
+rider index: 3100
+	TRIP: 3139  (rider ID b204c032-47fa-489c-856e-944d9616b51a)
+
+rider ID:    197cf8ac-a065-4b5a-bd76-9cb78488cc57
+rider index: 3103
+	TRIP: 3142  (rider ID 197cf8ac-a065-4b5a-bd76-9cb78488cc57)
+
+rider ID:    31443810-bb09-4f0b-a62f-7db19e836059
+rider index: 3105
+	TRIP: 3144  (rider ID 31443810-bb09-4f0b-a62f-7db19e836059)
+
+rider ID:    2d8605c9-7e47-49b0-be73-4bd8ece0f55d
+rider index: 3108
+	TRIP: 3147  (rider ID 2d8605c9-7e47-49b0-be73-4bd8ece0f55d)
+
+rider ID:    6593cf85-3429-4c6d-b1a1-563c925f3485
+rider index: 3109
+	TRIP: 3148  (rider ID 6593cf85-3429-4c6d-b1a1-563c925f3485)
+
+rider ID:    ce18c65d-ce45-428c-a597-f7e3cb911332
+rider index: 3111
+	TRIP: 3150  (rider ID ce18c65d-ce45-428c-a597-f7e3cb911332)
+
+rider ID:    4bbdd970-ff4e-45f5-b507-e31ef93c0810
+rider index: 3114
+	TRIP: 3153  (rider ID 4bbdd970-ff4e-45f5-b507-e31ef93c0810)
+
+rider ID:    caa29c49-06f6-4a17-b50e-351258681ad1
+rider index: 3116
+	TRIP: 3155  (rider ID caa29c49-06f6-4a17-b50e-351258681ad1)
+
+rider ID:    6fa36072-cdcb-4b28-8221-bc6a09cdeb40
+rider index: 3117
+	TRIP: 3156  (rider ID 6fa36072-cdcb-4b28-8221-bc6a09cdeb40)
+
+rider ID:    bbe5d2a6-2f2c-410a-a06d-19c0d5e8c837
+rider index: 3120
+	TRIP: 3159  (rider ID bbe5d2a6-2f2c-410a-a06d-19c0d5e8c837)
+
+rider ID:    e6416464-9d65-456c-b965-ff9dd9c8e454
+rider index: 3122
+	TRIP: 3161  (rider ID e6416464-9d65-456c-b965-ff9dd9c8e454)
+
+rider ID:    95432104-c436-465b-8631-31a363cb836a
+rider index: 3130
+	TRIP: 3170  (rider ID 95432104-c436-465b-8631-31a363cb836a)
+
+rider ID:    89c2bf7d-cc1f-4023-89ca-91420b14ba41
+rider index: 3132
+	TRIP: 3172  (rider ID 89c2bf7d-cc1f-4023-89ca-91420b14ba41)
+
+rider ID:    84735a19-c8c1-413e-96dc-f2c3d8da1d95
+rider index: 3134
+	TRIP: 3174  (rider ID 84735a19-c8c1-413e-96dc-f2c3d8da1d95)
+
+rider ID:    81426e87-9b44-4890-bd41-b82e446fa412
+rider index: 3136
+	TRIP: 3176  (rider ID 81426e87-9b44-4890-bd41-b82e446fa412)
+
+rider ID:    925e39d0-0bf9-43da-a072-7722d0f0c661
+rider index: 3140
+	TRIP: 3180  (rider ID 925e39d0-0bf9-43da-a072-7722d0f0c661)
+
+rider ID:    caa3a269-ffee-4c0e-aea5-b2b4edf2c759
+rider index: 3143
+	TRIP: 3183  (rider ID caa3a269-ffee-4c0e-aea5-b2b4edf2c759)
+
+rider ID:    370afd13-a3ee-4ab5-b600-df1e9f4c9be7
+rider index: 3144
+	TRIP: 3184  (rider ID 370afd13-a3ee-4ab5-b600-df1e9f4c9be7)
+
+rider ID:    5f2fc22d-0323-43f5-942e-5e8fa269b72a
+rider index: 3146
+	TRIP: 3186  (rider ID 5f2fc22d-0323-43f5-942e-5e8fa269b72a)
+
+rider ID:    bfa5b5e8-226a-4fec-ab73-b8ccdc541539
+rider index: 3152
+	TRIP: 3192  (rider ID bfa5b5e8-226a-4fec-ab73-b8ccdc541539)
+
+rider ID:    1fecb5c7-aa1b-400d-8db2-afeb88292aed
+rider index: 3153
+	TRIP: 3193  (rider ID 1fecb5c7-aa1b-400d-8db2-afeb88292aed)
+
+rider ID:    8acb4384-a6fb-4722-8b56-b42744a75253
+rider index: 3156
+	TRIP: 3196  (rider ID 8acb4384-a6fb-4722-8b56-b42744a75253)
+
+rider ID:    c1143c26-6589-4119-9584-56b81e15d7b4
+rider index: 3161
+	TRIP: 3201  (rider ID c1143c26-6589-4119-9584-56b81e15d7b4)
+
+rider ID:    185e6eaa-92af-4c57-a13a-6be1b7ab7120
+rider index: 3162
+	TRIP: 3202  (rider ID 185e6eaa-92af-4c57-a13a-6be1b7ab7120)
+
+rider ID:    701df2af-5033-4435-acb0-302e6f252a69
+rider index: 3163
+	TRIP: 3203  (rider ID 701df2af-5033-4435-acb0-302e6f252a69)
+
+rider ID:    fff0f6ef-3949-4576-bd3b-5a4c6f764298
+rider index: 3164
+	TRIP: 3204  (rider ID fff0f6ef-3949-4576-bd3b-5a4c6f764298)
+
+rider ID:    597c2295-fe93-4bdb-b465-315d0777b489
+rider index: 3165
+	TRIP: 3205  (rider ID 597c2295-fe93-4bdb-b465-315d0777b489)
+
+rider ID:    7e7e1d88-8a32-42c8-a59e-ca67059cd32f
+rider index: 3167
+	TRIP: 3207  (rider ID 7e7e1d88-8a32-42c8-a59e-ca67059cd32f)
+
+rider ID:    0463766a-758a-4cf3-bbf7-aa5edf66596a
+rider index: 3169
+	TRIP: 3209  (rider ID 0463766a-758a-4cf3-bbf7-aa5edf66596a)
+
+rider ID:    3695a7b2-9fb4-469a-a647-37fd9c2d114d
+rider index: 3170
+	TRIP: 3210  (rider ID 3695a7b2-9fb4-469a-a647-37fd9c2d114d)
+
+rider ID:    104f09d2-3864-4f70-ade1-48305a3b511c
+rider index: 3172
+	TRIP: 3212  (rider ID 104f09d2-3864-4f70-ade1-48305a3b511c)
+
+rider ID:    bd139932-1695-43df-ba28-631b10013a4a
+rider index: 3173
+	TRIP: 3213  (rider ID bd139932-1695-43df-ba28-631b10013a4a)
+
+rider ID:    7c50a32e-c90c-4d79-8b37-7439a194cd1f
+rider index: 3174
+	TRIP: 3214  (rider ID 7c50a32e-c90c-4d79-8b37-7439a194cd1f)
+
+rider ID:    50ec7151-0923-4323-b374-ba05262340ea
+rider index: 3177
+	TRIP: 3217  (rider ID 50ec7151-0923-4323-b374-ba05262340ea)
+
+rider ID:    a75abde4-30d7-4f7f-8929-0f221a97a5f6
+rider index: 3180
+	TRIP: 3220  (rider ID a75abde4-30d7-4f7f-8929-0f221a97a5f6)
+
+rider ID:    5084ed9f-5713-4a20-b16a-d25f4e3c5f39
+rider index: 3181
+	TRIP: 3221  (rider ID 5084ed9f-5713-4a20-b16a-d25f4e3c5f39)
+
+rider ID:    ba0d80ff-5353-4b94-894c-996e7bf1673f
+rider index: 3182
+	TRIP: 3222  (rider ID ba0d80ff-5353-4b94-894c-996e7bf1673f)
+
+rider ID:    dd92616c-90e6-4ace-8451-782e15b81b4a
+rider index: 3184
+	TRIP: 3224  (rider ID dd92616c-90e6-4ace-8451-782e15b81b4a)
+
+rider ID:    bc95cb1e-70d6-4c4e-a2bd-78f66258e05e
+rider index: 3185
+	TRIP: 3225  (rider ID bc95cb1e-70d6-4c4e-a2bd-78f66258e05e)
+
+rider ID:    0e634010-db9d-4244-9c98-9ff96b082228
+rider index: 3189
+	TRIP: 3229  (rider ID 0e634010-db9d-4244-9c98-9ff96b082228)
+
+rider ID:    891cf707-f56d-42e5-b260-bdf6c163eaaf
+rider index: 3191
+	TRIP: 3231  (rider ID 891cf707-f56d-42e5-b260-bdf6c163eaaf)
+
+rider ID:    0d8961c5-5d2c-4860-bef2-a7deda04ec85
+rider index: 3195
+	TRIP: 3235  (rider ID 0d8961c5-5d2c-4860-bef2-a7deda04ec85)
+
+rider ID:    8b61f903-78c1-4c4d-ad69-96d8d9886e9c
+rider index: 3196
+	TRIP: 3236  (rider ID 8b61f903-78c1-4c4d-ad69-96d8d9886e9c)
+
+rider ID:    c2b02255-8f80-4991-a17a-e0fccbe0e054
+rider index: 3199
+	TRIP: 3239  (rider ID c2b02255-8f80-4991-a17a-e0fccbe0e054)
+
+rider ID:    71aee606-e96b-4cec-8244-e7d58fb7824a
+rider index: 3203
+	TRIP: 3244  (rider ID 71aee606-e96b-4cec-8244-e7d58fb7824a)
+
+
+
+	(end of file)
+
+

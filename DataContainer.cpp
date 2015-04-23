@@ -9,23 +9,20 @@
 #include "TripData.hpp"
 
 // constructors
-DataContainer::DataContainer() {
-}
-DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, const int batchWindowInSec, const double pctPoolUsers, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen) {
+DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen) : _optInRate(optInRate) {
+    
     _inputPath = inputPath;
     _csvFilename = csvFilename;
     _timelineStr = timelineStr;
     _timeline = Utility::convertDateTimeStringToTimeT(timelineStr);
-    _batchWindowInSec = batchWindowInSec;
-    _pctPoolUsers = pctPoolUsers;
     _printDebugFiles = printDebugFiles;
     _printToScreen = printToScreen;
     _simEndTime = _timeline + (time_t)(60*simLengthInMin);
     
     // simple data validation
-    assert( _batchWindowInSec >= 0 );
-    assert( (0 <= _pctPoolUsers) && (_pctPoolUsers <= 1) );
-    assert( _timeline <= _simEndTime );
+    /*assert( _batchWindowInSec >= 0 );
+    assert( (0 <= _optInRate) && (_optInRate <= 1) );
+    assert( _timeline <= _simEndTime );*/
     
 }
 
@@ -178,13 +175,13 @@ Rider * DataContainer::getRiderFromTrip(const std::string id) {
 bool DataContainer::generateUberPoolTripProxy() {
     
     // if all uberX requests are POOL requests (trivial)
-    if( _pctPoolUsers == 1 ) {
+    if( _optInRate == 1 ) {
         _uberPoolRiders = _allUberXRiders;
         return true;
     } 
     
     // if no uberX requests are POOL requests then the test does not make sense
-    else if( _pctPoolUsers == 0 ) {
+    else if( _optInRate == 0 ) {
         std::cerr << "\n\n*** ERROR: no uberPOOL requests are given (0 percent) ***\n\n" << std::endl;
         std::cerr << "\tsystem exiting upon error... " << std::endl;
         return false;
@@ -192,7 +189,7 @@ bool DataContainer::generateUberPoolTripProxy() {
     
     // if the pct is strictly between (0,1)
     else {
-        int numPoolUsers = (int)round(_pctPoolUsers*_allUberXRiders.size());
+        int numPoolUsers = (int)round(_optInRate*_allUberXRiders.size());
        
         // randomize users
         std::multimap<double, Rider*> randomRiderMap;
@@ -216,20 +213,6 @@ bool DataContainer::generateUberPoolTripProxy() {
                 return true;
             }            
         } 
-               
-        
-        /*for( std::set<Rider*>::iterator rItr = _allUberXRiders.begin(); rItr != _allUberXRiders.end(); ++rItr ) {
-            _uberPoolRiders.insert(*rItr);
-            
-            // define all trips taken by rider as POOL trips
-            const std::vector<TripData*>* pTrips = (*rItr)->getTrips();
-            for( std::vector<TripData*>::const_iterator tripItr = pTrips->begin(); tripItr != pTrips->end(); ++tripItr ) {
-                (*tripItr)->definePOOLTrip();
-            }
-            if( _uberPoolRiders.size() == numPoolUsers ) {
-                return true;
-            }
-        }   */    
     }
     
     return false;

@@ -12,7 +12,7 @@ Output::Output(DataContainer * dataContainer, const std::string outputBasePath, 
     _outputBasePath(outputBasePath), _outputScenarioPath(outputScenarioPath) {  
     
     pDataContainer = dataContainer; 
-    
+           
     // ensure directory exists
     int status_base = mkdir(_outputBasePath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
     int status_scen = mkdir(_outputScenarioPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
@@ -23,6 +23,10 @@ Output::~Output() {
 }
 
 void Output::printSummaryInfo() {
+    
+    std::cout << "output scenario path: " << std::endl;
+    std::cout << "\tpath = " << _outputScenarioPath << std::endl;
+    
     std::string filename = "snapshot_summary.txt";
     std::string outPath = _outputScenarioPath + filename;
             
@@ -40,7 +44,7 @@ void Output::printSummaryInfo() {
     buffer = 35;
     outFile << "\n\t" << left << setw(buffer) << "snapshot time:  " << Utility::convertTimeTToString(pDataContainer->getTimeline()) << std::endl;
     outFile << "\t" << left << setw(buffer) << "sim end time: " << Utility::convertTimeTToString(pDataContainer->getSimEndTime()) << std::endl;
-    outFile << "\t" << left << setw(buffer) << "up front batching window (sec): " << Utility::intToStr(pDataContainer->getUpFrontBatchWindowLenInSec()) << std::endl;
+//    outFile << "\t" << left << setw(buffer) << "up front batching window (sec): " << Utility::intToStr(pDataContainer->getUpFrontBatchWindowLenInSec()) << std::endl;
 
     
     buffer = 35;    

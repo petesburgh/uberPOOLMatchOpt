@@ -1,0 +1,28 @@
+
+----------------------------------------
+
+     summary of input data
+
+----------------------------------------
+
+
+
+	inputPath:     /Users/jonpetersen/Documents/uberPOOL/testEnv/
+	filename:      trips-SF-2015-04-13-1600-1700-uberX.csv
+
+	snapshot time:                     2015-04-13-16:00:00
+	sim end time:                      2015-04-13-17:00:00
+
+	total number drivers:              2121
+
+	total uberX riders:                3204
+	total uberPOOL riders (proxy):     1282  (40.0124843945069%)
+
+	total trips in snapshot:           3245
+	total uberPOOL trips (proxy):      1301  (40.0924499229584%)
+
+
+
+	(end of file)
+
+

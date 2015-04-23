@@ -1,0 +1,15 @@
+
+----------------------------------------
+
+    summary of init open trips (masters)
+
+----------------------------------------
+
+
+	index   driverID    riderID     ETA                         ETD                         request                                                dispatched                                             
+
+
+
+	(end of file)
+
+

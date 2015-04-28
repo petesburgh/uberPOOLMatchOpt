@@ -22,8 +22,7 @@ bool UFBW_perfectInformation::solve(bool printDebugFiles, Output * pOutput, bool
     std::cout << "\n\n---------------------------------------------------------\n" << std::endl;
     std::cout << "     SOLVING UP FRONT BATCHING OPT WITH PERFECT INFORMATION\n" << std::endl;
     std::cout << "---------------------------------------------------------\n\n" << std::endl;   
-    
-    
+        
     std::ofstream * pOutFile;
     
     // initialize output file that tracks match candidates
@@ -441,7 +440,7 @@ std::map<MPVariable*, MasterMinionMatchCand*> UFBW_perfectInformation::buildMode
         std::string dropTypeStr = ((*matchItr)->_dropType == MasterMinionMatchCand::FIFO) ? "FIFO" : "FILO";
         std::string varName = Utility::intToStr(masterIndex) + "-" + Utility::intToStr(minionIndex) + "-" + dropTypeStr;
         MPVariable * const currVar = pSolver->MakeIntVar(0,1,varName.c_str());
-        
+                       
         modelVariables.insert(make_pair(currVar,*matchItr));  
         
         // ADD VARIABLE TO OBJECTIVE 

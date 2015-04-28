@@ -94,7 +94,6 @@ SolnMaps * runModels_minSavingsScenarios ( bool runMITMModel, bool runUFBW_seqPi
 
 ParameterSet generateCurrentParameterSet(int,int,double,int,double,double,std::vector<double>*, std::vector<int>*, std::vector<double>*, std::vector<double>*);
 
-
 std::vector<int>    defineBatchWindowRange();
 std::vector<double> defineOptInRange();
 std::vector<double> defineMaxPickupDistRange();
@@ -106,12 +105,11 @@ void printDriverInfo(DataContainer*);
 void printRiderInfo(const std::set<Rider*, RiderIndexComp>*);
 void writeAndPrintInputs(DataContainer*, Output*);
 
-void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, int currExperiment, const std::string outputBasePath);
+void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, std::vector<double> inputRange, int currExperiment, const std::string outputBasePath);
 void printInputRequestsMetrics( ofstream &outFile, std::string inputName, std::map<double, const int> * pNumReqMap);
-void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> *pMatchRateMap_UFBW);
-void printInconvenienceMetrics(ofstream &outFile, std::string inputName, std::map<double,double> * pInconvMap_MITM, std::map<double,double> * pInconvMap_UFBW);
-void printNumTripsMetrics(ofstream &outFile, std::string inputName, std::map<double,double> * pNumTripsMap_MITM, std::map<double,double> * pNumTripsMap_UFBW);
-
+void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> *pMatchRateMap_UFBW, std::map<double,double> * pMatchRateMap_UFBW_PI);
+void printInconvenienceMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pInconvMap_MITM, std::map<double,double> * pInconvMap_UFBW, std::map<double,double> * pInconvMap_UFBW_PI);
+void printNumTripsMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pNumTripsMap_MITM, std::map<double,double> * pNumTripsMap_UFBW, std::map<double,double> * pNumTripsMap_UFBW_PI);
 
 // -----------
 //    MAIN
@@ -132,6 +130,7 @@ int main(int argc, char** argv) {
      *      scen 06: Chengdu, one week sim from 2015-04-29 1600 - 2015-04-05 1600 UTC, no geofences
      *      scen 07: Chengdu, two week data from 2015-04-29 1600 - 2015-04-12 1600 UTC consolidated to be consolidated so that the second week of data is to be moved to first week (subtract 7 days from all times)
      */
+    
     const int scenNumber = 1;
     ProblemInstance * pInstance = generateInstanceScenarios(scenNumber);
     
@@ -165,16 +164,18 @@ int main(int argc, char** argv) {
     std::vector<double> range_minPoolDiscount = defineMinPoolDiscountRange();
         
     // TYPE OF TESTS TO RUN
-    const bool runMITMModel        = true;
-    const bool runUFBW_seqPickups  = true;
+    const bool runMITMModel        = false;
+    const bool runUFBW_seqPickups  = false;
     const bool runUFBW_flexPickups = false; 
-    const bool runUFBW_perfectInfo = false; 
+    const bool runUFBW_perfectInfo = true; 
     
     // SPECIFY TYPE OF EXPERIMENT
     int experiment = OPTIN;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE
     
     // instantiate SolnMaps to track solution
     SolnMaps * pSolnMaps = NULL;
+    
+    std::vector<double> inputRange;
                 
     switch ( experiment ) {
         case DEFAULTVALUES : 
@@ -187,24 +188,30 @@ int main(int argc, char** argv) {
         {
             std::cout << "\n\nRUNNING OPT-IN SCENARIOS...\n\n" << std::endl;
             pSolnMaps = runModels_optInScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_optInRate, pInstance->getGeofences()  );
+            inputRange = range_optInRate;
             break;
         }
         case BATCHWINDOW :
         {
             std::cout << "\n\nRUNNING BATCH WINDOW SCENARIOS...\n\n" << std::endl;
-            pSolnMaps = runModels_batchWindowScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_upFrontBatchWindowInSec, pInstance->getGeofences()  );
+            pSolnMaps  = runModels_batchWindowScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_upFrontBatchWindowInSec, pInstance->getGeofences()  );
+            for( std::vector<int>::iterator windowItr = range_upFrontBatchWindowInSec.begin(); windowItr != range_upFrontBatchWindowInSec.end(); ++windowItr ) {
+                inputRange.push_back(*windowItr); 
+            }
             break;
         }
         case PICKUP :
         {
             std::cout << "\n\nRUNNING MAX PICKUP DISTANCE SCENARIOS...\n\n" << std::endl;
-            pSolnMaps = runModels_maxPickupDistanceScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_maxMatchDistInKm, pInstance->getGeofences()  );
+            pSolnMaps  = runModels_maxPickupDistanceScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_maxMatchDistInKm, pInstance->getGeofences()  );
+            inputRange = range_maxMatchDistInKm;
             break;
         }
         case SAVINGSRATE : 
         {
             std::cout << "\n\nRUNNING MIN SAVINGS SCENARIOS... \n\n" << std::endl;
-            pSolnMaps = runModels_minSavingsScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_minPoolDiscount, pInstance->getGeofences()  );
+            pSolnMaps  = runModels_minSavingsScenarios( runMITMModel, runUFBW_seqPickups, runUFBW_perfectInfo, &dataInput, &dataOutput, &defaultInputs, &range_minPoolDiscount, pInstance->getGeofences()  );
+            inputRange = range_minPoolDiscount;
             break;
         }
         default :
@@ -212,7 +219,7 @@ int main(int argc, char** argv) {
     }
     
     if( experiment != DEFAULTVALUES ) {
-        printSolutionMetricsForCurrExperiment(pSolnMaps,experiment,outputBasePath);
+        printSolutionMetricsForCurrExperiment(pSolnMaps,inputRange,experiment,outputBasePath);
     }
                 
     std::cout << "\n\n\n--- success! ---\n" << std::endl;
@@ -433,10 +440,13 @@ SolnMaps * runModels_optInScenarios(bool runMITMModel, bool runUFBW_seqPickups,b
     std::map<double,const int> numRequests_inputs;
     std::map<double,double>    matchRateMap_MITM;
     std::map<double,double>    matchRateMap_UFBW;
+    std::map<double,double>    matchRateMap_UFBW_PI;
     std::map<double,double>    inconvMap_MITM;
     std::map<double,double>    inconvMap_UFBW;
+    std::map<double,double>    inconvMap_UFBW_PI;
     std::map<double,double>    numTripsMap_MITM;
-    std::map<double,double>    numTripsMap_UFBW;  
+    std::map<double,double>    numTripsMap_UFBW; 
+    std::map<double,double>    numTripsMap_UFBW_PI;
     
     for( std::vector<double>::iterator optInItr = pOptInValues->begin(); optInItr != pOptInValues->end(); ++optInItr ) {
         
@@ -479,8 +489,6 @@ SolnMaps * runModels_optInScenarios(bool runMITMModel, bool runUFBW_seqPickups,b
 
         // print input files    
         writeAndPrintInputs(pDataContainer,pOutput);
-        
-       
 
         /*
          *   step 4: run all modules requested by user
@@ -515,10 +523,31 @@ SolnMaps * runModels_optInScenarios(bool runMITMModel, bool runUFBW_seqPickups,b
                 numTripsMap_UFBW.insert(make_pair(currOptInRate,(double)pFixedBatchSolution->getTotalNumTripsFromSoln()));
             }
         } 
+        if( runUFBW_perfectInfo ) {              
+            UFBW_perfectInformation * pPerfectInfoBatchModel = new UFBW_perfectInformation(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
+            bool modelSolved = pPerfectInfoBatchModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
+            if( modelSolved ) {
+                std::cout << "\n\nmodel solved successfully... " << std::endl;
+                std::cout << "extracting solution... " << std::endl;
+                Solution * pPerfectInfoBatchSolution = pPerfectInfoBatchModel->getSolution();
+                std::cout << "\tdone." << std::endl;
+                std::cout << "printing solution... " << std::endl;
+                pOutput->printSolution(pPerfectInfoBatchSolution);
+                std::cout << "\tdone. " << std::endl;
+
+                // update solution maps
+                if( numRequests_inputs.empty() ) {
+                    numRequests_inputs.insert(make_pair(currOptInRate,pPerfectInfoBatchSolution->getTotalRequests()));
+                }
+                matchRateMap_UFBW_PI.insert(make_pair(currOptInRate,pPerfectInfoBatchSolution->getRequestMetrics()->_matchedPercentage));
+                inconvMap_UFBW_PI.insert(make_pair(currOptInRate,pPerfectInfoBatchSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll));
+                numTripsMap_UFBW_PI.insert(make_pair(currOptInRate,pPerfectInfoBatchSolution->getTotalNumTripsFromSoln()));
+            }
+        }
         
         scenarioNum++;
     }      
-    
+        
     // define, populate, and return SolnMaps object
     SolnMaps * pSolnMaps = new SolnMaps();
     pSolnMaps->input_numRequests = numRequests_inputs;
@@ -528,6 +557,9 @@ SolnMaps * runModels_optInScenarios(bool runMITMModel, bool runUFBW_seqPickups,b
     pSolnMaps->matchRate_UFBW = matchRateMap_UFBW;
     pSolnMaps->inconv_UFBW = inconvMap_UFBW;
     pSolnMaps->numTrip_UFBW = numTripsMap_UFBW;
+    pSolnMaps->matchRate_UFBW_PI = matchRateMap_UFBW_PI;
+    pSolnMaps->inconv_UFBW_PI = inconvMap_UFBW_PI;
+    pSolnMaps->numTrips_UFBW_PI = numTripsMap_UFBW_PI;
     
     return pSolnMaps;
 }
@@ -558,10 +590,13 @@ SolnMaps * runModels_batchWindowScenarios( bool runMITMModel, bool runUFBW_seqPi
     std::map<double,const int> numRequests_inputs;
     std::map<double,double>    matchRateMap_MITM;
     std::map<double,double>    matchRateMap_UFBW;
+    std::map<double,double>    matchRateMap_UFBW_PI;
     std::map<double,double>    inconvMap_MITM;
     std::map<double,double>    inconvMap_UFBW;
+    std::map<double,double>    inconvMap_UFBW_PI;
     std::map<double,double>    numTripsMap_MITM;
-    std::map<double,double>    numTripsMap_UFBW;  
+    std::map<double,double>    numTripsMap_UFBW; 
+    std::map<double,double>    numTripsMap_UFBW_PI;
 
     double matchRate_MITM = -1.0;    // for solution maps of MITM soln
     double inconv_MITM    = -1.0;    // for solution maps of MITM soln
@@ -590,32 +625,47 @@ SolnMaps * runModels_batchWindowScenarios( bool runMITMModel, bool runUFBW_seqPi
             matchRate_MITM = pMitmSolution->getRequestMetrics()->_matchedPercentage;
             inconv_MITM = pMitmSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll;
             numTrips_MITM = (double)pMitmSolution->getTotalNumTripsFromSoln();            
-        }        
+        }    
+        
     }
 
-    // solve UFBW - iterate over different batch windows
-    if( runUFBW_seqPickups ) {
-        int scenarioNum = 1;
-        for( std::vector<int>::iterator batchWindowItr = pBatchWindowValues->begin(); batchWindowItr != pBatchWindowValues->end(); ++batchWindowItr ) {
-            const int currBatchWindowLength = *batchWindowItr;
-            
-            // set the current batch window value in the DataContainer object
-            pDataContainer->setBatchWindowInSeconds(currBatchWindowLength);
-            
-            // define scenario string
-            std::string scenarioStr = "iter_" + Utility::intToStr(scenarioNum) + "-" + Utility::doubleToStr(pDefaultValues->_optInRate) + "-" + Utility::intToStr(currBatchWindowLength) + "-" + Utility::doubleToStr(pDefaultValues->_maxPickupDistance) + "-" + Utility::doubleToStr(pDefaultValues->_minSavings);
+    int scenarioNum = 1;
+    for( std::vector<int>::iterator batchWindowItr = pBatchWindowValues->begin(); batchWindowItr != pBatchWindowValues->end(); ++batchWindowItr ) {
+        const int currBatchWindowLength = *batchWindowItr;    
+        
+        // set the current batch window value in the DataContainer object
+        pDataContainer->setBatchWindowInSeconds(currBatchWindowLength);
+    
+        // define scenario string
+        std::string scenarioStr = "iter_" + Utility::intToStr(scenarioNum) + "-" + Utility::doubleToStr(pDefaultValues->_optInRate) + "-" + Utility::intToStr(currBatchWindowLength) + "-" + Utility::doubleToStr(pDefaultValues->_maxPickupDistance) + "-" + Utility::doubleToStr(pDefaultValues->_minSavings);
 
-            // define scenario-dependent output path   
-            const std::string outputPathBatchWindow = batchWindowOutPath + "UFBW/";
-            mkdir(outputPathBatchWindow.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
-            const std::string outputPathBatchWindowScen = outputPathBatchWindow + scenarioStr + "/";
-            pDataOutput->_outputScenarioPath = outputPathBatchWindowScen;
-            mkdir(pDataOutput->_outputScenarioPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
+        // define scenario-dependent output path   
+        const std::string outputScenPath = pDataOutput->_outputBasePath;
+        const std::string batchWindowOutPath = outputScenPath + "/" + batchWindowFolderName + "/";
+        mkdir(batchWindowOutPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
+        pDataOutput->_outputScenarioPath = batchWindowOutPath + scenarioStr + "/";
+        
+        
+        // instantiate output object
+        Output * pOutput = new Output(pDataContainer, pDataOutput->_outputBasePath, pDataOutput->_outputScenarioPath);    
             
-            // instantiate output object
-            Output * pOutput = new Output(pDataContainer, pDataOutput->_outputBasePath, pDataOutput->_outputScenarioPath);
-            
-            
+        // filter uberX users to proxy for uberPOOL trips
+        pDataContainer->generateUberPoolTripProxy();   // get uberPOOL users
+        int nPoolTrips = pDataContainer->buildUberPOOLTrips(); // build only uberPOOL trips (subset of all trips which also contain uberX trips)  
+        std::cout << Utility::intToStr(nPoolTrips) << " uberPOOL trips created" << std::endl;
+
+        
+        // convert Trip objects into Request and Dispatch objects         
+        pDataContainer->populateRequestsAndTrips();
+        std::set<Request*,  ReqComp> initRequests = pDataContainer->getInitPoolRequestsAtTimeline();
+        std::set<Request*,  ReqComp> allRequestsInSim = pDataContainer->getAllPoolRequestsInSim();
+        std::set<OpenTrip*, EtaComp> initOpenTrips = pDataContainer->getInitOpenTripsAtTimeline();
+        const std::set<Driver*, DriverIndexComp>* pDrivers = pDataContainer->getAllDrivers();     
+    
+                
+        // solve UFBW - iterate over different batch windows
+        if( runUFBW_seqPickups ) {
+    
             UFBW_fixed * pFixedBatchModel = new UFBW_fixed(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), currBatchWindowLength, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
             bool modelSolved = pFixedBatchModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
             if( modelSolved ) {
@@ -639,13 +689,48 @@ SolnMaps * runModels_batchWindowScenarios( bool runMITMModel, bool runUFBW_seqPi
                 }
                 if( numTrips_MITM != -1.0 ) {
                     numTripsMap_MITM.insert(make_pair((double)currBatchWindowLength,(double)numTrips_MITM));
+                }                                
+            }                              
+        }
+    
+        if( runUFBW_perfectInfo ) { 
+
+            UFBW_perfectInformation * pPerfectInfoBatchModel = new UFBW_perfectInformation(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
+            bool modelSolved = pPerfectInfoBatchModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
+            if( modelSolved ) {
+                std::cout << "\n\nmodel solved successfully... " << std::endl;
+                std::cout << "extracting solution... " << std::endl;
+                Solution * pPerfectInfoBatchSolution = pPerfectInfoBatchModel->getSolution();
+                std::cout << "\tdone." << std::endl;
+                std::cout << "printing solution... " << std::endl;
+                pOutput->printSolution(pPerfectInfoBatchSolution);
+                std::cout << "\tdone. " << std::endl;
+
+                // update solution maps
+                if( numRequests_inputs.empty() ) {
+                    numRequests_inputs.insert(make_pair((double)currBatchWindowLength,pPerfectInfoBatchSolution->getTotalRequests()));
+                }
+                matchRateMap_UFBW_PI.insert(make_pair(1.0,pPerfectInfoBatchSolution->getRequestMetrics()->_matchedPercentage));
+                inconvMap_UFBW_PI.insert(make_pair(1.0,pPerfectInfoBatchSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll));
+                numTripsMap_UFBW_PI.insert(make_pair(1.0,(double)pPerfectInfoBatchSolution->getTotalNumTripsFromSoln()));
+                
+                // if MITM was also solved, populate as well just to have the same length of maps
+                if( matchRate_MITM != -1.0 ) {
+                    numRequests_inputs.insert(make_pair((double)currBatchWindowLength,pPerfectInfoBatchSolution->getTotalRequests()));
+                }
+                if( matchRate_MITM != -1.0 ) {
+                    matchRateMap_MITM.insert(make_pair((double)currBatchWindowLength,matchRate_MITM));                    
+                }
+                if( inconv_MITM != -1.0 ) {
+                    inconvMap_MITM.insert(make_pair((double)currBatchWindowLength,inconv_MITM));
+                }
+                if( numTrips_MITM != -1.0 ) {
+                    numTripsMap_MITM.insert(make_pair((double)currBatchWindowLength,(double)numTrips_MITM));
                 }
                 
-                
-            }       
-                       
-            scenarioNum++;
+            }           
         }
+        scenarioNum++;
     }
     
     // define, populate, and return SolnMaps object
@@ -657,6 +742,9 @@ SolnMaps * runModels_batchWindowScenarios( bool runMITMModel, bool runUFBW_seqPi
     pSolnMaps->matchRate_UFBW = matchRateMap_UFBW;
     pSolnMaps->inconv_UFBW = inconvMap_UFBW;
     pSolnMaps->numTrip_UFBW = numTripsMap_UFBW;
+    pSolnMaps->matchRate_UFBW_PI = matchRateMap_UFBW_PI;
+    pSolnMaps->inconv_UFBW_PI = inconvMap_UFBW_PI;
+    pSolnMaps->numTrips_UFBW_PI = numTripsMap_UFBW_PI;
     
     return pSolnMaps;
 }
@@ -686,10 +774,13 @@ SolnMaps * runModels_maxPickupDistanceScenarios( bool runMITMModel, bool runUFBW
     std::map<double, const int> numRequests_inputs;
     std::map<double,double> matchRateMap_MITM;
     std::map<double,double> matchRateMap_UFBW;
+    std::map<double,double> matchRateMap_UFBW_PI;
     std::map<double,double> inconvMap_MITM;
     std::map<double,double> inconvMap_UFBW;
-    std::map<double,double>    numTripsMap_MITM;
-    std::map<double,double>    numTripsMap_UFBW;    
+    std::map<double,double> inconvMap_UFBW_PI;
+    std::map<double,double> numTripsMap_MITM;
+    std::map<double,double> numTripsMap_UFBW;    
+    std::map<double,double> numTripsMap_UFBW_PI;
     
     // iterate over possible values of max pickup distance
     int scenarioNum = 1;
@@ -742,6 +833,27 @@ SolnMaps * runModels_maxPickupDistanceScenarios( bool runMITMModel, bool runUFBW
                 numTripsMap_UFBW.insert(make_pair(currMaxPickupDist,(double)pFixedBatchSolution->getTotalNumTripsFromSoln()));
             }
         } 
+        if( runUFBW_perfectInfo ) {
+            UFBW_perfectInformation * pPerfectInfoBatchModel = new UFBW_perfectInformation(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
+            bool modelSolved = pPerfectInfoBatchModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
+            if( modelSolved ) {
+                std::cout << "\n\nmodel solved successfully... " << std::endl;
+                std::cout << "extracting solution... " << std::endl;
+                Solution * pPerfectInfoBatchSolution = pPerfectInfoBatchModel->getSolution();
+                std::cout << "\tdone." << std::endl;
+                std::cout << "printing solution... " << std::endl;
+                pOutput->printSolution(pPerfectInfoBatchSolution);
+                std::cout << "\tdone. " << std::endl;
+
+                // update solution maps
+                if( numRequests_inputs.empty() ) {
+                    numRequests_inputs.insert(make_pair(currMaxPickupDist,pPerfectInfoBatchSolution->getTotalRequests()));
+                }
+                matchRateMap_UFBW_PI.insert(make_pair(currMaxPickupDist,pPerfectInfoBatchSolution->getRequestMetrics()->_matchedPercentage));
+                inconvMap_UFBW_PI.insert(make_pair(currMaxPickupDist,pPerfectInfoBatchSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll));
+                numTripsMap_UFBW_PI.insert(make_pair(currMaxPickupDist,(double)pPerfectInfoBatchSolution->getTotalNumTripsFromSoln()));
+            }            
+        }
                 
         scenarioNum++;
     }
@@ -754,6 +866,9 @@ SolnMaps * runModels_maxPickupDistanceScenarios( bool runMITMModel, bool runUFBW
     pSolnMaps->matchRate_UFBW = matchRateMap_UFBW;
     pSolnMaps->inconv_UFBW = inconvMap_UFBW;
     pSolnMaps->numTrip_UFBW = numTripsMap_UFBW;
+    pSolnMaps->matchRate_UFBW_PI = matchRateMap_UFBW_PI;
+    pSolnMaps->inconv_UFBW_PI = inconvMap_UFBW_PI;
+    pSolnMaps->numTrips_UFBW_PI = numTripsMap_UFBW_PI;
     
     return pSolnMaps;
 }
@@ -779,10 +894,13 @@ SolnMaps * runModels_minSavingsScenarios( bool runMITMModel, bool runUFBW_seqPic
     std::map<double,const int> numRequests_inputs;
     std::map<double,double> matchRateMap_MITM;
     std::map<double,double> matchRateMap_UFBW;
+    std::map<double,double> matchRateMap_UFBW_PI;
     std::map<double,double> inconvMap_MITM;
     std::map<double,double> inconvMap_UFBW;
-    std::map<double,double>    numTripsMap_MITM;
-    std::map<double,double>    numTripsMap_UFBW;    
+    std::map<double,double> inconvMap_UFBW_PI;
+    std::map<double,double> numTripsMap_MITM;
+    std::map<double,double> numTripsMap_UFBW;    
+    std::map<double,double> numTripsMap_UFBW_PI;
     
     const std::string minSavingsPath = pDataOutput->_outputBasePath + "MinSavings"; // define common output folder
     mkdir( minSavingsPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH );    
@@ -837,6 +955,28 @@ SolnMaps * runModels_minSavingsScenarios( bool runMITMModel, bool runUFBW_seqPic
                 numTripsMap_UFBW.insert(make_pair(currMinSavings,(double)pFixedBatchSolution->getTotalNumTripsFromSoln()));
             }
         } 
+        if( runUFBW_perfectInfo ) {
+            UFBW_perfectInformation * pPerfectInfoBatchModel = new UFBW_perfectInformation(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, allRequestsInSim, initOpenTrips, pDataContainer->getAllDrivers());
+            bool modelSolved = pPerfectInfoBatchModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
+            if( modelSolved ) {
+                std::cout << "\n\nmodel solved successfully... " << std::endl;
+                std::cout << "extracting solution... " << std::endl;
+                Solution * pPerfectInfoBatchSolution = pPerfectInfoBatchModel->getSolution();
+                std::cout << "\tdone." << std::endl;
+                std::cout << "printing solution... " << std::endl;
+                pOutput->printSolution(pPerfectInfoBatchSolution);
+                std::cout << "\tdone. " << std::endl;
+
+                // update solution maps
+                if( numRequests_inputs.empty() ) {
+                    numRequests_inputs.insert(make_pair(currMinSavings,pPerfectInfoBatchSolution->getTotalRequests()));
+                }
+                
+                matchRateMap_UFBW_PI.insert(make_pair(currMinSavings,pPerfectInfoBatchSolution->getRequestMetrics()->_matchedPercentage));
+                inconvMap_UFBW_PI.insert(make_pair(currMinSavings,pPerfectInfoBatchSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll));
+                numTripsMap_UFBW_PI.insert(make_pair(currMinSavings,(double)pPerfectInfoBatchSolution->getTotalNumTripsFromSoln()));
+            }              
+        }
                 
         scenarioNum++;
     }    
@@ -849,12 +989,15 @@ SolnMaps * runModels_minSavingsScenarios( bool runMITMModel, bool runUFBW_seqPic
     pSolnMaps->numTrips_MITM = numTripsMap_MITM;
     pSolnMaps->matchRate_UFBW = matchRateMap_UFBW;
     pSolnMaps->inconv_UFBW = inconvMap_UFBW;
-    pSolnMaps->numTrip_UFBW = numTripsMap_UFBW;    
+    pSolnMaps->numTrip_UFBW = numTripsMap_UFBW;  
+    pSolnMaps->matchRate_UFBW_PI = matchRateMap_UFBW_PI;
+    pSolnMaps->inconv_UFBW_PI = inconvMap_UFBW_PI;
+    pSolnMaps->numTrips_UFBW_PI = numTripsMap_UFBW_PI;
     
     return pSolnMaps;
 }
 
-void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, int currExperiment, const std::string outputBasePath) {
+void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, std::vector<double> inputRange, int currExperiment, const std::string outputBasePath) {
     
     std::string scenName = "UNKNOWN";
     std::string inputName = "";
@@ -862,26 +1005,26 @@ void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, int currExperim
     switch( currExperiment ) {
         case OPTIN :
         {
-            scenName = "SUMMARY-OPT-IN";
-            inputName = "optIn(%)";
+            scenName   = "SUMMARY-OPT-IN";
+            inputName  = "optIn(%)";
             break;
         }
         case BATCHWINDOW :
         {
-            scenName = "SUMMARY-BATCH-WINDOW";
-            inputName = "batchWindow(sec)";
+            scenName   = "SUMMARY-BATCH-WINDOW";
+            inputName  = "batchWindow(sec)";
             break;
         }
         case PICKUP :
         {
-            scenName = "SUMMARY-MAX-PICKUP-DIST";
-            inputName = "maxPickupDist(km)";
+            scenName   = "SUMMARY-MAX-PICKUP-DIST";
+            inputName  = "maxPickupDist(km)";
             break;
         }
         case SAVINGSRATE : 
         {
-            scenName = "SUMMARY-MIN-SAVINGS-RATE";
-            inputName = "minSavingsRate(%)";
+            scenName   = "SUMMARY-MIN-SAVINGS-RATE";
+            inputName  = "minSavingsRate(%)";
             break;
         }
     }
@@ -894,11 +1037,11 @@ void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, int currExperim
     outFile << "-------------------------------------------------------------------------" << std::endl;
     outFile << "    summary for experiment:  " << scenName << std::endl;
     outFile << "-------------------------------------------------------------------------\n\n" << std::endl;
-    
+
     printInputRequestsMetrics( outFile, inputName, &(pSolnMaps->input_numRequests) );
-    printMatchRateMetrics    ( outFile, inputName, &(pSolnMaps->matchRate_MITM), &(pSolnMaps->matchRate_UFBW));
-    printInconvenienceMetrics( outFile, inputName, &(pSolnMaps->inconv_MITM),    &(pSolnMaps->inconv_UFBW)   );
-    printNumTripsMetrics     ( outFile, inputName, &(pSolnMaps->numTrips_MITM),   &(pSolnMaps->numTrip_UFBW) );
+    printMatchRateMetrics    ( outFile, inputName, &inputRange, &(pSolnMaps->matchRate_MITM), &(pSolnMaps->matchRate_UFBW), &(pSolnMaps->matchRate_UFBW_PI) );
+    printInconvenienceMetrics( outFile, inputName, &inputRange, &(pSolnMaps->inconv_MITM),    &(pSolnMaps->inconv_UFBW), &(pSolnMaps->inconv_UFBW_PI) );
+    printNumTripsMetrics     ( outFile, inputName, &inputRange, &(pSolnMaps->numTrips_MITM),   &(pSolnMaps->numTrip_UFBW), &(pSolnMaps->numTrips_UFBW_PI) );
     
     outFile << "\n\n-- end of file --\n" << std::endl;
     
@@ -915,21 +1058,21 @@ void printInputRequestsMetrics( ofstream &outFile, std::string inputName, std::m
     outFile << csvString << std::endl;
     
 }
-void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> *pMatchRateMap_UFBW) {
+void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> *pMatchRateMap_UFBW, std::map<double,double> * pMatchRateMap_UFBW_PI) {
    
     outFile << "\nMATCH RATE\n" << std::endl;
     
-    std::set<double> inputRange;
-    for( std::map<double,double>::iterator it = pMatchRateMap_MITM->begin(); it != pMatchRateMap_MITM->end(); ++it ) {
-        inputRange.insert(it->first);
-    }
     
-    std::string csv_mitm_str = "CSV_MITM";
-    std::string csv_ufbw_str = "CSV_UFBW";
+    std::string csv_mitm_str   = "CSV_MITM";
+    std::string csv_ufbw_str   = "CSV_UFBW";
+    std::string csv_ufbwPI_str = "CSV_UFBW_PI";
         
-    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << std::endl;
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "UFBW-PI" << std::endl;
 
-    for( std::set<double>::iterator inputItr = inputRange.begin(); inputItr != inputRange.end(); ++inputItr ) {
+  
+    for( std::vector<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+        
+        std::cout << "inputItr = " << *inputItr << std::endl;
         
         std::string mitmMatchRateStr = "-";
         std::map<double,double>::iterator mitmItr = pMatchRateMap_MITM->find(*inputItr);
@@ -945,28 +1088,36 @@ void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::map<do
             csv_ufbw_str += "," + ufbwMatchRateStr;
         }
         
-        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << std::endl;
+        std::string ufbwPerfInfoMatchRateStr = "-";
+        std::map<double,double>::iterator ufbwPerfInfoItr = pMatchRateMap_UFBW_PI->find(*inputItr);
+        if( ufbwPerfInfoItr != pMatchRateMap_UFBW_PI->end() ) {
+            std::cout << "\tfound! match rate from PI is " << ufbwPerfInfoItr->second << std::endl;
+            ufbwPerfInfoMatchRateStr = Utility::truncateDouble(ufbwPerfInfoItr->second,4);
+            csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;
+        } else {
+            std::cout << "\tcould not find match rate associated with opt in rate " << (*inputItr) << std::endl;
+        }
+        
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
     }
     
     outFile << "\n" << csv_mitm_str  << std::endl;
     outFile << csv_ufbw_str << std::endl;
+    outFile << csv_ufbwPI_str << std::endl;
         
     outFile << "\n\n" << std::endl;        
 }
-void printInconvenienceMetrics(ofstream &outFile, std::string inputName, std::map<double,double> * pInconvMap_MITM, std::map<double,double> * pInconvMap_UFBW) {
+void printInconvenienceMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pInconvMap_MITM, std::map<double,double> * pInconvMap_UFBW, std::map<double,double> * pInconvMap_UFBW_PI) {
     
     outFile << "\nAVG MATCHED RIDER INCONVENIENCE\n" << std::endl;
     
-    std::string csv_mitm_str = "CSV_MITM";
-    std::string csv_ufbw_str = "CSV_UFBW";
+    std::string csv_mitm_str   = "CSV_MITM";
+    std::string csv_ufbw_str   = "CSV_UFBW";
+    std::string csv_ufbwPI_str = "CSV_UFBW_PI";
+      
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "UFBW-PI" << std::endl;
     
-    std::set<double> inputRange;
-    for( std::map<double,double>::iterator it = pInconvMap_MITM->begin(); it != pInconvMap_MITM->end(); ++it ) {
-        inputRange.insert(it->first);
-    }    
-    
-    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << std::endl;
-    for( std::set<double>::iterator inputItr = inputRange.begin(); inputItr != inputRange.end(); ++inputItr ) {
+    for( std::vector<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
         
         std::string mitmInconvStr = "-";
         std::map<double,double>::iterator mitmItr = pInconvMap_MITM->find(*inputItr);
@@ -982,28 +1133,33 @@ void printInconvenienceMetrics(ofstream &outFile, std::string inputName, std::ma
             csv_ufbw_str += "," + ufbwInconvStr;
         }
         
-        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmInconvStr << left << setw(15) << ufbwInconvStr << std::endl;
+        std::string ufbwPerfInfoInconvStr = "-";
+        std::map<double,double>::iterator ufbwPerfInfoItr = pInconvMap_UFBW_PI->find(*inputItr);
+        if( ufbwPerfInfoItr != pInconvMap_UFBW_PI->end() ) {
+            ufbwPerfInfoInconvStr = Utility::truncateDouble(ufbwPerfInfoItr->second,4);
+            csv_ufbwPI_str += "," + ufbwPerfInfoInconvStr;
+        }
+        
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmInconvStr << left << setw(15) << ufbwInconvStr << left << setw(15) << ufbwPerfInfoInconvStr << std::endl;
     }
        
     outFile << "\n" << csv_mitm_str  << std::endl;
     outFile << csv_ufbw_str << std::endl;
+    outFile << csv_ufbwPI_str << std::endl;
     
     outFile << "\n\n" << std::endl;     
     
 }
-void printNumTripsMetrics(ofstream &outFile, std::string inputName, std::map<double,double> * pNumTripsMap_MITM, std::map<double,double> * pNumTripsMap_UFBW) {
+void printNumTripsMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pNumTripsMap_MITM, std::map<double,double> * pNumTripsMap_UFBW, std::map<double,double> * pNumTripsMap_UFBW_PI) {
     outFile << "\nTOTAL NUM TRIPS\n" << std::endl;
     
-    std::string csv_mitm_str = "CSV_MITM";
-    std::string csv_ufbw_str = "CSV_UFBW";
+    std::string csv_mitm_str   = "CSV_MITM";
+    std::string csv_ufbw_str   = "CSV_UFBW";
+    std::string csv_ufbwPI_str = "CSV_UFBW_PI";   
     
-    std::set<double> inputRange;
-    for( std::map<double,double>::iterator it = pNumTripsMap_MITM->begin(); it != pNumTripsMap_MITM->end(); ++it ) {
-        inputRange.insert(it->first);
-    }    
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "UFBW-PI" << std::endl;
     
-    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << std::endl;
-    for( std::set<double>::iterator inputItr = inputRange.begin(); inputItr != inputRange.end(); ++inputItr ) {
+    for( std::vector<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
         
         std::string mitmNumTripsStr = "-";
         std::map<double,double>::iterator mitmItr = pNumTripsMap_MITM->find(*inputItr);
@@ -1019,15 +1175,24 @@ void printNumTripsMetrics(ofstream &outFile, std::string inputName, std::map<dou
             csv_ufbw_str += "," + ufbwNumTripsStr;
         }
         
-        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmNumTripsStr << left << setw(15) << ufbwNumTripsStr << std::endl;
+        std::string ufbwPerfInfoNumTripsStr = "-";
+        std::map<double,double>::iterator ufbwPerfInfoItr = pNumTripsMap_UFBW_PI->find(*inputItr);
+        if( ufbwPerfInfoItr != pNumTripsMap_UFBW_PI->end() ) {
+            ufbwPerfInfoNumTripsStr = Utility::intToStr((int)ufbwPerfInfoItr->second);
+            csv_ufbwPI_str += "," + ufbwPerfInfoNumTripsStr;
+        }
+        
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmNumTripsStr << left << setw(15) << ufbwNumTripsStr << left << setw(15) << ufbwPerfInfoNumTripsStr << std::endl;
     }
         
     
     outFile << "\n" << csv_mitm_str  << std::endl;
     outFile << csv_ufbw_str << std::endl;
+    outFile << csv_ufbwPI_str << std::endl;
     
     outFile << "\n\n" << std::endl;     
 }
+
 
 ParameterSet generateCurrentParameterSet(int runNum, int ScenType, double default_optIn, int default_batchWindowInSec, double default_maxDistInKm, double default_minDiscountSavings, std::vector<double>* pOptInParamVec, std::vector<int>* pBatchLengthVec, std::vector<double>* pMaxDistVec, std::vector<double>* pMinDiscVec) {
     ParameterSet currParamSet;

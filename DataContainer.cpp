@@ -7,9 +7,12 @@
 
 #include "DataContainer.hpp"
 #include "TripData.hpp"
+#include "ProblemInstance.hpp"
 
 // constructors
-DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen) : _optInRate(optInRate) {
+DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, 
+            const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, 
+            const std::vector<Geofence*> * geofences) : _optInRate(optInRate), pGeofences(geofences) {
     
     _inputPath = inputPath;
     _csvFilename = csvFilename;
@@ -18,12 +21,6 @@ DataContainer::DataContainer(const std::string &inputPath, const std::string &cs
     _printDebugFiles = printDebugFiles;
     _printToScreen = printToScreen;
     _simEndTime = _timeline + (time_t)(60*simLengthInMin);
-    
-    // simple data validation
-    /*assert( _batchWindowInSec >= 0 );
-    assert( (0 <= _optInRate) && (_optInRate <= 1) );
-    assert( _timeline <= _simEndTime );*/
-    
 }
 
 // destructor
@@ -43,6 +40,8 @@ void DataContainer::extractCvsSnapshot() {
     std::ifstream       file(filePath);
     CSVRow row;
     
+    const time_t endOfFirstWeek = this->_timeline + (60*60*24*7);
+    
     int rowIndex = 0;
     while( file >> row ) {        
         size_t nCols = row.size();
@@ -51,7 +50,7 @@ void DataContainer::extractCvsSnapshot() {
        // ignore header row
        if( rowIndex > 0 ) {
            // define current trip
-           TripData * currTrip = defineCurrentTripInfoFromCsvLine(row);    
+           TripData * currTrip = defineCurrentTripInfoFromCsvLine(row,endOfFirstWeek);    
            
            // get Driver* object (and define if necessary)
            Driver * pDriver = getDriverFromTrip(currTrip->getDriverID());
@@ -70,7 +69,13 @@ void DataContainer::extractCvsSnapshot() {
                    continue;
            }
            
-                      
+           // check if the 
+           if( pGeofences->empty() == false ) {
+                bool isGeofenceEligible = isFeasibleForGeofences(currTrip, pGeofences);
+                if( !isGeofenceEligible )
+                    continue;                
+           }
+                                                      
            _allTrips.push_back(currTrip); // append to global list of all trips 
 
            // get Rider* object (and define if necessary)
@@ -88,13 +93,105 @@ void DataContainer::extractCvsSnapshot() {
     file.close();    
 }
 
-TripData* DataContainer::defineCurrentTripInfoFromCsvLine(CSVRow& row) {
+bool DataContainer::isFeasibleForGeofences(TripData * pTrip, const std::vector<Geofence*> * pGeofences) {
+    
+    assert( pGeofences->size() > 0 );
+           
+    for( std::vector<Geofence*>::const_iterator geoItr = pGeofences->begin(); geoItr != pGeofences->end(); ++geoItr ) {
+        bool isFeasForCurrGeofence = isTripFeasibleForCurrGeofence(pTrip,*geoItr);
+        if( isFeasForCurrGeofence ) 
+            return true;
+    }
+    
+    return false;
+}
+bool DataContainer::isTripFeasibleForCurrGeofence(TripData * pTrip, Geofence * pGeofence) {
+    
+    const double geoMinLat = pGeofence->getMinLat();
+    const double geoMaxLat = pGeofence->getMaxLat();
+    const double geoMinLng = pGeofence->getMinLng();
+    const double geoMaxLng = pGeofence->getMaxLng();
+    
+    switch( pGeofence->getGeofenceType() ) {
+        case Geofence::REQ_ONLY :
+        {                                                
+            // check LATITUTDE
+            const double reqLat = pTrip->getRequestEvent()->lat;
+            bool isLatElig = ( (geoMinLat <= reqLat) && (reqLat <= geoMaxLat) );
+            if( !isLatElig )
+                return false;
+                        
+            // check LONGITUDE
+            const double reqLng = pTrip->getRequestEvent()->lng;
+            bool isLngElig = ( (geoMinLng <= reqLng) && (reqLng <= geoMaxLng) );
+            if( !isLngElig ) {
+                return false;
+            }
+            
+            return true;             
+        }
+        case Geofence::ORIG_ONLY :
+        {           
+            // check LATITUDE
+            const double origLat = pTrip->getPickupEvent()->lat;
+            bool isLatElig = ( (geoMinLat <= origLat) && (origLat <= geoMaxLat) );
+            if( !isLatElig )
+                return false;
+                        
+            // check LONGITUDE
+            const double origLng = pTrip->getPickupEvent()->lng;
+            bool isLngElig = ( (geoMinLng <= origLng) && (origLng <= geoMaxLng) );
+            if( !isLngElig )
+                return false;
+            
+            return true;
+        }
+        case Geofence::ENTIRE_TRIP :
+        {            
+            // check ORIGIN LATITUDE
+            const double origLat = pTrip->getPickupEvent()->lat;
+            bool isOrigLatElig = ( (geoMinLat <= origLat) && (origLat <= geoMaxLat) );
+            if( !isOrigLatElig )
+                return false;
+            
+            // check ORIGIN LONGITUDE
+            const double origLng = pTrip->getPickupEvent()->lng;
+            bool isOrigLngElig = ( (geoMinLng <= origLng) && (origLng <= geoMaxLng) );
+            if( !isOrigLngElig )
+                return false;
+            
+            // check DEST LATITUDE
+            const double destLat = pTrip->getDropoffEvent()->lat;
+            bool isDestLatElig = ( (geoMinLat <= destLat) && (destLat <= geoMaxLat) );
+            if( !isDestLatElig ) 
+                return false;
+                        
+            // check DEST LONGITUDE
+            const double destLng = pTrip->getDropoffEvent()->lng;
+            bool isDestLngElig = ( (geoMinLng <= destLng) && (destLng <= geoMaxLng) );
+            if( !isDestLngElig )
+                return false;
+                        
+            return true;
+        }
+        default :
+            std::cout << "\n\n*** ERROR: Geofence TYPE NOT SUPPORTED ***";
+            std::cout << "\texiting...\n" << std::endl;
+            exit(1);
+            return false;
+    }
+}
+
+TripData* DataContainer::defineCurrentTripInfoFromCsvLine(CSVRow& row, const time_t &endOfFirstWeek) {
     TripData * currTrip = new TripData();
        
     // build REQUEST event
     const double reqLat      = atof(row[4].c_str());  
     const double reqLng      = atof(row[5].c_str());    
     time_t requestTime  = Utility::convertDateTimeStringToTimeT(row[3]);
+    if( requestTime >= endOfFirstWeek ) {
+        requestTime = requestTime - (60*60*24*7);
+    }
     Event request(requestTime,reqLat,reqLng);
     
     // build DISPATCH event

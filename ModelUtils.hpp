@@ -15,6 +15,8 @@
 #include "FeasibleMatch.hpp"
 #include "Request.hpp"
 #include "UFBW_fixed.hpp"
+#include "MasterCand.hpp"
+#include "MinionCand.hpp"
 
 #include <iostream>
 #include <set>
@@ -135,7 +137,7 @@ public:
      *          y  = distance of uberX trip for minion
      *          t  = threshold [0,1] savings required for legality
      */
-    static FeasibleMatch * checkIfOverlapIsFeasWithforFIFOMatch(const double _minOverlapThreshold, const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, UFBW_fixed::MinionCand * pMinionCand, UFBW_fixed::MasterCand * pMasterCand) {
+    static FeasibleMatch * checkIfOverlapIsFeasWithforFIFOMatch(const double _minOverlapThreshold, const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, MinionCand * pMinionCand, MasterCand * pMasterCand) {
     
         // step 1: compute h: distance of shared leg with MASTER being dropped first (Haversine)
         const double minionPickupLat  = pMinionCand->_reqOrig.getLat(); //pMinionReq->getPickupLat();
@@ -201,7 +203,7 @@ public:
      *          y  = distance of uberX trip for minion
      *          t  = threshold [0,1] discount required for legality
      */  
-    static FeasibleMatch * checkIfOverlapIsFeasWithforFILOMatch(const double _minOverlapThreshold, const double distToMinion, const double masterUberXDist, const double minionUberXDist, UFBW_fixed::MinionCand * pMinionCand, UFBW_fixed::MasterCand * pMasterCand) {
+    static FeasibleMatch * checkIfOverlapIsFeasWithforFILOMatch(const double _minOverlapThreshold, const double distToMinion, const double masterUberXDist, const double minionUberXDist, MinionCand * pMinionCand, MasterCand * pMasterCand) {
      
         // step 1: compute h: distance of shared leg with MINION being dropped first (Haversine) 
         const double minionPickupLat  = pMinionCand->_reqOrig.getLat();

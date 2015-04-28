@@ -39,15 +39,18 @@ OBJECTFILES= \
 	${OBJECTDIR}/CSVRow.o \
 	${OBJECTDIR}/DataContainer.o \
 	${OBJECTDIR}/Driver.o \
+	${OBJECTDIR}/GenerateInstanceScenarios.o \
+	${OBJECTDIR}/Geofence.o \
 	${OBJECTDIR}/MitmModel.o \
-	${OBJECTDIR}/MitmModel_new.o \
 	${OBJECTDIR}/OpenTrip.o \
 	${OBJECTDIR}/Output.o \
+	${OBJECTDIR}/ProblemInstance.o \
 	${OBJECTDIR}/Request.o \
 	${OBJECTDIR}/Rider.o \
 	${OBJECTDIR}/Solution.o \
 	${OBJECTDIR}/TripData.o \
 	${OBJECTDIR}/UFBW_fixed.o \
+	${OBJECTDIR}/UFBW_perfectInformation.o \
 	${OBJECTDIR}/deprecated.o \
 	${OBJECTDIR}/main.o
 
@@ -96,15 +99,20 @@ ${OBJECTDIR}/Driver.o: Driver.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Driver.o Driver.cpp
 
+${OBJECTDIR}/GenerateInstanceScenarios.o: GenerateInstanceScenarios.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GenerateInstanceScenarios.o GenerateInstanceScenarios.cpp
+
+${OBJECTDIR}/Geofence.o: Geofence.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Geofence.o Geofence.cpp
+
 ${OBJECTDIR}/MitmModel.o: MitmModel.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel.o MitmModel.cpp
-
-${OBJECTDIR}/MitmModel_new.o: MitmModel_new.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel_new.o MitmModel_new.cpp
 
 ${OBJECTDIR}/OpenTrip.o: OpenTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -115,6 +123,11 @@ ${OBJECTDIR}/Output.o: Output.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
+
+${OBJECTDIR}/ProblemInstance.o: ProblemInstance.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ProblemInstance.o ProblemInstance.cpp
 
 ${OBJECTDIR}/Request.o: Request.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -140,6 +153,11 @@ ${OBJECTDIR}/UFBW_fixed.o: UFBW_fixed.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_fixed.o UFBW_fixed.cpp
+
+${OBJECTDIR}/UFBW_perfectInformation.o: UFBW_perfectInformation.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_perfectInformation.o UFBW_perfectInformation.cpp
 
 ${OBJECTDIR}/deprecated.o: deprecated.cpp 
 	${MKDIR} -p ${OBJECTDIR}

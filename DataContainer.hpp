@@ -16,6 +16,7 @@
 #include "OpenTrip.hpp"
 #include "LatLng.hpp"
 #include "Comparators.hpp"
+#include "Geofence.hpp"
 
 #include "ItemNotFoundException.hpp" /* custom exception */
 
@@ -36,7 +37,7 @@ using namespace std;
 
 class DataContainer {
 public:
-    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen);
+    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const std::vector<Geofence*> * geofences);
     virtual ~DataContainer();
     
     // methods called by main()
@@ -46,7 +47,9 @@ public:
     bool populateRequestsAndTrips();    // translate data into requests and trips
     
     // I/O methods
-    TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row);
+    TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row, const time_t &endOfFirstWeek);
+    
+    //bool isInBox(LatLng &loc, std::pair<double,double> &latRange, std::pair<double,double> &lngRange);
         
     // getters
     const std::string getInputPath()   const { return _inputPath; }
@@ -74,6 +77,10 @@ public:
     const bool printDebugFiles() const { return _printDebugFiles; }
     const bool printToScreen() const { return _printToScreen; }
     
+    // check if a given trip if feasible for geofence
+    bool isFeasibleForGeofences(TripData * pTrip, const std::vector<Geofence*> * pGeofences);
+    bool isTripFeasibleForCurrGeofence(TripData * pTrip, Geofence * pGeofence);
+    
     // set instance-specific attributes
    // void setOptInRate(double optInRate) { _optInRate = optInRate; }
    void setBatchWindowInSeconds(int batchWindow) { _batchWindowInSec = batchWindow; }
@@ -90,6 +97,9 @@ private:
     time_t _simEndTime;       // end time of simulation (i.e. do not consider trips after this time)
     bool _printDebugFiles;    // bool to determine whether/not to print debug files
     bool _printToScreen;      // cout data
+    
+    // all geofences
+    const std::vector<Geofence*> * pGeofences;
         
     // entities across DB snapshot
     std::vector<TripData*> _allTrips;      // ALL trips

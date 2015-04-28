@@ -292,6 +292,9 @@ void Output::printSolution(Solution* pSolution) {
         case Solution::UFBW_pickupSwaps : 
             modelname = "UFBW_pickUpSwaps";
             break;
+        case Solution::UFBW_perfectInfo :
+            modelname = "UFBW_perfectInformation";
+            break;
         default :
             modelname += "other";
     } 
@@ -299,6 +302,7 @@ void Output::printSolution(Solution* pSolution) {
     filename += modelname;
     filename += ".txt";
     std::string outpath = _outputScenarioPath + filename;
+
     
     ofstream outFile(outpath.c_str());
     outFile << "\n----------------------------------------\n" << std::endl;
@@ -317,6 +321,8 @@ void Output::printSolution(Solution* pSolution) {
     if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
         printDisqualifiedRequestsSummary(outFile,pSolution);
     }
+    
+    
     
     outFile.close();
 }
@@ -414,7 +420,7 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
     int uuidBuff = 45;
     int timeBuff = 25;
     
-    outFile << "  " << left << setw(ixBuff) << "DRIVER" << 
+    outFile << left << setw(ixBuff) << "DRIVER" << 
             left << setw(ixBuff) << "MASTER_IX" << 
             left << setw(ixBuff) << "MINION_IX" << 
             left << setw(uuidBuff) << "MASTER_UUID" << 
@@ -460,7 +466,7 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
         std::string addlDistMasterStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMaster, 2) + "%";
         std::string addlDistMinionStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMinion, 2) + "%";
         
-        outFile << "  " << left << setw(ixBuff) << Utility::intToStr(driverIndex) << 
+        outFile << left << setw(ixBuff) << Utility::intToStr(driverIndex) << 
                 left << setw(ixBuff) << Utility::intToStr(masterIndex) << 
                 left << setw(ixBuff) << Utility::intToStr(minionIndex) << 
                 left << setw(uuidBuff) << (*tripItr)->getMasterTripUUID() << 
@@ -495,7 +501,7 @@ void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) 
     int distBuff = 15;
     int uuidBuff = 45;
     
-    outFile << "  " << left << setw(ixBuff) << "DRIVER" << 
+    outFile << left << setw(ixBuff) << "DRIVER" << 
             left << setw(ixBuff) << "RIDER_IX" << 
             left << setw(uuidBuff) << "RIDER_UUID" << 
             left << setw(timeBuff) << "REQUEST_TIME" << 
@@ -511,7 +517,7 @@ void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) 
         LatLng dropLoc((*tripItr)->getMasterDropEventFromActuals()->lat, (*tripItr)->getMasterDropEventFromActuals()->lng);
         const double distKm = Utility::computeGreatCircleDistance(pickupLoc.getLat(), pickupLoc.getLng(), dropLoc.getLat(), dropLoc.getLng());        
                        
-        outFile << "  " << left << setw(ixBuff) << Utility::intToStr((*tripItr)->getDriver()->getIndex()) << 
+        outFile << left << setw(ixBuff) << Utility::intToStr((*tripItr)->getDriver()->getIndex()) << 
                 left << setw(ixBuff) << Utility::intToStr((*tripItr)->getMasterIndex()) << 
                 left << setw(uuidBuff) << (*tripItr)->getMasterTripUUID() <<
                 left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterRequestEvent()->timeT) << 
@@ -536,7 +542,7 @@ void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolu
     int locBuff = 25;
     int ynBuff = 11;
     
-    outFile << "  " << left << setw(ixBuff) << "REQ_ID" << 
+    outFile << left << setw(ixBuff) << "REQ_ID" << 
             left << setw(ixBuff) << "RIDER" << 
             left << setw(ynBuff) << "INIT_REQ?" << 
             left << setw(timeBuff) << "REQ_TIME" << 
@@ -554,7 +560,7 @@ void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolu
         std::string isInitStr = (*reqItr)->isInitRequest() ? "yes" : "no";
         
         
-        outFile << "  " << left << setw(ixBuff) << Utility::intToStr((*reqItr)->getReqIndex()) << 
+        outFile << left << setw(ixBuff) << Utility::intToStr((*reqItr)->getReqIndex()) << 
                 left << setw(ixBuff) << Utility::intToStr((*reqItr)->getRiderIndex()) << 
                 left << setw(ynBuff) << isInitStr << 
                 left << setw(timeBuff) << Utility::convertTimeTToString((*reqItr)->getReqTime()) << 

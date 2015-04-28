@@ -1,12 +1,12 @@
 /* 
- * File:   UFBW_fixed.hpp
+ * File:   UFBW_perfectInformation.hpp
  * Author: jonpetersen
  *
- * Created on April 3, 2015, 8:33 AM
+ * Created on April 23, 2015, 8:23 PM
  */
 
-#ifndef UFBW_FIXED_HPP
-#define	UFBW_FIXED_HPP
+#ifndef UFBW_PERFECTINFORMATION_HPP
+#define	UFBW_PERFECTINFORMATION_HPP
 
 #include "Request.hpp"
 #include "Driver.hpp"
@@ -34,24 +34,27 @@
 using namespace std;
 using namespace operations_research;
 
-class UFBW_fixed {
+class UFBW_perfectInformation {
+public:
     
     friend class ModelUtils;
 
 public:
-    UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
-    virtual ~UFBW_fixed();
+    UFBW_perfectInformation(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
+    virtual ~UFBW_perfectInformation();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen);
     std::set<AssignedTrip*, AssignedTripIndexComp> solveMatchingOptimization(std::set<MasterMinionMatchCand*, MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests, bool printToScreen);
         
-    std::set<OpenTrip*, EtaComp> convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime);
     std::set<Request*, ReqComp> getRequestsInInterval(std::deque<Request*> &requestsToProcess, const time_t &currBatchStartTime, const time_t &currBatchEndTime);
-    AssignedTrip * convertWaitingRequestToAssignedTrip(Request * pWaitingRequest);
-    std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > generateCandidateMastersAndMinions(std::set<OpenTrip*, EtaComp> &openTrips, std::set<Request*, ReqComp> &currBatchRequests);
-    std::set<MasterMinionMatchCand*, MasterMinionMatchComp> generateFeasibleMasterMinionMatches(std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions);
+    std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > generateCandidateMastersAndMinions(std::set<OpenTrip*, EtaComp> &initOpenTrips, std::set<Request*, ReqComp> &currBatchRequests);
+    std::set<MasterMinionMatchCand*, MasterMinionMatchComp> generateFeasibleMasterMinionMatches(std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, std::set<OpenTrip*, EtaComp> * initOpenTrips);
     void assignWeightsForMatchCandidates(std::set<MasterMinionMatchCand*, MasterMinionMatchComp> * pCandidateMatches);
     double computeEdgeWeightOfCurrCandidateMatch(MasterMinionMatchCand * pCurrMatchCand);
+    bool checkIfCandidateMatchIsTimeEligible(MasterCand * pMaster, MinionCand *pMinion, std::set<OpenTrip*, EtaComp> * pInitOpenTrips);
+    bool checkIfCandMasterIsInitialOpenTrip(MasterCand * pMaster, std::set<OpenTrip*, EtaComp> * pInitOpenTrips);
+    
+    int convertUnmatchedRequestsToOpenTrips(std::set<AssignedTrip*, AssignedTripIndexComp> * pMatchedTrips, std::set<Request*, ReqComp> * pRequests, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
     
     std::queue<Request*> cloneRequests(std::set<Request*, ReqComp> requests);
     std::set<OpenTrip*, EtaComp> cloneOpenTrips(std::set<OpenTrip*, EtaComp> openTrips);
@@ -107,5 +110,5 @@ private:
     Solution * pSolution;
 };
 
-#endif	/* UFBW_FIXED_HPP */
+#endif	/* UFBW_PERFECTINFORMATION_HPP */
 

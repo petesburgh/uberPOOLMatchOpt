@@ -1,9 +1,10 @@
-build/Debug/GNU-MacOSX/MitmModel_new.o: MitmModel_new.cpp \
-  MitmModel_new.hpp Request.hpp Driver.hpp TripData.hpp Event.hpp \
-  Utility.hpp LatLng.hpp TimeAdjacencyException.hpp OpenTrip.hpp \
-  Rider.hpp Comparators.hpp AssignedTrip.hpp FeasibleMatch.hpp \
-  Output.hpp DataContainer.hpp CSVRow.hpp ItemNotFoundException.hpp \
-  Solution.hpp ModelUtils.hpp UFBW_fixed.hpp \
+build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
+  UFBW_perfectInformation.cpp UFBW_perfectInformation.hpp Request.hpp \
+  Driver.hpp TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
+  TimeAdjacencyException.hpp OpenTrip.hpp Rider.hpp MasterCand.hpp \
+  MinionCand.hpp MasterMinionMatchCand.hpp FeasibleMatch.hpp \
+  Comparators.hpp AssignedTrip.hpp Output.hpp DataContainer.hpp \
+  CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp Solution.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -15,9 +16,10 @@ build/Debug/GNU-MacOSX/MitmModel_new.o: MitmModel_new.cpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/basictypes.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
-  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h
+  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
+  ModelUtils.hpp UFBW_fixed.hpp
 
-MitmModel_new.hpp:
+UFBW_perfectInformation.hpp:
 
 Request.hpp:
 
@@ -37,11 +39,17 @@ OpenTrip.hpp:
 
 Rider.hpp:
 
+MasterCand.hpp:
+
+MinionCand.hpp:
+
+MasterMinionMatchCand.hpp:
+
+FeasibleMatch.hpp:
+
 Comparators.hpp:
 
 AssignedTrip.hpp:
-
-FeasibleMatch.hpp:
 
 Output.hpp:
 
@@ -49,13 +57,11 @@ DataContainer.hpp:
 
 CSVRow.hpp:
 
+Geofence.hpp:
+
 ItemNotFoundException.hpp:
 
 Solution.hpp:
-
-ModelUtils.hpp:
-
-UFBW_fixed.hpp:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h:
 
@@ -80,3 +86,7 @@ UFBW_fixed.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
+
+ModelUtils.hpp:
+
+UFBW_fixed.hpp:

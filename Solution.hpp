@@ -23,7 +23,8 @@ public:
     enum Model {
         MITM,
         UFBW_fixedPickups,
-        UFBW_pickupSwaps
+        UFBW_pickupSwaps,
+        UFBW_perfectInfo
     };
         
     struct RequestMetrics {

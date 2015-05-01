@@ -5,6 +5,7 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   MinionCand.hpp MasterMinionMatchCand.hpp FeasibleMatch.hpp \
   Comparators.hpp AssignedTrip.hpp Output.hpp DataContainer.hpp \
   CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp Solution.hpp \
+  FlexDepSolution.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -62,6 +63,8 @@ Geofence.hpp:
 ItemNotFoundException.hpp:
 
 Solution.hpp:
+
+FlexDepSolution.hpp:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h:
 

@@ -23,7 +23,7 @@ public:
        
     OpenTrip(const std::string driverID, const Driver * driver, const int driverIx, const std::string riderID, const int riderIx, const std::string riderTripUUID, 
              const Event * masterReq, const Event * masterDispatch, const double actualPickupLat, const double actualPickupLng, const double dropReqLat, 
-             const double dropReqLng, time_t eta, time_t etd, const Event * masterPickupFromActuals, const Event * masterDropActual);
+             const double dropReqLng, time_t eta, time_t etd, const Event * masterPickupFromActuals, const Event * masterDropActual, int origRequestIndex);
     virtual ~OpenTrip();
         
     // setters
@@ -51,6 +51,7 @@ public:
     const double getDropRequestLng() const { return _dropRequestLng; }
     
     const std::string getRiderTripUUID() const { return _riderTripUUID; }
+    const int getOrigRequestIndex() const{ return _origRequestIndex; } // -1 indicates initial open trip 
     
 private:
     
@@ -75,8 +76,9 @@ private:
     const time_t _eta;  
     const time_t _etd;
     
-    const std::string _riderTripUUID;
+    const std::string _riderTripUUID;  
     
+    const int _origRequestIndex;
 };
 
 #endif	/* OPENTRIP_HPP */

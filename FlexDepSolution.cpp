@@ -1,20 +1,29 @@
 /* 
- * File:   Solution.cpp
+ * File:   FlexDepSolution.cpp
  * Author: jonpetersen
  * 
- * Created on March 31, 2015, 12:29 PM
+ * Created on April 28, 2015, 8:11 PM
  */
 
-#include "Solution.hpp"
-
-Solution::Solution(Model model, time_t simStart, time_t simEnd, int totalReqs, int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs) : 
-        _model(model), _simStartTime(simStart), _simEndTime(simEnd), _totalRequests(totalReqs), _totalDrivers(totalDrivers), _allTripsFromSolution(assignedTrips), _disqualifiedRequests(disqualifiedReqs) {
+#include "FlexDepSolution.hpp"
+        
+FlexDepSolution::FlexDepSolution(const time_t simStart,  const time_t simEnd, const int totalReqs, const int totalDrivers, 
+        std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*, ReqComp> &disqualReqs, std::set<const int> * flexDepReqIndices) : 
+        Solution(Solution::FlexDepartures, simStart, simEnd, totalReqs, totalDrivers, assignedTrips, disqualReqs), pFlexDepRequestIndices(flexDepReqIndices) {
+    
 }
 
-Solution::~Solution() {
+FlexDepSolution::~FlexDepSolution() {
 }
 
-void Solution::buildSolutionMetrics() {
+void FlexDepSolution::buildSolutionMetrics() {
+
+    buildAggregateSolutionMetrics(); 
+    buildFDSolutionMetrics();
+  
+}
+
+void FlexDepSolution::buildAggregateSolutionMetrics() {
     
     // instantiate data to be populated
     std::vector<double> pctAddedDistancesForMasters;  // how much added distance for pool trip relative to X for masters
@@ -33,10 +42,10 @@ void Solution::buildSolutionMetrics() {
     
     // loop through trip assignments and update statistics
     std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
-    for( tripItr = _allTripsFromSolution.begin(); tripItr != _allTripsFromSolution.end(); ++tripItr ) {
+    for( tripItr = getAllTripsFromSoln()->begin(); tripItr != getAllTripsFromSoln()->end(); ++tripItr ) {
         if( (*tripItr)->isMatchedTrip() ) {
-            _matchedTrips.insert(*tripItr);
-            
+            addMatchedTrip(*tripItr); 
+                        
             // track extended and FIFOs
             bool isExtended = (*tripItr)->getMatchDetails()->_masterPickedUpAtTimeOfMatch;
             bool isFIFO     = (*tripItr)->getMatchDetails()->_fixedDropoff;
@@ -77,14 +86,14 @@ void Solution::buildSolutionMetrics() {
             
         }
         else {
-            _unmatchedTrips.insert(*tripItr);
+            addUnmatchedTrip(*tripItr); // _unmatchedTrips.insert(*tripItr);
         }
     }
     
     // compute MATCH RATE
-    int totalMatchedTrips   = (int)_matchedTrips.size();
-    int totalUnmatchedTrips = (int)_unmatchedTrips.size();
-    int totalDisqualReqs    = (int)_disqualifiedRequests.size();
+    int totalMatchedTrips   = getNumberMatchedTrips();
+    int totalUnmatchedTrips = getNumberUnmatchedTrips();
+    int totalDisqualReqs    = getNumDisqualRequests();
     int totalMatchedRequests = 2*totalMatchedTrips;
     int totalRequests = totalMatchedRequests + totalUnmatchedTrips + totalDisqualReqs;
     const double matchRate = (double)100*(double)totalMatchedRequests/(double)totalRequests;
@@ -111,65 +120,75 @@ void Solution::buildSolutionMetrics() {
     
     // ---- POPULATE SOLUTION CONTAINERS ----
     // request summary
-    _requestMetrics._totalRequests = totalRequests;
-    _requestMetrics._numMatchedRequests = totalMatchedRequests;
-    _requestMetrics._matchedPercentage = matchRate;
-    _requestMetrics._numUnmatchedRequests = totalUnmatchedTrips;
-    _requestMetrics._unmatchedPercentage = unmatchedRequestRate;
-    _requestMetrics._numDisqualifiedRequests = totalDisqualReqs;
-    _requestMetrics._disqualPercentage = disqualRequestRate;
-    
+    setRequestMetrics(totalRequests, totalMatchedRequests, matchRate, totalUnmatchedTrips, unmatchedRequestRate, totalDisqualReqs, disqualRequestRate);
+
     // define match metrics
-    _matchMetrics._numMatches = totalMatchedTrips;
-    _matchMetrics._numExtendedMatches = numExtendedMatches;
-    _matchMetrics._pctExtendedMatches = pctExtendedMatches;
-    _matchMetrics._numNonExtendedMatches = numNonExtendedMatches;
-    _matchMetrics._pctNonExtendedMatches = pctNonExtendedMatches;
-    _matchMetrics._numFIFOMatches = numFIFOMatches;
-    _matchMetrics._pctFIFOMatches = pctFIFOMatches;
-    _matchMetrics._numFILOMatches = numFILOMatches;
-    _matchMetrics._pctFILOMatches = pctFILOMatches;
-    _matchMetrics._pctFIFOExtendedMatches = pctFIFOExtendedMatches;
-    _matchMetrics._pctFIFONonExtendedMatches = pctFIFONonExtendedMatches;
-    _matchMetrics._pctFILOExtendedMatches = pctFILOExtendedMatches;
-    _matchMetrics._pctFILONonExtendedMatches = pctFILONonExtendedMatches;
+    setMatchMetrics(totalMatchedTrips,numExtendedMatches,pctExtendedMatches,numNonExtendedMatches,pctNonExtendedMatches,
+            numFIFOMatches,pctFIFOMatches,numFILOMatches,pctFILOMatches,pctFIFOExtendedMatches,
+            pctFIFONonExtendedMatches,pctFILOExtendedMatches,pctFILONonExtendedMatches);
+
+    // define avg increase in trip length for all, masters, and minions 
+    setInconvenienceMetrics(meanAddedDist_all,meanAddedDist_masters,meanAddedDist_minions);
     
-    // define avg increase in trip length for all, masters, and minions  
-    _inconvenienceMetrics._avgPctAddedDistsForAll     = meanAddedDist_all;
-    _inconvenienceMetrics._avgPctAddedDistsForMasters = meanAddedDist_masters;
-    _inconvenienceMetrics._avgPctAddedDistsForMinions = meanAddedDist_minions;
-
 }
 
-// methods used by derived class to set base class private members
-void Solution::setRequestMetrics(int totalRequests, int totalMatchedRequests, double matchRate, int totalUnmatchedTrips, double unmatchedRequestRate, int totalDisqualReqs, double disqualRequestRate) {
-    _requestMetrics._totalRequests = totalRequests;
-    _requestMetrics._numMatchedRequests = totalMatchedRequests;
-    _requestMetrics._matchedPercentage = matchRate;
-    _requestMetrics._numUnmatchedRequests = totalUnmatchedTrips;
-    _requestMetrics._unmatchedPercentage = unmatchedRequestRate;
-    _requestMetrics._numDisqualifiedRequests = totalDisqualReqs;
-    _requestMetrics._disqualPercentage = disqualRequestRate;
+void FlexDepSolution::buildFDSolutionMetrics() {
+   
+    // step 1: compute # of requests and # of matched requests
+    int totalFDRequests = (int)pFlexDepRequestIndices->size(); // num FD reqs
+    std::set<const int> matchedFDReqIndices = getMatchedFDReqIndices();
+    int matchedFDRequests = (int)matchedFDReqIndices.size();
+    int unmatchedFDRequests = totalFDRequests - matchedFDRequests;
+    
+    // step 2: compute FD metrics            
+    double matchRate_FDReqs = ((double)100*(double)matchedFDRequests)/(double)totalFDRequests;
+    
+    
+    _requestMetrics_FD._totalRequests   = totalFDRequests;
+    _requestMetrics_FD._matchedRequests = matchedFDRequests;
+    _requestMetrics_FD._unmatchedRequests = unmatchedFDRequests;
+    _requestMetrics_FD._matchPercentage = matchRate_FDReqs;
+    
+    // step 3: compute non-FD metrics
+    int totalRequests = getTotalNumRequests();
+    int totalNonFDReqs = totalRequests - totalFDRequests;
+    int totalMatchedReqs = getTotalMatchedRequests();
+    int totalMatchedReqs_nonFDReqs = totalMatchedReqs - matchedFDRequests; 
+    int totalUnmatchedReqs_nonFDReqs = totalNonFDReqs - totalMatchedReqs_nonFDReqs;
+    double matchRate_nonFDReqs = ((double)100*(double)totalMatchedReqs_nonFDReqs)/(double)totalNonFDReqs; 
+    
+    _requestMetrics_nonFD._totalRequests = totalNonFDReqs;
+    _requestMetrics_nonFD._matchedRequests = totalMatchedReqs_nonFDReqs;
+    _requestMetrics_nonFD._unmatchedRequests = totalUnmatchedReqs_nonFDReqs;
+    _requestMetrics_nonFD._matchPercentage = matchRate_nonFDReqs;
+    
 }
-void Solution::setMatchMetrics(int totalMatchedTrips, int numExtendedMatches, double pctExtendedMatches, int numNonExtendedMatches, double pctNonExtendedMatches, 
-                    int numFIFOMatches, double pctFIFOMatches, int numFILOMatches, double pctFILOMatches,
-                     double pctFIFOExtendedMatches, double pctFIFONonExtendedMatches, double pctFILOExtendedMatches, double pctFILONonExtendedMatches) {
-    _matchMetrics._numMatches = totalMatchedTrips;
-    _matchMetrics._numExtendedMatches = numExtendedMatches;
-    _matchMetrics._pctExtendedMatches = pctExtendedMatches;
-    _matchMetrics._numNonExtendedMatches = numNonExtendedMatches;
-    _matchMetrics._pctNonExtendedMatches = pctNonExtendedMatches;
-    _matchMetrics._numFIFOMatches = numFIFOMatches;
-    _matchMetrics._pctFIFOMatches = pctFIFOMatches;
-    _matchMetrics._numFILOMatches = numFILOMatches;
-    _matchMetrics._pctFILOMatches = pctFILOMatches;
-    _matchMetrics._pctFIFOExtendedMatches = pctFIFOExtendedMatches;
-    _matchMetrics._pctFIFONonExtendedMatches = pctFIFONonExtendedMatches;
-    _matchMetrics._pctFILOExtendedMatches = pctFILOExtendedMatches;
-    _matchMetrics._pctFILONonExtendedMatches = pctFILONonExtendedMatches;
-}
-void Solution::setInconvenienceMetrics(double avgPctAddedAll, double avgPctAddedMasters, double avgPctAddedMinions) {
-    _inconvenienceMetrics._avgPctAddedDistsForAll = avgPctAddedAll;
-    _inconvenienceMetrics._avgPctAddedDistsForMasters = avgPctAddedMasters;
-    _inconvenienceMetrics._avgPctAddedDistsForMinions = avgPctAddedMinions;
+
+std::set<const int> FlexDepSolution::getMatchedFDReqIndices() {
+    
+    std::set<const int> matchedFDReqIndices;
+    
+    // extract all matched trips
+    const std::set<AssignedTrip*, AssignedTripIndexComp> * pMatchedTrips = getMatchedTrips();
+    std::set<AssignedTrip *, AssignedTripIndexComp>::const_iterator itr;
+    for( itr = pMatchedTrips->begin(); itr != pMatchedTrips->end(); ++itr ) {
+        const int masterReqIndex = (*itr)->getMatchDetails()->_masterReqIndex;
+        const int minionReqIndex = (*itr)->getMatchDetails()->_minionReqIndex;
+        
+        // check if MASTER is FD
+        std::set<const int>::const_iterator fdItr_master = pFlexDepRequestIndices->find(masterReqIndex);
+        if( fdItr_master != pFlexDepRequestIndices->end() ) {
+            matchedFDReqIndices.insert(masterReqIndex);
+        }
+        
+        // check if MINION is FD
+        std::set<const int>::const_iterator fdItr_minion = pFlexDepRequestIndices->find(minionReqIndex);
+        if( fdItr_minion != pFlexDepRequestIndices->end() ) {
+            matchedFDReqIndices.insert(minionReqIndex);
+        }
+        
+    }
+    
+    return matchedFDReqIndices;
+    
 }

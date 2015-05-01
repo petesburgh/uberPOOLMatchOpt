@@ -3,8 +3,8 @@ build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
   TimeAdjacencyException.hpp Driver.hpp Rider.hpp Request.hpp \
   OpenTrip.hpp Comparators.hpp AssignedTrip.hpp FeasibleMatch.hpp \
   MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp Geofence.hpp \
-  ItemNotFoundException.hpp Output.hpp Solution.hpp MitmModel.hpp \
-  ModelUtils.hpp UFBW_fixed.hpp \
+  ItemNotFoundException.hpp Output.hpp Solution.hpp FlexDepSolution.hpp \
+  MitmModel.hpp ModelUtils.hpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -17,8 +17,8 @@ build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  UFBW_perfectInformation.hpp GenerateInstanceScenarios.hpp \
-  ProblemInstance.hpp
+  FlexDepartureModel.hpp UFBW_perfectInformation.hpp \
+  GenerateInstanceScenarios.hpp ProblemInstance.hpp
 
 DataContainer.hpp:
 
@@ -62,6 +62,8 @@ Output.hpp:
 
 Solution.hpp:
 
+FlexDepSolution.hpp:
+
 MitmModel.hpp:
 
 ModelUtils.hpp:
@@ -91,6 +93,8 @@ UFBW_fixed.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
+
+FlexDepartureModel.hpp:
 
 UFBW_perfectInformation.hpp:
 

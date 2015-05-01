@@ -1,10 +1,10 @@
-build/Debug/GNU-MacOSX/UFBW_fixed.o: UFBW_fixed.cpp UFBW_fixed.hpp \
-  Request.hpp Driver.hpp TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
-  TimeAdjacencyException.hpp OpenTrip.hpp Rider.hpp MasterCand.hpp \
-  MinionCand.hpp MasterMinionMatchCand.hpp FeasibleMatch.hpp \
-  Comparators.hpp AssignedTrip.hpp Output.hpp DataContainer.hpp \
-  CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp Solution.hpp \
-  FlexDepSolution.hpp \
+build/Debug/GNU-MacOSX/FlexDepartureModel.o: FlexDepartureModel.cpp \
+  FlexDepartureModel.hpp Request.hpp Driver.hpp TripData.hpp Event.hpp \
+  Utility.hpp LatLng.hpp TimeAdjacencyException.hpp OpenTrip.hpp \
+  Rider.hpp MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp \
+  FeasibleMatch.hpp Comparators.hpp AssignedTrip.hpp Output.hpp \
+  DataContainer.hpp CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp \
+  Solution.hpp FlexDepSolution.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -17,9 +17,9 @@ build/Debug/GNU-MacOSX/UFBW_fixed.o: UFBW_fixed.cpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  ModelUtils.hpp
+  ModelUtils.hpp UFBW_fixed.hpp
 
-UFBW_fixed.hpp:
+FlexDepartureModel.hpp:
 
 Request.hpp:
 
@@ -90,3 +90,5 @@ FlexDepSolution.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
 
 ModelUtils.hpp:
+
+UFBW_fixed.hpp:

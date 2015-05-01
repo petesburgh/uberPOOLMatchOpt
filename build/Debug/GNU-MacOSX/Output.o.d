@@ -3,7 +3,7 @@ build/Debug/GNU-MacOSX/Output.o: Output.cpp Output.hpp DataContainer.hpp \
   TimeAdjacencyException.hpp Driver.hpp Rider.hpp Request.hpp \
   OpenTrip.hpp Comparators.hpp AssignedTrip.hpp FeasibleMatch.hpp \
   MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp Geofence.hpp \
-  ItemNotFoundException.hpp Solution.hpp
+  ItemNotFoundException.hpp Solution.hpp FlexDepSolution.hpp
 
 Output.hpp:
 
@@ -46,3 +46,5 @@ Geofence.hpp:
 ItemNotFoundException.hpp:
 
 Solution.hpp:
+
+FlexDepSolution.hpp:

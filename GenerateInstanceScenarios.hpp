@@ -18,7 +18,9 @@ using namespace std;
 
 enum {
     SF = 1,
-    CHENGDU = 1774
+    CHENGDU = 1774,
+    LA = 12,
+    AUSTIN = 4
 } CityIndex;
 
 ProblemInstance * generateInstanceScenarios(const int scenIndex);

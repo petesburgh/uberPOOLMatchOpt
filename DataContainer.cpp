@@ -395,7 +395,10 @@ bool DataContainer::populateRequestsAndTrips() {
                     std::cerr << ex.what() << std::endl;
                 }
                                 
-                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getUniqueTripID(), (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getPickupEvent(), (*iTrip)->getDropoffEvent());
+                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getUniqueTripID(), 
+                                                    (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, 
+                                                    (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, 
+                                                    (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getPickupEvent(), (*iTrip)->getDropoffEvent(), -1); 
                 pOpenTrip->setIsRiderInitPresent(false);    // rider NOT initially present              
                 _initOpenTrips.insert(pOpenTrip);
                 
@@ -421,7 +424,7 @@ bool DataContainer::populateRequestsAndTrips() {
                     std::cerr << "*** ItemNotFoundException thrown ***" << std::endl;
                     std::cerr << ex.what() << std::endl;
                 }        
-                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getUniqueTripID(), (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getPickupEvent(),(*iTrip)->getDropoffEvent());
+                OpenTrip * pOpenTrip = new OpenTrip((*iTrip)->getDriverID(), pDriver, driverIndex, (*iTrip)->getRiderID(), riderIndex, (*iTrip)->getUniqueTripID(), (*iTrip)->getRequestEvent(), (*iTrip)->getDispatchEvent(), (*iTrip)->getPickupEvent()->lat, (*iTrip)->getPickupEvent()->lng, (*iTrip)->getDropoffEvent()->lat, (*iTrip)->getDropoffEvent()->lng, (*iTrip)->getPickupEvent()->timeT, (*iTrip)->getDropoffEvent()->timeT, (*iTrip)->getPickupEvent(),(*iTrip)->getDropoffEvent(), -1);
                 pOpenTrip->setIsRiderInitPresent(true);     // rider is initially present
                 _initOpenTrips.insert(pOpenTrip);             
                 

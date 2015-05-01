@@ -108,6 +108,56 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
             return pInstance;
         }
+        case 8 :
+        {
+            // INSTANCE 08: SF, one week data from 2015-04-27 0700 - 2015-04-28 0700 UTC, no geofences (FD analysis))
+            const int cityIndex                  = SF;
+            const std::string simStartTimeStr    = "2015-04-27 07:00:00";
+            const int simLengthInMin             = 1440;
+            const std::string inputCsvFilename   = "trips-SF-20150427-0700-20150428-0700-uberX.csv"; 
+            const std::string scenStr            = "SF-20150427-0000-1Day-noGeo";
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            return pInstance;            
+        }
+        case 9 :
+        {
+            // INSTANCE 09: LA, one week data from 2015-04-27 0700 - 2015-04-28 0700 UTC, no geofences (FD analysis)
+            const int cityIndex                  = LA;
+            const std::string simStartTimeStr    = "2015-04-27 07:00:00";
+            const int simLengthInMin             = 1440;
+            const std::string inputCsvFilename   = "trips-LA-20150427-0700-20150428-0700-uberX.csv"; 
+            const std::string scenStr            = "LA-20150427-0000-1Day-noGeo";
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            return pInstance;                  
+        }
+        case 10 :
+        {
+            // INSTANCE 10: AUS, one week data from 2015-04-27 0700 - 2015-04-28 0700 UTC, no geofences (FD analysis)
+            const int cityIndex                  = AUSTIN;
+            const std::string simStartTimeStr    = "2015-04-27 07:00:00";
+            const int simLengthInMin             = 1440;
+            const std::string inputCsvFilename   = "trips-AUS-20150427-0700-20150428-0700-uberX.csv"; 
+            const std::string scenStr            = "AUS-20150427-0000-1Day-noGeo";
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            return pInstance;             
+        }
+        case 11 : 
+        {
+            const int cityIndex                  = LA;
+            const std::string simStartTimeStr    = "2015-04-27 07:00:00";
+            const int simLengthInMin             = 1440;
+            const std::string inputCsvFilename   = "trips-LA-20150427-0700-20150428-0700-uberX.csv"; 
+            const std::string scenStr            = "LA-20150427-0000-1Day-noGeo";
+            
+            std::vector<Geofence*> geofenceVec;
+            Geofence * pGeofence = new Geofence(Geofence::ENTIRE_TRIP, 33.9308311, 34.136744, -118.58746, -118.19967);
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofenceVec, scenStr);  
+            return pInstance;              
+        }
         default : 
         {
             std::cout << "\n\n--- ERROR: SCENARIO NUMBER NOT DEFINED ---\n" << std::endl;

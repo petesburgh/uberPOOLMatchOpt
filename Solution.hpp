@@ -23,8 +23,9 @@ public:
     enum Model {
         MITM,
         UFBW_fixedPickups,
-        UFBW_pickupSwaps,
-        UFBW_perfectInfo
+        UFBW_pickupSwaps,        
+        UFBW_perfectInfo,
+        FlexDepartures
     };
         
     struct RequestMetrics {
@@ -59,18 +60,14 @@ public:
         double _avgPctAddedDistsForMinions;        
     };
     
-    
+    // constructor for scenarios OTHER than 
     Solution(Model model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);
+    
     virtual ~Solution();
     
     // main method to generate all data
     void buildSolutionMetrics();
-    
-    // methods to compute interesting metrics
-    //const double getMatchRate() const;
-    //AddedDistances getAddedDistancesOfMatchedTrips();
-   // MatchMetrics getMatchMetrics();
-    
+        
     // setters
     void setMatchedTrips(std::set<AssignedTrip*, AssignedTripIndexComp> matchedTrips) { _matchedTrips = matchedTrips; }
     void setUnmatchedTrips(std::set<AssignedTrip*, AssignedTripIndexComp> unmatchedTrips) { _unmatchedTrips = unmatchedTrips; }
@@ -93,7 +90,24 @@ public:
     
     const int getTotalNumTripsFromSoln() const { return (int)_allTripsFromSolution.size(); }
     
-  
+    // methods used by derived classes
+   // void addRequestMetric()
+    const std::set<AssignedTrip*, AssignedTripIndexComp> * getAllTripsFromSoln() const { return &_allTripsFromSolution; }
+    void addMatchedTrip(AssignedTrip * pAssignedTrip) { _matchedTrips.insert(pAssignedTrip); }
+    void addUnmatchedTrip(AssignedTrip * pUnmatchedTrip) { _unmatchedTrips.insert(pUnmatchedTrip); }
+    const int getNumberMatchedTrips() const { return (int)_matchedTrips.size(); }
+    const int getNumberUnmatchedTrips() const { return (int)_unmatchedTrips.size(); }
+    const int getNumDisqualRequests() const { return (int)_disqualifiedRequests.size(); }
+    const std::set<AssignedTrip*, AssignedTripIndexComp> * getMatchedTrips() { return &_matchedTrips; }
+    const int getTotalNumRequests() const { return _requestMetrics._totalRequests; }
+    const int getTotalMatchedRequests() const { return _requestMetrics._numMatchedRequests; }
+    
+    void setRequestMetrics(int totalRequests, int totalMatchedRequests, double matchRate, int totalUnmatchedTrips, double unmatchedRequestRate, int totalDisqualReqs, double disqualRequestRate);
+    void setMatchMetrics(int totalMatchedTrips, int numExtendedMatches, double pctExtendedMatches, int numNonExtendedMatches, double pctNonExtendedMatches, 
+                        int numFIFOMatches, double pctFIFOMatches, int numFILOMatches, double pctFILOMatches,
+                         double pctFIFOExtendedMatches, double pctFIFONonExtendedMatches, double pctFILOExtendedMatches, double pctFILONonExtendedMatches);
+    void setInconvenienceMetrics(double avgPctAddedAll, double avgPctAddedMasters, double avgPctAddedMinions);
+    
 private:
     
     const Model _model;

@@ -331,7 +331,7 @@ FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible(const std::string minionId
                     true, pMasterCand->getMasterRequestEvent(), pMasterCand->getMasterDispatcEvent(), masterPickedUpAtTimeOfMatch, distToMinion, sharedDistance, dropDist, totalDistMaster, totalDistMinion, masterUberXDist, 
                     uberXDistMinion, pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT, pMasterCand->getETA(), pMasterCand->getETD(), pMasterCand->getETD(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), masterOrig, masterDest, pctAddlDistMaster,
                     pMinionReq->getReqTime(), -1, -1, -1, minionOrig, minionDest, pctAddlDistMinion,
-                    masterSavings, minionSavings, avgSavings);    
+                    masterSavings, minionSavings, avgSavings, -1, pMinionReq->getReqIndex());  // note: -1 added at the end to indicate the master was from an OpenTrip        
         return pFeasMatch;
     } else {
         return NULL;
@@ -398,7 +398,7 @@ FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible(const double distToMinion,
                 distToMinion, sharedDistance, distToMasterDrop, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
                 pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT, pMasterCand->getETA(), -1, pMasterCand->getETD(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), masterOrig, masterDest, pctAddlDistMaster,
                 pMinionReq->getReqTime(), pMinionReq->getReqTime(), -1, -1, minionOrig, minionDest, pctAddlDistMinion,
-                masterSavings, minionSavings, avgSavings );    
+                masterSavings, minionSavings, avgSavings, -1, pMinionReq->getReqIndex() );    
         return pFeasMatch;
     } else {
         return NULL;
@@ -444,7 +444,7 @@ const double MitmModel::computeCostOfMatch(FeasibleMatch * pMatch) const {
 
 AssignedTrip * MitmModel::convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch) {
     
-    AssignedTrip * pTrip = new AssignedTrip(pMatch->pDriver, pMatch->_masterDispatchEvent, pMatch->_masterTripUUID, pMatch->_masterRequestEvent, pMatch->_masterPickupEventFromActuals, pMatch->_masterDropEventFromActuals);
+    AssignedTrip * pTrip = new AssignedTrip(pMatch->pDriver, pMatch->_masterDispatchEvent, pMatch->_masterTripUUID, pMatch->_masterRequestEvent, pMatch->_masterPickupEventFromActuals, pMatch->_masterDropEventFromActuals, pMatch->_masterReqIndex);
     pTrip->setMasterId(pMatch->_masterId);
     pTrip->setMinionId(pMatch->_minionId);
     pTrip->setMasterIndex(pMatch->_masterIndex);
@@ -602,7 +602,7 @@ OpenTrip * MitmModel::createNewOpenTripForUnmatchedRequest(const Driver * pNeare
     OpenTrip * pOpenTrip = new OpenTrip(pNearestDriver->getId(), pNearestDriver, pNearestDriver->getIndex(), pMinionRequest->getRiderID(), 
             pMinionRequest->getRiderIndex(), pMinionRequest->getRiderTripUUID(), pReqEvent, pActualDispatchEvent, pMinionRequest->getPickupLat(), 
             pMinionRequest->getPickupLng(), pMinionRequest->getDropoffLat(), pMinionRequest->getDropoffLng(), pMinionRequest->getActTimeOfPickupFromTripActuals(), 
-            pMinionRequest->getActTimeOfDropoffFromTripActuals(),pMinionRequest->getActualPickupEvent(), pMinionRequest->getActualDropEvent());
+            pMinionRequest->getActTimeOfDropoffFromTripActuals(),pMinionRequest->getActualPickupEvent(), pMinionRequest->getActualDropEvent(), pMinionRequest->getReqIndex());
     
     return pOpenTrip;
 }

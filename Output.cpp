@@ -57,8 +57,7 @@ void Output::printSummaryInfo() {
     outFile << "\n\t" << left << setw(buffer) << "total trips in snapshot:   " << Utility::intToStr(pDataContainer->getAllTrips()->size()) << std::endl;
     double pctPoolTrips = (double)(100*pDataContainer->getUberPoolTrips()->size())/(double)(pDataContainer->getAllTrips()->size());
     outFile << "\t" << left << setw(buffer) << "total uberPOOL trips (proxy): " << Utility::intToStr(pDataContainer->getUberPoolTrips()->size()) << "  (" << Utility::doubleToStr(pctPoolTrips) << "%)" << std::endl;
-        
-    
+                
     outFile << "\n\n\n\t(end of file)\n\n" << std::endl;
     outFile.close();
 }
@@ -203,7 +202,6 @@ void Output::printRequestsInSim() {
                 left << setw(locBuffer) << Utility::doubleToStr((*iReq)->getDropoffLng()) << std::endl;
     }
     
-    
     outFile << "\n\n\n\t(end of file)\n\n" << std::endl;    
     outFile.close();    
 }
@@ -295,38 +293,62 @@ void Output::printSolution(Solution* pSolution) {
         case Solution::UFBW_perfectInfo :
             modelname = "UFBW_perfectInformation";
             break;
+        case Solution::FlexDepartures :
+            modelname = "FlexDepartures";
+            break;
         default :
             modelname += "other";
     } 
     
-    filename += modelname;
-    filename += ".txt";
+  //  filename += modelname;
+  //  filename += ".txt";
     std::string outpath = _outputScenarioPath + filename;
-
     
-    ofstream outFile(outpath.c_str());
+    /*ofstream outFile(outpath.c_str());
     outFile << "\n----------------------------------------\n" << std::endl;
     outFile << "          solution for " << modelname << std::endl;
-    outFile << "\n----------------------------------------\n\n" << std::endl; 
+    outFile << "\n----------------------------------------\n\n" << std::endl;  */
 
-    
-    printDataSummary(outFile, pSolution);
-    printSolutionSummary(outFile, pSolution);
-    if( pSolution->getRequestMetrics()->_numMatchedRequests > 0 ) {
-        printMatchTripsSummary(outFile,pSolution);
+    // if FD solution
+    if( pSolution->getModel() == Solution::FlexDepartures ) {
+        
+        FlexDepSolution * pFlexDepSoln = dynamic_cast<FlexDepSolution*>(pSolution);
+        if( pFlexDepSoln != NULL ) {
+          //  printDataSummary(pSolution, outpath);
+            printSolutionSummary_FD(pFlexDepSoln, outpath, modelname);
+            if( pSolution->getRequestMetrics()->_numMatchedRequests > 0 ) {
+                printMatchTripsSummary_FD(pFlexDepSoln, outpath);
+            }
+            if( pSolution->getRequestMetrics()->_numUnmatchedRequests > 0 ) {
+                printUnmatchedTripsSummary_FD(pFlexDepSoln, outpath);
+            }
+            if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
+                printDisqualifiedRequestsSummary(pFlexDepSoln, outpath);
+            }            
+        } else {
+            std::cout << "\n** ERROR: Solution cannot be cast as FlexDepSoluton **\n" << std::endl;
+        }                
     }
-    if( pSolution->getRequestMetrics()->_numUnmatchedRequests > 0 ) {
-        printUnmatchedTripsSummary(outFile,pSolution);
+    
+    // all other solution
+    else {    
+        //printDataSummary(outFile, pSolution);
+        printSolutionSummary(pSolution, outpath, modelname);
+        if( pSolution->getRequestMetrics()->_numMatchedRequests > 0 ) {
+            printMatchTripsSummary(pSolution, outpath);
+        }
+        if( pSolution->getRequestMetrics()->_numUnmatchedRequests > 0 ) {
+            printUnmatchedTripsSummary(pSolution, outpath);
+        }
+        if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
+            printDisqualifiedRequestsSummary(pSolution, outpath);
+        }
     }
-    if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
-        printDisqualifiedRequestsSummary(outFile,pSolution);
-    }
+        
     
-    
-    
-    outFile.close();
+  //  outFile.close();
 }
-void Output::printDataSummary(ofstream& outFile, Solution* pSolution) {
+/*void Output::printDataSummary(ofstream& outFile, Solution* pSolution) {
     outFile << "\n\n--- INPUT DATA SUMMARY ---\n" << std::endl;
     
     int headerBuffer = 30;
@@ -336,9 +358,24 @@ void Output::printDataSummary(ofstream& outFile, Solution* pSolution) {
     outFile << "\t" << left << setw(headerBuffer) << "total drivers: " << Utility::intToStr(pSolution->getTotalDrivers()) << std::endl;
     
     //const int totalRequests = pSolution->g
-}
-void Output::printSolutionSummary(ofstream &outFile, Solution * pSolution) {
-    outFile << "\n\n--- SUMMARY METRICS ---\n" << std::endl;
+}*/
+void Output::printSolutionSummary(Solution * pSolution, std::string &outpath, std::string &modelname ) {
+  //  outFile << "\n\n--- SUMMARY METRICS ---\n" << std::endl;
+    
+    std::string outFilePath = outpath + "_SUMMARY.txt";
+    ofstream outFile(outFilePath.c_str());
+    
+    outFile << "\n----------------------------------------\n" << std::endl;
+    outFile << "          solution for " << modelname << std::endl;
+    outFile << "\n----------------------------------------\n\n" << std::endl; 
+    
+    // print DATA SUMMARY
+    outFile << "\n\n--- INPUT DATA SUMMARY ---\n" << std::endl;
+    int headerBuffer = 30;
+    outFile << "\t" << left << setw(headerBuffer) << "start time: " << Utility::convertTimeTToString(pSolution->getStartTime()) << std::endl;
+    outFile << "\t" << left << setw(headerBuffer) << "end time: " << Utility::convertTimeTToString(pSolution->getEndTime()) << std::endl;
+    outFile << "\t" << left << setw(headerBuffer) << "total requests (proxy): " << Utility::intToStr(pSolution->getTotalRequests()) << std::endl;
+    outFile << "\t" << left << setw(headerBuffer) << "total drivers: " << Utility::intToStr(pSolution->getTotalDrivers()) << "\n\n" << std::endl;    
     
     int metricBuffer = 39;
     
@@ -402,14 +439,17 @@ void Output::printSolutionSummary(ofstream &outFile, Solution * pSolution) {
         outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience ALL riders: " << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForAll,2) << "%" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience MASTERS: "    << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForMasters,2) << "%" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience MINIONS: "    << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForMinions,2) << "%" << std::endl;
-    }
-
+    }    
+    
+    outFile.close();
     
 }
-
-void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
+void Output::printMatchTripsSummary(Solution * pSolution, std::string &outpath ) {
     
-    outFile << "\n\n--- MATCH SOLUTION SUMMARY ---\n" << std::endl;    
+   // outFile << "\n\n--- MATCH SOLUTION SUMMARY ---\n" << std::endl;    
+    
+    std::string outFilePath = outpath + "_MATCHED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());
     
     int ixBuff = 13;
     int isExtBuff = 9;
@@ -419,7 +459,7 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
     int inconvBuff = 17;
     int uuidBuff = 45;
     int timeBuff = 25;
-    
+        
     outFile << left << setw(ixBuff) << "DRIVER" << 
             left << setw(ixBuff) << "MASTER_IX" << 
             left << setw(ixBuff) << "MINION_IX" << 
@@ -439,7 +479,7 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
             left << setw(geoBuff) << "MINION_ORIG" << 
             left << setw(geoBuff) << "MINION_DEST" << 
             std::endl;
-    
+        
     const std::set<AssignedTrip*, AssignedTripIndexComp> * pMatchedTrips = pSolution->getMatchedTrips();
     std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
     for( tripItr = pMatchedTrips->begin(); tripItr != pMatchedTrips->end(); ++tripItr ) {
@@ -461,7 +501,7 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
         
         const int driverIndex = (*tripItr)->getDriver()->getIndex();
         int masterIndex  = (*tripItr)->getMatchDetails()->_masterIndex;
-        int minionIndex  = (*tripItr)->getMatchDetails()->_minionIndex;
+        int minionIndex  = (*tripItr)->getMatchDetails()->_minionIndex;        
         
         std::string addlDistMasterStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMaster, 2) + "%";
         std::string addlDistMinionStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMinion, 2) + "%";
@@ -486,11 +526,16 @@ void Output::printMatchTripsSummary(ofstream &outFile, Solution * pSolution) {
                 left << setw(geoBuff) << minionDestStr <<
                 std::endl;
         
-    }    
-}
-void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) {
+    }  
     
-    outFile << "\n\n\n\n\n\n--- UNMATCHED MASTERS SUMMARY ---\n" << std::endl;    
+    outFile.close();
+}
+void Output::printUnmatchedTripsSummary(Solution* pSolution, std::string &outpath ) {
+    
+   // outFile << "\n\n\n\n\n\n--- UNMATCHED MASTERS SUMMARY ---\n" << std::endl;    
+    
+    std::string outFilePath = outpath + "_UNMATCHED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());
     
     const std::set<AssignedTrip*, AssignedTripIndexComp> * pUnmatchedTrips = pSolution->getUnmatchedTrips();
     std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
@@ -528,11 +573,16 @@ void Output::printUnmatchedTripsSummary(ofstream& outFile, Solution* pSolution) 
                 left << setw(distBuff) << Utility::truncateDouble(distKm, 2) << 
                 std::endl;        
     }
+    
+    outFile.close();
    
 }
-void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolution) {
+void Output::printDisqualifiedRequestsSummary(Solution* pSolution, std::string &outpath) {
     
-    outFile << "\n\n\n\n\n\n--- DISQUALIFIED REQUESTS ---\n" << std::endl;
+    std::string outFilePath = outpath + "_DISQUALED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());
+    
+    //outFile << "\n\n\n\n\n\n--- DISQUALIFIED REQUESTS ---\n" << std::endl;
     
     const std::set<Request*, ReqComp> * pDisqualReqs = pSolution->getDisqualifiedRequests();
     std::set<Request*, ReqComp>::const_iterator reqItr;
@@ -558,8 +608,7 @@ void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolu
         LatLng origLoc((*reqItr)->getPickupLat(),(*reqItr)->getPickupLng());
         LatLng destLoc((*reqItr)->getDropoffLat(), (*reqItr)->getDropoffLng());
         std::string isInitStr = (*reqItr)->isInitRequest() ? "yes" : "no";
-        
-        
+                
         outFile << left << setw(ixBuff) << Utility::intToStr((*reqItr)->getReqIndex()) << 
                 left << setw(ixBuff) << Utility::intToStr((*reqItr)->getRiderIndex()) << 
                 left << setw(ynBuff) << isInitStr << 
@@ -572,4 +621,266 @@ void Output::printDisqualifiedRequestsSummary(ofstream& outFile, Solution* pSolu
                 
     }
     
+    outFile.close();
+    
 }
+
+
+void Output::printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname ) {
+   // outFile << "\n\n--- SUMMARY METRICS ---\n" << std::endl;
+    std::string outFilePath = outpath + "_SUMMARY.txt";
+    ofstream outFile(outFilePath.c_str());    
+    
+    outFile << "\n----------------------------------------\n" << std::endl;
+    outFile << "          solution for " << modelname << std::endl;
+    outFile << "\n----------------------------------------\n\n" << std::endl; 
+        
+    // print DATA SUMMARY
+    // << "\n\n--- INPUT DATA SUMMARY ---\n" << std::endl;
+    int headerBuffer = 30;
+    outFile << "\t" << left << setw(headerBuffer) << "start time: " << Utility::convertTimeTToString(pFlexDepSoln->getStartTime()) << std::endl;
+    outFile << "\t" << left << setw(headerBuffer) << "end time: " << Utility::convertTimeTToString(pFlexDepSoln->getEndTime()) << std::endl;
+    outFile << "\t" << left << setw(headerBuffer) << "total requests (proxy): " << Utility::intToStr(pFlexDepSoln->getTotalRequests()) << std::endl;
+    outFile << "\t" << left << setw(headerBuffer) << "total drivers: " << Utility::intToStr(pFlexDepSoln->getTotalDrivers()) << "\n\n" << std::endl;        
+    
+    
+    int metricBuffer = 39;
+    
+    // print request summary
+    const Solution::RequestMetrics * pRequestSummary = pFlexDepSoln->getRequestMetrics();
+    const FlexDepSolution::RequestMetrics_FD    * pReqSum_FD    = pFlexDepSoln->getFlexDepReqMetrics();
+    const FlexDepSolution::RequestMetrics_nonFD * pReqSum_nonFD = pFlexDepSoln->getNonFlexDepReqMetrics();
+    
+    int totalRequests       = pRequestSummary->_totalRequests;
+    int totalReqs_FD        = pReqSum_FD->_totalRequests;
+    int toalReqs_nonFD      = pReqSum_nonFD->_totalRequests;
+    int matchedRequests     = pRequestSummary->_numMatchedRequests;
+    int matchedReqs_FD      = pReqSum_FD->_matchedRequests;
+    int matchedReqs_nonFD   = pReqSum_nonFD->_matchedRequests;
+    int unmatchedRequests   = pRequestSummary->_numUnmatchedRequests;
+    int unmatchedReqs_FD    = pReqSum_FD->_unmatchedRequests;
+    int unmatchedReqs_nonFD = pReqSum_nonFD->_unmatchedRequests;
+    int disqualRequests     = pRequestSummary->_numDisqualifiedRequests;
+    double matchRate        = pRequestSummary->_matchedPercentage;
+    double matchRate_FD     = pReqSum_FD->_matchPercentage;
+    double matchRate_nonFD  = pReqSum_nonFD->_matchPercentage; 
+     
+    outFile << "\n\n\tREQUEST SUMMARY" << std::endl;
+    outFile << "\t\t" << left << setw(metricBuffer) << "total requests: " << Utility::intToStr(totalRequests) << std::endl;
+    outFile << "\t\t" << left << setw(metricBuffer) << "  flex dep reqs: " << "  " << Utility::intToStr(totalReqs_FD) << std::endl;
+    outFile << "\t\t" << left << setw(metricBuffer) << "  non-FD reqs: "  << "  " << Utility::intToStr(toalReqs_nonFD) << std::endl;
+    if( matchedRequests > 0 ) {
+        outFile << "" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "matched requests:"  << Utility::intToStr(matchedRequests) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "  matched FD reqs: " << "  " << Utility::intToStr(matchedReqs_FD) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "  matched non-FD reqs: " << "  " << Utility::intToStr(matchedReqs_nonFD) << std::endl;
+    }
+    if( unmatchedRequests > 0 ) {
+        outFile << "" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "unmatched requests: " << Utility::intToStr(unmatchedRequests) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "  unmatched FD reqs: " << "  " << Utility::intToStr(unmatchedReqs_FD) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "  unmatched non-FD reqs: " << "  " << Utility::intToStr(unmatchedReqs_nonFD) << std::endl;
+    }
+    if( disqualRequests > 0 ) {
+        outFile << "\t\t" << left << setw(metricBuffer) << "disqualified requests: " << Utility::intToStr(disqualRequests) << std::endl;
+    }
+    outFile << "" << std::endl;
+    outFile << "\t\t" << left << setw(metricBuffer) << "match rate: " << "  " << Utility::truncateDouble(matchRate,2) << "%" << std::endl;  
+    outFile << "\t\t" << left << setw(metricBuffer) << "  FD req match rate: " << "  " << Utility::truncateDouble(matchRate_FD,2) << "%" << std::endl;
+    outFile << "\t\t" << left << setw(metricBuffer) << "  non-FD req match rate: " << "  " << Utility::truncateDouble(matchRate_nonFD,2) << "%" << std::endl;
+    
+    outFile << "\n\t\t" << left << setw(metricBuffer) << "total trips: " << Utility::intToStr(pFlexDepSoln->getTotalNumTripsFromSoln()) << std::endl;
+    
+    
+    // print match quality summary
+    if( matchedRequests > 0 ) {
+        const Solution::MatchMetrics * pMetrics = pFlexDepSoln->getMatchMetrics();
+        
+        int totalMatchedTrips = pMetrics->_numMatches;
+        int numFIFOTrips = pMetrics->_numFIFOMatches;
+        double pctFIFO = pMetrics->_pctFIFOMatches;
+        int numFILOTrips = pMetrics->_numFILOMatches;
+        double pctFILO = pMetrics->_pctFILOMatches;
+        int numExtendedMatches = pMetrics->_numExtendedMatches;
+        double pctExtended = pMetrics->_pctExtendedMatches;
+        double pctFifoExt = pMetrics->_pctFIFOExtendedMatches;
+        double pctFifoNonext = pMetrics->_pctFIFONonExtendedMatches;
+        double pctFiloExt = pMetrics->_pctFILOExtendedMatches;
+        double pctFiloNonext = pMetrics->_pctFILONonExtendedMatches;
+        
+        
+        outFile << "\n\n\tMATCH METRICS" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "total matches: " << Utility::intToStr(totalMatchedTrips) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "number FIFO matches: " << left << setw(7) << Utility::intToStr(numFIFOTrips) << "  (" << Utility::truncateDouble(pctFIFO,2) << "%)" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "number FILO matches: " << left << setw(7) << Utility::intToStr(numFILOTrips) << "  (" << Utility::truncateDouble(pctFILO,2) << "%)" << std::endl;
+        outFile << "\n\t\t" << left << setw(metricBuffer) << "number extended matches: " << left << setw(7) << Utility::intToStr(numExtendedMatches) << "  (" << Utility::truncateDouble(pctExtended,2) << "%)" << std::endl;
+        outFile << "\n\t\t" << left << setw(metricBuffer) << "share of FIFO extended matches: " << right << setw(7) << Utility::truncateDouble(pctFifoExt,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "share of FIFO nonextended matches: " << right << setw(7) << Utility::truncateDouble(pctFifoNonext,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "share of FILO extended matches" << right << setw(7) << Utility::truncateDouble(pctFiloExt,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "share of FILO nonextended matches: " << right << setw(7) << Utility::truncateDouble(pctFiloNonext,2) << "%" << std::endl;        
+    }
+    
+    // print inconvenience metrics
+    if( matchedRequests > 0 ) {
+        
+        const Solution::MatchInconvenienceMetrics * pInconv = pFlexDepSoln->getInconvenienceMetrics();
+             
+        outFile << "\n\n\tINCONVENIENCE METRICS" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience ALL riders: " << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForAll,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience MASTERS: "    << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForMasters,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience MINIONS: "    << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForMinions,2) << "%" << std::endl;
+    }   
+
+    outFile.close();    
+}
+void Output::printMatchTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath) {
+   // outFile << "\n\n--- MATCH SOLUTION SUMMARY ---\n" << std::endl;    
+    
+    std::string outFilePath = outpath + "_MATCHED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());
+    
+    int ixBuff = 13;
+    int isFdBuff = 9;
+    int isExtBuff = 9;
+    int fifoBuff = 12;
+    int geoBuff = 25;
+    int distBuff = 14;
+    int inconvBuff = 17;
+    int uuidBuff = 45;
+    int timeBuff = 25;
+        
+    outFile << left << setw(ixBuff) << "DRIVER" << 
+            left << setw(ixBuff) << "MASTER_IX" << 
+            left << setw(ixBuff) << "MINION_IX" << 
+            left << setw(uuidBuff) << "MASTER_UUID" << 
+            left << setw(uuidBuff) << "MINION_UUID" << 
+            left << setw(timeBuff) << "MASTER_REQ_TIME" << 
+            left << setw(timeBuff) << "MINION_REQ_TIME" << 
+            left << setw(isFdBuff) << "mast_FD" << 
+            left << setw(isFdBuff) << "min_FD?" <<
+            left << setw(isExtBuff) << "EXT?" << 
+            left << setw(fifoBuff) << "FIFO/FILO" << 
+            left << setw(distBuff) << "DIST_TO_MIN" <<
+            left << setw(distBuff) << "DIST_SHARED" << 
+            left << setw(distBuff) << "DIST_DROP" <<
+            left << setw(inconvBuff) << "DIFF_MAST_DIST" << 
+            left << setw(inconvBuff) << "DIFF_MIN_DIST" << 
+            left << setw(geoBuff) << "MASTER_ORIG" << 
+            left << setw(geoBuff) << "MASTER_DEST" << 
+            left << setw(geoBuff) << "MINION_ORIG" << 
+            left << setw(geoBuff) << "MINION_DEST" << 
+            std::endl;
+    
+    const std::set<const int> matchedFdReqIndices = pFDSolution->getMatchedFDReqIndices();
+    const std::set<AssignedTrip*, AssignedTripIndexComp> * pMatchedTrips = pFDSolution->getMatchedTrips();
+    std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
+    for( tripItr = pMatchedTrips->begin(); tripItr != pMatchedTrips->end(); ++tripItr ) {
+        
+        std::set<const int>::const_iterator masterFdItr = matchedFdReqIndices.find((*tripItr)->getMatchDetails()->_masterReqIndex);
+        std::set<const int>::const_iterator minionFdItr = matchedFdReqIndices.find((*tripItr)->getMatchDetails()->_minionReqIndex);
+        
+        std::string isExtStr = ((*tripItr)->getMatchDetails()->_masterPickedUpAtTimeOfMatch) ? "yes" : "no";
+        std::string fifoFiloStr = ((*tripItr)->getMatchDetails()->_fixedDropoff) ? "FIFO" : "FILO";
+        std::string isMasterFDStr = (masterFdItr != matchedFdReqIndices.end()) ? "yes" : "no";
+        std::string isMinionFDStr = (minionFdItr != matchedFdReqIndices.end()) ? "yes" : "no";
+        
+        // get master orig & dest
+        LatLng masterOrig = (*tripItr)->getMatchDetails()->_masterOrig;
+        LatLng masterDest = (*tripItr)->getMatchDetails()->_masterDest;
+        const std::string masterOrigStr = Utility::convertToLatLngStr(masterOrig, 5);
+        const std::string masterDestStr = Utility::convertToLatLngStr(masterDest, 5);
+                
+        // get minion orig & dest
+        LatLng minionOrig = (*tripItr)->getMatchDetails()->_minionOrig;
+        LatLng minionDest = (*tripItr)->getMatchDetails()->_minionDest;        
+        const std::string minionOrigStr = Utility::convertToLatLngStr(minionOrig, 5);
+        const std::string minionDestStr = Utility::convertToLatLngStr(minionDest, 5);
+        
+        const int driverIndex = (*tripItr)->getDriver()->getIndex();
+        int masterIndex  = (*tripItr)->getMatchDetails()->_masterIndex;
+        int minionIndex  = (*tripItr)->getMatchDetails()->_minionIndex;
+        
+        std::string addlDistMasterStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMaster, 2) + "%";
+        std::string addlDistMinionStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMinion, 2) + "%";
+        
+        outFile << left << setw(ixBuff) << Utility::intToStr(driverIndex) << 
+                left << setw(ixBuff) << Utility::intToStr(masterIndex) << 
+                left << setw(ixBuff) << Utility::intToStr(minionIndex) << 
+                left << setw(uuidBuff) << (*tripItr)->getMasterTripUUID() << 
+                left << setw(uuidBuff) << (*tripItr)->getMinionTripUUID() <<
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMatchDetails()->_masterRequest) << 
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMatchDetails()->_minionRequest) <<
+                left << setw(isFdBuff) << isMasterFDStr << 
+                left << setw(isFdBuff) << isMinionFDStr << 
+                left << setw(isExtBuff) << isExtStr << 
+                left << setw(fifoBuff) << fifoFiloStr << 
+                left << setw(distBuff) << Utility::truncateDouble((*tripItr)->getMatchDetails()->_distToMinionPickup,4) <<
+                left << setw(distBuff) << Utility::truncateDouble((*tripItr)->getMatchDetails()->_sharedDistance,4) << 
+                left << setw(distBuff) << Utility::truncateDouble((*tripItr)->getMatchDetails()->_distFromFirstToSecondDrop,4) << 
+                left << setw(inconvBuff) << addlDistMasterStr << 
+                left << setw(inconvBuff) << addlDistMinionStr <<
+                left << setw(geoBuff) << masterOrigStr << 
+                left << setw(geoBuff) << masterDestStr << 
+                left << setw(geoBuff) << minionOrigStr << 
+                left << setw(geoBuff) << minionDestStr <<
+                std::endl;
+        
+    }   
+    
+    outFile.close();
+}
+void Output::printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath) {
+   // outFile << "\n\n\n\n\n\n--- UNMATCHED MASTERS SUMMARY ---\n" << std::endl;    
+    
+    std::string outFilePath = outpath + "_UNMATCHED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());    
+    
+    const std::set<AssignedTrip*, AssignedTripIndexComp> * pUnmatchedTrips = pFDSolution->getUnmatchedTrips();
+    std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
+    
+    int ixBuff = 13;
+    int isFdBuff = 9;
+    int timeBuff = 25;
+    int geoBuff = 25;
+    int distBuff = 15;
+    int uuidBuff = 45;
+    
+    outFile << left << setw(ixBuff) << "DRIVER" << 
+            left << setw(ixBuff) << "RIDER_IX" << 
+            left << setw(uuidBuff) << "RIDER_UUID" << 
+            left << setw(isFdBuff) << "IS_FD?" << 
+            left << setw(timeBuff) << "REQUEST_TIME" << 
+            left << setw(geoBuff) << "PICKUP_LOC" << 
+            left << setw(geoBuff) << "DROP_LOC" << 
+            left << setw(timeBuff) << "PICKUP_TIME" << 
+            left << setw(timeBuff) << "DROP_TIME" << 
+            left << setw(distBuff) << "TRIP_DIST_KM" << 
+            std::endl;
+    
+    const std::set<const int> * pFDReqIndices = pFDSolution->getFlexDepReqIndices();
+    
+    for( tripItr = pUnmatchedTrips->begin(); tripItr != pUnmatchedTrips->end(); ++tripItr ) {               
+        LatLng pickupLoc((*tripItr)->getMasterPickupEventFromActuals()->lat, (*tripItr)->getMasterPickupEventFromActuals()->lng);       
+        LatLng dropLoc((*tripItr)->getMasterDropEventFromActuals()->lat, (*tripItr)->getMasterDropEventFromActuals()->lng);
+        const double distKm = Utility::computeGreatCircleDistance(pickupLoc.getLat(), pickupLoc.getLng(), dropLoc.getLat(), dropLoc.getLng());   
+        
+        std::set<const int>::const_iterator fdItr = pFDReqIndices->find((*tripItr)->getMasterReqIndex());
+        std::string isFdStr = (fdItr != pFDReqIndices->end()) ? "yes" : "no";
+                       
+        outFile << left << setw(ixBuff) << Utility::intToStr((*tripItr)->getDriver()->getIndex()) << 
+                left << setw(ixBuff) << Utility::intToStr((*tripItr)->getMasterIndex()) << 
+                left << setw(uuidBuff) << (*tripItr)->getMasterTripUUID() <<
+                left << setw(isFdBuff) << isFdStr << 
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterRequestEvent()->timeT) << 
+                left << setw(geoBuff) << Utility::convertToLatLngStr(pickupLoc, 5) << 
+                left << setw(geoBuff) << Utility::convertToLatLngStr(dropLoc, 5) << 
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterPickupEventFromActuals()->timeT) << 
+                left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterDropEventFromActuals()->timeT) << 
+                left << setw(distBuff) << Utility::truncateDouble(distKm, 2) << 
+                std::endl;        
+    }
+    
+    
+    outFile.close();   
+}
+

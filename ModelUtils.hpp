@@ -32,7 +32,7 @@ public:
     static AssignedTrip * convertOpenTripToAssignedTrip(OpenTrip * pOpenTrip) {
   
         // if a trip has been completed, define the open trip here                
-        AssignedTrip * pUnmatchedTrip = new AssignedTrip(pOpenTrip->getDriver(), pOpenTrip->getMasterDispatcEvent(), pOpenTrip->getRiderTripUUID(), pOpenTrip->getMasterRequestEvent(), pOpenTrip->getMasterActualPickupEvent(), pOpenTrip->getMasterActualDropEvent());
+        AssignedTrip * pUnmatchedTrip = new AssignedTrip(pOpenTrip->getDriver(), pOpenTrip->getMasterDispatcEvent(), pOpenTrip->getRiderTripUUID(), pOpenTrip->getMasterRequestEvent(), pOpenTrip->getMasterActualPickupEvent(), pOpenTrip->getMasterActualDropEvent(), pOpenTrip->getOrigRequestIndex());
         
         pUnmatchedTrip->setMasterId(pOpenTrip->getMasterID());
         pUnmatchedTrip->setMasterIndex(pOpenTrip->getMasterIndex());
@@ -185,7 +185,7 @@ public:
                         distToMinion, sharedDistance, dropDist, totalDistMaster, totalDistMinion, masterUberXDist, uberXDistMinion,
                         pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, pMasterCand->_ETD, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                         pMinionCand->_reqTime, -1, -1, -1, pMinionCand->_reqOrig, pMinionCand->_reqDest, pctAddlDistMinion,
-                        masterSavings, minionSavings, avgSavings);    
+                        masterSavings, minionSavings, avgSavings, pMasterCand->_requestIndex, pMinionCand->pRequest->getReqIndex());    
             return pFeasMatch;
         } else {
             return NULL;
@@ -253,7 +253,7 @@ public:
                     distToMinion, sharedDistance, distToMasterDrop, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
                     pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, -1, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                     pMinionCand->_reqTime, pMinionCand->_reqTime, -1, -1, minionOrig, minionDest, pctAddlDistMinion,
-                    masterSavings, minionSavings, avgSavings);    
+                    masterSavings, minionSavings, avgSavings, pMasterCand->_requestIndex, pMinionCand->pRequest->getReqIndex());    
             return pFeasMatch;
         } else {
             return NULL;

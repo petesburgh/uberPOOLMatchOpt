@@ -225,7 +225,7 @@ std::set<OpenTrip*, EtaComp> UFBW_fixed::convertExpiredUnmatchedReqsToOpenTrips(
                     (*reqItr)->getRiderID(), (*reqItr)->getRiderIndex(), (*reqItr)->getRiderTripUUID(), pRequestEvent,
                     (*reqItr)->getActualDispatchEvent(), (*reqItr)->getPickupLat(), (*reqItr)->getPickupLng(), (*reqItr)->getDropoffLat(), 
                     (*reqItr)->getDropoffLng(), (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals(),
-                    (*reqItr)->getActualPickupEvent(), (*reqItr)->getActualDropEvent());
+                    (*reqItr)->getActualPickupEvent(), (*reqItr)->getActualDropEvent(), (*reqItr)->getReqIndex());
             
             newOpenTrips.insert(pOpenTrip);
             
@@ -249,7 +249,7 @@ std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> >
         LatLng reqOrig((*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
         LatLng reqDest((*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
         
-        MasterCand * pMasterCand = new MasterCand((*tripItr)->getMasterRequestEvent(), (*tripItr)->getMasterRequestEvent()->timeT, reqOrig, reqDest, (*tripItr)->getETA(), (*tripItr)->getETD(), (*tripItr)->getDriver(), (*tripItr)->getMasterDispatcEvent(), (*tripItr)->getMasterActualPickupEvent(), (*tripItr)->getMasterActualDropEvent(), (*tripItr)->getMasterIndex(), (*tripItr)->getMasterID(), (*tripItr)->getRiderTripUUID());
+        MasterCand * pMasterCand = new MasterCand((*tripItr)->getMasterRequestEvent(), (*tripItr)->getMasterRequestEvent()->timeT, reqOrig, reqDest, (*tripItr)->getETA(), (*tripItr)->getETD(), (*tripItr)->getDriver(), (*tripItr)->getMasterDispatcEvent(), (*tripItr)->getMasterActualPickupEvent(), (*tripItr)->getMasterActualDropEvent(), (*tripItr)->getMasterIndex(), (*tripItr)->getMasterID(), (*tripItr)->getRiderTripUUID(), (*tripItr)->getOrigRequestIndex());
         candMasters.insert(pMasterCand);
     }
     
@@ -259,11 +259,11 @@ std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> >
         LatLng reqDest((*reqItr)->getDropoffLat(), (*reqItr)->getDropoffLng());
               
         // MASTER candidate (note: since dispatch has not occurred by this stage a NULL dispatch event is passed in)        
-        MasterCand * pMasterCand = new MasterCand((*reqItr)->getActualRequestEvent(),(*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals(), (*reqItr)->getActualDriver(), NULL, (*reqItr)->getActualPickupEvent(), (*reqItr)->getActualDropEvent(), (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderTripUUID());        
+        MasterCand * pMasterCand = new MasterCand((*reqItr)->getActualRequestEvent(),(*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getActTimeOfPickupFromTripActuals(), (*reqItr)->getActTimeOfDropoffFromTripActuals(), (*reqItr)->getActualDriver(), NULL, (*reqItr)->getActualPickupEvent(), (*reqItr)->getActualDropEvent(), (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderTripUUID(), (*reqItr)->getReqIndex());        
         candMasters.insert(pMasterCand);
         
         // MINION candidate
-        MinionCand * pMinionCand = new MinionCand((*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderTripUUID());
+        MinionCand * pMinionCand = new MinionCand(*reqItr, (*reqItr)->getReqTime(), reqOrig, reqDest, (*reqItr)->getRiderIndex(), (*reqItr)->getRiderID(), (*reqItr)->getRiderTripUUID());
         candMinions.insert(pMinionCand);
     }    
         
@@ -273,7 +273,7 @@ std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> >
     return mmPair;
 }
 AssignedTrip * UFBW_fixed::convertWaitingRequestToAssignedTrip(Request * pWaitingRequest) {
-    AssignedTrip * pAssignedTrip = new AssignedTrip(pWaitingRequest->getActualDriver(), pWaitingRequest->getActualDispatchEvent(), pWaitingRequest->getRiderTripUUID(), pWaitingRequest->getActualRequestEvent(), pWaitingRequest->getActualPickupEvent(), pWaitingRequest->getActualDropEvent());
+    AssignedTrip * pAssignedTrip = new AssignedTrip(pWaitingRequest->getActualDriver(), pWaitingRequest->getActualDispatchEvent(), pWaitingRequest->getRiderTripUUID(), pWaitingRequest->getActualRequestEvent(), pWaitingRequest->getActualPickupEvent(), pWaitingRequest->getActualDropEvent(), pWaitingRequest->getReqIndex());
     
     // define request and dispatch events
     //Event reqEvent(pWaitingRequest->getReqTime(), pWaitingRequest->getPickupLat(), pWaitingRequest->getPickupLng());
@@ -689,7 +689,7 @@ std::set<AssignedTrip*, AssignedTripIndexComp> UFBW_fixed::buildAssignedTripsFro
         
         // build AssignedTrip* object
             // 
-        AssignedTrip * pAssignedTrip = new AssignedTrip(pMaster->pDriver, pMaster->pDispatchEvent, pMaster->_riderTripUUID, pMaster->pReqEvent, pMaster->pPickupEvent, pMaster->pDropEvent);
+        AssignedTrip * pAssignedTrip = new AssignedTrip(pMaster->pDriver, pMaster->pDispatchEvent, pMaster->_riderTripUUID, pMaster->pReqEvent, pMaster->pPickupEvent, pMaster->pDropEvent, pMaster->_requestIndex);
         pAssignedTrip->setIndex(assignedTripCounter);
         pAssignedTrip->setMasterId(pMaster->_riderID);
         pAssignedTrip->setMasterIndex(pMaster->_riderIndex);

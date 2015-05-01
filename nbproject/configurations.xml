@@ -11,6 +11,8 @@
       <itemPath>Driver.hpp</itemPath>
       <itemPath>Event.hpp</itemPath>
       <itemPath>FeasibleMatch.hpp</itemPath>
+      <itemPath>FlexDepSolution.hpp</itemPath>
+      <itemPath>FlexDepartureModel.hpp</itemPath>
       <itemPath>GenerateInstanceScenarios.hpp</itemPath>
       <itemPath>Geofence.hpp</itemPath>
       <itemPath>LatLng.hpp</itemPath>
@@ -44,6 +46,8 @@
       <itemPath>CSVRow.cpp</itemPath>
       <itemPath>DataContainer.cpp</itemPath>
       <itemPath>Driver.cpp</itemPath>
+      <itemPath>FlexDepSolution.cpp</itemPath>
+      <itemPath>FlexDepartureModel.cpp</itemPath>
       <itemPath>GenerateInstanceScenarios.cpp</itemPath>
       <itemPath>Geofence.cpp</itemPath>
       <itemPath>MitmModel.cpp</itemPath>
@@ -116,6 +120,14 @@
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlexDepSolution.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FlexDepSolution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlexDepartureModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FlexDepartureModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GenerateInstanceScenarios.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -229,6 +241,14 @@
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlexDepSolution.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FlexDepSolution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlexDepartureModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FlexDepartureModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GenerateInstanceScenarios.cpp" ex="false" tool="1" flavor2="0">
       </item>

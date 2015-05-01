@@ -13,8 +13,8 @@
 #include <time.h>
 
 struct MinionCand {
-    MinionCand(const time_t reqTime, const LatLng reqOrig, const LatLng reqDest, const int riderIx, const std::string riderID, const std::string riderTripUUID) :
-        _reqTime(reqTime), _reqOrig(reqOrig), _reqDest(reqDest), _riderIndex(riderIx), _riderID(riderID), _riderTripUUID(riderTripUUID) {};
+    MinionCand(Request * req, const time_t reqTime, const LatLng reqOrig, const LatLng reqDest, const int riderIx, const std::string riderID, const std::string riderTripUUID) :
+        pRequest(req), _reqTime(reqTime), _reqOrig(reqOrig), _reqDest(reqDest), _riderIndex(riderIx), _riderID(riderID), _riderTripUUID(riderTripUUID) {};
 
     const time_t _reqTime;
     const LatLng _reqOrig;
@@ -22,6 +22,7 @@ struct MinionCand {
     const int _riderIndex;
     const std::string _riderID;
     const std::string _riderTripUUID;
+    Request * pRequest;
 
     bool operator= (const MinionCand& other) {
         return (this->_riderIndex == other._riderIndex);

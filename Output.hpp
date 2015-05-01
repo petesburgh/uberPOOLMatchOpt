@@ -11,6 +11,7 @@
 #include "DataContainer.hpp"
 #include "Utility.hpp"
 #include "Solution.hpp"
+#include "FlexDepSolution.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -35,14 +36,19 @@ public:
     
     // print solution
     void printSolution(Solution * pSolution);
-    void printDataSummary(ofstream &outFile, Solution * pSolution);
-    void printSolutionSummary(ofstream &outfile, Solution * pSolution);
-    void printMatchTripsSummary(ofstream &outFile, Solution * pSolution);
-    void printUnmatchedTripsSummary(ofstream &outFile, Solution * pSolution);
-    void printDisqualifiedRequestsSummary(ofstream &outFile, Solution * pSolution);
+    //void printDataSummary(Solution * pSolution, std::string &outpath);
+    void printSolutionSummary(Solution * pSolution, std::string &outpath, std::string &modelname );
+    void printMatchTripsSummary(Solution * pSolution, std::string &outpath);
+    void printUnmatchedTripsSummary(Solution * pSolution, std::string &outpath);
+    void printDisqualifiedRequestsSummary(Solution * pSolution, std::string &outpath);
     
     const std::string getOutputBasePath() const { return _outputBasePath; }
     const std::string getOutputScenarioPath() const { return _outputScenarioPath; }
+    
+    void printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname );
+    void printMatchTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath);
+    void printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath);    
+    
     
 private:
     

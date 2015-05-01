@@ -39,6 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/CSVRow.o \
 	${OBJECTDIR}/DataContainer.o \
 	${OBJECTDIR}/Driver.o \
+	${OBJECTDIR}/FlexDepSolution.o \
+	${OBJECTDIR}/FlexDepartureModel.o \
 	${OBJECTDIR}/GenerateInstanceScenarios.o \
 	${OBJECTDIR}/Geofence.o \
 	${OBJECTDIR}/MitmModel.o \
@@ -98,6 +100,16 @@ ${OBJECTDIR}/Driver.o: Driver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Driver.o Driver.cpp
+
+${OBJECTDIR}/FlexDepSolution.o: FlexDepSolution.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FlexDepSolution.o FlexDepSolution.cpp
+
+${OBJECTDIR}/FlexDepartureModel.o: FlexDepartureModel.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FlexDepartureModel.o FlexDepartureModel.cpp
 
 ${OBJECTDIR}/GenerateInstanceScenarios.o: GenerateInstanceScenarios.cpp 
 	${MKDIR} -p ${OBJECTDIR}

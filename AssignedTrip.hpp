@@ -22,7 +22,7 @@ using namespace std;
 
 class AssignedTrip {
 public:    
-    AssignedTrip(const Driver * driver, const Event * masterDispatchEvent, const std::string masterTripUUID, const Event * masterRequest, const Event * actualPickupForMaster, const Event * actualDropForMaster);
+    AssignedTrip(const Driver * driver, const Event * masterDispatchEvent, const std::string masterTripUUID, const Event * masterRequest, const Event * actualPickupForMaster, const Event * actualDropForMaster, const int masterReqIndex);
     virtual ~AssignedTrip();
     
     // setters
@@ -65,6 +65,8 @@ public:
     void setMatch(FeasibleMatch * match) { pMatch = match; }
     const FeasibleMatch * getMatchDetails() const { return pMatch; }
     
+    const int getMasterReqIndex() const { return _masterReqIndex; }
+    
 private:
     
     int _index; 
@@ -79,6 +81,7 @@ private:
     const Event * pMasterPickupEventFromActuals;
     const Event * pMasterDropEventFromActuals;
     std::string _masterTripUUID;
+    const int   _masterReqIndex;
     
     // minion info
     std::string _minionId;

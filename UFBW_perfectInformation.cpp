@@ -145,7 +145,7 @@ bool UFBW_perfectInformation::solve(bool printDebugFiles, Output * pOutput, bool
     }
 
     // create Solution
-    pSolution = new Solution(Solution::UFBW_perfectInfo, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), _assignedTrips, _disqualifiedRequests);
+    pSolution = new Solution(UFBW_PERFECT_INFO, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), _assignedTrips, _disqualifiedRequests);
     pSolution->buildSolutionMetrics();
     
     return true;    

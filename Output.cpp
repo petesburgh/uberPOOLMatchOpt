@@ -6,20 +6,36 @@
  */
 
 #include "Output.hpp"
+#include "ModelRunner.hpp"
 
 
-Output::Output(DataContainer * dataContainer, const std::string outputBasePath, const std::string outputScenarioPath) : 
-    _outputBasePath(outputBasePath), _outputScenarioPath(outputScenarioPath) {  
-    
-    pDataContainer = dataContainer; 
-           
+Output::Output(const std::string outputBasePath, const std::string outputExperimentPath) : 
+    _outputBasePath(outputBasePath), _outputExperimentPath(outputExperimentPath) {  
+               
     // ensure directory exists
     int status_base = mkdir(_outputBasePath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
-    int status_scen = mkdir(_outputScenarioPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
-    
+    int status_scen = mkdir(_outputExperimentPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
 }
 
 Output::~Output() {
+}
+
+void Output::writeAndPrintInputs(DataContainer* pDataContainer, const bool printDebugFiles) {
+    
+    // cout
+    if( pDataContainer->printToScreen() ) {
+        printSummaryOfDataInput(pDataContainer);
+    }
+    
+    // print debug files as .txt files to output folders
+    if( printDebugFiles ) {
+        printSummaryInfo();
+        printTripSnapshot();
+        printDrivers();
+        printPoolRiders();
+        printRequestsInSim();  
+        printInitOpenTrips();
+    }      
 }
 
 void Output::printSummaryInfo() {
@@ -276,32 +292,32 @@ void Output::printInitOpenTrips() {
 // ----------------------------------
 //          PRINT SOLUTION 
 // ----------------------------------
-void Output::printSolution(Solution* pSolution) {
+void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
     
     std::string filename = "solution_";
     std::string modelname = "-";
-    switch( pSolution->getModel() ) {
-        case Solution::MITM : 
-            modelname = "MITM";
+    switch( model ) {
+        case MITM_SEQ_PICKUPS :
+            modelname = "MITM_seq";
             break;
-        case Solution::UFBW_fixedPickups :
+        case UFBW_FIXED_PICKUPS :
             modelname = "UFBW_fixed";
             break;
-        case Solution::UFBW_pickupSwaps : 
+        case UFBW_PICKUP_SWAPS : 
             modelname = "UFBW_pickUpSwaps";
             break;
-        case Solution::UFBW_perfectInfo :
+        case UFBW_PERFECT_INFO :
             modelname = "UFBW_perfectInformation";
             break;
-        case Solution::FlexDepartures :
+        case FLEX_DEPARTURE :
             modelname = "FlexDepartures";
             break;
         default :
             modelname += "other";
     } 
     
-  //  filename += modelname;
-  //  filename += ".txt";
+    filename += modelname; // + ".txt";
+    //filename += ".txt";
     std::string outpath = _outputScenarioPath + filename;
     
     /*ofstream outFile(outpath.c_str());
@@ -310,9 +326,9 @@ void Output::printSolution(Solution* pSolution) {
     outFile << "\n----------------------------------------\n\n" << std::endl;  */
 
     // if FD solution
-    if( pSolution->getModel() == Solution::FlexDepartures ) {
+    if( pSolution->getModel() == FLEX_DEPARTURE ) {
         
-        FlexDepSolution * pFlexDepSoln = dynamic_cast<FlexDepSolution*>(pSolution);
+       /* FlexDepSolution * pFlexDepSoln = dynamic_cast<FlexDepSolution*>(pSolution);
         if( pFlexDepSoln != NULL ) {
           //  printDataSummary(pSolution, outpath);
             printSolutionSummary_FD(pFlexDepSoln, outpath, modelname);
@@ -327,7 +343,7 @@ void Output::printSolution(Solution* pSolution) {
             }            
         } else {
             std::cout << "\n** ERROR: Solution cannot be cast as FlexDepSoluton **\n" << std::endl;
-        }                
+        }   */              
     }
     
     // all other solution
@@ -626,7 +642,7 @@ void Output::printDisqualifiedRequestsSummary(Solution* pSolution, std::string &
 }
 
 
-void Output::printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname ) {
+/*void Output::printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname ) {
    // outFile << "\n\n--- SUMMARY METRICS ---\n" << std::endl;
     std::string outFilePath = outpath + "_SUMMARY.txt";
     ofstream outFile(outFilePath.c_str());    
@@ -882,5 +898,355 @@ void Output::printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::s
     
     
     outFile.close();   
+}*/
+
+void Output::printSummaryOfDataInput(DataContainer * pDataContainer) {
+    
+    std::cout << "\nSUMMARY OF INPUT DATA: " << std::endl;
+    std::cout << "\n\tinputPath: " << pDataContainer->getInputPath() << std::endl;
+    std::cout << "\tfilename:  " << pDataContainer->getCsvFilename() << std::endl;
+    
+    std::cout << "\n\tsnapshot time:  " << Utility::convertTimeTToString(pDataContainer->getTimeline()) << std::endl;
+    std::cout << "\tup front batching window:   " << Utility::intToStr(pDataContainer->getUpFrontBatchWindowLenInSec()) << " seconds" << std::endl;
+    
+    std::cout << "\n\ttotal drivers:  " << pDataContainer->getAllDrivers()->size() << std::endl;
+    
+    std::cout << "\n\ttotal uberX riders: " << pDataContainer->getAllUberXRiders()->size() << std::endl;
+    double pctPoolRiders = (double)(100*pDataContainer->getAllUberPoolRiders()->size())/(double)(pDataContainer->getAllUberXRiders()->size());
+    std::cout << "\ttotal uberPOOL riders (proxy):  " << Utility::intToStr(pDataContainer->getAllUberPoolRiders()->size()) << "  (" << Utility::doubleToStr(pctPoolRiders) << "%)" << std::endl;
+    
+    std::cout << "\n\ttotal trips in snapshot:   " << pDataContainer->getAllTrips()->size() << std::endl;
+    double pctPoolTrips = (double)(100*pDataContainer->getUberPoolTrips()->size())/(double)(pDataContainer->getAllTrips()->size());
+    std::cout << "\ttotal uberPOOL trips (proxy):  " << Utility::intToStr(pDataContainer->getUberPoolTrips()->size()) << "  (" << Utility::doubleToStr(pctPoolTrips) << "%)" << std::endl;        
 }
 
+// -------------------------------------------
+//    PRINT SUMMARY SOLUTION FOR EXPERIMENT
+// -------------------------------------------
+void Output::printSolutionSummaryMetricsForCurrSolutions(const int &experiment, const std::map<double, SolnMaps*> * pModelSolnMap) {
+  
+    std::string outputPath  = this->_outputExperimentPath + "SUMMARY.txt";
+    
+    ofstream outFile;
+    outFile.open(outputPath);
+    
+    std::set<double> inputRange = getKeyValues(pModelSolnMap);
+    std::string inputValueStr = "";
+    switch( experiment ) {
+        case ModelRunner::DEFAULTVALUES : 
+            inputValueStr = "default";
+            break;
+        case ModelRunner::OPTIN :
+            inputValueStr = "opt-in";
+            break;
+        case ModelRunner::BATCHWINDOW : 
+            inputValueStr = "batchLength";
+            break;
+        case ModelRunner::PICKUP :
+            inputValueStr = "maxPickupDist";
+            break;
+        case ModelRunner::SAVINGSRATE :
+            inputValueStr = "minSavingsPct";
+            break;
+        default :
+            inputValueStr = "unknown";
+    }
+    
+    
+    outFile << "--------------------------------" << std::endl;
+    outFile << "    summary for experiment" << std::endl;
+    outFile << "--------------------------------\n\n" << std::endl;
+    
+    
+    printInputRequestsMetrics( outFile, pModelSolnMap );    
+    printMatchRateMetrics    ( outFile, inputValueStr, &inputRange, pModelSolnMap );
+    printInconvenienceMetrics( outFile, inputValueStr, &inputRange, pModelSolnMap );
+    printNumTripsMetrics     ( outFile, inputValueStr, &inputRange, pModelSolnMap ); 
+    
+    outFile << "\n\n-- end of file --\n" << std::endl;
+}
+void Output::printInputRequestsMetrics( std::ofstream &outFile, const std::map<double, SolnMaps*> * pModelSolnMap ) {
+    std::string csvString = "CSV_numRequests";
+    
+    for( std::map<double, SolnMaps*>::const_iterator itr = pModelSolnMap->begin(); itr != pModelSolnMap->end(); ++itr ) {
+        const int currNumReqs = itr->second->numRequests_inputs.begin()->second;
+        csvString += "," + Utility::intToStr(currNumReqs);
+    }
+    
+    outFile << "INSTANCE SIZES\n" << std::endl;
+    outFile << csvString << std::endl;    
+}
+
+
+void Output::printMatchRateMetrics(std::ofstream& outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
+    outFile << "\nMATCH RATE\n" << std::endl;
+        
+    std::string csv_mitm_str    = "CSV_MITM";
+    std::string csv_ufbw_str    = "CSV_UFBW";
+    std::string csv_flexDep_str = "CSV_FD";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI";
+    
+    std::string csv_FD_FDReqsStr = "";
+    std::string csv_FD_nonFDReqsStr = "";
+    
+    std::string mitmMatchRateStr         = "-";
+    std::string ufbwMatchRateStr         = "-";
+    std::string flexDepMatchRateStr      = "-";
+    std::string ufbwPerfInfoMatchRateStr = "-";
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+        
+        std::cout << "inputItr = " << *inputItr << std::endl;
+        
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
+        
+        std::map<ModelEnum, double> modelMatchRateMap = modelSolnMapItr->second->matchRateMap;
+        double matchRate_FD_optIns = modelSolnMapItr->second->matchRate_FD_FDOptIn;
+        double matchRate_FD_nonOptIns = modelSolnMapItr->second->matchRate_FD_nonFDOptIn;
+        
+        for( std::map<ModelEnum, double>::iterator mapItr = modelMatchRateMap.begin(); mapItr != modelMatchRateMap.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {
+                    mitmMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_mitm_str += "," + mitmMatchRateStr;
+                    break;
+                }
+               /* case ModelEnum::MITM_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_FIXED_PICKUPS :
+                {
+                    ufbwMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_ufbw_str += "," + ufbwMatchRateStr;
+                    break;
+                }
+                /*case ModelEnum::UFBW_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_PERFECT_INFO :
+                {
+                    ufbwPerfInfoMatchRateStr = Utility::truncateDouble(mapItr->second,4); 
+                    csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;    
+                    break;
+                }
+                case FLEX_DEPARTURE :
+                {
+                    flexDepMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_flexDep_str += "," + flexDepMatchRateStr;    
+                    if( matchRate_FD_optIns > -1.0 ) {
+                        csv_FD_FDReqsStr += Utility::truncateDouble(matchRate_FD_optIns,4);
+                    }
+                    if( matchRate_FD_nonOptIns > -1.0 ) {
+                        csv_FD_nonFDReqsStr += Utility::truncateDouble(matchRate_FD_nonOptIns,4);
+                    }
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << flexDepMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( csv_mitm_str != "CSV_MITM" ) {
+        outFile << csv_mitm_str << std::endl;
+    }
+    if( csv_ufbw_str != "CSV_UFBW" ) {
+        outFile << csv_ufbw_str << std::endl;
+    }
+    if( csv_flexDep_str != "CSV_FD" ) {
+        outFile << csv_flexDep_str << std::endl;
+    }
+    if( csv_ufbwPI_str != "CSV_UFBW_PI" ) {
+        outFile << csv_ufbwPI_str << std::endl;
+    }
+            
+    outFile << "\n\n" << std::endl;  
+    
+    if( csv_FD_FDReqsStr != "" ) {
+        outFile << csv_FD_FDReqsStr << std::endl;
+        outFile << csv_FD_nonFDReqsStr << std::endl;
+    }
+        
+    outFile << "\n\n" << std::endl;  
+    
+}
+void Output::printInconvenienceMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap ) {
+    outFile << "\nINCONVENIENCE RATE\n" << std::endl;
+        
+    std::string csv_mitm_str    = "CSV_MITM";
+    std::string csv_ufbw_str    = "CSV_UFBW";
+    std::string csv_flexDep_str = "CSV_FD";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI";
+        
+    std::string mitmMatchRateStr         = "-";
+    std::string ufbwMatchRateStr         = "-";
+    std::string flexDepMatchRateStr      = "-";
+    std::string ufbwPerfInfoMatchRateStr = "-";
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+        
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
+        
+        std::map<ModelEnum, double> modelMatchRateMap = modelSolnMapItr->second->inconvMap;
+         
+        for( std::map<ModelEnum, double>::iterator mapItr = modelMatchRateMap.begin(); mapItr != modelMatchRateMap.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {
+                    mitmMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_mitm_str += "," + mitmMatchRateStr;
+                    break;
+                }
+               /* case ModelEnum::MITM_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_FIXED_PICKUPS :
+                {
+                    ufbwMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_ufbw_str += "," + ufbwMatchRateStr;
+                    break;
+                }
+                /*case ModelEnum::UFBW_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_PERFECT_INFO :
+                {
+                    ufbwPerfInfoMatchRateStr = Utility::truncateDouble(mapItr->second,4); 
+                    csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;   
+                    break;
+                }
+                case FLEX_DEPARTURE :
+                {
+                    flexDepMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_flexDep_str += "," + flexDepMatchRateStr;  
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << flexDepMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( csv_mitm_str != "CSV_MITM" ) {
+        outFile << csv_mitm_str  << std::endl;
+    }
+    if( csv_ufbw_str != "CSV_UFBW" ) {
+        outFile << csv_ufbw_str << std::endl;
+    }
+    if( csv_flexDep_str != "CSV_FD" ) {
+        outFile << csv_flexDep_str << std::endl;
+    }
+    if( csv_ufbwPI_str != "CSV_UFBW_PI" ) {
+        outFile << csv_ufbwPI_str << std::endl;
+    }
+            
+    outFile << "\n\n" << std::endl;  
+        
+}
+void Output::printNumTripsMetrics(std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
+    outFile << "\nNUM TRIPS\n" << std::endl;
+        
+    std::string csv_mitm_str    = "CSV_MITM";
+    std::string csv_ufbw_str    = "CSV_UFBW";
+    std::string csv_flexDep_str = "CSV_FD";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI";
+        
+    std::string mitmMatchRateStr         = "-";
+    std::string ufbwMatchRateStr         = "-";
+    std::string flexDepMatchRateStr      = "-";
+    std::string ufbwPerfInfoMatchRateStr = "-";
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+        
+        std::cout << "inputItr = " << *inputItr << std::endl;
+        
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
+        
+        std::map<ModelEnum, double> modelMatchRateMap = modelSolnMapItr->second->numTripsMap;
+         
+        for( std::map<ModelEnum, double>::iterator mapItr = modelMatchRateMap.begin(); mapItr != modelMatchRateMap.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {                    
+                    mitmMatchRateStr = Utility::intToStr((int) mapItr->second);
+                    csv_mitm_str += "," + mitmMatchRateStr;
+                    break;
+                }
+               /* case ModelEnum::MITM_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_FIXED_PICKUPS :
+                {
+                    ufbwMatchRateStr = Utility::intToStr((int) mapItr->second);
+                    csv_ufbw_str += "," + ufbwMatchRateStr;
+                    break;
+                }
+                /*case ModelEnum::UFBW_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_PERFECT_INFO :
+                {
+                    ufbwPerfInfoMatchRateStr = Utility::intToStr((int) mapItr->second); 
+                    csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;  
+                    break;
+                }
+                case FLEX_DEPARTURE :
+                {
+                    flexDepMatchRateStr = Utility::intToStr((int) mapItr->second);
+                    csv_flexDep_str += "," + flexDepMatchRateStr;  
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << flexDepMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( csv_mitm_str != "CSV_MITM" ) {
+        outFile << csv_mitm_str  << std::endl;
+    }
+    if( csv_ufbw_str != "CSV_UFBW" ) {
+        outFile << csv_ufbw_str << std::endl;
+    }
+    if( csv_flexDep_str != "CSV_FD" ) {
+        outFile << csv_flexDep_str << std::endl;
+    }
+    if( csv_ufbwPI_str != "CSV_UFBW_PI" ) {
+        outFile << csv_ufbwPI_str << std::endl;
+    }
+            
+    outFile << "\n\n" << std::endl;  
+           
+}
+
+std::set<double> Output::getKeyValues( const std::map<double, SolnMaps*> * pModelSolnMap ) {
+    std::set<double> keyValues;
+    
+    for( std::map<double, SolnMaps*>::const_iterator mapItr = pModelSolnMap->begin(); mapItr != pModelSolnMap->end(); ++mapItr ) {
+        keyValues.insert(mapItr->first);
+    }
+    
+    return keyValues;
+}

@@ -17,6 +17,7 @@
 #include <sstream>
 #include <time.h>
 #include <math.h>
+#include <sys/stat.h>   /* mkdir */
 
 class Event;
 
@@ -150,6 +151,11 @@ public:
         locStr += Utility::truncateDouble(loc.getLng(), prec);
         return locStr;
     }    
+    
+    static int createFolder(const std::string outPath) {
+        int status_scen = mkdir(outPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
+        return status_scen;
+    }
     
 private:
 };

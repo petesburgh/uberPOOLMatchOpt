@@ -1,0 +1,46 @@
+
+----------------------------------------
+
+          solution for UFBW_fixed
+
+----------------------------------------
+
+
+
+
+--- INPUT DATA SUMMARY ---
+
+	start time:                   2015-04-27-07:00:00
+	end time:                     2015-04-28-07:00:00
+	total requests (proxy):       15520
+	total drivers:                8318
+
+
+
+
+	REQUEST SUMMARY
+		total requests:                        15520
+		matched requests:                      3016
+		unmatched requests:                    12504
+		match rate:                            19.43%
+
+		total trips:                           14012
+
+
+	MATCH METRICS
+		total matches:                         1508
+		number FIFO matches:                   1034     (68.57%)
+		number FILO matches:                   474      (31.43%)
+
+		number extended matches:               628      (41.64%)
+
+		share of FIFO extended matches:          30.57%
+		share of FIFO nonextended matches:       38.00%
+		share of FILO extended matches           11.07%
+		share of FILO nonextended matches:       20.36%
+
+
+	INCONVENIENCE METRICS
+		avg inconvenience ALL riders:             7.01%
+		avg inconvenience MASTERS:                9.29%
+		avg inconvenience MINIONS:                4.72%

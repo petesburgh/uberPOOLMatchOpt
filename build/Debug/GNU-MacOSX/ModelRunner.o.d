@@ -1,10 +1,10 @@
-build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
-  TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
-  TimeAdjacencyException.hpp Driver.hpp Rider.hpp Request.hpp \
+build/Debug/GNU-MacOSX/ModelRunner.o: ModelRunner.cpp ModelRunner.hpp \
+  DataContainer.hpp CSVRow.hpp TripData.hpp Event.hpp Utility.hpp \
+  LatLng.hpp TimeAdjacencyException.hpp Driver.hpp Rider.hpp Request.hpp \
   OpenTrip.hpp Comparators.hpp AssignedTrip.hpp FeasibleMatch.hpp \
   MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp Geofence.hpp \
   ItemNotFoundException.hpp Output.hpp Solution.hpp ModelEnum.hpp \
-  FlexDepSolution.hpp ModelRunner.hpp MitmModel.hpp ModelUtils.hpp \
+  FlexDepSolution.hpp SolnMaps.hpp MitmModel.hpp ModelUtils.hpp \
   UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
@@ -17,9 +17,9 @@ build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/basictypes.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
-  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  SolnMaps.hpp FlexDepartureModel.hpp UFBW_perfectInformation.hpp \
-  GenerateInstanceScenarios.hpp ProblemInstance.hpp
+  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h
+
+ModelRunner.hpp:
 
 DataContainer.hpp:
 
@@ -67,7 +67,7 @@ ModelEnum.hpp:
 
 FlexDepSolution.hpp:
 
-ModelRunner.hpp:
+SolnMaps.hpp:
 
 MitmModel.hpp:
 
@@ -98,13 +98,3 @@ UFBW_fixed.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
-
-SolnMaps.hpp:
-
-FlexDepartureModel.hpp:
-
-UFBW_perfectInformation.hpp:
-
-GenerateInstanceScenarios.hpp:
-
-ProblemInstance.hpp:

@@ -11,6 +11,7 @@
 #include "Driver.hpp"
 #include "AssignedTrip.hpp"
 #include "Comparators.hpp"
+#include "ModelEnum.hpp"
 #include <vector>
 #include <set>
 
@@ -19,14 +20,6 @@ using namespace std;
 class Solution {
  
 public:
-    
-    enum Model {
-        MITM,
-        UFBW_fixedPickups,
-        UFBW_pickupSwaps,        
-        UFBW_perfectInfo,
-        FlexDepartures
-    };
         
     struct RequestMetrics {
         int     _totalRequests;
@@ -61,7 +54,7 @@ public:
     };
     
     // constructor for scenarios OTHER than 
-    Solution(Model model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);
+    Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);
     
     virtual ~Solution();
     
@@ -74,7 +67,7 @@ public:
     void setDisqualifiedRequests(std::set<Request*,ReqComp> disqualReqs) { _disqualifiedRequests = disqualReqs; }
     
     // getters
-    const Model getModel() const { return _model; }
+    const int getModel() const { return _model; }
     const time_t getStartTime() const { return _simStartTime; }
     const time_t getEndTime() const { return _simEndTime; }
     const int getTotalRequests() const { return _totalRequests; }
@@ -110,7 +103,7 @@ public:
     
 private:
     
-    const Model _model;
+    const int _model;
     
     // input data
     const time_t _simStartTime;

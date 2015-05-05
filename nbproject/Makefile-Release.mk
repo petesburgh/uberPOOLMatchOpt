@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/GenerateInstanceScenarios.o \
 	${OBJECTDIR}/Geofence.o \
 	${OBJECTDIR}/MitmModel.o \
+	${OBJECTDIR}/ModelRunner.o \
 	${OBJECTDIR}/OpenTrip.o \
 	${OBJECTDIR}/Output.o \
 	${OBJECTDIR}/ProblemInstance.o \
@@ -125,6 +126,11 @@ ${OBJECTDIR}/MitmModel.o: MitmModel.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MitmModel.o MitmModel.cpp
+
+${OBJECTDIR}/ModelRunner.o: ModelRunner.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ModelRunner.o ModelRunner.cpp
 
 ${OBJECTDIR}/OpenTrip.o: OpenTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}

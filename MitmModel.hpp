@@ -29,13 +29,14 @@
 
 using namespace std;
 
+class Output;
+
 class MitmModel {
 public:
     MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);
     virtual ~MitmModel();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
-    bool solve_deprecated(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
     
     // methods to update
     std::set<AssignedTrip*, AssignedTripIndexComp> getAllCompletedOpenTrips(time_t &tm, std::set<OpenTrip*,EtaComp> &openTrips);

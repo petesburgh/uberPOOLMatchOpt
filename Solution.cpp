@@ -7,7 +7,7 @@
 
 #include "Solution.hpp"
 
-Solution::Solution(Model model, time_t simStart, time_t simEnd, int totalReqs, int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs) : 
+Solution::Solution(int model, time_t simStart, time_t simEnd, int totalReqs, int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs) : 
         _model(model), _simStartTime(simStart), _simEndTime(simEnd), _totalRequests(totalReqs), _totalDrivers(totalDrivers), _allTripsFromSolution(assignedTrips), _disqualifiedRequests(disqualifiedReqs) {
 }
 

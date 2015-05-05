@@ -5,7 +5,8 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   MinionCand.hpp MasterMinionMatchCand.hpp FeasibleMatch.hpp \
   Comparators.hpp AssignedTrip.hpp Output.hpp DataContainer.hpp \
   CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp Solution.hpp \
-  FlexDepSolution.hpp \
+  ModelEnum.hpp FlexDepSolution.hpp ModelRunner.hpp MitmModel.hpp \
+  ModelUtils.hpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -18,7 +19,7 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  ModelUtils.hpp UFBW_fixed.hpp
+  SolnMaps.hpp
 
 UFBW_perfectInformation.hpp:
 
@@ -64,7 +65,17 @@ ItemNotFoundException.hpp:
 
 Solution.hpp:
 
+ModelEnum.hpp:
+
 FlexDepSolution.hpp:
+
+ModelRunner.hpp:
+
+MitmModel.hpp:
+
+ModelUtils.hpp:
+
+UFBW_fixed.hpp:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h:
 
@@ -90,6 +101,4 @@ FlexDepSolution.hpp:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
 
-ModelUtils.hpp:
-
-UFBW_fixed.hpp:
+SolnMaps.hpp:

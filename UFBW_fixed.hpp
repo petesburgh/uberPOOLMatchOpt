@@ -34,6 +34,8 @@
 using namespace std;
 using namespace operations_research;
 
+class Output;
+
 class UFBW_fixed {
     
     friend class ModelUtils;

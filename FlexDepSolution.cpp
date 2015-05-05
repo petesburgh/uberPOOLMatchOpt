@@ -9,7 +9,7 @@
         
 FlexDepSolution::FlexDepSolution(const time_t simStart,  const time_t simEnd, const int totalReqs, const int totalDrivers, 
         std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*, ReqComp> &disqualReqs, std::set<const int> * flexDepReqIndices) : 
-        Solution(Solution::FlexDepartures, simStart, simEnd, totalReqs, totalDrivers, assignedTrips, disqualReqs), pFlexDepRequestIndices(flexDepReqIndices) {
+        Solution(FLEX_DEPARTURE, simStart, simEnd, totalReqs, totalDrivers, assignedTrips, disqualReqs), pFlexDepRequestIndices(flexDepReqIndices) {
     
 }
 

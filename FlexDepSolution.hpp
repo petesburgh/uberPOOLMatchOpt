@@ -9,6 +9,7 @@
 #define	FLEXDEPSOLUTION_HPP
 
 #include "Solution.hpp"
+#include "ModelEnum.hpp"
 
 class FlexDepSolution : public Solution {
 public:

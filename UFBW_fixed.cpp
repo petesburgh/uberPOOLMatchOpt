@@ -197,7 +197,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
     }
 
     // create Solution
-    pSolution = new Solution(Solution::UFBW_fixedPickups, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), _assignedTrips, _disqualifiedRequests);
+    pSolution = new Solution(UFBW_FIXED_PICKUPS, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), _assignedTrips, _disqualifiedRequests);
     pSolution->buildSolutionMetrics();
     
     return true;    

@@ -614,11 +614,10 @@ OpenTrip * MitmModel::createNewOpenTripForUnmatchedRequest(const Driver * pNeare
 void MitmModel::buildSolution(std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips) {
     
     // instantiate solution
-    pSolution = new Solution(Solution::MITM, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), assignedTrips, _disqualifiedRequests);
+    pSolution = new Solution(MITM_SEQ_PICKUPS, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), assignedTrips, _disqualifiedRequests);
     
     // compute solution metrics
-    pSolution->buildSolutionMetrics();
-    
+    pSolution->buildSolutionMetrics();    
 }
 
 // --------------------

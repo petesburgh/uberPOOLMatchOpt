@@ -48,9 +48,7 @@ public:
     
     // I/O methods
     TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row, const time_t &endOfFirstWeek);
-    
-    //bool isInBox(LatLng &loc, std::pair<double,double> &latRange, std::pair<double,double> &lngRange);
-        
+
     // getters
     const std::string getInputPath()   const { return _inputPath; }
     const std::string getCsvFilename() const { return _csvFilename; }
@@ -92,7 +90,7 @@ private:
     std::string _csvFilename; // name of csv file containing snapshot data
     std::string _timelineStr; // string of timeline defining snapshot
     int _batchWindowInSec;    // length of up-front batch window
-    const double _optInRate;        // percent of users requesting uberX that define POOL requests
+    double _optInRate;        // percent of users requesting uberX that define POOL requests
     time_t _timeline;         // time_t represented converted from inputted string
     time_t _simEndTime;       // end time of simulation (i.e. do not consider trips after this time)
     bool _printDebugFiles;    // bool to determine whether/not to print debug files
@@ -106,9 +104,9 @@ private:
     std::vector<TripData*> _uberPOOLTrips; // POOL trips
     
     // initial requests (i.e. TripData that have not been dispatched)
-    std::set<Request*,  ReqComp> _allRequestsInSim;   // all requests starting at timeline through sim end
-    std::set<Request*,  ReqComp> _initRequests;       // open requests only at timeline
-    std::set<Request*,  ReqComp> _futureRequests;     // all future requests after timeline
+    std::set<Request*,  ReqComp> _allRequestsInSim;  // all requests starting at timeline through sim end
+    std::set<Request*,  ReqComp> _initRequests;      // open requests only at timeline
+    std::set<Request*,  ReqComp> _futureRequests;    // all future requests after timeline
     std::set<OpenTrip*, EtaComp> _initOpenTrips;     // open trips at timeline
         
     // vector of all drivers

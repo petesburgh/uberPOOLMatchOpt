@@ -21,12 +21,15 @@
       <itemPath>MasterMinionMatchCand.hpp</itemPath>
       <itemPath>MinionCand.hpp</itemPath>
       <itemPath>MitmModel.hpp</itemPath>
+      <itemPath>ModelEnum.hpp</itemPath>
+      <itemPath>ModelRunner.hpp</itemPath>
       <itemPath>ModelUtils.hpp</itemPath>
       <itemPath>OpenTrip.hpp</itemPath>
       <itemPath>Output.hpp</itemPath>
       <itemPath>ProblemInstance.hpp</itemPath>
       <itemPath>Request.hpp</itemPath>
       <itemPath>Rider.hpp</itemPath>
+      <itemPath>SolnMaps.hpp</itemPath>
       <itemPath>Solution.hpp</itemPath>
       <itemPath>TripData.hpp</itemPath>
       <itemPath>UFBW_fixed.hpp</itemPath>
@@ -51,6 +54,7 @@
       <itemPath>GenerateInstanceScenarios.cpp</itemPath>
       <itemPath>Geofence.cpp</itemPath>
       <itemPath>MitmModel.cpp</itemPath>
+      <itemPath>ModelRunner.cpp</itemPath>
       <itemPath>OpenTrip.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
       <itemPath>ProblemInstance.cpp</itemPath>
@@ -153,6 +157,12 @@
       </item>
       <item path="MitmModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ModelEnum.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ModelRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ModelRunner.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
@@ -174,6 +184,8 @@
       <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SolnMaps.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Solution.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -274,6 +286,12 @@
       </item>
       <item path="MitmModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ModelEnum.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ModelRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ModelRunner.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
@@ -295,6 +313,8 @@
       <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SolnMaps.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Solution.cpp" ex="false" tool="1" flavor2="0">
       </item>

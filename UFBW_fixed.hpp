@@ -41,7 +41,7 @@ class UFBW_fixed {
     friend class ModelUtils;
 
 public:
-    UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
+    UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupForSavingsConstr);    
     virtual ~UFBW_fixed();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen);
@@ -107,6 +107,8 @@ private:
     std::set<Request*, ReqComp> _disqualifiedRequests;
     
     Solution * pSolution;
+    
+    bool _inclMinionPickupExtMatchesSavingsConstr;
 };
 
 #endif	/* UFBW_FIXED_HPP */

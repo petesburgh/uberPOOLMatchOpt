@@ -40,7 +40,7 @@ class FlexDepartureModel {
     friend class ModelUtils;
     
 public:
-    FlexDepartureModel(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int lenFlexDepWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate);
+    FlexDepartureModel(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int lenFlexDepWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate, const bool inclMinionPickupInSavingsConstr);
     virtual ~FlexDepartureModel();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen);
@@ -119,6 +119,8 @@ private:
     FlexDepSolution * pFlexDepSolution;    
 
     int _batchCounter;
+    
+    const bool _inclMinionPickupExtMatchesSavingsConstr;
 };
 
 #endif	/* FLEXDEPARTUREMODEL_HPP */

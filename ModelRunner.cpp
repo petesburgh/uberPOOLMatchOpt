@@ -6,6 +6,7 @@
  */
 
 #include "ModelRunner.hpp"
+#include "UFBW_perfectInformation.hpp"
 
 ModelRunner::ModelRunner( const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const std::vector<Geofence*> * geofences ) : 
     _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofences(geofences) {      
@@ -63,8 +64,6 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
         }
         case ModelRunner::OPTIN :
         {
-            std::cout << "\n\nhello world from OPTIN experiment" << std::endl;
-            //const std::string outputPathExp = pDataOutput->_outputScenarioPath = pDataOutput->_outputBasePath + "OPTIN/";          
             for( std::vector<double>::iterator optInItr = _range_optInValues.begin(); optInItr != _range_optInValues.end(); ++optInItr ) {
                 
                 const std::string outputExpPath = pDataOutput->_outputBasePath + "OPTIN/";
@@ -149,7 +148,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
      *    MAN IN THE MUNI (MITM) MODEL 
      */
     if( _runMitmModel ) {
-        MitmModel * pMitmModel = new MitmModel(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers());
+        MitmModel * pMitmModel = new MitmModel(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers(), _inclInitPickupDistForSavingsConstr);
         bool modelSolved = pMitmModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips);     
         if( modelSolved ) {          
             Solution * pMitmSolution = pMitmModel->getSolution();            
@@ -170,7 +169,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
      *    UP FRONT BATCHING WINDOW WITH FIXED PICKUPS
      */
     if( _runUFBW_fixedPickup ) {
-        UFBW_fixed * pFixedBatchModel = new UFBW_fixed(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), batchWindowLengthInSec, maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers());
+        UFBW_fixed * pFixedBatchModel = new UFBW_fixed(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), batchWindowLengthInSec, maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers(), _inclInitPickupDistForSavingsConstr);
         bool modelSolved = pFixedBatchModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
         if( modelSolved ) {
             Solution * pFixedBatchSolution = pFixedBatchModel->getSolution();
@@ -185,6 +184,27 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
             
             pModelSolnMetricMap->insert(make_pair(UFBW_FIXED_PICKUPS, pSolnMetrics));
         }   
+    }
+    
+    /*
+     *     UP FRONT BATCHING WINDOW WITH PERFECT INFORMATION
+     */
+    if( _runUFBW_PI ) {
+        UFBW_perfectInformation * pUFBW_PI_Model = new UFBW_perfectInformation(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), batchWindowLengthInSec, maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers(), _inclInitPickupDistForSavingsConstr);
+        bool modelSolved = pUFBW_PI_Model->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips, pDataOutput->_printToScreen);
+        if( modelSolved ) {
+            Solution * pBatchSolnWithPerfInfo = pUFBW_PI_Model->getSolution();
+            pOutput->printSolution(pBatchSolnWithPerfInfo, UFBW_PERFECT_INFO);
+            
+            // update solution maps
+            SolnMetrics * pSolnMetrics  = new SolnMetrics();
+            pSolnMetrics->numRequests   = pBatchSolnWithPerfInfo->getTotalRequests();
+            pSolnMetrics->matchRate     = pBatchSolnWithPerfInfo->getRequestMetrics()->_matchedPercentage;
+            pSolnMetrics->inconvenience = pBatchSolnWithPerfInfo->getInconvenienceMetrics()->_avgPctAddedDistsForAll;
+            pSolnMetrics->numTrips      = pBatchSolnWithPerfInfo->getTotalNumTripsFromSoln();
+            
+            pModelSolnMetricMap->insert(make_pair(UFBW_PERFECT_INFO, pSolnMetrics));
+        }
     }
     
         

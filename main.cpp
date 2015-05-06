@@ -34,16 +34,7 @@ struct ParameterSet {
     std::string   _paramSetStr;
 };
 
-
-
 std::vector<double> getExperimentInputValues(const ModelRunner::Experiment &experiment, std::vector<double>&, std::vector<double>&, std::vector<double>&, std::vector<double>&);
-
-/*SolnMaps * runModels_defaultValues             ( bool runMITMModel, bool runUFBW_seqPickups, bool runFlexDepartureModel, bool runUFBW_perfectInfo, ModelRunner::DataInputValues * pDataInput, ModelRunner::DataOutputValues * pDataOutput, ModelRunner::DefaultModelParameters * pDefaultValues, const std::vector<Geofence*> * pGeofences);
-SolnMaps * runModels_optInScenarios            ( bool runMITMModel, bool runUFBW_seqPickups, bool runFlexDepartureModel, bool runUFBW_perfectInfo, ModelRunner::DataInputValues * pDataInput, ModelRunner::DataOutputValues * pDataOutput, ModelRunner::DefaultModelParameters * pDefaultValues, std::vector<double> * pOptInValues, const std::vector<Geofence*> * pGeofences);
-SolnMaps * runModels_batchWindowScenarios      ( bool runMITMModel, bool runUFBW_seqPickups, bool runFlexDepartureModel, bool runUFBW_perfectInfo, ModelRunner::DataInputValues * pDataInput, ModelRunner::DataOutputValues * pDataOutput, ModelRunner::DefaultModelParameters * pDefaultValues, std::vector<double> * pBatchWindowValues, const std::vector<Geofence*> * pGeofences );
-SolnMaps * runModels_maxPickupDistanceScenarios( bool runMITMModel, bool runUFBW_seqPickups, bool runFlexDepartureModel, bool runUFBW_perfectInfo, ModelRunner::DataInputValues * pDataInput, ModelRunner::DataOutputValues * pDataOutput, ModelRunner::DefaultModelParameters * pDefaultValues, std::vector<double> * pMaxPickupValues, const std::vector<Geofence*> * pGeofences );
-SolnMaps * runModels_minSavingsScenarios       ( bool runMITMModel, bool runUFBW_seqPickups, bool runFlexDepartureModel, bool runUFBW_perfectInfo, ModelRunner::DataInputValues * pDataInput, ModelRunner::DataOutputValues * pDataOutput, ModelRunner::DefaultModelParameters * pDefaultValues, std::vector<double> * pMinSavingsValues, const std::vector<Geofence*> * pGeofences );
-*/
 
 std::vector<double> defineBatchWindowRange();
 std::vector<double> defineOptInRange();
@@ -85,10 +76,14 @@ int main(int argc, char** argv) {
      *      scen 09: LA, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geo (flexible departure analysis)
      *      scen 10: Austin, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC (flexible departure analysis)
      *      scen 11: scen 09 with LA geofence
+     *      scen 12: LA, 5-hour sim from 1800-2300 local with geofence (comparing accounting of savings)
      */
     
-    const int scenNumber = 11;
+    const int scenNumber = 12;
     ProblemInstance * pInstance = generateInstanceScenarios(scenNumber);
+    
+    // SPECIFY TYPE OF EXPERIMENT
+    const ModelRunner::Experiment experiment = ModelRunner::OPTIN;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE    
     
     const bool printDebugFiles       = false;
     const bool printToScreen         = false;
@@ -107,6 +102,8 @@ int main(int argc, char** argv) {
         
     ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(default_optInRate,default_upFrontBatchWindowInSec,default_maxMatchDistInKm,default_minPoolDiscount,default_flexDepOptInRate,default_flexDepWindowInSec);
                 
+    const bool inclInitPickupInSavingsConstr = true;
+    
     // specify RANGES to iterate experiments                 
     std::vector<double> range_optInRate = defineOptInRange(); // opt-in ranges: 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.0            
     std::vector<double> range_upFrontBatchWindowInSec = defineBatchWindowRange(); // batch window values: 15, 30, 45, 60, 75, 90, 120, 150, 300, 600            
@@ -115,48 +112,21 @@ int main(int argc, char** argv) {
         
     // TYPE OF TESTS TO RUN
     const bool runMITMModel        = true;
-    const bool runUFBW_seqPickups  = true;
+    const bool runUFBW_seqPickups  = false;
     //const bool runUFBW_flexPickups = false; 
     const bool runFlexDepModel     = false;
     const bool runUFBW_perfectInfo = false; 
         
-    // SPECIFY TYPE OF EXPERIMENT
-    const ModelRunner::Experiment experiment = ModelRunner::PICKUP;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE
     
     // create ModelRunner object which controls all optimizations 
     ModelRunner * pModelRunner = new ModelRunner( experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofences() );     
     pModelRunner->setInputValues(range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
-              
+    pModelRunner->setInclInitPickupDistForSavingsConstr(inclInitPickupInSavingsConstr);
     
+    // ---- SOLVE MODELS ----
     const std::map<double, SolnMaps*> * pInputValSolnMap = pModelRunner->runAllModels();
-    
-    std::cout << "\n\nhere is the map... " << std::endl;
-    for( std::map<double, SolnMaps*>::const_iterator it = pInputValSolnMap->begin(); it != pInputValSolnMap->end(); ++it ) {
-        std::cout << "INPUT VALUE: " << Utility::doubleToStr(it->first) << std::endl;
-        std::map<ModelEnum, double> matchRateMap = it->second->matchRateMap;
-        for( std::map<ModelEnum, double>::iterator it2 = matchRateMap.begin(); it2 != matchRateMap.end(); ++it2 ) {            
-            std::string modelStr = "-";
-            switch( it2->first ) {
-                case MITM_SEQ_PICKUPS :
-                {
-                    modelStr = "MITM";
-                    break;
-                }
-                case UFBW_FIXED_PICKUPS :
-                {
-                    modelStr = "UFBW";
-                    break;
-                }
-                default :
-                    modelStr = "other";
-            }
-            std::cout << "\t" << modelStr << ": " << Utility::truncateDouble(it2->second,4) << std::endl;
-        }                
-    }
-    
-    
             
-    //PRINT SUMMARY SOLUTION
+    // ---- PRINT SUMMARY SOLUTION ----
     pModelRunner->printSolutionSummaryForCurrExperiment(pInputValSolnMap);
       
     std::cout << "\n\n\n--- success! ---\n" << std::endl;
@@ -214,7 +184,7 @@ std::vector<double> defineMaxPickupDistRange() {
     maxPickupRange.push_back(0.50);
     maxPickupRange.push_back(1.0);
     maxPickupRange.push_back(1.5);
-   /* maxPickupRange.push_back(2.0);
+    maxPickupRange.push_back(2.0);
     maxPickupRange.push_back(2.5);
     maxPickupRange.push_back(3.0);
     maxPickupRange.push_back(3.5);
@@ -223,7 +193,7 @@ std::vector<double> defineMaxPickupDistRange() {
     maxPickupRange.push_back(5.0);
     maxPickupRange.push_back(5.5);
     maxPickupRange.push_back(6.0);
-    maxPickupRange.push_back(10.0);*/
+    maxPickupRange.push_back(10.0);
     
     return maxPickupRange;    
 }
@@ -245,70 +215,6 @@ std::vector<double> defineMinPoolDiscountRange() {
 }
 
 
-void printSolutionMetricsForCurrExperiment2(const std::map<double, SolnMaps*> * pModelSolnMap, int currExperiment, const std::string outputBasePath) {
-    
-    std::string scenName = "UNKNOWN";
-    std::string inputName = "";
-    
-    switch( currExperiment ) {
-        case ModelRunner::OPTIN :
-        {
-            scenName   = "SUMMARY-OPT-IN";
-            inputName  = "optIn(%)";
-            break;
-        }
-        case ModelRunner::BATCHWINDOW :
-        {
-            scenName   = "SUMMARY-BATCH-WINDOW";
-            inputName  = "batchWindow(sec)";
-            break;
-        }
-        case ModelRunner::PICKUP :
-        {
-            scenName   = "SUMMARY-MAX-PICKUP-DIST";
-            inputName  = "maxPickupDist(km)";
-            break;
-        }
-        case ModelRunner::SAVINGSRATE : 
-        {
-            scenName   = "SUMMARY-MIN-SAVINGS-RATE";
-            inputName  = "minSavingsRate(%)";
-            break;
-        }
-    }
-    
-    std::string outputPath  = outputBasePath + scenName + ".txt";
-    
-    ofstream outFile;
-    outFile.open(outputPath);
-    
-    outFile << "-------------------------------------------------------------------------" << std::endl;
-    outFile << "    summary for experiment:  " << scenName << std::endl;
-    outFile << "-------------------------------------------------------------------------\n\n" << std::endl;
-
-    
-    
-   /* printInputRequestsMetrics( outFile, inputName, &(pSolnMaps->input_numRequests) );
-    printMatchRateMetrics    ( outFile, inputName, &inputRange, &(pSolnMaps->matchRate_MITM), &(pSolnMaps->matchRate_UFBW), &(pSolnMaps->matchRage_FD), &(pSolnMaps->matchRate_UFBW_PI), &(pSolnMaps->matchRate_FD_FDReqs), &(pSolnMaps->matchRate_FD_nonFDReqs) );
-    printInconvenienceMetrics( outFile, inputName, &inputRange, &(pSolnMaps->inconv_MITM),    &(pSolnMaps->inconv_UFBW), &(pSolnMaps->inconv_FD), &(pSolnMaps->inconv_UFBW_PI) );
-    printNumTripsMetrics     ( outFile, inputName, &inputRange, &(pSolnMaps->numTrips_MITM),   &(pSolnMaps->numTrip_UFBW), &(pSolnMaps->numTrips_FD), &(pSolnMaps->numTrips_UFBW_PI) ); */
-    
-    outFile << "\n\n-- end of file --\n" << std::endl;
-    
-    outFile.close();     
-}
-
-void printInputRequestsMetrics( ofstream &outFile, std::string inputName, std::map<double, const int> * pNumReqMap) {
-    std::string csvString = "CSV_numRequests";
-    
-    for( std::map<double, const int>::iterator mapItr = pNumReqMap->begin(); mapItr != pNumReqMap->end(); ++mapItr ) {
-        csvString += "," + Utility::intToStr(mapItr->second);
-    }
-    
-    outFile << "INSTANCE SIZES\n" << std::endl;
-    outFile << csvString << std::endl;
-    
-}
 void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> * pMatchRateMap_UFBW, std::map<double,double> * pMatchRateMap_FD, std::map<double,double> * pMatchRateMap_UFBW_PI, std::map<double,double> * pMatchRateMap_FD_FDReqs, std::map<double,double> * pMatchRateMap_FD_nonFDReqs) {
    
     outFile << "\nMATCH RATE\n" << std::endl;
@@ -504,25 +410,6 @@ void printBanner(ParameterSet * pParamSet, int N) {
     
 }
 
-/*void printSummaryOfDataInput(DataContainer * pDataContainer) {
-    
-    std::cout << "\nSUMMARY OF INPUT DATA: " << std::endl;
-    std::cout << "\n\tinputPath: " << pDataContainer->getInputPath() << std::endl;
-    std::cout << "\tfilename:  " << pDataContainer->getCsvFilename() << std::endl;
-    
-    std::cout << "\n\tsnapshot time:  " << Utility::convertTimeTToString(pDataContainer->getTimeline()) << std::endl;
-    std::cout << "\tup front batching window:   " << Utility::intToStr(pDataContainer->getUpFrontBatchWindowLenInSec()) << " seconds" << std::endl;
-    
-    std::cout << "\n\ttotal drivers:  " << pDataContainer->getAllDrivers()->size() << std::endl;
-    
-    std::cout << "\n\ttotal uberX riders: " << pDataContainer->getAllUberXRiders()->size() << std::endl;
-    double pctPoolRiders = (double)(100*pDataContainer->getAllUberPoolRiders()->size())/(double)(pDataContainer->getAllUberXRiders()->size());
-    std::cout << "\ttotal uberPOOL riders (proxy):  " << Utility::intToStr(pDataContainer->getAllUberPoolRiders()->size()) << "  (" << Utility::doubleToStr(pctPoolRiders) << "%)" << std::endl;
-    
-    std::cout << "\n\ttotal trips in snapshot:   " << pDataContainer->getAllTrips()->size() << std::endl;
-    double pctPoolTrips = (double)(100*pDataContainer->getUberPoolTrips()->size())/(double)(pDataContainer->getAllTrips()->size());
-    std::cout << "\ttotal uberPOOL trips (proxy):  " << Utility::intToStr(pDataContainer->getUberPoolTrips()->size()) << "  (" << Utility::doubleToStr(pctPoolTrips) << "%)" << std::endl;        
-}*/
 void printDriverInfo(DataContainer* pDataContainer) {
     // get all drivers
     const std::set<Driver*, DriverIndexComp>* pAllDrivers = pDataContainer->getAllDrivers();

@@ -40,7 +40,7 @@ public:
     friend class ModelUtils;
 
 public:
-    UFBW_perfectInformation(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);    
+    UFBW_perfectInformation(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const bool inclMinionPickupInSavingsConstr);    
     virtual ~UFBW_perfectInformation();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen);
@@ -108,6 +108,8 @@ private:
     std::set<Request*, ReqComp> _disqualifiedRequests;
     
     Solution * pSolution;
+    
+    const bool _inclDistMinionPickupExtMatches;
 };
 
 #endif	/* UFBW_PERFECTINFORMATION_HPP */

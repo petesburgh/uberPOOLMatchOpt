@@ -17,7 +17,8 @@ build/Debug/GNU-MacOSX/ModelRunner.o: ModelRunner.cpp ModelRunner.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/basictypes.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
-  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h
+  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
+  UFBW_perfectInformation.hpp
 
 ModelRunner.hpp:
 
@@ -98,3 +99,5 @@ UFBW_fixed.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
+
+UFBW_perfectInformation.hpp:

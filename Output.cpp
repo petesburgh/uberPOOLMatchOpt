@@ -494,6 +494,8 @@ void Output::printMatchTripsSummary(Solution * pSolution, std::string &outpath )
             left << setw(geoBuff) << "MASTER_DEST" << 
             left << setw(geoBuff) << "MINION_ORIG" << 
             left << setw(geoBuff) << "MINION_DEST" << 
+            left << setw(geoBuff) << "DRIVER_AT_MIN_REQ" << 
+            left << setw(geoBuff) << "MASTER_AT_MIN_REQ" << 
             std::endl;
         
     const std::set<AssignedTrip*, AssignedTripIndexComp> * pMatchedTrips = pSolution->getMatchedTrips();
@@ -522,6 +524,10 @@ void Output::printMatchTripsSummary(Solution * pSolution, std::string &outpath )
         std::string addlDistMasterStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMaster, 2) + "%";
         std::string addlDistMinionStr = Utility::truncateDouble((*tripItr)->getMatchDetails()->_pctAddlDistMinion, 2) + "%";
         
+        // driver, master locations at time of minion request
+        std::string driverLocAtMinReq = Utility::convertToLatLngStr((*tripItr)->getMatchDetails()->_masterDriverLocAtTimeOfMinionReq, 5);
+        std::string masterLocAtMinReq = Utility::convertToLatLngStr((*tripItr)->getMatchDetails()->_masterLocAtTimeOfMinionReq, 5);
+        
         outFile << left << setw(ixBuff) << Utility::intToStr(driverIndex) << 
                 left << setw(ixBuff) << Utility::intToStr(masterIndex) << 
                 left << setw(ixBuff) << Utility::intToStr(minionIndex) << 
@@ -540,6 +546,8 @@ void Output::printMatchTripsSummary(Solution * pSolution, std::string &outpath )
                 left << setw(geoBuff) << masterDestStr << 
                 left << setw(geoBuff) << minionOrigStr << 
                 left << setw(geoBuff) << minionDestStr <<
+                left << setw(geoBuff) << driverLocAtMinReq << 
+                left << setw(geoBuff) << masterLocAtMinReq <<
                 std::endl;
         
     }  

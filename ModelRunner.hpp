@@ -106,6 +106,8 @@ public:
     
     void printSolutionSummaryForCurrExperiment(const std::map<double, SolnMaps*> * pInputValSolnMap);
     
+    void setInclInitPickupDistForSavingsConstr(bool includeInitTripSavingsConstr) { _inclInitPickupDistForSavingsConstr = includeInitTripSavingsConstr; }
+    
 private:
 
     const Experiment _experiment;
@@ -133,6 +135,9 @@ private:
     std::set<Request*,  ReqComp> _initRequests;
     std::set<Request*,  ReqComp> _allRequestsInSim;
     std::set<OpenTrip*, EtaComp> _initOpenTrips;
+    
+    // switches
+    bool _inclInitPickupDistForSavingsConstr;
 };
 
 #endif	/* MODELRUNNER_HPP */

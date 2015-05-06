@@ -150,7 +150,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string simStartTimeStr    = "2015-04-27 07:00:00";
             const int simLengthInMin             = 1440;
             const std::string inputCsvFilename   = "trips-LA-20150427-0700-20150428-0700-uberX.csv"; 
-            const std::string scenStr            = "LA-20150427-0000-1Day-noGeo";
+            const std::string scenStr            = "LA-20150427-0000-1Day-geofence";
             
             std::vector<Geofence*> geofenceVec;
             Geofence * pGeofence = new Geofence(Geofence::ENTIRE_TRIP, 33.9308311, 34.136744, -118.58746, -118.19967);
@@ -158,6 +158,20 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofenceVec, scenStr);  
             return pInstance;              
         }
+        case 12 : 
+        {
+            const int cityIndex                  = LA;
+            const std::string simStartTimeStr    = "2015-04-25 01:00:00";
+            const int simLengthInMin             = 300;
+            const std::string inputCsvFilename   = "trips-LA-20150425-0100-20150425-0600-uberX.csv"; 
+            const std::string scenStr            = "LA-20150424-1800-5Hr-geofence";
+            
+            std::vector<Geofence*> geofenceVec;
+            Geofence * pGeofence = new Geofence(Geofence::ENTIRE_TRIP, 33.9308311, 34.136744, -118.58746, -118.19967);
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofenceVec, scenStr);  
+            return pInstance;              
+        }        
         default : 
         {
             std::cout << "\n\n--- ERROR: SCENARIO NUMBER NOT DEFINED ---\n" << std::endl;

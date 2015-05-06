@@ -33,7 +33,7 @@ class Output;
 
 class MitmModel {
 public:
-    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers);
+    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupInSavings);
     virtual ~MitmModel();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
@@ -88,6 +88,8 @@ private:
     const std::set<Driver*, DriverIndexComp> * _allDrivers;
     
     Solution * pSolution; 
+    
+    const bool _inclMinionPickupDistExtMatchesSavingsConstr;
    
 
 };

@@ -20,12 +20,12 @@ struct FeasibleMatch {
                   time_t masterReq, time_t masterDispatch, time_t masterPickup, time_t masterDrop, time_t actDropFromTripData, const Event * actPickupEventFromTripData, 
                   const Event * actDropEventFromTripData, LatLng masterOrig,  LatLng masterDest, const double pctAddlDistMaster,
                   time_t minionReq, time_t minionDispatch, time_t minionPickup, time_t minionDrop, LatLng minionOrig, LatLng minionDest, const double pctAddlDistMinion,
-                  double masterSavings, double minionSavings, double avgSavings, const int masterReqIx, const int minionReqIx) : 
+                  double masterSavings, double minionSavings, double avgSavings, const int masterReqIx, const int minionReqIx, LatLng masterDriverLocAtTimeOfMinionReq, LatLng masterLocAtTimeOfMinionReq) : 
         pDriver(driver), _masterId(masterId), _masterIndex(masterIndex), _masterTripUUID(masterTripUUID), _minionId(minionId), _minionIndex(minionIndex), _minionTripUUID(minionTripUUID), _masterDispatchEvent(pMasterDispatch), _masterRequestEvent(pMasterReqEvent), _fixedDropoff(fixedDrop), _masterPickedUpAtTimeOfMatch(masterPickedUp),
         _distToMinionPickup(dMinPick), _sharedDistance(sharedDist), _distFromFirstToSecondDrop(distToDrop), _totalDistanceForMaster(distMast), _totalDistanceForMinion(distMin), _uberXDistanceForMaster(xMaster), _uberXDistanceForMinion(xMinion),
         _masterRequest(masterReq), _masterDispatch(masterDispatch), _masterPickup(masterPickup), _masterDrop(masterDrop), _masterActualDropFromTripData(actDropFromTripData), _masterPickupEventFromActuals(actPickupEventFromTripData), _masterDropEventFromActuals(actDropEventFromTripData), _masterOrig(masterOrig), _masterDest(masterDest), _pctAddlDistMaster(pctAddlDistMaster),
         _minionRequest(minionReq), _minionDispatch(minionDispatch), _minionPickup(minionPickup), _minionDrop(minionDrop), _minionOrig(minionOrig), _minionDest(minionDest), _pctAddlDistMinion(pctAddlDistMinion),
-        _masterSavings(masterSavings), _minionSavings(minionSavings), _avgSavings(avgSavings), _masterReqIndex(masterReqIx), _minionReqIndex(minionReqIx) {};
+        _masterSavings(masterSavings), _minionSavings(minionSavings), _avgSavings(avgSavings), _masterReqIndex(masterReqIx), _minionReqIndex(minionReqIx), _masterDriverLocAtTimeOfMinionReq(masterDriverLocAtTimeOfMinionReq), _masterLocAtTimeOfMinionReq(masterLocAtTimeOfMinionReq) {};  //, _masterWaitTimeInSec(masterWaitTimeOfMatchInSec), _minionWaitTimeInSec(minionWaitTimeOfMatchInSec) {};
     
     // trip basics
     const Driver * pDriver;
@@ -46,6 +46,10 @@ struct FeasibleMatch {
     const double _uberXDistanceForMaster;
     const double _uberXDistanceForMinion;
     
+    // timing metrics
+    //const int _masterWaitTimeInSec;
+    //const int _minionWaitTimeInSec; 
+    
     // master info
     const int _masterIndex;
     const time_t _masterRequest;
@@ -62,6 +66,8 @@ struct FeasibleMatch {
     const Event * _masterDropEventFromActuals;
     const std::string _masterTripUUID;
     const int _masterReqIndex;
+    const LatLng _masterDriverLocAtTimeOfMinionReq;
+    const LatLng _masterLocAtTimeOfMinionReq;
     
     // minion info  
     const int _minionIndex;

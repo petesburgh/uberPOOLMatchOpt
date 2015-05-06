@@ -10,9 +10,11 @@
 
 FlexDepartureModel::FlexDepartureModel(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int lenFlexDepWindow, 
             const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, 
-            std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate) : 
+            std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate,
+            const bool inclMinionPickupInSavingsConstr ) : 
             _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _lenFlexDepWindowInSec(lenFlexDepWindow), _maxMatchDistInKm(maxMatchDistKm), 
-            _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _flexDepOptInRate(flexDepOptInRate) {
+            _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _flexDepOptInRate(flexDepOptInRate),
+            _inclMinionPickupExtMatchesSavingsConstr(inclMinionPickupInSavingsConstr) {
 }
 
 FlexDepartureModel::~FlexDepartureModel() {
@@ -377,18 +379,18 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::gene
             std::string isTimeEligStr = (isTimeElig) ? "ELIGIBLE" : "ineligible";
             if( !isTimeElig )
                 continue;
-            
+                        
             // check if DISTANCE qualifies (check separate instances depending upon if the master has been dispatched)
             double pickupDistToMinionAtTimeOfReq = 0.0;
             if( (*masterItr)->pDispatchEvent == NULL ) {
-                pickupDistToMinionAtTimeOfReq = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
+                pickupDistToMinionAtTimeOfReq = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());                
             } else {
                // std::cout << "\tcomputing pickup distance between master/minion pair " << (*masterItr)->_riderIndex << "/" << (*minionItr)->_riderIndex << std::endl;
                // std::cout << "\tmaster dispatched at " << Utility::convertTimeTToString((*masterItr)->pDispatchEvent->timeT) << std::endl;
                 
                 // if the minion request occurs after master dispatch
                 if( (*minionItr)->_reqTime >= (*masterItr)->pDispatchEvent->timeT ) {
-                    pickupDistToMinionAtTimeOfReq = ModelUtils::getPickupDistanceAtTimeOfMinionRequest(
+                    pickupDistToMinionAtTimeOfReq = ModelUtils::getPickupDistanceAtTimeOfMinionRequest_maxPickupConstr(
                         (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), 
                         (*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), 
                         (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(),
@@ -405,7 +407,7 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::gene
             if( pickupDistToMinionAtTimeOfReq <= _maxMatchDistInKm ) {   
                 
                 //const double haversineDistFromMasterOrigToMinionOrig = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
-                const double pickupDistanceToMinion = ModelUtils::computePickupDistance((*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(), (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng()); // TODO: fix this!
+                const double pickupDistanceToMinion = ModelUtils::computePickupDistance_savingsConstr((*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(), (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), _inclMinionPickupExtMatchesSavingsConstr); // TODO: fix this!
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
                                 

@@ -8,8 +8,8 @@
 #include "UFBW_fixed.hpp"
 #include "ModelUtils.hpp"
 
-UFBW_fixed::UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers) : 
-        _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers) {
+UFBW_fixed::UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupForSavingsConstr) : 
+        _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _inclMinionPickupExtMatchesSavingsConstr(inclInitPickupForSavingsConstr) {
     
     _batchCounter = 0;    
 }
@@ -341,12 +341,11 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeas
                 
                 // if the minion request occurs after master dispatch
                 if( (*minionItr)->_reqTime >= (*masterItr)->pDispatchEvent->timeT ) {
-                    pickupDistToMinionAtTimeOfReq = ModelUtils::getPickupDistanceAtTimeOfMinionRequest(
+                    pickupDistToMinionAtTimeOfReq = ModelUtils::getPickupDistanceAtTimeOfMinionRequest_maxPickupConstr(
                         (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), 
                         (*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), 
                         (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(),
-                        (*masterItr)->pDispatchEvent->timeT, (*masterItr)->pDispatchEvent->lat, 
-                        (*masterItr)->pDispatchEvent->lng);                    
+                        (*masterItr)->pDispatchEvent->timeT, (*masterItr)->pDispatchEvent->lat, (*masterItr)->pDispatchEvent->lng);                    
                 }
                 
                 // if the minion request occurs before master dispatch
@@ -358,7 +357,7 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeas
             if( pickupDistToMinionAtTimeOfReq <= _maxMatchDistInKm ) {   
                 
                 //const double haversineDistFromMasterOrigToMinionOrig = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
-                const double pickupDistanceToMinion = ModelUtils::computePickupDistance((*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(), (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng()); // TODO: fix this!
+                const double pickupDistanceToMinion = ModelUtils::computePickupDistance_savingsConstr((*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(), (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), _inclMinionPickupExtMatchesSavingsConstr); // TODO: fix this!
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
                                 

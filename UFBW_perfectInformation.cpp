@@ -82,7 +82,7 @@ bool UFBW_perfectInformation::solve(bool printDebugFiles, Output * pOutput, bool
         std::cout << "\n\n\n\ttrying to get feasible matches...\n" << std::endl;
     }
     
-    std::set<MasterMinionMatchCand*, MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(candMastersMinions.first, candMastersMinions.second, &initialOpenTrips);
+    std::set<MasterMinionMatchCand*, MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(pCurrRequest->getReqTime(), candMastersMinions.first, candMastersMinions.second, &initialOpenTrips);
          
     if( printToScreen ) {
         std::cout << "\t\t" << feasibleMatches.size() << " feasible matches have been identified" << std::endl;                
@@ -202,7 +202,7 @@ std::set<Request*, ReqComp> UFBW_perfectInformation::getRequestsInInterval(std::
 }
 
 // METHODS TO FIND ALL FEASIBLE MATCH COMBINATIONS
-std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation::generateFeasibleMasterMinionMatches(std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, std::set<OpenTrip*, EtaComp> * pInitOpenTrips) {
+std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation::generateFeasibleMasterMinionMatches(const time_t &reqTimeOfFirstReqInCurrBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, std::set<OpenTrip*, EtaComp> * pInitOpenTrips) {
     std::set<MasterMinionMatchCand*, MasterMinionMatchComp> matchCandidates;
     int counter = 1;
     std::set<MasterCand*, MasterComp>::iterator masterItr;
@@ -276,8 +276,12 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation:
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
                                 
+                // compute wait time of match for master and minion
+                time_t secWaitTimeOfMatchMaster = (*masterItr)->_reqTime - reqTimeOfFirstReqInCurrBatch;
+                time_t secWaitTimeOfMatchMinion = (*masterItr)->_reqTime - reqTimeOfFirstReqInCurrBatch;
+                
                 // check if FIFO match is feasible                           
-                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr  );                                
+                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitTimeOfMatchMaster, (int)secWaitTimeOfMatchMinion );                                
                 if( pFIFOMatch != NULL ) {  
                     const int matchIndex = matchCandidates.size();
                     MasterMinionMatchCand * pFIFOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);
@@ -285,7 +289,7 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation:
                 }
                 
                 // check if FILO match is feasible
-                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr);
+                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitTimeOfMatchMaster, (int)secWaitTimeOfMatchMinion);
                 if( pFILOMatch != NULL ) {
                     const int matchIndex = matchCandidates.size();
                     MasterMinionMatchCand * pFILOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FILO, pFILOMatch->_avgSavings, pFILOMatch->_masterPickedUpAtTimeOfMatch, pFILOMatch);

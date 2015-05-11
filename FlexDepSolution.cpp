@@ -26,8 +26,22 @@ void FlexDepSolution::buildSolutionMetrics() {
 void FlexDepSolution::buildAggregateSolutionMetrics() {
     
     // instantiate data to be populated
+    std::vector<double> pctAllAddedDistances; 
     std::vector<double> pctAddedDistancesForMasters;  // how much added distance for pool trip relative to X for masters
-    std::vector<double> pctAddedDistancesForMinions;  // how much added distance for pool trip relative to X for minions
+    std::vector<double> pctAddedDistancesForMinions;  // how much added distance for pool trip relative to X for minions    
+        
+    std::vector<double> pctSavingsAllMatchedRiders;
+    std::vector<double> pctSavingsForMasters;
+    std::vector<double> pctSavingsForMinions;
+    
+    std::vector<int>    waitTimeMatches_all;
+    std::vector<int>    waitTimeMatchesForMasters;
+    std::vector<int>    waitTimeMatchesForMinions;
+    
+    std::vector<double> overlapDistances;
+    std::vector<double> pctSharedDist_ALL;
+    std::vector<double> pctOverlapDist_Masters;
+    std::vector<double> pctOverlapDist_Minions;
     
     int numExtendedMatches = 0;
     int numNonExtendedMatches = 0;
@@ -82,8 +96,23 @@ void FlexDepSolution::buildAggregateSolutionMetrics() {
             const double uberXLength_minion = (*tripItr)->getMatchDetails()->_uberXDistanceForMinion;
             const double addedDist_minion   = tripLength_minion - uberXLength_minion;
             const double pctAdded_minion    = (double)100*addedDist_minion/uberXLength_minion;
-            pctAddedDistancesForMinions.push_back(pctAdded_minion);            
+            pctAddedDistancesForMinions.push_back(pctAdded_minion);     
             
+            // add match overlap 
+            const double sharedDist = (*tripItr)->getMatchDetails()->_sharedDistance;
+            overlapDistances.push_back(sharedDist);
+            double pctSharedDist_MASTERS = (double)100*(sharedDist/tripLength_master);
+            double pctSharedDist_MINIONS = (double)100*(sharedDist/tripLength_minion);            
+            pctOverlapDist_Masters.push_back(pctSharedDist_MASTERS);
+            pctOverlapDist_Minions.push_back(pctSharedDist_MINIONS);
+            
+            // populate savings vectors
+            pctSavingsForMasters.push_back((*tripItr)->getMatchDetails()->_masterSavings);
+            pctSavingsForMinions.push_back((*tripItr)->getMatchDetails()->_minionSavings);  
+            
+            // populate wait time of matches
+            waitTimeMatchesForMasters.push_back((*tripItr)->getMatchDetails()->_masterWaitTimeInSec);
+            waitTimeMatchesForMinions.push_back((*tripItr)->getMatchDetails()->_minionWaitTimeInSec);
         }
         else {
             addUnmatchedTrip(*tripItr); // _unmatchedTrips.insert(*tripItr);
@@ -111,12 +140,34 @@ void FlexDepSolution::buildAggregateSolutionMetrics() {
     double pctFILONonExtendedMatches = (double)100*(double)numFILONonExtendedMatches/(double)totalMatchedTrips;
     
     // compute inconvenience 
-    std::vector<double> pctAllAddedDistances; 
     pctAllAddedDistances.insert(pctAllAddedDistances.end(),pctAddedDistancesForMasters.begin(),pctAddedDistancesForMasters.end());
     pctAllAddedDistances.insert(pctAllAddedDistances.end(),pctAddedDistancesForMinions.begin(),pctAddedDistancesForMinions.end());
     const double meanAddedDist_masters = Utility::computeMean(pctAddedDistancesForMasters);
     const double meanAddedDist_minions = Utility::computeMean(pctAddedDistancesForMinions);
     const double meanAddedDist_all     = Utility::computeMean(pctAllAddedDistances);
+    
+    // compute overlap metrics
+    pctSharedDist_ALL.insert(pctSharedDist_ALL.end(), pctOverlapDist_Masters.begin(), pctOverlapDist_Masters.end());
+    pctSharedDist_ALL.insert(pctSharedDist_ALL.end(), pctOverlapDist_Minions.begin(), pctOverlapDist_Minions.end());
+    const double meanOverlapDist        = Utility::computeMean(overlapDistances);
+    const double meanPctOverlap_ALL     = Utility::computeMean(pctSharedDist_ALL);
+    const double meanPctOverlap_Masters = Utility::computeMean(pctOverlapDist_Masters);
+    const double meanPctOverlap_Minions = Utility::computeMean(pctOverlapDist_Minions);
+    
+    // compute savings
+    
+    pctSavingsAllMatchedRiders.insert(pctSavingsAllMatchedRiders.end(),pctSavingsForMasters.begin(),pctSavingsForMasters.end());
+    pctSavingsAllMatchedRiders.insert(pctSavingsAllMatchedRiders.end(),pctSavingsForMinions.begin(),pctSavingsForMinions.end());
+    const double meanSavings_allMatchedRiders = Utility::computeMean(pctSavingsAllMatchedRiders);
+    const double meanSavings_masters = Utility::computeMean(pctSavingsForMasters);
+    const double meanSavings_minions = Utility::computeMean(pctSavingsForMinions);
+    
+    // wait time for matches
+    waitTimeMatches_all.insert(waitTimeMatches_all.end(), waitTimeMatchesForMasters.begin(), waitTimeMatchesForMasters.end());
+    waitTimeMatches_all.insert(waitTimeMatches_all.end(), waitTimeMatchesForMinions.begin(), waitTimeMatchesForMinions.end());
+    const double avgWaitTimeMatch_all     = Utility::computeMean(waitTimeMatches_all);
+    const double avgWaitTimeMatch_masters = Utility::computeMean(waitTimeMatchesForMasters);
+    const double avgWaitTimeMatch_minions = Utility::computeMean(waitTimeMatchesForMinions); 
     
     // ---- POPULATE SOLUTION CONTAINERS ----
     // request summary
@@ -125,11 +176,22 @@ void FlexDepSolution::buildAggregateSolutionMetrics() {
     // define match metrics
     setMatchMetrics(totalMatchedTrips,numExtendedMatches,pctExtendedMatches,numNonExtendedMatches,pctNonExtendedMatches,
             numFIFOMatches,pctFIFOMatches,numFILOMatches,pctFILOMatches,pctFIFOExtendedMatches,
-            pctFIFONonExtendedMatches,pctFILOExtendedMatches,pctFILONonExtendedMatches);
+            pctFIFONonExtendedMatches,pctFILOExtendedMatches,pctFILONonExtendedMatches,
+            avgWaitTimeMatch_all, avgWaitTimeMatch_masters, avgWaitTimeMatch_minions);
 
     // define avg increase in trip length for all, masters, and minions 
     setInconvenienceMetrics(meanAddedDist_all,meanAddedDist_masters,meanAddedDist_minions);
     
+    // set match overlap metrics
+    setOverlapMetrics(meanOverlapDist, meanPctOverlap_ALL, meanPctOverlap_Masters, meanPctOverlap_Minions);
+    
+    // set rider savings metrics
+    setSavingsMetrics(meanSavings_allMatchedRiders, meanSavings_masters, meanSavings_minions);
+    
+    setIndivMatchMetrics(pctAllAddedDistances, pctAddedDistancesForMasters, pctAddedDistancesForMinions,
+                         pctSavingsAllMatchedRiders, pctSavingsForMasters, pctSavingsForMinions,
+                         waitTimeMatches_all, waitTimeMatchesForMasters, waitTimeMatchesForMinions, 
+                         overlapDistances, pctSharedDist_ALL, pctOverlapDist_Masters, pctOverlapDist_Minions);            
 }
 
 void FlexDepSolution::buildFDSolutionMetrics() {

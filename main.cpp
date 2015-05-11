@@ -45,14 +45,7 @@ void printBanner(ParameterSet * pParamSet, int N);
 void printSummaryOfDataInput(DataContainer*);
 void printDriverInfo(DataContainer*);
 void printRiderInfo(const std::set<Rider*, RiderIndexComp>*);
-//void writeAndPrintInputs(DataContainer*, Output*);
 
-//void printSolutionMetricsForCurrExperiment(SolnMaps * pSolnMaps, std::vector<double> inputRange, int currExperiment, const std::string outputBasePath);
-void printSolutionMetricsForCurrExperiment2(const std::map<double, SolnMaps*> * pModelSolnMap, int currExperiment, const std::string outputBasePath);
-void printInputRequestsMetrics( ofstream &outFile, std::string inputName, std::map<double, const int> * pNumReqMap);
-void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> *pMatchRateMap_UFBW, std::map<double,double> * pMatchRateMap_FD, std::map<double,double> * pMatchRateMap_UFBW_PI, std::map<double,double> * pMatchRateMap_FD_FDReqs, std::map<double,double> * pMatchRateMap_FD_nonFDReqs);
-void printInconvenienceMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pInconvMap_MITM, std::map<double,double> * pInconvMap_UFBW, std::map<double,double> * pInconvMap_FD, std::map<double,double> * pInconvMap_UFBW_PI);
-void printNumTripsMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pNumTripsMap_MITM, std::map<double,double> * pNumTripsMap_UFBW, std::map<double,double> * pNumTripsMap_FD, std::map<double,double> * pNumTripsMap_UFBW_PI);
 
 // -----------
 //    MAIN
@@ -77,9 +70,10 @@ int main(int argc, char** argv) {
      *      scen 10: Austin, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC (flexible departure analysis)
      *      scen 11: scen 09 with LA geofence
      *      scen 12: LA, 5-hour sim from 1800-2300 local with geofence (comparing accounting of savings)
+     *      scen 13: NJ, 1-week sim from 0000-0000 local, no geofences (MITM)
      */
     
-    const int scenNumber = 12;
+    const int scenNumber = 13;
     ProblemInstance * pInstance = generateInstanceScenarios(scenNumber);
     
     // SPECIFY TYPE OF EXPERIMENT
@@ -87,10 +81,11 @@ int main(int argc, char** argv) {
     
     const bool printDebugFiles       = false;
     const bool printToScreen         = false;
+    const bool printIndivSolnMetrics = true;
     const bool populateInitOpenTrips = false;
         
-    ModelRunner::DataInputValues * pDataInput = new ModelRunner::DataInputValues(inputPath, outputBasePath, pInstance->getInputCsvFilename(), pInstance->getSimStartTimeString(), pInstance->getSimLengthInMin(), populateInitOpenTrips);    
-    ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(outputBasePath,printDebugFiles,printToScreen);
+    ModelRunner::DataInputValues * pDataInput   = new ModelRunner::DataInputValues(inputPath, outputBasePath, pInstance->getInputCsvFilename(), pInstance->getSimStartTimeString(), pInstance->getSimLengthInMin(), populateInitOpenTrips);    
+    ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(outputBasePath,printDebugFiles,printIndivSolnMetrics,printToScreen);
         
     // specify DEFAULT values
     const double default_optInRate               = 0.40;
@@ -110,14 +105,13 @@ int main(int argc, char** argv) {
     std::vector<double> range_maxMatchDistInKm = defineMaxPickupDistRange(); // max pickup range (km): 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 10.0           
     std::vector<double> range_minPoolDiscount = defineMinPoolDiscountRange();  // max pool discount for master: 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
         
-    // TYPE OF TESTS TO RUN
+    // uberPOOL TEST MODELS RUN
     const bool runMITMModel        = true;
     const bool runUFBW_seqPickups  = false;
     //const bool runUFBW_flexPickups = false; 
-    const bool runFlexDepModel     = false;
+    const bool runFlexDepModel     = true;
     const bool runUFBW_perfectInfo = false; 
-        
-    
+            
     // create ModelRunner object which controls all optimizations 
     ModelRunner * pModelRunner = new ModelRunner( experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofences() );     
     pModelRunner->setInputValues(range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
@@ -125,7 +119,7 @@ int main(int argc, char** argv) {
     
     // ---- SOLVE MODELS ----
     const std::map<double, SolnMaps*> * pInputValSolnMap = pModelRunner->runAllModels();
-            
+
     // ---- PRINT SUMMARY SOLUTION ----
     pModelRunner->printSolutionSummaryForCurrExperiment(pInputValSolnMap);
       
@@ -155,27 +149,17 @@ std::vector<double> defineBatchWindowRange() {
 std::vector<double> defineOptInRange() {
     std::vector<double> optInRange;
     
-    //optInRange.push_back(0.05); //
-    optInRange.push_back(0.10); //
-    //optInRange.push_back(0.15); // 
+    optInRange.push_back(0.10); 
     optInRange.push_back(0.20);
-    //optInRange.push_back(0.25); //
     optInRange.push_back(0.30);
-    //optInRange.push_back(0.35); //
     optInRange.push_back(0.40);
-    //optInRange.push_back(0.45); //
     optInRange.push_back(0.50);
-    //optInRange.push_back(0.55); //
     optInRange.push_back(0.60);
-    //optInRange.push_back(0.65); //
     optInRange.push_back(0.70);
-    //optInRange.push_back(0.75); //
     optInRange.push_back(0.80);
-    //optInRange.push_back(0.85); //
     optInRange.push_back(0.90);
-    //optInRange.push_back(0.95); //
-    optInRange.push_back(0.9999);    
-    
+    optInRange.push_back(1.0);
+         
     return optInRange;
 }
 std::vector<double> defineMaxPickupDistRange() {

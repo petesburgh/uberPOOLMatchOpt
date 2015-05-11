@@ -40,8 +40,6 @@ void DataContainer::extractCvsSnapshot() {
     std::ifstream       file(filePath);
     CSVRow row;
     
-    const time_t endOfFirstWeek = this->_timeline + (60*60*24*7);
-    
     int rowIndex = 0;
     while( file >> row ) {        
         size_t nCols = row.size();
@@ -49,8 +47,9 @@ void DataContainer::extractCvsSnapshot() {
 
        // ignore header row
        if( rowIndex > 0 ) {
+           
            // define current trip
-           TripData * currTrip = defineCurrentTripInfoFromCsvLine(row,endOfFirstWeek);    
+           TripData * currTrip = defineCurrentTripInfoFromCsvLine(row);    
            
            // get Driver* object (and define if necessary)
            Driver * pDriver = getDriverFromTrip(currTrip->getDriverID());
@@ -86,8 +85,7 @@ void DataContainer::extractCvsSnapshot() {
 
         } else {
             rowIndex++;
-        }
-           
+        }           
     }
      
     file.close();    
@@ -181,17 +179,13 @@ bool DataContainer::isTripFeasibleForCurrGeofence(TripData * pTrip, Geofence * p
             return false;
     }
 }
-
-TripData* DataContainer::defineCurrentTripInfoFromCsvLine(CSVRow& row, const time_t &endOfFirstWeek) {
+TripData* DataContainer::defineCurrentTripInfoFromCsvLine(CSVRow& row) {
     TripData * currTrip = new TripData();
        
     // build REQUEST event
     const double reqLat      = atof(row[4].c_str());  
     const double reqLng      = atof(row[5].c_str());    
     time_t requestTime  = Utility::convertDateTimeStringToTimeT(row[3]);
-    if( requestTime >= endOfFirstWeek ) {
-        requestTime = requestTime - (60*60*24*7);
-    }
     Event request(requestTime,reqLat,reqLng);
     
     // build DISPATCH event
@@ -272,19 +266,21 @@ Rider * DataContainer::getRiderFromTrip(const std::string id) {
 bool DataContainer::generateUberPoolTripProxy() {
     
     // if all uberX requests are POOL requests (trivial)
-    if( _optInRate == 1 ) {
+ /*   if( _optInRate == 1 ) {
         _uberPoolRiders = _allUberXRiders;
         return true;
-    } 
+    } */
+    
+    assert( (0.0 <= _optInRate) && (_optInRate <= 1.0) );
     
     // if no uberX requests are POOL requests then the test does not make sense
-    else if( _optInRate == 0 ) {
+    if( _optInRate == 0 ) {
         std::cerr << "\n\n*** ERROR: no uberPOOL requests are given (0 percent) ***\n\n" << std::endl;
         std::cerr << "\tsystem exiting upon error... " << std::endl;
         return false;
     }
     
-    // if the pct is strictly between (0,1)
+    // if the pct is strictly between (0,1]
     else {
         int numPoolUsers = (int)round(_optInRate*_allUberXRiders.size());
        
@@ -448,7 +444,6 @@ Rider * DataContainer::getRiderFromID(const std::string riderID) {
         throw new ItemNotFoundException("rider",riderID,"_idRiderMap");
     }
 }
-
 Driver * DataContainer::getDriverFromID(const std::string driverID) {
     std::map<const std::string, Driver*>::iterator driverItr = _idDriverMap.find(driverID);
     if( driverItr != _idDriverMap.end() ) {

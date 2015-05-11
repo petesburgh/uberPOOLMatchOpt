@@ -56,8 +56,6 @@ public:
     bool checkIfDriverAssignedToOpenTrip( time_t currTime, Driver * pDriver, std::set<OpenTrip*, EtaComp>* pOpenTrips );
     std::pair<const TripData*, const TripData*> * getAdjacentTrips(const Driver * pDriver, const time_t reqTime);
     LatLng getEstLocationOfOpenDriver(const Driver * pDriver, const time_t &reqTime);
-    //LatLng * getEstLocationOfOpenDriver(const Driver * pDriver, const time_t &reqTime);
-    //OpenTrip * createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, std::pair<double,double> driverDispatchLoc, Request * pMinionRequest, const Event * pActualDispatchEvent);
     OpenTrip * createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, Request * pMinionRequest, const Event * pActualDispatchEvent);
     OpenTrip * getOpenTripAssignedToDriver(std::set<OpenTrip*, EtaComp> * pOpenTrips, const Driver * pDriver);
     

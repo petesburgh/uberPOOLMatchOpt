@@ -47,7 +47,7 @@ public:
     bool populateRequestsAndTrips();    // translate data into requests and trips
     
     // I/O methods
-    TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row, const time_t &endOfFirstWeek);
+    TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row);
 
     // getters
     const std::string getInputPath()   const { return _inputPath; }

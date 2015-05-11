@@ -17,7 +17,7 @@
 #include "Comparators.hpp"
 #include "FeasibleMatch.hpp"
 #include "Output.hpp"
-#include "Solution.hpp"
+//#include "Solution.hpp"
 #include "FlexDepSolution.hpp"
 
 #include "base/commandlineflags.h"
@@ -35,6 +35,8 @@
 using namespace std;
 using namespace operations_research;
 
+class Output;
+
 class FlexDepartureModel {
     
     friend class ModelUtils;
@@ -50,7 +52,7 @@ public:
     std::set<Request*, ReqComp> getRequestsInInterval(std::deque<Request*> &requestsToProcess, const time_t &currBatchStartTime, const time_t &currBatchEndTime);
     AssignedTrip * convertWaitingRequestToAssignedTrip(Request * pWaitingRequest);
     std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > generateCandidateMastersAndMinions(std::set<OpenTrip*, EtaComp> &openTrips, std::set<Request*, ReqComp> &currBatchRequests);
-    std::set<MasterMinionMatchCand*, MasterMinionMatchComp> generateFeasibleMasterMinionMatches(std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices);
+    std::set<MasterMinionMatchCand*, MasterMinionMatchComp> generateFeasibleMasterMinionMatches(const time_t &reqTimeAtInitRequestInBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices);
     void assignWeightsForMatchCandidates(std::set<MasterMinionMatchCand*, MasterMinionMatchComp> * pCandidateMatches);
     double computeEdgeWeightOfCurrCandidateMatch(MasterMinionMatchCand * pCurrMatchCand);
     bool checkifCandidateMatchIsTimeEligible(MasterCand * pMaster, MinionCand * pMinion, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices);

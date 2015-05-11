@@ -28,7 +28,7 @@ class ModelRunner;
 
 class Output {
 public:
-    Output(const std::string outputBasePath, const std::string outputExperimentPath);
+    Output(const std::string outputBasePath, const std::string outputExperimentPath, const bool printIndivMetrics);
     virtual ~Output();
     
     // print debug files
@@ -42,18 +42,23 @@ public:
     
     // print solution
     void printSolution(Solution * pSolution, const ModelEnum &model);
-    //void printDataSummary(Solution * pSolution, std::string &outpath);
     void printSolutionSummary(Solution * pSolution, std::string &outpath, std::string &modelname );
     void printMatchTripsSummary(Solution * pSolution, std::string &outpath);
     void printUnmatchedTripsSummary(Solution * pSolution, std::string &outpath);
     void printDisqualifiedRequestsSummary(Solution * pSolution, std::string &outpath);
+    void printIndivSolnMetrics(Solution * pSolution, std::string &outpath);
+    
+    void printIndivdualRiderInconvenienceMetrics(Solution * pSolution, ofstream &outFile);
+    void printIndividualTripOverlapMetrics(Solution * pSolution, ofstream &outFile);
+    void printIndividualSavingsMetrics(Solution * pSolution, ofstream &outFile);
+    void printIndividualWaitTimeofMatchMetrics(Solution * pSolution, ofstream &outFile);    
     
     const std::string getOutputBasePath() const { return _outputBasePath; }
     const std::string getOutputScenarioPath() const { return _outputScenarioPath; }
     
-   /* void printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname );
+    void printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname );
     void printMatchTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath);
-    void printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath); */
+    void printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath); 
     
     void writeAndPrintInputs(DataContainer* pDataContainer, const bool printDebugFiles);
     void printSummaryOfDataInput(DataContainer * pDataContainer);
@@ -62,7 +67,10 @@ public:
     void printInputRequestsMetrics( std::ofstream &outFile, const std::map<double, SolnMaps*> * pModelSolnMap );    
     void printMatchRateMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
     void printInconvenienceMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
+    void printOverlapMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
     void printNumTripsMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
+    void printRiderSavingsMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
+    void printMatchWaitTimeMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
     
     void setOutputScenarioPath(const std::string outputScenPath) { _outputScenarioPath = outputScenPath; }
     
@@ -75,8 +83,8 @@ public:
     
     
 private:
-    
     const std::string _outputBasePath;
+    const bool _printIndivMetrics;
     std::string _outputExperimentPath;
     std::string _outputScenarioPath;
     DataContainer * pDataContainer;

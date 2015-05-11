@@ -13,6 +13,7 @@
 #include "Output.hpp"
 #include "MitmModel.hpp"
 #include "ModelEnum.hpp"
+#include "FlexDepartureModel.hpp"
 #include "SolnMaps.hpp"
 #include <sys/stat.h>   /* mkdir */
 
@@ -52,29 +53,38 @@ public:
         const double _maxPickupDistance;
         const double _minSavings;
         const double _flexDepOptInRate;
-        const int    _flexDepWindowInSec;
+        const int    _flexDepWindowInSec;        
     };    
     
     struct DataOutputValues {
-        DataOutputValues(const std::string outputBasePath, const bool printDebugFiles, const bool printToScreen) : 
-            _outputBasePath(outputBasePath), _printDebugFiles(printDebugFiles), _printToScreen(printToScreen) {};
+        DataOutputValues(const std::string outputBasePath, const bool printDebugFiles, const bool printIndivSolnMetrics, const bool printToScreen) : 
+            _outputBasePath(outputBasePath), _printDebugFiles(printDebugFiles), _printIndivSolnMetrics(printIndivSolnMetrics), _printToScreen(printToScreen) {};
     
         const std::string _outputBasePath;
         std::string _outputScenarioPath;
         const bool _printDebugFiles;
+        const bool _printIndivSolnMetrics;
         const bool _printToScreen;    
-}   ;
-
-    /*struct SolnMaps {
-        std::vector<double>        inputValues;
-        std::map<double,const int> numRequests_inputs;
-        std::map<double, double>   matchRateMap;
-        std::map<double, double>   inconvMap;
-        std::map<double, double>   numTripsMap;
-        std::map<double, double>   matchRate_FD_FDOptIns;
-        std::map<double, double>   matchRate_FD_FDNonOptIns;
-    };*/
+    };
     
+    struct IndivSolnMetrics {
+        std::vector<double> _inconv_ALL;
+        std::vector<double> _inconv_Masters;
+        std::vector<double> _inconv_Minions;
+        
+        std::vector<double> _overlapDist;
+        std::vector<double> _overlapPct_ALL;
+        std::vector<double> _overlapPct_Masters;
+        std::vector<double> _overlapPct_Minions;
+        
+        std::vector<double> _savings_ALL;
+        std::vector<double> _savings_Masters;
+        std::vector<double> _savings_Minions;
+        
+        std::vector<int>    _waitTimeToMatch_ALL;
+        std::vector<int>    _waitTimeToMatch_Masters;
+        std::vector<int>    _waitTimeToMatch_Minions;       
+    };    
     
     struct SolnMetrics {        
         double currInputValue;
@@ -82,9 +92,23 @@ public:
         double matchRate;
         double inconvenience;
         int numTrips;
+        double avgSavingsAllMatchedRiders;
+        double avgSavingsMasters;
+        double avgSavingsMinions;
         double matchRate_FD_FDOptIns;
         double matchRate_FD_nonFDOptIns;
+        double avgWaitTimeMatch_allRiders;
+        double avgWaitTimeMatch_masters;
+        double avgWaitTimeMatch_minions;
+        double avgSharedDist;
+        double avgPctSharedDist_ALL;
+        double avgPctSharedDist_Masters;
+        double avgPctSharedDist_Minions;
+        
+        ModelRunner::IndivSolnMetrics * pIndivMetrics;
     };
+    
+
      
     ModelRunner(const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const std::vector<Geofence*> * geofences );
     virtual ~ModelRunner();
@@ -107,6 +131,8 @@ public:
     void printSolutionSummaryForCurrExperiment(const std::map<double, SolnMaps*> * pInputValSolnMap);
     
     void setInclInitPickupDistForSavingsConstr(bool includeInitTripSavingsConstr) { _inclInitPickupDistForSavingsConstr = includeInitTripSavingsConstr; }
+    
+    IndivSolnMetrics * getIndivSolnMetrics(Solution * pSoln);
     
 private:
 

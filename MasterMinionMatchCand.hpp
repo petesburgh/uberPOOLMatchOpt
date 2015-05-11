@@ -21,6 +21,8 @@ struct MasterMinionMatchCand {
 
     MasterMinionMatchCand( int ix, MasterCand * master, MinionCand * minion, double distKm, DropType dropType, const double avgSavings, bool isExt, FeasibleMatch * feasMatchPtr) : 
         _matchIndex(ix), pMaster(master), pMinion(minion), _pickupDistKm(distKm), _dropType(dropType), _avgSavings(avgSavings), _isExtended(isExt), pFeasMatch(feasMatchPtr) {}; 
+
+        
     const int _matchIndex;
     const MasterCand * pMaster;
     const MinionCand * pMinion;        

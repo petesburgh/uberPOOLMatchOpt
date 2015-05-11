@@ -19,7 +19,7 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  SolnMaps.hpp
+  FlexDepartureModel.hpp SolnMaps.hpp
 
 UFBW_perfectInformation.hpp:
 
@@ -100,5 +100,7 @@ UFBW_fixed.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
+
+FlexDepartureModel.hpp:
 
 SolnMaps.hpp:

@@ -5,7 +5,7 @@ build/Debug/GNU-MacOSX/UFBW_fixed.o: UFBW_fixed.cpp UFBW_fixed.hpp \
   Comparators.hpp AssignedTrip.hpp Output.hpp DataContainer.hpp \
   CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp Solution.hpp \
   ModelEnum.hpp FlexDepSolution.hpp ModelRunner.hpp MitmModel.hpp \
-  ModelUtils.hpp SolnMaps.hpp \
+  ModelUtils.hpp FlexDepartureModel.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -17,7 +17,8 @@ build/Debug/GNU-MacOSX/UFBW_fixed.o: UFBW_fixed.cpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/basictypes.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
-  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h
+  ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
+  SolnMaps.hpp
 
 UFBW_fixed.hpp:
 
@@ -73,7 +74,7 @@ MitmModel.hpp:
 
 ModelUtils.hpp:
 
-SolnMaps.hpp:
+FlexDepartureModel.hpp:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h:
 
@@ -98,3 +99,5 @@ SolnMaps.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
+
+SolnMaps.hpp:

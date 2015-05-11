@@ -18,7 +18,7 @@ build/Debug/GNU-MacOSX/Output.o: Output.cpp Output.hpp DataContainer.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  SolnMaps.hpp
+  FlexDepartureModel.hpp SolnMaps.hpp
 
 Output.hpp:
 
@@ -97,5 +97,7 @@ UFBW_fixed.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h:
 
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
+
+FlexDepartureModel.hpp:
 
 SolnMaps.hpp:

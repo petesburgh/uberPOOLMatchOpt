@@ -35,6 +35,12 @@ public:
         ss << std::setprecision(15) << x;
         return ss.str(); 
     }
+    template<typename T>
+    static std::string toString(T &t) {
+        std::stringstream ss;
+        ss << std::setprecision(4) << t;
+        return ss.str();
+    }
     /*
      * given 'dateTimeStr' of the form '%m/%d/%y', convert to time_t object where
      * time_t object represents seconds since midnight on Jan 1, 1970 (UNIX time)
@@ -116,16 +122,17 @@ public:
         return distance;
     }
     
-    static double computeMean(std::vector<double> &doubleVec) {
-        if( doubleVec.empty() ) 
+    template<typename T>
+    static double computeMean(std::vector<T> &dataVec) {
+        if( dataVec.empty() )
             return -9999.99;
         
-        double sum = 0.0;
-        for( std::vector<double>::iterator itr = doubleVec.begin(); itr != doubleVec.end(); ++itr ) {
+        T sum = 0.0;
+        for( typename std::vector<T>::iterator itr = dataVec.begin(); itr != dataVec.end(); ++itr ) {
             sum += *itr;
         }
         
-        const double avg = sum/(double)doubleVec.size();
+        const double avg = (double)sum/(double)dataVec.size();
         return avg;
     }
     
@@ -155,6 +162,18 @@ public:
     static int createFolder(const std::string outPath) {
         int status_scen = mkdir(outPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
         return status_scen;
+    }
+    
+    template<typename T>
+    static std::string convertToCsvString(const std::string &header, std::vector<T> * pData) {
+        std::string csvString = header;
+        
+        typename std::vector<T>::iterator itr;
+        for(itr = pData->begin(); itr != pData->end(); ++itr ) {
+            csvString += "," + Utility::toString(*itr);
+        }
+        
+        return csvString;
     }
     
 private:

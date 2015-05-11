@@ -45,12 +45,49 @@ public:
         double  _pctFIFONonExtendedMatches;
         double  _pctFILOExtendedMatches;
         double  _pctFILONonExtendedMatches;
+        
+        // wait times
+        double  _avgWaitTimeOfMatchesForMasters;
+        double  _avgWaitTimeOfMatchesForMinions;
+        double  _avgWaitTimeOfMatchesForAllMatchedRiders;
     };
     
-    struct MatchInconvenienceMetrics{
+    struct SavingsMetrics {
+        double _avgMasterSavingsPct;
+        double _avgMinionSavingsPct;
+        double _avgMatchedRiderSavingsPct;
+    };
+    
+    struct MatchInconvenienceMetrics {
         double _avgPctAddedDistsForAll;
         double _avgPctAddedDistsForMasters;
         double _avgPctAddedDistsForMinions;        
+    };
+    
+    struct MatchOverlapMetrics {        
+        double  _avgOverlapDist;
+        double  _avgPctOverlapAll;
+        double  _avgPctOverlapMasters;
+        double  _avgPctOverlapMinions;
+    };
+    
+    struct IndivMatchedRiderMetrics {
+        std::vector<double> _inconv_ALL;
+        std::vector<double> _inconv_Masters;
+        std::vector<double> _inconv_Minions;
+        
+        std::vector<double> _overlapDist;
+        std::vector<double> _overlapPct_ALL;
+        std::vector<double> _overlapPct_Masters;
+        std::vector<double> _overlapPct_Minions;
+        
+        std::vector<double> _savings_ALL;
+        std::vector<double> _savings_Masters;
+        std::vector<double> _savings_Minions;
+        
+        std::vector<int>    _waitTimeToMatch_ALL;
+        std::vector<int>    _waitTimeToMatch_Masters;
+        std::vector<int>    _waitTimeToMatch_Minions;          
     };
     
     // constructor for scenarios OTHER than 
@@ -80,6 +117,10 @@ public:
     const Solution::RequestMetrics * getRequestMetrics() const { return &_requestMetrics; }
     const Solution::MatchMetrics * getMatchMetrics() const { return &_matchMetrics; }
     const Solution::MatchInconvenienceMetrics * getInconvenienceMetrics() const { return &_inconvenienceMetrics; }
+    const Solution::MatchOverlapMetrics * getOverlapMetrics() const { return &_overlapMetrics; }
+    const Solution::SavingsMetrics * getSavingsMetrics() const { return &_savingsMetrics; }
+    const Solution::IndivMatchedRiderMetrics * getIndivMatchedRidersMetrics() const { return &_indivMatchedRiderMetrics; }
+//    const std::set<Solution::IndivMatchedRiderMetrics*> * getIndivMatchedRiderMetrics() const { return &_individualMatchedRiderMetrics; }
     
     const int getTotalNumTripsFromSoln() const { return (int)_allTripsFromSolution.size(); }
     
@@ -95,11 +136,19 @@ public:
     const int getTotalNumRequests() const { return _requestMetrics._totalRequests; }
     const int getTotalMatchedRequests() const { return _requestMetrics._numMatchedRequests; }
     
+    // methods used by derived class(es))
     void setRequestMetrics(int totalRequests, int totalMatchedRequests, double matchRate, int totalUnmatchedTrips, double unmatchedRequestRate, int totalDisqualReqs, double disqualRequestRate);
     void setMatchMetrics(int totalMatchedTrips, int numExtendedMatches, double pctExtendedMatches, int numNonExtendedMatches, double pctNonExtendedMatches, 
                         int numFIFOMatches, double pctFIFOMatches, int numFILOMatches, double pctFILOMatches,
-                         double pctFIFOExtendedMatches, double pctFIFONonExtendedMatches, double pctFILOExtendedMatches, double pctFILONonExtendedMatches);
+                        double pctFIFOExtendedMatches, double pctFIFONonExtendedMatches, double pctFILOExtendedMatches, double pctFILONonExtendedMatches,
+                        double avgWaitTimeMatch_all, double avgWaitTimeMatch_masters, double avgWaitTimeMatch_minions);
     void setInconvenienceMetrics(double avgPctAddedAll, double avgPctAddedMasters, double avgPctAddedMinions);
+    void setSavingsMetrics(double avgSavingsAll, double avgSavingsMasters, double avgSavingsMinions);
+    void setOverlapMetrics(double avgSharedDist, double avgPctSharedDist_ALL, double avgPctSharedDist_Masters, double avgPctSharedDist_Minions);
+    void setIndivMatchMetrics(std::vector<double> pctAllAddedDistances, std::vector<double> pctAddedDistancesForMasters, std::vector<double> pctAddedDistancesForMinions,
+                              std::vector<double> pctSavingsAllMatchedRiders, std::vector<double> pctSavingsForMasters, std::vector<double> pctSavingsForMinions,
+                              std::vector<int> waitTimeMatches_all, std::vector<int> waitTimeMatchesForMasters, std::vector<int> waitTimeMatchesForMinions, 
+                              std::vector<double> overlapDistances, std::vector<double> pctSharedDist_ALL, std::vector<double> pctOverlapDist_Masters, std::vector<double> pctOverlapDist_Minions);
     
 private:
     
@@ -122,6 +171,9 @@ private:
     Solution::RequestMetrics            _requestMetrics;
     Solution::MatchMetrics              _matchMetrics;
     Solution::MatchInconvenienceMetrics _inconvenienceMetrics;
+    Solution::MatchOverlapMetrics       _overlapMetrics;
+    Solution::SavingsMetrics            _savingsMetrics;    
+    Solution::IndivMatchedRiderMetrics  _indivMatchedRiderMetrics;
     
 };
 

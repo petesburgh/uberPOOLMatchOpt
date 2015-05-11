@@ -9,8 +9,8 @@
 #include "ModelRunner.hpp"
 
 
-Output::Output(const std::string outputBasePath, const std::string outputExperimentPath) : 
-    _outputBasePath(outputBasePath), _outputExperimentPath(outputExperimentPath) {  
+Output::Output(const std::string outputBasePath, const std::string outputExperimentPath, const bool printIndivMetrics) : 
+    _outputBasePath(outputBasePath), _outputExperimentPath(outputExperimentPath), _printIndivMetrics(printIndivMetrics) {  
                
     // ensure directory exists
     int status_base = mkdir(_outputBasePath.c_str(), S_IRWXU | S_IRWXG | S_IROTH);
@@ -95,7 +95,7 @@ void Output::printTripSnapshot() {
     int eventBuffer  = 55;
     
     
-    outFile << "\t" <<
+    outFile <<
             left << setw(indexBuffer) << "index" << 
             left << setw(statusBuffer) << "status" << 
             left << setw(eventBuffer) << "requestEvent" << 
@@ -107,7 +107,7 @@ void Output::printTripSnapshot() {
     const std::vector<TripData*>* pTrips = pDataContainer->getAllTrips();
     for( std::vector<TripData*>::const_iterator tripItr = pTrips->begin(); tripItr != pTrips->end(); ++tripItr ) {
         
-        outFile << "\t" << 
+        outFile << 
                 left << setw(indexBuffer) << Utility::intToStr((*tripItr)->getIndex()) << 
                 left << setw(statusBuffer) << (*tripItr)->getStatusString() <<
                 left << setw(eventBuffer) << (*tripItr)->getRequestEvent()->getEventStr() << 
@@ -193,7 +193,7 @@ void Output::printRequestsInSim() {
     int timeBuffer = 30;
     int locBuffer = 25;
     int initBuffer = 12;
-    outFile << "\n\t" << left << setw(indexBuffer) << "tripIx" << 
+    outFile << "\n" << left << setw(indexBuffer) << "tripIx" << 
             left << setw(riderBuffer) << "riderID" << 
             left << setw(indexBuffer) << "riderIx" <<
             left << setw(initBuffer) << "initReq?" << 
@@ -207,7 +207,7 @@ void Output::printRequestsInSim() {
     std::set<Request*, ReqComp> requests = pDataContainer->getAllPoolRequestsInSim();
     for( std::set<Request*, ReqComp>::iterator iReq = requests.begin(); iReq != requests.end(); ++iReq ) {
         std::string isInit = (*iReq)->isInitRequest() ? "yes" : "no"; 
-        outFile << "\t" << left << setw(indexBuffer) << Utility::intToStr((*iReq)->getReqIndex()) << 
+        outFile << left << setw(indexBuffer) << Utility::intToStr((*iReq)->getReqIndex()) << 
                 left << setw(riderBuffer) << (*iReq)->getRiderID() << 
                 left << setw(indexBuffer) << Utility::intToStr((*iReq)->getRiderIndex()) <<
                 left << setw(initBuffer) << isInit <<
@@ -303,9 +303,9 @@ void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
         case UFBW_FIXED_PICKUPS :
             modelname = "UFBW_fixed";
             break;
-        case UFBW_PICKUP_SWAPS : 
+       /* case UFBW_PICKUP_SWAPS : 
             modelname = "UFBW_pickUpSwaps";
-            break;
+            break;*/
         case UFBW_PERFECT_INFO :
             modelname = "UFBW_perfectInformation";
             break;
@@ -316,21 +316,13 @@ void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
             modelname += "other";
     } 
     
-    filename += modelname; // + ".txt";
-    //filename += ".txt";
+    filename += modelname;
     std::string outpath = _outputScenarioPath + filename;
     
-    /*ofstream outFile(outpath.c_str());
-    outFile << "\n----------------------------------------\n" << std::endl;
-    outFile << "          solution for " << modelname << std::endl;
-    outFile << "\n----------------------------------------\n\n" << std::endl;  */
-
     // if FD solution
-    if( pSolution->getModel() == FLEX_DEPARTURE ) {
-        
-       /* FlexDepSolution * pFlexDepSoln = dynamic_cast<FlexDepSolution*>(pSolution);
+    if( pSolution->getModel() == FLEX_DEPARTURE ) {        
+        FlexDepSolution * pFlexDepSoln = dynamic_cast<FlexDepSolution*>(pSolution);
         if( pFlexDepSoln != NULL ) {
-          //  printDataSummary(pSolution, outpath);
             printSolutionSummary_FD(pFlexDepSoln, outpath, modelname);
             if( pSolution->getRequestMetrics()->_numMatchedRequests > 0 ) {
                 printMatchTripsSummary_FD(pFlexDepSoln, outpath);
@@ -340,15 +332,17 @@ void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
             }
             if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
                 printDisqualifiedRequestsSummary(pFlexDepSoln, outpath);
+            }     
+            if( _printIndivMetrics ) {
+                printIndivSolnMetrics(pSolution, outpath);
             }            
         } else {
             std::cout << "\n** ERROR: Solution cannot be cast as FlexDepSoluton **\n" << std::endl;
-        }   */              
+        }            
     }
     
     // all other solution
     else {    
-        //printDataSummary(outFile, pSolution);
         printSolutionSummary(pSolution, outpath, modelname);
         if( pSolution->getRequestMetrics()->_numMatchedRequests > 0 ) {
             printMatchTripsSummary(pSolution, outpath);
@@ -359,22 +353,11 @@ void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
         if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
             printDisqualifiedRequestsSummary(pSolution, outpath);
         }
-    }
-        
-    
-  //  outFile.close();
+        if( _printIndivMetrics ) {
+            printIndivSolnMetrics(pSolution, outpath);
+        }
+    } 
 }
-/*void Output::printDataSummary(ofstream& outFile, Solution* pSolution) {
-    outFile << "\n\n--- INPUT DATA SUMMARY ---\n" << std::endl;
-    
-    int headerBuffer = 30;
-    outFile << "\t" << left << setw(headerBuffer) << "start time: " << Utility::convertTimeTToString(pSolution->getStartTime()) << std::endl;
-    outFile << "\t" << left << setw(headerBuffer) << "end time: " << Utility::convertTimeTToString(pSolution->getEndTime()) << std::endl;
-    outFile << "\t" << left << setw(headerBuffer) << "total requests (proxy): " << Utility::intToStr(pSolution->getTotalRequests()) << std::endl;
-    outFile << "\t" << left << setw(headerBuffer) << "total drivers: " << Utility::intToStr(pSolution->getTotalDrivers()) << std::endl;
-    
-    //const int totalRequests = pSolution->g
-}*/
 void Output::printSolutionSummary(Solution * pSolution, std::string &outpath, std::string &modelname ) {
   //  outFile << "\n\n--- SUMMARY METRICS ---\n" << std::endl;
     
@@ -422,17 +405,20 @@ void Output::printSolutionSummary(Solution * pSolution, std::string &outpath, st
     if( matchedRequests > 0 ) {
         const Solution::MatchMetrics * pMetrics = pSolution->getMatchMetrics();
         
-        int totalMatchedTrips = pMetrics->_numMatches;
-        int numFIFOTrips = pMetrics->_numFIFOMatches;
-        double pctFIFO = pMetrics->_pctFIFOMatches;
-        int numFILOTrips = pMetrics->_numFILOMatches;
-        double pctFILO = pMetrics->_pctFILOMatches;
-        int numExtendedMatches = pMetrics->_numExtendedMatches;
-        double pctExtended = pMetrics->_pctExtendedMatches;
-        double pctFifoExt = pMetrics->_pctFIFOExtendedMatches;
-        double pctFifoNonext = pMetrics->_pctFIFONonExtendedMatches;
-        double pctFiloExt = pMetrics->_pctFILOExtendedMatches;
-        double pctFiloNonext = pMetrics->_pctFILONonExtendedMatches;
+        const int totalMatchedTrips = pMetrics->_numMatches;
+        const int numFIFOTrips = pMetrics->_numFIFOMatches;
+        const double pctFIFO = pMetrics->_pctFIFOMatches;
+        const int numFILOTrips = pMetrics->_numFILOMatches;
+        const double pctFILO = pMetrics->_pctFILOMatches;
+        const int numExtendedMatches = pMetrics->_numExtendedMatches;
+        const double pctExtended = pMetrics->_pctExtendedMatches;
+        const double pctFifoExt = pMetrics->_pctFIFOExtendedMatches;
+        const double pctFifoNonext = pMetrics->_pctFIFONonExtendedMatches;
+        const double pctFiloExt = pMetrics->_pctFILOExtendedMatches;
+        const double pctFiloNonext = pMetrics->_pctFILONonExtendedMatches;
+        const double meanWaitSecAll = pMetrics->_avgWaitTimeOfMatchesForAllMatchedRiders;
+        const double meanWaitSecMasters = pMetrics->_avgWaitTimeOfMatchesForMasters;
+        const double meanWaitSecMinions = pMetrics->_avgWaitTimeOfMatchesForMinions;
         
         
         outFile << "\n\n\tMATCH METRICS" << std::endl;
@@ -443,18 +429,27 @@ void Output::printSolutionSummary(Solution * pSolution, std::string &outpath, st
         outFile << "\n\t\t" << left << setw(metricBuffer) << "share of FIFO extended matches: " << right << setw(7) << Utility::truncateDouble(pctFifoExt,2) << "%" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "share of FIFO nonextended matches: " << right << setw(7) << Utility::truncateDouble(pctFifoNonext,2) << "%" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "share of FILO extended matches" << right << setw(7) << Utility::truncateDouble(pctFiloExt,2) << "%" << std::endl;
-        outFile << "\t\t" << left << setw(metricBuffer) << "share of FILO nonextended matches: " << right << setw(7) << Utility::truncateDouble(pctFiloNonext,2) << "%" << std::endl;        
+        outFile << "\t\t" << left << setw(metricBuffer) << "share of FILO nonextended matches: " << right << setw(7) << Utility::truncateDouble(pctFiloNonext,2) << "%" << std::endl; 
+        outFile << "\n\t\t" << left << setw(metricBuffer) << "mean wait time of matches (all): " << left << setw(7) << Utility::truncateDouble(meanWaitSecAll,2) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "mean wait time of matches (masters): " << left << setw(7) << Utility::truncateDouble(meanWaitSecMasters,2) << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "mean wait time of matches (minions): " << left << setw(7) << Utility::truncateDouble(meanWaitSecMinions,2) << std::endl;
     }
     
     // print inconvenience metrics
     if( matchedRequests > 0 ) {
         
         const Solution::MatchInconvenienceMetrics * pInconv = pSolution->getInconvenienceMetrics();
+        const Solution::SavingsMetrics * pSavings = pSolution->getSavingsMetrics();
              
         outFile << "\n\n\tINCONVENIENCE METRICS" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience ALL riders: " << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForAll,2) << "%" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience MASTERS: "    << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForMasters,2) << "%" << std::endl;
         outFile << "\t\t" << left << setw(metricBuffer) << "avg inconvenience MINIONS: "    << right << setw(7) << Utility::truncateDouble(pInconv->_avgPctAddedDistsForMinions,2) << "%" << std::endl;
+        
+        outFile << "\n\n\tSAVINGS METRICS" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "avg savings of ALL riders: " << right << setw(7) << Utility::truncateDouble(pSavings->_avgMatchedRiderSavingsPct,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "avg savings of MASTERS:    " << right << setw(7) << Utility::truncateDouble(pSavings->_avgMasterSavingsPct,2) << "%" << std::endl;
+        outFile << "\t\t" << left << setw(metricBuffer) << "avg savings of MINIONS:    " << right << setw(7) << Utility::truncateDouble(pSavings->_avgMinionSavingsPct,2) << "%" << std::endl;
     }    
     
     outFile.close();
@@ -648,9 +643,90 @@ void Output::printDisqualifiedRequestsSummary(Solution* pSolution, std::string &
     outFile.close();
     
 }
+void Output::printIndivSolnMetrics(Solution * pSolution, std::string &outpath) {
+    std::string outFilePath = outpath + "_indivMetrics.txt";
+    ofstream outFile(outFilePath.c_str());
+    
+    outFile << "\n----------------------------------------\n" << std::endl;
+    outFile << "       individual solution metrics " << std::endl;
+    outFile << "\n----------------------------------------\n\n" << std::endl; 
+    
+    printIndivdualRiderInconvenienceMetrics(pSolution, outFile);
+    printIndividualTripOverlapMetrics(pSolution, outFile);
+    printIndividualSavingsMetrics(pSolution, outFile);
+    printIndividualWaitTimeofMatchMetrics(pSolution, outFile);
+    
+    outFile << "\n\t(end of file)\n" << std::endl;
+    outFile.close();
+        
+}
+void Output::printIndivdualRiderInconvenienceMetrics(Solution * pSolution, ofstream &outFile) {
+    outFile << "\n\n\n-- rider inconvenience --\n" << std::endl;
+    
+    std::vector<double> pctInconv_all     = pSolution->getIndivMatchedRidersMetrics()->_inconv_ALL;
+    std::vector<double> pctInconv_masters = pSolution->getIndivMatchedRidersMetrics()->_inconv_Masters;
+    std::vector<double> pctInconv_minions = pSolution->getIndivMatchedRidersMetrics()->_inconv_Minions;
+    
+    std::string csv_all = Utility::convertToCsvString("CSV_PCTINCONV_ALL", &pctInconv_all);
+    std::string csv_masters = Utility::convertToCsvString("CSV_PCTINCONV_MASTERS", &pctInconv_masters);
+    std::string csv_minions = Utility::convertToCsvString("CSV_PCTINCONV_MINIONS", &pctInconv_minions);
+    
+    outFile << "\n" << csv_all << std::endl;
+    outFile << "\n" << csv_masters << std::endl;
+    outFile << "\n" << csv_minions << std::endl;
+}
+void Output::printIndividualTripOverlapMetrics(Solution * pSolution, ofstream &outFile) {
+    outFile << "\n\n\n-- trip overlap --\n" << std::endl;
+    
+    std::vector<double> overlapDist_all    = pSolution->getIndivMatchedRidersMetrics()->_overlapDist;
+    std::vector<double> pctOverlap_all     = pSolution->getIndivMatchedRidersMetrics()->_overlapPct_ALL;
+    std::vector<double> pctOverlap_masters = pSolution->getIndivMatchedRidersMetrics()->_overlapPct_Masters;
+    std::vector<double> pctOverlap_minions = pSolution->getIndivMatchedRidersMetrics()->_overlapPct_Minions;
+    
+    std::string csv_distances = Utility::convertToCsvString("CSV_OVERLAP_DIST_KM_ALL", &overlapDist_all);
+    std::string csv_all       = Utility::convertToCsvString("CSV_PCTOVERLAP_ALL", &pctOverlap_all);
+    std::string csv_masters   = Utility::convertToCsvString("CSV_PCTOVERLAP_MASTERS", &pctOverlap_masters);
+    std::string csv_minions   = Utility::convertToCsvString("CSV_PCTOVERLAP_MINIONS", &pctOverlap_minions);
+    
+    outFile << "\n" << csv_distances << std::endl;
+    outFile << "\n" << csv_all << std::endl;
+    outFile << "\n" << csv_masters << std::endl;
+    outFile << "\n" << csv_minions << std::endl;    
+}
+void Output::printIndividualSavingsMetrics(Solution * pSolution, ofstream &outFile) {
+    outFile << "\n\n\n-- rider savings -- \n" << std::endl;
+    
+    std::vector<double> pctSavings_all     = pSolution->getIndivMatchedRidersMetrics()->_savings_ALL;
+    std::vector<double> pctSavings_masters = pSolution->getIndivMatchedRidersMetrics()->_savings_Masters;
+    std::vector<double> pctSavings_minions = pSolution->getIndivMatchedRidersMetrics()->_savings_Minions;
+    
+    std::string csv_all     = Utility::convertToCsvString("CSV_PCTSAVINGS_ALL", &pctSavings_all);
+    std::string csv_masters = Utility::convertToCsvString("CSV_PCTSAVINGS_MASTERS", &pctSavings_masters);
+    std::string csv_minions = Utility::convertToCsvString("CSV_PCTSAVINGS_MINIONS", &pctSavings_minions);
+    
+    outFile << "\n" << csv_all << std::endl;
+    outFile << "\n" << csv_masters << std::endl;
+    outFile << "\n" << csv_minions << std::endl;
+    
+}
+void Output::printIndividualWaitTimeofMatchMetrics(Solution * pSolution, ofstream &outFile) {
+    outFile << "\n\n\n-- wait time to match --\n" << std::endl;
+    
+    std::vector<int> waitTimeMatch_all     = pSolution->getIndivMatchedRidersMetrics()->_waitTimeToMatch_ALL;
+    std::vector<int> waitTimeMatch_masters = pSolution->getIndivMatchedRidersMetrics()->_waitTimeToMatch_Masters;
+    std::vector<int> waitTimeMatch_minions = pSolution->getIndivMatchedRidersMetrics()->_waitTimeToMatch_Minions;
+    
+    std::string csv_all     = Utility::convertToCsvString("CSV_WAITTIMETOMATCH_SEC_ALL", &waitTimeMatch_all);
+    std::string csv_masters = Utility::convertToCsvString("CSV_WAITTIMETOMATCH_SEC_MASTERS", &waitTimeMatch_masters);
+    std::string csv_minions = Utility::convertToCsvString("CSV_WAITTIMETOMATCH_SEC_MINIONS", &waitTimeMatch_minions);
+    
+    outFile << "\n" << csv_all << std::endl;
+    outFile << "\n" << csv_masters << std::endl;
+    outFile << "\n" << csv_minions << std::endl;
+}
 
 
-/*void Output::printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname ) {
+void Output::printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname ) {
    // outFile << "\n\n--- SUMMARY METRICS ---\n" << std::endl;
     std::string outFilePath = outpath + "_SUMMARY.txt";
     ofstream outFile(outFilePath.c_str());    
@@ -906,7 +982,7 @@ void Output::printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::s
     
     
     outFile.close();   
-}*/
+}
 
 void Output::printSummaryOfDataInput(DataContainer * pDataContainer) {
     
@@ -969,7 +1045,10 @@ void Output::printSolutionSummaryMetricsForCurrSolutions(const int &experiment, 
     printInputRequestsMetrics( outFile, pModelSolnMap );    
     printMatchRateMetrics    ( outFile, inputValueStr, &inputRange, pModelSolnMap );
     printInconvenienceMetrics( outFile, inputValueStr, &inputRange, pModelSolnMap );
+    printOverlapMetrics      ( outFile, inputValueStr, &inputRange, pModelSolnMap );
     printNumTripsMetrics     ( outFile, inputValueStr, &inputRange, pModelSolnMap ); 
+    printRiderSavingsMetrics ( outFile, inputValueStr, &inputRange, pModelSolnMap );
+    printMatchWaitTimeMetrics( outFile, inputValueStr, &inputRange, pModelSolnMap );
     
     outFile << "\n\n-- end of file --\n" << std::endl;
 }
@@ -984,7 +1063,6 @@ void Output::printInputRequestsMetrics( std::ofstream &outFile, const std::map<d
     outFile << "INSTANCE SIZES\n" << std::endl;
     outFile << csvString << std::endl;    
 }
-
 
 void Output::printMatchRateMetrics(std::ofstream& outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
     outFile << "\nMATCH RATE\n" << std::endl;
@@ -1007,8 +1085,6 @@ void Output::printMatchRateMetrics(std::ofstream& outFile, std::string inputName
 
   
     for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
-        
-        std::cout << "inputItr = " << *inputItr << std::endl;
         
         std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
         
@@ -1166,8 +1242,8 @@ void Output::printInconvenienceMetrics( std::ofstream &outFile, std::string inpu
     outFile << "\n\n" << std::endl;  
         
 }
-void Output::printNumTripsMetrics(std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
-    outFile << "\nNUM TRIPS\n" << std::endl;
+/*void Output::printOverlapMetrics( std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap ) {
+    outFile << "\nINCONVENIENCE RATE\n" << std::endl;
         
     std::string csv_mitm_str    = "CSV_MITM";
     std::string csv_ufbw_str    = "CSV_UFBW";
@@ -1185,8 +1261,77 @@ void Output::printNumTripsMetrics(std::ofstream& outFile, std::string inputName,
   
     for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
         
-        std::cout << "inputItr = " << *inputItr << std::endl;
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
         
+        std::map<ModelEnum, double> modelMatchRateMap = modelSolnMapItr->second->inconvMap;
+         
+        for( std::map<ModelEnum, double>::iterator mapItr = modelMatchRateMap.begin(); mapItr != modelMatchRateMap.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {
+                    mitmMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_mitm_str += "," + mitmMatchRateStr;
+                    break;
+                }
+                case UFBW_FIXED_PICKUPS :
+                {
+                    ufbwMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_ufbw_str += "," + ufbwMatchRateStr;
+                    break;
+                }
+                case UFBW_PERFECT_INFO :
+                {
+                    ufbwPerfInfoMatchRateStr = Utility::truncateDouble(mapItr->second,4); 
+                    csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;   
+                    break;
+                }
+                case FLEX_DEPARTURE :
+                {
+                    flexDepMatchRateStr = Utility::truncateDouble(mapItr->second,4);
+                    csv_flexDep_str += "," + flexDepMatchRateStr;  
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << flexDepMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( csv_mitm_str != "CSV_MITM" ) {
+        outFile << csv_mitm_str  << std::endl;
+    }
+    if( csv_ufbw_str != "CSV_UFBW" ) {
+        outFile << csv_ufbw_str << std::endl;
+    }
+    if( csv_flexDep_str != "CSV_FD" ) {
+        outFile << csv_flexDep_str << std::endl;
+    }
+    if( csv_ufbwPI_str != "CSV_UFBW_PI" ) {
+        outFile << csv_ufbwPI_str << std::endl;
+    }
+            
+    outFile << "\n\n" << std::endl;      
+}*/
+void Output::printNumTripsMetrics(std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
+    outFile << "\nNUMBER DRIVER TRIPS\n" << std::endl;
+        
+    std::string csv_mitm_str    = "CSV_MITM";
+    std::string csv_ufbw_str    = "CSV_UFBW";
+    std::string csv_flexDep_str = "CSV_FD";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI";
+        
+    std::string mitmMatchRateStr         = "-";
+    std::string ufbwMatchRateStr         = "-";
+    std::string flexDepMatchRateStr      = "-";
+    std::string ufbwPerfInfoMatchRateStr = "-";
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+                
         std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
         
         std::map<ModelEnum, double> modelMatchRateMap = modelSolnMapItr->second->numTripsMap;
@@ -1247,6 +1392,477 @@ void Output::printNumTripsMetrics(std::ofstream& outFile, std::string inputName,
             
     outFile << "\n\n" << std::endl;  
            
+}
+void Output::printRiderSavingsMetrics(std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
+   outFile << "\nRIDER SAVINGS METRICS\n" << std::endl;    
+        
+    std::string csv_mitm_str    = "CSV_MITM";
+    std::string csv_ufbw_str    = "CSV_UFBW";
+    std::string csv_FD_str      = "CSV_FD";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI";
+    
+    // mitm CSV strings
+    std::string csv_mitm_savings_masters_str = "CSV_MITM_Avg_Savings_Masters";
+    std::string csv_mitm_savings_minions_str = "CSV_MITM_Avg_Savings_Minions";
+    
+    // UFBW fixed strings
+    std::string csv_ufbw_savings_masters_str = "CSV_UFBW_Avg_Savings_Masters";
+    std::string csv_ufbw_savings_minions_str = "CSV_UFBW_Avg_Savings_Minions";
+    
+    // PI fixed strings
+    std::string csv_ufbwPI_savings_masters_str = "CSV_UFBW_PI_Avg_Savings_Masters";
+    std::string csv_ufbwPI_savings_minions_str = "CSV_UFBW_PI_Avg_Savings_Minions";   
+    
+    // FD fixed strings
+    std::string csv_FD_savings_masters_str = "CSV_FD_Avg_Savings_Masters";
+    std::string csv_FD_savings_minions_str = "CSV_FD_Avg_Savings_Minions";     
+        
+    std::string mitmSavingsStr    = "-";
+    std::string ufbwSavingsStr    = "-";
+    std::string ufbwPISavingsStr  = "-";
+    std::string flexDepSavingsStr = "-";
+    
+    bool MITM_solved = false;
+    bool UFBW_fixed_solved = false;
+    bool UFBW_PI_solved = false;
+    bool FD_solved = false;
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+        
+        
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
+        
+        std::map<ModelEnum, double> avgSavingsMap_ALL     = modelSolnMapItr->second->avgSavingsAllMatchedRiders;
+        std::map<ModelEnum, double> avgSavingsMap_Masters = modelSolnMapItr->second->avgSavingsMasters;
+        std::map<ModelEnum, double> avgSavingsMap_Minions = modelSolnMapItr->second->avgSavingsMinions;
+         
+        for( std::map<ModelEnum, double>::iterator mapItr = avgSavingsMap_ALL.begin(); mapItr != avgSavingsMap_ALL.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {           
+                    MITM_solved = true;
+                    
+                    // add pct overall for all riders
+                    mitmSavingsStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_mitm_str += "," + mitmSavingsStr;
+                                       
+                    // add savings for masters
+                    std::map<ModelEnum, double>::iterator mastersItr = avgSavingsMap_Masters.find(mapItr->first);
+                    csv_mitm_savings_masters_str += "," + Utility::truncateDouble(mastersItr->second, 4);
+                    
+                    // add savings for minions
+                    std::map<ModelEnum, double>::iterator minionsItr = avgSavingsMap_Minions.find(mapItr->first);
+                    csv_mitm_savings_minions_str += "," + Utility::truncateDouble(minionsItr->second, 4);
+                                        
+                    break;
+                }
+   
+                case UFBW_FIXED_PICKUPS :
+                {
+                    UFBW_fixed_solved = true;
+                    
+                    // add pct overall for all riders
+                    ufbwSavingsStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_ufbw_str += "," + ufbwSavingsStr;
+                    
+                    // add savings for masters
+                    std::map<ModelEnum, double>::iterator mastersItr = avgSavingsMap_Masters.find(mapItr->first);
+                    csv_ufbw_savings_masters_str += "," + Utility::truncateDouble(mastersItr->second, 4);
+                    
+                    // add savings for minions
+                    std::map<ModelEnum, double>::iterator minionsItr = avgSavingsMap_Minions.find(mapItr->first);
+                    csv_ufbw_savings_minions_str += "," + Utility::truncateDouble(minionsItr->second, 4);
+                                           
+                    break;
+                }
+                case UFBW_PERFECT_INFO :
+                {
+                    UFBW_PI_solved = true; 
+                                        
+                    // add pct overall for all riders
+                    ufbwPISavingsStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_ufbwPI_str += "," + ufbwPISavingsStr;
+                    
+                    // add savings for masters
+                    std::map<ModelEnum, double>::iterator mastersItr = avgSavingsMap_Masters.find(mapItr->first);
+                    csv_ufbwPI_savings_masters_str += "," + Utility::truncateDouble(mastersItr->second, 4);
+                    
+                    // add savings for minions
+                    std::map<ModelEnum, double>::iterator minionsItr = avgSavingsMap_Minions.find(mapItr->first);
+                    csv_ufbwPI_savings_minions_str += "," + Utility::truncateDouble(minionsItr->second, 4);
+                                     
+                    break;                                                 
+                }
+                case FLEX_DEPARTURE :
+                {
+                    FD_solved = true;
+                                          
+                    // add pct overall for all riders
+                    flexDepSavingsStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_FD_str += "," + ufbwPISavingsStr;
+                    
+                    // add savings for masters
+                    std::map<ModelEnum, double>::iterator mastersItr = avgSavingsMap_Masters.find(mapItr->first);
+                    csv_FD_savings_masters_str += "," + Utility::truncateDouble(mastersItr->second, 4);
+                    
+                    // add savings for minions
+                    std::map<ModelEnum, double>::iterator minionsItr = avgSavingsMap_Minions.find(mapItr->first);
+                    csv_FD_savings_minions_str += "," + Utility::truncateDouble(minionsItr->second, 4);
+                                       
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmSavingsStr << left << setw(15) << ufbwSavingsStr << left << setw(15) << flexDepSavingsStr << left << setw(15) << ufbwPISavingsStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( MITM_solved ) {
+        outFile << csv_mitm_str  << std::endl;
+        outFile << csv_mitm_savings_masters_str << std::endl;
+        outFile << csv_mitm_savings_minions_str << "\n" << std::endl;
+    }
+    if( UFBW_fixed_solved ) {
+        outFile << csv_ufbw_str  << std::endl;
+        outFile << csv_ufbw_savings_masters_str << std::endl;
+        outFile << csv_ufbw_savings_minions_str << "\n" << std::endl;     
+    }
+    if( FD_solved ) {
+        outFile << csv_FD_str  << std::endl;
+        outFile << csv_FD_savings_masters_str << std::endl;
+        outFile << csv_FD_savings_minions_str << "\n" << std::endl;       
+    }
+    if( UFBW_PI_solved ) {
+        outFile << csv_ufbwPI_str  << std::endl;
+        outFile << csv_ufbwPI_savings_masters_str << std::endl;
+        outFile << csv_ufbwPI_savings_minions_str << "\n" << std::endl;       
+    }
+            
+    outFile << "\n\n" << std::endl;      
+}
+void Output::printOverlapMetrics(std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
+    outFile << "\nMATCH OVERLAP METRICSS (avg % overlap)\n" << std::endl;
+        
+    std::string csv_mitm_str    = "CSV_MITM_Avg_Pct_ALL";
+    std::string csv_ufbw_str    = "CSV_UFBW_Avg_Pct_ALL";
+    std::string csv_flexDep_str = "CSV_FD_Avg_Pct_ALL";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI_Avg_Pct_ALL";
+    
+    // mitm CSV strings
+    std::string csv_mitm_dist_str = "CSV_MITM_Avg_Dist";
+    std::string csv_mitm_pct_masters_str = "CSV_MITM_Avg_Pct_Masters";
+    std::string csv_mitm_pct_minions_str = "CSV_MITM_Avg_Pct_Minions";
+    
+    // UFBW fixed strings
+    std::string csv_ufbw_dist_str = "CSV_UFBW_Avg_Dist";
+    std::string csv_ufbw_pct_masters_str = "CSV_UFBW_Avg_Pct_Masters";
+    std::string csv_ufbw_pct_minions_str = "CSV_UFBW_Avg_Pct_Minions";
+    
+    // PI fixed strings
+    std::string csv_ufbwPI_dist_str = "CSV_UFBW_PI_Avg_Dist";
+    std::string csv_ufbwPI_pct_masters_str = "CSV_UFBW_PI_Avg_Pct_Masters";
+    std::string csv_ufbwPI_pct_minions_str = "CSV_UFBW_PI_Avg_Pct_Minions";    
+    
+    // FD fixed strings
+    std::string csv_flexDep_dist_str = "CSV_FD_Avg_Dist";
+    std::string csv_flexDep_pct_masters_str = "CSV_FD_Avg_Pct_Masters";
+    std::string csv_flexDep_pct_minions_str = "CSV_FD_Avg_Pct_Minions";       
+        
+    std::string mitmMatchRateStr         = "-";
+    std::string ufbwMatchRateStr         = "-";
+    std::string flexDepMatchRateStr      = "-";
+    std::string ufbwPerfInfoMatchRateStr = "-";
+    
+    bool MITM_solved = false;
+    bool UFBW_fixed_solved = false;
+    bool UFBW_PI_solved = false;
+    bool FD_solved = false;
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+        
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
+        
+        std::map<ModelEnum, double> avgPctOverlapMap  = modelSolnMapItr->second->avgPctOverlap_ALL;
+        std::map<ModelEnum, double> avgDistOverlapMap = modelSolnMapItr->second->avgOverlapDist;
+        std::map<ModelEnum, double> avgPctOverlapMastersMap = modelSolnMapItr->second->avgPctOverlap_Masters;
+        std::map<ModelEnum, double> avgPctOverlapMinionsMap = modelSolnMapItr->second->avgPctOverlap_Minions;
+         
+        for( std::map<ModelEnum, double>::iterator mapItr = avgPctOverlapMap.begin(); mapItr != avgPctOverlapMap.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {           
+                    MITM_solved = true;
+                    
+                    // add pct overall for all riders
+                    mitmMatchRateStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_mitm_str += "," + mitmMatchRateStr;
+                    
+                    // add overlap dist
+                    std::map<ModelEnum, double>::iterator avgDistItr = avgDistOverlapMap.find(mapItr->first);
+                    csv_mitm_dist_str += "," + Utility::truncateDouble(avgDistItr->second, 4);
+                    
+                    // add overlap pct for masters
+                    std::map<ModelEnum, double>::iterator masterOverlapItr = avgPctOverlapMastersMap.find(mapItr->first);
+                    csv_mitm_pct_masters_str += "," + Utility::truncateDouble(masterOverlapItr->second, 4);
+                    
+                    // add overlap pct for minions
+                    std::map<ModelEnum, double>::iterator minionOverlapItr = avgPctOverlapMinionsMap.find(mapItr->first);
+                    csv_mitm_pct_minions_str += "," + Utility::truncateDouble(minionOverlapItr->second,4);
+                                        
+                    break;
+                }
+               /* case ModelEnum::MITM_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_FIXED_PICKUPS :
+                {
+                    UFBW_fixed_solved = true;
+                    
+                    // add pct overall for all riders                    
+                    ufbwMatchRateStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_ufbw_str += "," + ufbwMatchRateStr;
+                    
+                    // add overlap dist
+                    std::map<ModelEnum, double>::iterator avgDistItr = avgDistOverlapMap.find(mapItr->first);
+                    csv_ufbw_dist_str += "," + Utility::truncateDouble(avgDistItr->second, 4);
+                    
+                    // add overlap pct for masters
+                    std::map<ModelEnum, double>::iterator masterOverlapItr = avgPctOverlapMastersMap.find(mapItr->first);
+                    csv_ufbw_pct_masters_str += "," + Utility::truncateDouble(masterOverlapItr->second, 4);
+                    
+                    // add overlap pct for minions
+                    std::map<ModelEnum, double>::iterator minionOverlapItr = avgPctOverlapMinionsMap.find(mapItr->first);
+                    csv_ufbw_pct_minions_str += "," + Utility::truncateDouble(minionOverlapItr->second,4);
+                                                 
+                    break;
+                }
+                /*case ModelEnum::UFBW_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_PERFECT_INFO :
+                {
+                    UFBW_PI_solved = true; 
+                    
+                    // add pct overall for all riders                    
+                    ufbwPerfInfoMatchRateStr = Utility::truncateDouble(mapItr->second, 4); 
+                    csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;  
+                                        
+                    // add overlap dist
+                    std::map<ModelEnum, double>::iterator avgDistItr = avgDistOverlapMap.find(mapItr->first);
+                    csv_ufbwPI_dist_str += "," + Utility::truncateDouble(avgDistItr->second, 4);
+                    
+                    // add overlap pct for masters
+                    std::map<ModelEnum, double>::iterator masterOverlapItr = avgPctOverlapMastersMap.find(mapItr->first);
+                    csv_ufbwPI_pct_masters_str += "," + Utility::truncateDouble(masterOverlapItr->second, 4);
+                    
+                    // add overlap pct for minions
+                    std::map<ModelEnum, double>::iterator minionOverlapItr = avgPctOverlapMinionsMap.find(mapItr->first);
+                    csv_ufbwPI_pct_minions_str += "," + Utility::truncateDouble(minionOverlapItr->second,4);
+                    
+                    break;                                                 
+                }
+                case FLEX_DEPARTURE :
+                {
+                    FD_solved = true;
+                    
+                    // add pct overall for all riders                    
+                    flexDepMatchRateStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_flexDep_str += "," + flexDepMatchRateStr;  
+                    
+                    // add overlap dist
+                    std::map<ModelEnum, double>::iterator avgDistItr = avgDistOverlapMap.find(mapItr->first);
+                    csv_flexDep_dist_str += "," + Utility::truncateDouble(avgDistItr->second, 4);
+                    
+                    // add overlap pct for masters
+                    std::map<ModelEnum, double>::iterator masterOverlapItr = avgPctOverlapMastersMap.find(mapItr->first);
+                    csv_flexDep_pct_masters_str += "," + Utility::truncateDouble(masterOverlapItr->second, 4);
+                    
+                    // add overlap pct for minions
+                    std::map<ModelEnum, double>::iterator minionOverlapItr = avgPctOverlapMinionsMap.find(mapItr->first);
+                    csv_flexDep_pct_minions_str += "," + Utility::truncateDouble(minionOverlapItr->second,4);                    
+                                        
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << flexDepMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( MITM_solved ) {
+        outFile << csv_mitm_str  << std::endl;
+        outFile << csv_mitm_dist_str << std::endl;
+        outFile << csv_mitm_pct_masters_str << std::endl;
+        outFile << csv_mitm_pct_minions_str << "\n" << std::endl;
+    }
+    if( UFBW_fixed_solved ) {
+        outFile << csv_ufbw_str << std::endl;
+        outFile << csv_ufbw_dist_str << std::endl;
+        outFile << csv_ufbw_pct_masters_str << std::endl;
+        outFile << csv_ufbw_pct_minions_str << "\n" << std::endl;        
+    }
+    if( FD_solved ) {
+        outFile << csv_flexDep_str << std::endl;
+        outFile << csv_flexDep_dist_str << std::endl;
+        outFile << csv_flexDep_pct_masters_str << std::endl;
+        outFile << csv_flexDep_pct_minions_str << "\n" << std::endl;        
+    }
+    if( UFBW_PI_solved ) {
+        outFile << csv_ufbwPI_str << std::endl;
+        outFile << csv_ufbwPI_dist_str << std::endl;
+        outFile << csv_ufbwPI_pct_masters_str << std::endl;
+        outFile << csv_ufbwPI_pct_minions_str << "\n" << std::endl;        
+    }
+            
+    outFile << "\n\n" << std::endl;     
+}
+void Output::printMatchWaitTimeMetrics(std::ofstream& outFile, std::string inputName, std::set<double>* pInputRange, const std::map<double,SolnMaps*>* pModelSolnMap) {
+    outFile << "\nWAIT TIME TO MATCH\n" << std::endl;
+        
+    std::string csv_mitm_str    = "CSV_MITM";
+    std::string csv_ufbw_str    = "CSV_UFBW_ALL";
+    std::string csv_flexDep_str = "CSV_FD_ALL";
+    std::string csv_ufbwPI_str  = "CSV_UFBW_PI_ALL";
+    
+    std::string csv_ufbw_masters_str = "CSV_UFBW_MASTERS";
+    std::string csv_ufbw_minions_str = "CSV_UFBW_MINIONS";
+    std::string csv_fd_masters_str   = "CSV_FD_MASTERS";
+    std::string csv_fd_minions_str   = "CSV_FD_MINIONS";
+    std::string csv_ufbwPI_masters_str = "CSV_UFBW_PI_MASTERS";
+    std::string csv_ufbwPI_minions_str = "CSV_UFBW_PI_MINIONS";
+        
+    std::string mitmMatchRateStr         = "-";
+    std::string ufbwMatchRateStr         = "-";
+    std::string flexDepMatchRateStr      = "-";
+    std::string ufbwPerfInfoMatchRateStr = "-";
+    
+    bool MITM_solved = false;
+    bool UFBW_fixed_solved = false;
+    bool UBW_PI_solved = false;
+    bool FD_solved = false;
+    
+        
+    // print models     
+    outFile << left << setw(15) << inputName << left << setw(15) << "MITM" << left << setw(15) << "UFBW" << left << setw(15) << "FD" << left << setw(15) << "UFBW-PI" << std::endl;
+
+  
+    for( std::set<double>::iterator inputItr = pInputRange->begin(); inputItr != pInputRange->end(); ++inputItr ) {
+                
+        std::map<double, SolnMaps*>::const_iterator modelSolnMapItr = pModelSolnMap->find(*inputItr);
+        
+        std::map<ModelEnum, double> avgWaitTimeMatchMap_all     = modelSolnMapItr->second->avgWaitTimeOfMatchAllRiders;
+        std::map<ModelEnum, double> avgWaitTimeMatchMap_masters = modelSolnMapItr->second->avgWaitTimeOfMatchMasters;
+        std::map<ModelEnum, double> avgWaitTimeMatchMap_minions = modelSolnMapItr->second->avgWaitTimeOfMatchMinions;
+         
+        for( std::map<ModelEnum, double>::iterator mapItr = avgWaitTimeMatchMap_all.begin(); mapItr != avgWaitTimeMatchMap_all.end(); ++mapItr ) {
+            switch( mapItr->first ) {
+                case MITM_SEQ_PICKUPS :
+                {                    
+                    MITM_solved = true;
+                    mitmMatchRateStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_mitm_str += "," + mitmMatchRateStr;
+                    break;
+                }
+               /* case ModelEnum::MITM_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_FIXED_PICKUPS :
+                {
+                    UFBW_fixed_solved = true; 
+                    
+                    // wait time of all future matched riders
+                    ufbwMatchRateStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_ufbw_str += "," + ufbwMatchRateStr;
+                    
+                    // wait time of matched masters (excl. open trips)
+                    std::map<ModelEnum, double>::iterator masterWaitItr = avgWaitTimeMatchMap_masters.find(mapItr->first);
+                    csv_ufbw_masters_str += "," + Utility::truncateDouble(masterWaitItr->second, 4);
+                    
+                    // wait time of matched minions (excl. open trips)
+                    std::map<ModelEnum, double>::iterator minionWaitItr = avgWaitTimeMatchMap_minions.find(mapItr->first);
+                    csv_ufbw_minions_str += "," + Utility::truncateDouble(minionWaitItr->second, 4);
+                    
+                    break;
+                }
+                /*case ModelEnum::UFBW_PICKUP_SWAPS :
+                {
+                    
+                }*/
+                case UFBW_PERFECT_INFO :
+                {
+                    UBW_PI_solved = true;
+                    
+                    // wait time of all future matched riders
+                    ufbwPerfInfoMatchRateStr = Utility::truncateDouble(mapItr->second, 4); 
+                    csv_ufbwPI_str += "," + ufbwPerfInfoMatchRateStr;  
+                    
+                    // wait time of matched masters (excl. open trips)
+                    std::map<ModelEnum, double>::iterator masterWaitItr = avgWaitTimeMatchMap_masters.find(mapItr->first);
+                    csv_ufbwPI_masters_str += "," + Utility::truncateDouble(masterWaitItr->second, 4);
+                    
+                    // wait time of matched minions (excl. open trips)
+                    std::map<ModelEnum, double>::iterator minionWaitItr = avgWaitTimeMatchMap_minions.find(mapItr->first);
+                    csv_ufbwPI_minions_str += "," + Utility::truncateDouble(minionWaitItr->second, 4); 
+                    
+                    break;
+                }
+                case FLEX_DEPARTURE :
+                {
+                    FD_solved = true;
+                    
+                    // wait time of all future matched riders
+                    flexDepMatchRateStr = Utility::truncateDouble(mapItr->second, 4);
+                    csv_flexDep_str += "," + flexDepMatchRateStr; 
+                    
+                    // wait time of matched masters (excl. open trips)
+                    std::map<ModelEnum, double>::iterator masterWaitItr = avgWaitTimeMatchMap_masters.find(mapItr->first);
+                    csv_fd_masters_str += "," + Utility::truncateDouble(masterWaitItr->second, 4);
+                    
+                    // wait time of matched minions (excl. open trips)
+                    std::map<ModelEnum, double>::iterator minionWaitItr = avgWaitTimeMatchMap_minions.find(mapItr->first);
+                    csv_fd_minions_str += "," + Utility::truncateDouble(minionWaitItr->second, 4);                     
+                    
+                    break;
+                }
+            }                        
+        }
+           
+        outFile << left << setw(15) << Utility::doubleToStr(*inputItr) << left << setw(15) << mitmMatchRateStr << left << setw(15) << ufbwMatchRateStr << left << setw(15) << flexDepMatchRateStr << left << setw(15) << ufbwPerfInfoMatchRateStr << std::endl;
+    }
+    
+    outFile << "\n" << std::endl;
+    if( MITM_solved ) {
+        outFile << csv_mitm_str  << std::endl;
+    }
+    if( UFBW_fixed_solved ) {
+        outFile << csv_ufbw_str << std::endl;
+        outFile << csv_ufbw_masters_str << std::endl;
+        outFile << csv_ufbw_minions_str << std::endl;
+    }
+    if( FD_solved ) {
+        outFile << csv_flexDep_str    << std::endl;
+        outFile << csv_fd_masters_str << std::endl;
+        outFile << csv_fd_minions_str << std::endl;
+    }
+    if( UBW_PI_solved ) {
+        outFile << csv_ufbwPI_str << std::endl;
+        outFile << csv_ufbwPI_masters_str << std::endl;
+        outFile << csv_ufbwPI_minions_str << std::endl;
+    }
+            
+    outFile << "\n\n" << std::endl;         
 }
 
 std::set<double> Output::getKeyValues( const std::map<double, SolnMaps*> * pModelSolnMap ) {

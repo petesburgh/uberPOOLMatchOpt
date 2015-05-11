@@ -34,8 +34,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         pOutFile = new std::ofstream(outPath); 
         initEligMatchFile(*pOutFile);
     }        
-    
-    
+        
     // initialize the queue of ALL requests
     std::deque<Request*> requestPool;
             
@@ -55,7 +54,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
     
         
     std::cout << "\n\nbatch window length:  " << _lenBatchWindowInSec << " sec" << std::endl;
-        
+    
     while( true ) {
 
         // extract Request
@@ -79,18 +78,17 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         
         // step 2: convert all completed trips to unmatched trips   
         std::set<AssignedTrip*, AssignedTripIndexComp> completedTripsCurrBatch = ModelUtils::getCompletedOpenTrips(pCurrRequest->getReqTime(), currOpenTrips, _assignedTrips);
-        
+       
         if( printToScreen ) {
-            std::cout << "\t" << completedTripsCurrBatch.size() << " open trips have been completed as unmatched" << std::endl;
+            std::cout << "\t" << completedTripsCurrBatch.size() << " open trips have been completed as unmatched" << std::endl;  
         }
               
         // step 3: get ALL requests from the current within the batch window
         std::set<Request*, ReqComp> requestsInCurrBatch = getRequestsInInterval(requestPool, batchWindowBegin, batchWindowEnd);
-                        
+        
         // step 4: build candidate MASTERS and MINIONS
         std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > candMastersMinions = generateCandidateMastersAndMinions(currOpenTrips, requestsInCurrBatch);
-        
-           
+                   
         if( printToScreen ) {
             std::set<MinionCand*, MinionComp> minions = candMastersMinions.second;
             std::cout << "\t" << minions.size() << " candidate minions: " << std::endl;
@@ -102,9 +100,9 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         
         // step 5: build FEASIBLE candidate (master,minion) pairs
         if( printToScreen ) { 
-            std::cout << "\ttrying to get feasible matches... " << std::endl;
+            std::cout << "\ttrying to get feasible matches (_batchCounter = " << Utility::intToStr(_batchCounter) << ") ... " << std::endl;
         }
-        std::set<MasterMinionMatchCand*, MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(candMastersMinions.first, candMastersMinions.second);
+        std::set<MasterMinionMatchCand*, MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(pCurrRequest->getReqTime(), candMastersMinions.first, candMastersMinions.second);
          
         if( printToScreen ) {
             std::cout << "\t\t" << feasibleMatches.size() << " feasible matches have been identified" << std::endl;                
@@ -113,7 +111,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
                 std::cout << "\t\t\tmaster/minion/type  " << (*matchCandItr)->pMaster->_riderIndex << " / " << (*matchCandItr)->pMinion->_riderIndex << " / " << dropTypeStr << std::endl;
             }
         }
-        
+                
         bool isTopRequestMatched = false;               
         if( feasibleMatches.size() > 0 ) {
         
@@ -163,7 +161,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
             unmatchedRequestsWithinWaitTime.insert(pCurrRequest);
             requestPool.pop_front(); // remove            
         }
-                     
+                             
         if( requestPool.size() == 0 )
             break;
                
@@ -195,6 +193,8 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         std::cout << "\tdone." << std::endl;
         std::cout << "\n\nafter there are " << _assignedTrips.size() << " assigned trips" << std::endl;
     }
+    
+    
 
     // create Solution
     pSolution = new Solution(UFBW_FIXED_PICKUPS, _startTime, _endTime, _allRequests.size(), _allDrivers->size(), _assignedTrips, _disqualifiedRequests);
@@ -310,11 +310,11 @@ std::set<Request*, ReqComp> UFBW_fixed::getRequestsInInterval(std::deque<Request
 }
 
 // METHODS TO FIND ALL FEASIBLE MATCH COMBINATIONS
-std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeasibleMasterMinionMatches(std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions) {
+std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeasibleMasterMinionMatches(const time_t initReqTimeOfCurrBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions) {
     std::set<MasterMinionMatchCand*, MasterMinionMatchComp> matchCandidates;
     
     std::set<MasterCand*, MasterComp>::iterator masterItr;
-            
+                
     for( masterItr = candMasters.begin(); masterItr != candMasters.end(); ++masterItr ) {
                                
         // loop over all candidate minions
@@ -330,7 +330,13 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeas
             
           //  std::cout << "\n\ncandidate master: " << (*masterItr)->_riderIndex << " req at " << Utility::convertTimeTToString((*masterItr)->_reqTime) << std::endl;
           //  std::cout << "candidate minion: " << (*minionItr)->_riderIndex << " req at " << Utility::convertTimeTToString((*minionItr)->_reqTime) << std::endl;
-                                               
+                
+            // TODO: delete
+            if( ((*masterItr)->_riderIndex == 17320) && ((*minionItr)->_riderIndex == 6455) ) {
+                std::cout << "\n*** evaluating match (" << (*masterItr)->_riderIndex << "," << (*minionItr)->_riderIndex << ")  ***" << std::endl;                
+            }
+                
+            
             // check if DISTANCE qualifies (check separate instances depending upon if the master has been dispatched)
             double pickupDistToMinionAtTimeOfReq = 0.0;
             if( (*masterItr)->pDispatchEvent == NULL ) {
@@ -361,16 +367,18 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeas
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
                                 
-                // check if FIFO match is feasible                           
-                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr  );                                
-                if( pFIFOMatch != NULL ) {  
+                // check if FIFO match is feasible                         
+                time_t secWaitedForMatch_master = (*masterItr)->_reqTime - initReqTimeOfCurrBatch;
+                time_t secWaitedForMatch_minion = (*minionItr)->_reqTime - initReqTimeOfCurrBatch;
+
+                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch( _minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitedForMatch_master, (int)secWaitedForMatch_minion );                                
+                if( pFIFOMatch != NULL ) {
                     const int matchIndex = matchCandidates.size();
                     MasterMinionMatchCand * pFIFOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);
                     matchCandidates.insert(pFIFOMatchCandidate);
                 }
                 
-                // check if FILO match is feasible
-                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr);
+                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch( _minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitedForMatch_master, (int)secWaitedForMatch_minion );
                 if( pFILOMatch != NULL ) {
                     const int matchIndex = matchCandidates.size();
                     MasterMinionMatchCand * pFILOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FILO, pFILOMatch->_avgSavings, pFILOMatch->_masterPickedUpAtTimeOfMatch, pFILOMatch);
@@ -379,7 +387,6 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_fixed::generateFeas
             }            
         }
     }
-
 
     return matchCandidates;
 }
@@ -430,8 +437,7 @@ std::set<AssignedTrip*, AssignedTripIndexComp> UFBW_fixed::solveMatchingOptimiza
         std::cout << "\t\t\tdone." << std::endl;      
         std::cout << "\n\tINVOKING SOLVER... " << std::endl;
     }
-    
-    
+        
     // solve
     solver.SuppressOutput();
     //solver.EnableOutput();
@@ -496,7 +502,6 @@ std::map<MPVariable*, MasterMinionMatchCand*> UFBW_fixed::buildModelVariables(
         
         // ADD VARIABLE TO OBJECTIVE 
         pObjective->SetCoefficient(currVar, (*matchItr)->_matchWeight);
-        //pObjective->SetCoefficient(currVar, 1.0);
         
         // ADD VARIABLE MASTER TO DEGREE CONSTRAINT
         std::map<const int, MPConstraint*>::iterator leftNodeConstrItr = pLeftNodeConstrMap->find(masterIndex);
@@ -518,11 +523,9 @@ std::map<MPVariable*, MasterMinionMatchCand*> UFBW_fixed::buildModelVariables(
         std::map<const int, MPConstraint*>::iterator minionAggConstrItr = pAggregationConstrMap->find(minionIndex);
         if( minionAggConstrItr != pAggregationConstrMap->end() ) {
             minionAggConstrItr->second->SetCoefficient(currVar, 1.0);
-        }
-                
+        }                
     }
-        
-    
+            
     return modelVariables;
 }
 void UFBW_fixed::instantiateConstraints(

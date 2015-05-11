@@ -14,7 +14,7 @@ FlexDepartureModel::FlexDepartureModel(const time_t startTime, const time_t endT
             const bool inclMinionPickupInSavingsConstr ) : 
             _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _lenFlexDepWindowInSec(lenFlexDepWindow), _maxMatchDistInKm(maxMatchDistKm), 
             _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _flexDepOptInRate(flexDepOptInRate),
-            _inclMinionPickupExtMatchesSavingsConstr(inclMinionPickupInSavingsConstr) {
+            _inclMinionPickupExtMatchesSavingsConstr(inclMinionPickupInSavingsConstr) {    
 }
 
 FlexDepartureModel::~FlexDepartureModel() {
@@ -132,7 +132,7 @@ bool FlexDepartureModel::solve(bool printDebugFiles, Output * pOutput, bool popu
         if( printToScreen ) { 
             std::cout << "\ttrying to get feasible matches... " << std::endl;
         }
-        std::set<MasterMinionMatchCand*, MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(candMastersMinions.first, candMastersMinions.second, pCurrRequest->getReqTime(), pFlexDepRequestIDs);   // JP
+        std::set<MasterMinionMatchCand*, MasterMinionMatchComp> feasibleMatches = generateFeasibleMasterMinionMatches(pCurrRequest->getReqTime(), candMastersMinions.first, candMastersMinions.second, pCurrRequest->getReqTime(), pFlexDepRequestIDs);   // JP
          
         if( printToScreen ) {
             std::cout << "\t\t" << feasibleMatches.size() << " feasible matches have been identified" << std::endl;                
@@ -351,7 +351,7 @@ std::set<Request*, ReqComp> FlexDepartureModel::getRequestsInInterval(std::deque
 }
 
 // METHODS TO FIND ALL FEASIBLE MATCH COMBINATIONS
-std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::generateFeasibleMasterMinionMatches(std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices) {
+std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::generateFeasibleMasterMinionMatches(const time_t &reqTimeAtInitRequestInBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices) {
     std::set<MasterMinionMatchCand*, MasterMinionMatchComp> matchCandidates;
     
     int counter = 1;
@@ -411,19 +411,22 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::gene
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
                                 
+                time_t secWaitTimeMatchMater  = (*masterItr)->_reqTime - reqTimeAtInitRequestInBatch;
+                time_t secWaitTimeMatchMinion = (*minionItr)->_reqTime - reqTimeAtInitRequestInBatch;
+                
                 // check if FIFO match is feasible                           
-                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr  );                                
+                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitTimeMatchMater, (int)secWaitTimeMatchMinion );                                
                 if( pFIFOMatch != NULL ) {  
                     const int matchIndex = matchCandidates.size();
-                    MasterMinionMatchCand * pFIFOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);
+                    MasterMinionMatchCand * pFIFOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);                   
                     matchCandidates.insert(pFIFOMatchCandidate);
                 }
                 
                 // check if FILO match is feasible
-                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr);
+                FeasibleMatch * pFILOMatch = ModelUtils::checkIfOverlapIsFeasWithforFILOMatch(_minOverlapThreshold, pickupDistanceToMinion, uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitTimeMatchMater, (int)secWaitTimeMatchMinion);
                 if( pFILOMatch != NULL ) {
                     const int matchIndex = matchCandidates.size();
-                    MasterMinionMatchCand * pFILOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FILO, pFILOMatch->_avgSavings, pFILOMatch->_masterPickedUpAtTimeOfMatch, pFILOMatch);
+                    MasterMinionMatchCand * pFILOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FILO, pFILOMatch->_avgSavings, pFILOMatch->_masterPickedUpAtTimeOfMatch, pFILOMatch);                    
                     matchCandidates.insert(pFILOMatchCandidate);  
                 }                                
             }            

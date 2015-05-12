@@ -204,8 +204,7 @@ void FlexDepSolution::buildFDSolutionMetrics() {
     
     // step 2: compute FD metrics            
     double matchRate_FDReqs = ((double)100*(double)matchedFDRequests)/(double)totalFDRequests;
-    
-    
+        
     _requestMetrics_FD._totalRequests   = totalFDRequests;
     _requestMetrics_FD._matchedRequests = matchedFDRequests;
     _requestMetrics_FD._unmatchedRequests = unmatchedFDRequests;

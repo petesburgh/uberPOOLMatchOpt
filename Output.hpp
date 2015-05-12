@@ -42,8 +42,8 @@ public:
     
     // print solution
     void printSolution(Solution * pSolution, const ModelEnum &model);
-    void printSolutionSummary(Solution * pSolution, std::string &outpath, std::string &modelname );
-    void printMatchTripsSummary(Solution * pSolution, std::string &outpath);
+    void printSolutionSummary( Solution * pSolution, std::string &outpath, std::string &modelname );
+    void printMatchTripSummary(Solution * pSolution, std::string &outpath);    
     void printUnmatchedTripsSummary(Solution * pSolution, std::string &outpath);
     void printDisqualifiedRequestsSummary(Solution * pSolution, std::string &outpath);
     void printIndivSolnMetrics(Solution * pSolution, std::string &outpath);
@@ -55,10 +55,6 @@ public:
     
     const std::string getOutputBasePath() const { return _outputBasePath; }
     const std::string getOutputScenarioPath() const { return _outputScenarioPath; }
-    
-    void printSolutionSummary_FD(FlexDepSolution * pFlexDepSoln, std::string &outpath, std::string &modelname );
-    void printMatchTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath);
-    void printUnmatchedTripsSummary_FD(FlexDepSolution * pFDSolution, std::string &outpath); 
     
     void writeAndPrintInputs(DataContainer* pDataContainer, const bool printDebugFiles);
     void printSummaryOfDataInput(DataContainer * pDataContainer);
@@ -73,12 +69,9 @@ public:
     void printMatchWaitTimeMetrics( std::ofstream &outFile, std::string inputName, std::set<double> * pInputRange, const std::map<double, SolnMaps*> * pModelSolnMap );
     
     void setOutputScenarioPath(const std::string outputScenPath) { _outputScenarioPath = outputScenPath; }
-    
-    
-    const std::string getOutputExperimentPath() const { return _outputExperimentPath; }
- 
-    void setDataContainer(DataContainer * dataContainer) { pDataContainer = dataContainer; }
-    
+        
+    const std::string getOutputExperimentPath() const { return _outputExperimentPath; } 
+    void setDataContainer(DataContainer * dataContainer) { pDataContainer = dataContainer; }    
     std::set<double> getKeyValues( const std::map<double, SolnMaps*> * pModelSolnMap );
     
     

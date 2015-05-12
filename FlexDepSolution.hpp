@@ -19,14 +19,16 @@ public:
         int     _totalRequests;
         int     _matchedRequests;
         int     _unmatchedRequests;
-        double  _matchPercentage;     
+        double  _matchPercentage;   
+        double  _avgWaitTimeSec;
     };    
     struct MatchMetrics_FD {
         int     _numpMatches;               
         int     _numExtendedMatches;
         double  _pctExtendedMatches;
         int     _numNonExtendedMatches;
-        double  _pctNonExtendedMatches;       
+        double  _pctNonExtendedMatches;  
+        double  _avgWaitTimeSec;
     };    
     struct MatchInconvenienceMetrics_FD {
         double _avgPctAddedDistsForAll;
@@ -77,7 +79,7 @@ public:
     void buildAggregateSolutionMetrics(); // aggregate metrics
     void buildFDSolutionMetrics(); // metrics associated with FD vs. non-FD reqs
     
-    
+    std::pair<int, int> getTotalWaitTimesByFDAndNonFDReqs(std::set<const int> * indicesOfFDReqs, std::vector<int> waitTimeToMatchOfAllRiders);
     
 private:
 

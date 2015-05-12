@@ -8,8 +8,8 @@
 #include "ModelRunner.hpp"
 #include "UFBW_perfectInformation.hpp"
 
-ModelRunner::ModelRunner( const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const std::vector<Geofence*> * geofences ) : 
-    _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofences(geofences) {      
+ModelRunner::ModelRunner( const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const Geofence * geofence ) : 
+    _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofence(geofence) {      
 }
 
 ModelRunner::~ModelRunner() {
@@ -22,7 +22,7 @@ DataContainer * ModelRunner::constructDataContainer(double optInRate, int batchW
     /* 
      * STEP 1: read parse CSV input 
     */
-    pDataContainer = new DataContainer(pDataInput->_inputPath, pDataInput->_cvsFilename, pDataInput->_timelineStr, optInRate, pDataInput->_simLengthInMinutes, pDataOutput->_printDebugFiles, pDataOutput->_printToScreen, pGeofences);
+    pDataContainer = new DataContainer(pDataInput->_inputPath, pDataInput->_cvsFilename, pDataInput->_timelineStr, optInRate, pDataInput->_simLengthInMinutes, pDataOutput->_printDebugFiles, pDataOutput->_printToScreen, pGeofence);
     pDataContainer->setBatchWindowInSeconds(batchWindowLengthInSec);
     pDataContainer->extractCvsSnapshot();  
 

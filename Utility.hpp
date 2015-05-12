@@ -17,6 +17,7 @@
 #include <sstream>
 #include <time.h>
 #include <math.h>
+#include <assert.h>
 #include <sys/stat.h>   /* mkdir */
 
 class Event;
@@ -174,6 +175,21 @@ public:
         }
         
         return csvString;
+    }
+
+    static bool isPointInPolygon(const std::vector<double> * pLats, const std::vector<double> * pLngs, std::pair<double,double> latLngPoint) {
+        assert(pLats->size() == pLngs->size() );
+        const int nVertices = pLats->size();
+        int i, j, c = 0;
+        const double testLat = latLngPoint.first;
+        const double testLng = latLngPoint.second;
+        for( i = 0, j = nVertices-1; i < nVertices; j = i++ ) {
+            if( ((pLngs->at(i)>testLng) != (pLngs->at(j)>testLng)) && 
+                    (testLat < (pLats->at(j) - pLats->at(i)) * (testLng - pLngs->at(i))/(pLngs->at(j) - pLngs->at(i)) + pLats->at(i)) )
+                c = !c;                            
+        }
+        
+        return (c%2 != 0);
     }
     
 private:

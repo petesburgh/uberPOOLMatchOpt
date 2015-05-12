@@ -108,9 +108,8 @@ public:
         ModelRunner::IndivSolnMetrics * pIndivMetrics;
     };
     
-
      
-    ModelRunner(const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const std::vector<Geofence*> * geofences );
+    ModelRunner(const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const Geofence * geofence );
     virtual ~ModelRunner();
     
     // construct DataContainer object
@@ -147,7 +146,7 @@ private:
     const bool _runFlexDeparture;
     const bool _runUFBW_PI; 
     
-    const std::vector<Geofence*> * pGeofences;
+    const Geofence* pGeofence;
     
     Output * pOutput;
     

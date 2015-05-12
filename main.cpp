@@ -53,28 +53,31 @@ void printRiderInfo(const std::set<Rider*, RiderIndexComp>*);
 int main(int argc, char** argv) {
                  
     // specify singleton inputs // TODO: move to text file
-    const std::string inputPath      = "/Users/jonpetersen/Documents/uberPOOL/testEnv/TripDataInput/";
-    const std::string outputBasePath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/Output/";
+    const std::string inputPath        = "/Users/jonpetersen/Documents/uberPOOL/testEnv/TripDataInput/";
+    const std::string outputBasePath   = "/Users/jonpetersen/Documents/uberPOOL/testEnv/Output/";
+    const std::string geofenceDataPath = "/Users/jonpetersen/Documents/uberPOOL/testEnv/Geofences/";
     
     /*
      *  populate all input scenarios
-     *      scen 01: SF, one hour sim from 1600-1700 UTC on 2015-04-13, no geofences
-     *      scen 02: SF, one hour sim from 1600-1700 UTC on 2015-04-13, two geofences (7x7 and SFO)
-     *      scen 03: SF, one week sim from 2015-04-12 0000 - 2015-04-19 0000 (UTC), no geofences
-     *      scen 04: SF, one week sim from 2015-04-12 0000 - 2015-04-19 0000 (UTC), two geofences (7x7 and SFO)
-     *      scen 05: SF, four hour sim from 1300-1700 UTC on 2015-04-24, one SF geofence (incl SFO airport)
-     *      scen 06: Chengdu, one week sim from 2015-04-29 1600 - 2015-04-05 1600 UTC, no geofences
+     *      scen 01: SF, one hour sim from 1600-1700 UTC on 2015-04-13, no geofence
+     *      scen 02: SF, one hour sim from 1600-1700 UTC on 2015-04-13, SF whiteout geofencee
+     *      scen 03: SF, one week sim from 2015-04-12 0000 - 2015-04-19 0000 (UTC), no geofence
+     *      scen 04: SF, one week sim from 2015-04-12 0000 - 2015-04-19 0000 (UTC), SF whiteout geofence
+     *      scen 05: SF, four hour sim from 1300-1700 UTC on 2015-04-24, SF whiteout geofence
+     *      scen 06: Chengdu, one week sim from 2015-04-29 1600 - 2015-04-05 1600 UTC, no geofence
      *      scen 07: Chengdu, two week data from 2015-04-29 1600 - 2015-04-12 1600 UTC consolidated to be consolidated so that the second week of data is to be moved to first week (subtract 7 days from all times)     
-     *      scen 08: SF, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geo (flexible departure analysis)
-     *      scen 09: LA, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geo (flexible departure analysis)
-     *      scen 10: Austin, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC (flexible departure analysis)
+     *      scen 08: SF, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geofence (flexible departure analysis)
+     *      scen 09: LA, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geofence (flexible departure analysis)
+     *      scen 10: Austin, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geofence (flexible departure analysis)
      *      scen 11: scen 09 with LA geofence
-     *      scen 12: LA, 5-hour sim from 1800-2300 local with geofence (comparing accounting of savings)
-     *      scen 13: NJ, 1-week sim from 0000-0000 local, no geofences (MITM)
+     *      scen 12: LA, 5-hour sim from 1800-2300 local with LA geofence (comparing accounting of savings)
+     *      scen 13: NJ, 1-week sim from 0000-0000 local, no geofence (MITM)
+     *      scen 14: SD, 1-week sim from 0000-0000 local 04/26 to 05/03, no geofence
      */
     
-    const int scenNumber = 13;
-    ProblemInstance * pInstance = generateInstanceScenarios(scenNumber);
+    const int scenNumber = 14;
+    GenerateInstanceScenarios * pScenarios = new GenerateInstanceScenarios();
+    ProblemInstance * pInstance = pScenarios->generateInstanceScenarios(scenNumber,geofenceDataPath);
     
     // SPECIFY TYPE OF EXPERIMENT
     const ModelRunner::Experiment experiment = ModelRunner::OPTIN;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE    
@@ -113,7 +116,7 @@ int main(int argc, char** argv) {
     const bool runUFBW_perfectInfo = false; 
             
     // create ModelRunner object which controls all optimizations 
-    ModelRunner * pModelRunner = new ModelRunner( experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofences() );     
+    ModelRunner * pModelRunner = new ModelRunner( experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofence() );     
     pModelRunner->setInputValues(range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
     pModelRunner->setInclInitPickupDistForSavingsConstr(inclInitPickupInSavingsConstr);
     

@@ -1,10 +1,10 @@
+#include <iomanip>
+
 #include "GenerateInstanceScenarios.hpp"
 
 // populate input scenario maps
-ProblemInstance * generateInstanceScenarios(const int scenIndex) {
+ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int scenIndex, const std::string &geofenceFolderPath) {
        
-    std::vector<Geofence*> emptyGeofenceVec;
-    
     switch ( scenIndex ) {
         case 1 :
         {
@@ -14,7 +14,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const int simLengthInMin            = 60;
             const std::string inputCsvFilename  = "trips-SF-2015-04-13-1600-1700-uberX.csv";
             const std::string scenStr           = "SF-20150413-1600-1Hr-noGeo";                        
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
             return pInstance;                        
         }
         case 2 :
@@ -25,15 +25,11 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const int simLengthInMin            = 60;
             const std::string inputCsvFilename  = "trips-SF-2015-04-13-1600-1700-uberX.csv";
             const std::string scenStr           = "SF-20150413-1600-1Hr-2Geofences";                        
+
+            const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
             
-            // define two geofences: SF city (7x7) and SFO airport
-            std::vector<Geofence*> geofences;
-            Geofence * pGeofence_SF_city    = new Geofence(Geofence::REQ_ONLY, 37.698491,37.801104,-122.530174,-122.344093); 
-            Geofence * pGeofence_SF_airport = new Geofence(Geofence::REQ_ONLY, 37.604440,37.636529,-122.405205,-122.346153);
-            geofences.push_back(pGeofence_SF_city);
-            geofences.push_back(pGeofence_SF_airport);
-            
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofences, scenStr);
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;   
         }
         case 3 :
@@ -45,43 +41,39 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-SF-2015-04-12-0000-2015-04-19-0000-uberX.csv";  
             const std::string scenStr            = "SF-20150412-0000-1Week-noGeo";
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
             return pInstance;
         }
         case 4 :
         {
-            // INSTANCE 04: SF, ONE WEEK SIM FROM 2015-04-12 0000 - 2015-04-19 0000 (UTC), two geofences
+            // INSTANCE 04: SF, ONE WEEK SIM FROM 2015-04-12 0000 - 2015-04-19 0000 (UTC), SF whiteout geofence
             const int cityIndex                  = SF;
             const std::string simStartTimeStr    = "2015-04-12 07:00:00";
             const int simLengthInMin             = 10080;
             const std::string inputCsvFilename   = "trips-SF-2015-04-12-0000-2015-04-19-0000-uberX.csv";  
             const std::string scenStr            = "SF-20150412-0000-1Week-noGeo";
             
-            // define two geofences: SF city (7x7) and SFO airport
-            std::vector<Geofence*> geofences;
-            Geofence * pGeofence_SF_city    = new Geofence(Geofence::REQ_ONLY, 37.698491,37.801104,-122.530174,-122.344093); 
-            Geofence * pGeofence_SF_airport = new Geofence(Geofence::REQ_ONLY, 37.604440,37.636529,-122.405205,-122.346153);
-            geofences.push_back(pGeofence_SF_city);
-            geofences.push_back(pGeofence_SF_airport);            
+            // extract SF whiteout geofence (geofence id 14617)
+            const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofences, scenStr);
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;            
         }
         case 5 :
         {
-            // INSTANCE 05: SF, four hour sim from 1300-1700 UTC on 2015-04-24, one SF geofence (incl SFO airport)
+            // INSTANCE 05: SF, four hour sim from 1300-1700 UTC on 2015-04-24, SF whiteout geofence
             const int cityIndex                  = SF;
             const std::string simStartTimeStr    = "2015-04-24 13:00:00";
             const int simLengthInMin             = 240;
             const std::string inputCsvFilename   = "trips-SF-2015-04-24-1300-1700-uberX.csv";
             const std::string scenStr            = "SF-20150424-0600-4Hr-1Geo";
             
-            // define one geofence: encompasses most of SF incl SFO 
-            std::vector<Geofence*> geofences;
-            Geofence * pGeofence_SF = new Geofence(Geofence::ENTIRE_TRIP, 37.59573590243413, 37.82000000, -122.54596710205078, -122.32349395751953);
-            geofences.push_back(pGeofence_SF);
+            // extract SF whiteout geofence (geofence id 14617)
+            const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
+            const Geofence * pGeofence = extractGeofence(Geofence::ENTIRE_TRIP, 14617, "SF", geofenceInputPath);
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofences, scenStr);
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;
         }
         case 6 :
@@ -93,7 +85,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-Chengdu-20150330-0000-20150406-0000-uberX.csv"; 
             const std::string scenStr            = "Chengdu-20150330-1Week-noConsolidation-noGeo";
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
             return pInstance;
         }
         case 7 :
@@ -105,7 +97,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-Chengdu-20150330-0000-20150413-0000-uberX.csv"; 
             const std::string scenStr            = "Chengdu-20150330-1Week-noConsolidation-noGeo";
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);  
             return pInstance;
         }
         case 8 :
@@ -117,7 +109,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-SF-20150427-0700-20150428-0700-uberX.csv"; 
             const std::string scenStr            = "SF-20150427-0000-1Day-noGeo";
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);  
             return pInstance;            
         }
         case 9 :
@@ -129,7 +121,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-LA-20150427-0700-20150428-0700-uberX.csv"; 
             const std::string scenStr            = "LA-20150427-0000-1Day-noGeo";
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);  
             return pInstance;                  
         }
         case 10 :
@@ -141,7 +133,7 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-AUS-20150427-0700-20150428-0700-uberX.csv"; 
             const std::string scenStr            = "AUS-20150427-0000-1Day-noGeo";
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);  
             return pInstance;             
         }
         case 11 : 
@@ -151,11 +143,12 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const int simLengthInMin             = 1440;
             const std::string inputCsvFilename   = "trips-LA-20150427-0700-20150428-0700-uberX.csv"; 
             const std::string scenStr            = "LA-20150427-0000-1Day-geofence";
+
+            // extract LA geofence id 23664
+            const std::string geofenceInputPath = geofenceFolderPath + "LA-geo.txt";            
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY,23664,"LA",geofenceInputPath);
             
-            std::vector<Geofence*> geofenceVec;
-            Geofence * pGeofence = new Geofence(Geofence::ENTIRE_TRIP, 33.9308311, 34.136744, -118.58746, -118.19967);
-            
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);  
             return pInstance;              
         }
         case 12 : 
@@ -166,10 +159,11 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-LA-20150425-0100-20150425-0600-uberX.csv"; 
             const std::string scenStr            = "LA-20150424-1800-5Hr-geofence";
             
-            std::vector<Geofence*> geofenceVec;
-            Geofence * pGeofence = new Geofence(Geofence::ENTIRE_TRIP, 33.9308311, 34.136744, -118.58746, -118.19967);
+            // extract LA geofence id 23664
+            const std::string geofenceInputPath = geofenceFolderPath + "LA-geo.txt";            
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY,23664,"LA",geofenceInputPath);            
             
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, geofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);  
             return pInstance;              
         }   
         case 13 :
@@ -180,8 +174,19 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
             const std::string inputCsvFilename   = "trips-NJ-20150426-0000-20150503-0000-uberX.csv"; 
             const std::string scenStr            = "NJ-20150426-0000-1Wk-noGeo";
  
-            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, emptyGeofenceVec, scenStr);  
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);  
             return pInstance;               
+        }
+        case 14 :
+        {
+            const int cityIndex                  = SD;
+            const std::string simStartTimeStr    = "2015-04-26 00:00:00";
+            const int simLengthInMin             = 10080;
+            const std::string inputCsvFilename   = "trips-SanDiego-2015-04-26-0700-05-03-0700-uberX.csv";
+            const std::string scenStr            = "SD-20150426-0000-1Wk-noGeo";
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
+            return pInstance;
         }
         default : 
         {
@@ -199,3 +204,37 @@ ProblemInstance * generateInstanceScenarios(const int scenIndex) {
     
     return NULL;
 }
+
+const Geofence * GenerateInstanceScenarios::extractGeofence(const Geofence::Type type, const int geofenceID, const std::string cityString, const std::string &geofenceDataFile) {
+    
+    Geofence * pGeofence = new Geofence(type,geofenceID,cityString);
+    
+    ifstream inFile;
+    inFile.open(geofenceDataFile);
+    std::string line;
+    if( inFile.is_open() ) {
+        while( getline(inFile,line) ) {
+
+            std::stringstream ss(line);
+            std::string token;
+            std::pair<double,double> currVertex;
+            int column = 0;
+            while( ss >> token ) {                
+                assert( column <= 1 );
+                size_t prec = 10;
+                double currValue = std::stod(token,&prec);
+                if( column == 0 ) {
+                    currVertex.first = currValue;
+                } else if( column == 1 ) {
+                    currVertex.second = currValue;
+                }
+                column++;
+            }
+            pGeofence->addLatLng(currVertex);
+        }
+        inFile.close();
+    }
+    
+    return pGeofence;
+}
+

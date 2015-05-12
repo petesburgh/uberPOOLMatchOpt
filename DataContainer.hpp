@@ -37,7 +37,7 @@ using namespace std;
 
 class DataContainer {
 public:
-    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const std::vector<Geofence*> * geofences);
+    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence);
     virtual ~DataContainer();
     
     // methods called by main()
@@ -76,11 +76,9 @@ public:
     const bool printToScreen() const { return _printToScreen; }
     
     // check if a given trip if feasible for geofence
-    bool isFeasibleForGeofences(TripData * pTrip, const std::vector<Geofence*> * pGeofences);
-    bool isTripFeasibleForCurrGeofence(TripData * pTrip, Geofence * pGeofence);
+    bool isEligForGeofence(TripData * pTrip, const Geofence * pGeofence);
     
     // set instance-specific attributes
-   // void setOptInRate(double optInRate) { _optInRate = optInRate; }
    void setBatchWindowInSeconds(int batchWindow) { _batchWindowInSec = batchWindow; }
     
    
@@ -97,7 +95,7 @@ private:
     bool _printToScreen;      // cout data
     
     // all geofences
-    const std::vector<Geofence*> * pGeofences;
+    const Geofence* pGeofence;
         
     // entities across DB snapshot
     std::vector<TripData*> _allTrips;      // ALL trips

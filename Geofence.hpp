@@ -8,6 +8,12 @@
 #ifndef GEOFENCE_HPP
 #define	GEOFENCE_HPP
 
+#include <iostream>
+#include <vector>
+#include <assert.h>
+
+using namespace std;
+
 class Geofence {
    
 public:
@@ -19,22 +25,27 @@ public:
         ENTIRE_TRIP
     };     
     
-    Geofence( Type geofenceType, double minLat, double maxLat, double minLng, double maxLng);
+    Geofence( const Type geofenceType, const int geofenceID, const std::string cityStr );
     virtual ~Geofence();
+            
+    // append curr lat or lng
+    void addLatLng(std::pair<double,double> &currVertex);
     
+    // getters
     const Type getGeofenceType() const { return _geofenceType; }
-    const double getMinLat() const { return _minLat; }
-    const double getMaxLat() const { return _maxLat; }
-    const double getMinLng() const { return _minLng; }
-    const double getMaxLng() const { return _maxLng; }
-    
+    const int getGeofenceID() const { return _geofenceID; }
+    const std::string getGeofenceCityString() const { return _cityString; }
+    const std::vector<double> * getLatitudes() const  { return &_latitudes; }
+    const std::vector<double> * getLongitudes() const { return &_longitudes; }
+   
 private:
 
     const Type   _geofenceType;
-    const double _minLat;
-    const double _maxLat;
-    const double _minLng;
-    const double _maxLng;
+    const int _geofenceID; 
+    const std::string _cityString;
+    
+    std::vector<double> _latitudes;
+    std::vector<double> _longitudes;
 };
 
 #endif	/* GEOFENCE_HPP */

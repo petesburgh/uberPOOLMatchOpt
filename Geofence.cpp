@@ -9,10 +9,14 @@
 
 #include <iostream>
 
-Geofence::Geofence(Geofence::Type geofenceType, double minLat, double maxLat, double minLng, double maxLng) :
-        _geofenceType(geofenceType), _minLat(minLat), _maxLat(maxLat), _minLng(minLng), _maxLng(maxLng) {
+Geofence::Geofence(const Geofence::Type geofenceType, const int geofenceID, const std::string cityStr) :
+         _geofenceType(geofenceType), _geofenceID(geofenceID), _cityString(cityStr) {
 }
 
 Geofence::~Geofence() {
 }
 
+void Geofence::addLatLng(std::pair<double,double> &currVertex) {
+    _latitudes.push_back(currVertex.first);
+    _longitudes.push_back(currVertex.second);
+}

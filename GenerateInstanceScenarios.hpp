@@ -9,22 +9,43 @@
 #define	GENERATEINSTANCESCENARIOS_HPP
 
 #include "ProblemInstance.hpp"
+#include "CSVRow.hpp"
+//#include "Utility.hpp"
 //#include "Geofence.hpp"
 #include <iostream>
+#include<fstream>
+#include<sstream>
+#include<string>
+#include<stdlib.h>  /* atof */
 #include <time.h>
 #include <map>
 
+
 using namespace std;
 
-enum {
+class GenerateInstanceScenarios {
+    
+public:
+    
+    enum {
     SF      = 1,
     CHENGDU = 1774,
     LA      = 12,
     AUSTIN  = 4, 
-    NJ      = 198
-} CityIndex;
+    NJ      = 198,
+    SD      = 21
+    } CityIndex;
+    
+    GenerateInstanceScenarios(){};
+    ~GenerateInstanceScenarios(){};
+    
+    ProblemInstance * generateInstanceScenarios(const int scenIndex, const std::string &geofenceFolderPath);
+    const Geofence * extractGeofence(const Geofence::Type type, const int geofenceID, const std::string cityString, const std::string &geofenceDataFile);
+   
 
-ProblemInstance * generateInstanceScenarios(const int scenIndex);
+private:
+
+};
 
 #endif	/* GENERATEINSTANCESCENARIOS_HPP */
 

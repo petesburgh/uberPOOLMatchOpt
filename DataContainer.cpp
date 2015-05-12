@@ -11,8 +11,8 @@
 
 // constructors
 DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, 
-            const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, 
-            const std::vector<Geofence*> * geofences) : _optInRate(optInRate), pGeofences(geofences) {
+            const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence) 
+                : _optInRate(optInRate), pGeofence(geofence) {
     
     _inputPath = inputPath;
     _csvFilename = csvFilename;
@@ -39,7 +39,6 @@ void DataContainer::extractCvsSnapshot() {
     const std::string filePath = _inputPath + _csvFilename;    
     std::ifstream       file(filePath);
     CSVRow row;
-    
     int rowIndex = 0;
     while( file >> row ) {        
         size_t nCols = row.size();
@@ -47,7 +46,7 @@ void DataContainer::extractCvsSnapshot() {
 
        // ignore header row
        if( rowIndex > 0 ) {
-           
+
            // define current trip
            TripData * currTrip = defineCurrentTripInfoFromCsvLine(row);    
            
@@ -68,11 +67,11 @@ void DataContainer::extractCvsSnapshot() {
                    continue;
            }
            
-           // check if the 
-           if( pGeofences->empty() == false ) {
-                bool isGeofenceEligible = isFeasibleForGeofences(currTrip, pGeofences);
-                if( !isGeofenceEligible )
-                    continue;                
+           // check if the trip satisfies the geofence           
+           if( pGeofence != NULL ) {
+               const bool isGeofenceEligible = isEligForGeofence(currTrip, pGeofence);
+               if( !isGeofenceEligible)                 
+                   continue;                           
            }
                                                       
            _allTrips.push_back(currTrip); // append to global list of all trips 
@@ -85,98 +84,40 @@ void DataContainer::extractCvsSnapshot() {
 
         } else {
             rowIndex++;
-        }           
+        }
     }
      
     file.close();    
 }
 
-bool DataContainer::isFeasibleForGeofences(TripData * pTrip, const std::vector<Geofence*> * pGeofences) {
+bool DataContainer::isEligForGeofence(TripData* pTrip, const Geofence* pGeofence) {
     
-    assert( pGeofences->size() > 0 );
-           
-    for( std::vector<Geofence*>::const_iterator geoItr = pGeofences->begin(); geoItr != pGeofences->end(); ++geoItr ) {
-        bool isFeasForCurrGeofence = isTripFeasibleForCurrGeofence(pTrip,*geoItr);
-        if( isFeasForCurrGeofence ) 
-            return true;
-    }
-    
-    return false;
-}
-bool DataContainer::isTripFeasibleForCurrGeofence(TripData * pTrip, Geofence * pGeofence) {
-    
-    const double geoMinLat = pGeofence->getMinLat();
-    const double geoMaxLat = pGeofence->getMaxLat();
-    const double geoMinLng = pGeofence->getMinLng();
-    const double geoMaxLng = pGeofence->getMaxLng();
+    assert(pGeofence != NULL);
     
     switch( pGeofence->getGeofenceType() ) {
         case Geofence::REQ_ONLY :
-        {                                                
-            // check LATITUTDE
-            const double reqLat = pTrip->getRequestEvent()->lat;
-            bool isLatElig = ( (geoMinLat <= reqLat) && (reqLat <= geoMaxLat) );
-            if( !isLatElig )
-                return false;
-                        
-            // check LONGITUDE
-            const double reqLng = pTrip->getRequestEvent()->lng;
-            bool isLngElig = ( (geoMinLng <= reqLng) && (reqLng <= geoMaxLng) );
-            if( !isLngElig ) {
-                return false;
-            }
-            
-            return true;             
+        {
+            bool isEligForGeofence = Utility::isPointInPolygon(pGeofence->getLatitudes(), pGeofence->getLongitudes(), make_pair(pTrip->getRequestEvent()->lat, pTrip->getRequestEvent()->lng));            
+            return isEligForGeofence;
         }
         case Geofence::ORIG_ONLY :
-        {           
-            // check LATITUDE
-            const double origLat = pTrip->getPickupEvent()->lat;
-            bool isLatElig = ( (geoMinLat <= origLat) && (origLat <= geoMaxLat) );
-            if( !isLatElig )
-                return false;
-                        
-            // check LONGITUDE
-            const double origLng = pTrip->getPickupEvent()->lng;
-            bool isLngElig = ( (geoMinLng <= origLng) && (origLng <= geoMaxLng) );
-            if( !isLngElig )
-                return false;
-            
-            return true;
+        {
+            bool isEligForGeofence = Utility::isPointInPolygon(pGeofence->getLatitudes(), pGeofence->getLongitudes(), make_pair(pTrip->getPickupEvent()->lat, pTrip->getPickupEvent()->lng));
+            return isEligForGeofence;
         }
         case Geofence::ENTIRE_TRIP :
-        {            
-            // check ORIGIN LATITUDE
-            const double origLat = pTrip->getPickupEvent()->lat;
-            bool isOrigLatElig = ( (geoMinLat <= origLat) && (origLat <= geoMaxLat) );
-            if( !isOrigLatElig )
-                return false;
-            
-            // check ORIGIN LONGITUDE
-            const double origLng = pTrip->getPickupEvent()->lng;
-            bool isOrigLngElig = ( (geoMinLng <= origLng) && (origLng <= geoMaxLng) );
-            if( !isOrigLngElig )
-                return false;
-            
-            // check DEST LATITUDE
-            const double destLat = pTrip->getDropoffEvent()->lat;
-            bool isDestLatElig = ( (geoMinLat <= destLat) && (destLat <= geoMaxLat) );
-            if( !isDestLatElig ) 
-                return false;
-                        
-            // check DEST LONGITUDE
-            const double destLng = pTrip->getDropoffEvent()->lng;
-            bool isDestLngElig = ( (geoMinLng <= destLng) && (destLng <= geoMaxLng) );
-            if( !isDestLngElig )
-                return false;
-                        
-            return true;
+        {
+            bool isPickupInGeofence = Utility::isPointInPolygon(pGeofence->getLatitudes(), pGeofence->getLongitudes(), make_pair(pTrip->getPickupEvent()->lat,  pTrip->getPickupEvent()->lng));
+            bool isDropInGeofence   = Utility::isPointInPolygon(pGeofence->getLatitudes(), pGeofence->getLongitudes(), make_pair(pTrip->getDropoffEvent()->lat, pTrip->getDropoffEvent()->lng));
+            return (isPickupInGeofence && isDropInGeofence);
         }
         default :
-            std::cout << "\n\n*** ERROR: Geofence TYPE NOT SUPPORTED ***";
-            std::cout << "\texiting...\n" << std::endl;
-            exit(1);
+        {
+            std::cout << "\n\n*** ERROR: Geofence Type not defined ***\n" << std::endl;
+            std::cout << "\texiting... " << std::endl; 
+            exit(0);
             return false;
+        }
     }
 }
 TripData* DataContainer::defineCurrentTripInfoFromCsvLine(CSVRow& row) {
@@ -265,12 +206,7 @@ Rider * DataContainer::getRiderFromTrip(const std::string id) {
 // -------------------------------------------------------
 bool DataContainer::generateUberPoolTripProxy() {
     
-    // if all uberX requests are POOL requests (trivial)
- /*   if( _optInRate == 1 ) {
-        _uberPoolRiders = _allUberXRiders;
-        return true;
-    } */
-    
+    // ensure optInRate is in [0,1]
     assert( (0.0 <= _optInRate) && (_optInRate <= 1.0) );
     
     // if no uberX requests are POOL requests then the test does not make sense

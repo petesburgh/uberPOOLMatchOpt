@@ -9,7 +9,9 @@
 #define	MODELUTILS_HPP
 
 #include "AssignedTrip.hpp"
+#include "AssignedRoute.hpp"
 #include "OpenTrip.hpp"
+#include "Route.hpp"
 #include "Event.hpp"
 #include "Comparators.hpp"
 #include "FeasibleMatch.hpp"
@@ -46,16 +48,16 @@ public:
      *       2. removes the expired open trips from the set of inputted OpenTrip objects
      *   this is used in models to track eligible master candidates
      */
-    static std::set<AssignedTrip*, AssignedTripIndexComp> getCompletedOpenTrips(const time_t &tm, std::set<OpenTrip*,EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips) {
+    static std::set<AssignedTrip*, AssignedTripIndexComp> getCompletedOpenTrips(const time_t &tm, std::set<OpenTrip*,EtdComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips) {
 
         std::set<AssignedTrip*, AssignedTripIndexComp> unmatchedTrips;
                
         // iterate over open trips and check for completion
-        std::set<OpenTrip*, EtaComp>::iterator openTripItr;
-        std::set<OpenTrip*, EtaComp>::iterator lastDeletionItr = openTrips.begin();
+        std::set<OpenTrip*, EtdComp>::iterator openTripItr;
+        std::set<OpenTrip*, EtdComp>::iterator lastDeletionItr = openTrips.begin();
         for( openTripItr = openTrips.begin(); openTripItr != openTrips.end(); ++openTripItr ) {
 
-            // terminate loop if ETA is after current time epoch (openTrips are sorted by ETA)
+            // terminate loop if ETD is after current time epoch (openTrips are sorted by ETD)
             if( (*openTripItr)->getETD() > tm ) {
                 lastDeletionItr = openTripItr;
                 break;
@@ -65,13 +67,8 @@ public:
             AssignedTrip * pAssignedTrip = ModelUtils::convertOpenTripToAssignedTrip(*openTripItr);
             
             pAssignedTrip->setIndex(assignedTrips.size());            
-          /*  Event actualPickUp((*openTripItr)->getETA(), (*openTripItr)->getActPickupLat(), (*openTripItr)->getActPickupLng());
-            pAssignedTrip->setMasterPickupFromActuals(actualPickUp);
-            Event actualDropOff((*openTripItr)->getETD(), (*openTripItr)->getDropRequestLat(), (*openTripItr)->getDropRequestLng());
-            pAssignedTrip->setMasterDropFromActuals(actualDropOff); */
             assignedTrips.insert(pAssignedTrip); 
-            
-                       
+                                   
             unmatchedTrips.insert(pAssignedTrip);
             lastDeletionItr = openTripItr;
         }
@@ -84,24 +81,59 @@ public:
         return unmatchedTrips;  
     }
     
+    /*
+     *   the following method accomplishes two things:
+     *       1. defines the subset of OpenTrip objects that have completed (w.r.t. ETD) relative to the inputted time
+     *       2. removes the expired open trips from the set of inputted OpenTrip objects
+     *   this is used in models to track eligible master candidates
+     */
+    static int assignCompletedOpenRoutes(const time_t &tm, std::set<Route*, RouteEndComp> &openRoutes, std::set<AssignedRoute*, AssignedRouteIndexComp> &assignedRoutes) {
+                
+        int numCompletedRoutes = 0;
+        
+        std::set<Route*, RouteEndComp>::iterator lastDeletionItr = openRoutes.begin();
+        for( std::set<Route*, RouteEndComp>::iterator routeItr = openRoutes.begin(); routeItr != openRoutes.end(); ++routeItr ) {
+            
+            // terminate loop if ETD is after current time epoch (openTrips are sorted by ETD)
+            if( (*routeItr)->getRouteEndTime() > tm ) {
+                lastDeletionItr = routeItr;
+                break;
+            }
+
+            AssignedRoute * pAssignedRoute = new AssignedRoute(*routeItr);             
+            assignedRoutes.insert(pAssignedRoute); 
+            numCompletedRoutes++;
+                                               
+            lastDeletionItr = routeItr;
+        }
+        
+        // now delete all expired open trips
+        if( lastDeletionItr != openRoutes.begin() ) {
+            openRoutes.erase(openRoutes.begin(), lastDeletionItr); 
+        }            
+        
+        return numCompletedRoutes;
+    }
+    
     //static double getPickupDistanceAtTimeOfMinionRequest(Request * pRequest, OpenTrip * pOpenTrip) {
     static double getPickupDistanceAtTimeOfMinionRequest_maxPickupConstr(
-            const time_t minionReqTime, 
-            const double minionPickupLat, 
-            const double minionPickupLng, 
-            const time_t masterPickupTime, 
-            const double masterPickupLat, 
-            const double masterPickupLng, 
-            const time_t masterDropoffTime, 
-            const double masterDropLat, 
-            const double masterDropLng,
-            const time_t masterDispatchTime,
-            const double masterDispatchLat, 
-            const double masterDispatchLng ) {
-                        
+            const time_t minionReqTime,         // request time
+            const double minionPickupLat,       // request lat
+            const double minionPickupLng,       // request lng
+            const time_t masterPickupTime,      // previous event time
+            const double masterPickupLat,       // previous event start lat
+            const double masterPickupLng,       // previous event start lng
+            const time_t masterDropoffTime,     // next event time
+            const double masterDropLat,         // next event end lat
+            const double masterDropLng,         // next event end lng
+            const time_t masterDispatchTime,    // dispatch time
+            const double masterDispatchLat,     // dispatch lat
+            const double masterDispatchLng      // dispatch lng
+            ) {
+        
         // case 1: pickup has NOT occurred (non-extended)
         if( minionReqTime <= masterPickupTime ) {
-                                    
+            
             // pickup distance from current location to minion origin
             LatLng estMasterLocation = Utility::estLocationByLinearProxy(minionReqTime, masterDispatchTime, masterDispatchLat, masterDispatchLng, masterPickupTime, masterPickupLat, masterPickupLng);
             double pickupDistance_driverToMaster = Utility::computeGreatCircleDistance(estMasterLocation.getLat(), estMasterLocation.getLng(), masterPickupLat, masterPickupLng);
@@ -123,6 +155,59 @@ public:
             
             return pickupDistance;
         }                
+    }
+    
+    static double getPickupDistance_maxPickupConstr_route(Route * pRoute, Request * pRequest, int pickupOrder) {
+        
+        // ensure there are two existing pickups
+        assert( pRoute->getPickupEvents()->size() == 2 );
+        
+        const time_t reqTime = pRequest->getReqTime();
+                
+        const Event * pDispatch = pRoute->getDispatchEvent();
+        RouteEvent * pFirstSchedPick  = pRoute->getPickupEvents()->front();
+        RouteEvent * pSecondSchedPick = pRoute->getPickupEvents()->back();
+        
+        // case 1: the request is to be the first pickup in the new route
+        if ( pickupOrder == 1 ) {
+            // 1.A the request occurs BEFORE the first sched pickup
+            if( reqTime < pFirstSchedPick->getEventTime() ) {
+                LatLng currLoc = Utility::estLocationByLinearProxy(reqTime, pDispatch->timeT, pDispatch->lat, pDispatch->lng, pFirstSchedPick->getEventTime(), pFirstSchedPick->getLat(), pFirstSchedPick->getLng());
+                double distToCurrReq = Utility::computeGreatCircleDistance(currLoc.getLat(), currLoc.getLng(), pRequest->getActualPickupEvent()->lat, pRequest->getActualPickupEvent()->lng);
+                return distToCurrReq;
+            }
+            // 1.B the request already occurred and request is in between first and second scheduled pickup
+            else if( (pFirstSchedPick->getEventTime() <= reqTime) && (reqTime <= pSecondSchedPick->getEventTime()) ) {
+                LatLng currLoc = Utility::estLocationByLinearProxy(reqTime, pFirstSchedPick->getEventTime(), pFirstSchedPick->getLat(), pFirstSchedPick->getLng(), pSecondSchedPick->getEventTime(), pSecondSchedPick->getLat(), pSecondSchedPick->getLng());
+                double distToCurrReq = Utility::computeGreatCircleDistance(currLoc.getLat(), currLoc.getLng(), pRequest->getActualPickupEvent()->lat, pRequest->getActualPickupEvent()->lng);
+                return distToCurrReq;
+            }
+        }
+        
+        // case 2: the request is not to be the first pickup in the new route
+        else {
+            // get prior pickup event
+            RouteEvent * pPriorPickup = pRoute->getPickupEvents()->at(pickupOrder-2); // e.g. if the 2nd pickup, then the prior is the 1st pickup which is index 0
+            
+            // 2.A: the request occurs BEFORE the pickup of the prior event
+            if( reqTime < pPriorPickup->getEventTime() ) {
+                double distToCurrReq = Utility::computeGreatCircleDistance(pPriorPickup->getLat(), pPriorPickup->getLng(), pRequest->getActualPickupEvent()->lat, pRequest->getActualPickupEvent()->lng);
+                return distToCurrReq;
+            }
+            
+            // 2.B: the requests occurs AFTER pickup of the prior event
+            else {
+                RouteEvent * pNextEvent = (pickupOrder == 2) ? pRoute->getPickupEvents()->back() : pRoute->getDropoffEvents()->front();
+                LatLng currLoc = Utility::estLocationByLinearProxy(reqTime, pPriorPickup->getEventTime(), pPriorPickup->getLat(), pPriorPickup->getLng(), pNextEvent->getEventTime(), pNextEvent->getLat(), pNextEvent->getLng());
+                double distToCurrReq = Utility::computeGreatCircleDistance(currLoc.getLat(), currLoc.getLng(), pRequest->getActualPickupEvent()->lat, pRequest->getActualPickupEvent()->lng);
+                return distToCurrReq;
+            }
+            
+        }
+        
+        cout << "** unhandled case when checking for pickup distance to minion req **\n" << endl;
+        exit(1);
+        return 0.0;
     }
     
     /*
@@ -169,6 +254,8 @@ public:
             const double addlDistMinion = totalDistMinion - minionUberXDist;
             const double pctAddlDistMaster = (double)100*(double)addlDistMaster/(double)masterUberXDist;
             const double pctAddlDistMinion = (double)100*(double)addlDistMinion/(double)minionUberXDist;
+            
+            const double totalTripDistance =  distToMinion + sharedDistance + dropDistance; // note: distToMinion includes initial distance traveled by master at time of match to minion
                         
             const double masterDistCostSavings = masterUberXDist - distance_pool_master;
             const double minionDistCostSavings = minionUberXDist - distance_pool_minion;
@@ -184,7 +271,7 @@ public:
             LatLng masterLocAtTimeOfMinionReq = ModelUtils::computeMasterLocAtTimeOfMinionReq(pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMinionCand->_reqTime);
             FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMasterCand->_riderTripUUID, minionId, 
                         pMinionCand->_riderIndex, pMinionCand->_riderTripUUID, true, pMasterCand->pReqEvent, pMasterCand->pDispatchEvent, isExtendedMatch, 
-                        distToMinion, sharedDistance, dropDist, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist,
+                        distToMinion, sharedDistance, dropDist, totalTripDistance, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist,
                         pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, pMasterCand->_ETD, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                         pMinionCand->_reqTime, -1, -1, -1, pMinionCand->_reqOrig, pMinionCand->_reqDest, pctAddlDistMinion,
                         masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, pMasterCand->_requestIndex, pMinionCand->pRequest->getReqIndex(), masterDriverLocAtTimeOfMinionReq, masterLocAtTimeOfMinionReq,
@@ -249,6 +336,8 @@ public:
             const double masterDistCostPctSavings = (double)100*(masterDistCostSavings/masterUberXDist);
             const double minionDistCostPctSavings = (double)100*(minionDistCostSavings/minionUberXDist);
             const double avgDistCostPctSavings = (masterDistCostPctSavings + minionDistCostPctSavings)/(double)2;
+            
+            const double totalTripDistance =  distToMinion + sharedDistance + distToMasterDrop;            
 
             // get dispatch time (-1 if dispatch has not yet occurred)
             time_t masterDispatchTime = (pMasterCand->pDispatchEvent == NULL) ? -1 : pMasterCand->pDispatchEvent->timeT;
@@ -259,7 +348,7 @@ public:
 
             FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMasterCand->_riderTripUUID, 
                     pMinionCand->_riderID, pMinionCand->_riderIndex, pMinionCand->_riderTripUUID, false, pMasterCand->pReqEvent, pMasterCand->pDispatchEvent, isExtendedMatch,
-                    distToMinion, sharedDistance, distToMasterDrop, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
+                    distToMinion, sharedDistance, distToMasterDrop, totalTripDistance, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
                     pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, -1, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                     pMinionCand->_reqTime, pMinionCand->_reqTime, -1, -1, minionOrig, minionDest, pctAddlDistMinion,
                     masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, pMasterCand->_requestIndex, pMinionCand->pRequest->getReqIndex(), masterDriverLocAtTimeOfMinionReq, masterLocAtTimeOfMinionReq,

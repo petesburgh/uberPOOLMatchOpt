@@ -3,10 +3,11 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   Driver.hpp TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
   TimeAdjacencyException.hpp OpenTrip.hpp Rider.hpp MasterCand.hpp \
   MinionCand.hpp MasterMinionMatchCand.hpp FeasibleMatch.hpp \
-  Comparators.hpp AssignedTrip.hpp Output.hpp DataContainer.hpp \
-  CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp Solution.hpp \
-  ModelEnum.hpp FlexDepSolution.hpp ModelRunner.hpp MitmModel.hpp \
-  ModelUtils.hpp UFBW_fixed.hpp \
+  Comparators.hpp AssignedTrip.hpp AssignedRoute.hpp Route.hpp \
+  RouteEvent.hpp Output.hpp DataContainer.hpp CSVRow.hpp Geofence.hpp \
+  ItemNotFoundException.hpp Solution.hpp ModelEnum.hpp \
+  FlexDepSolution.hpp ModelRunner.hpp MitmModel.hpp ModelUtils.hpp \
+  UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -19,7 +20,8 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  FlexDepartureModel.hpp SolnMaps.hpp
+  FlexDepartureModel.hpp SolnMaps.hpp MultiplePickupsModel.hpp \
+  FeasibleRoute.hpp MultPickupSoln.hpp
 
 UFBW_perfectInformation.hpp:
 
@@ -52,6 +54,12 @@ FeasibleMatch.hpp:
 Comparators.hpp:
 
 AssignedTrip.hpp:
+
+AssignedRoute.hpp:
+
+Route.hpp:
+
+RouteEvent.hpp:
 
 Output.hpp:
 
@@ -104,3 +112,9 @@ UFBW_fixed.hpp:
 FlexDepartureModel.hpp:
 
 SolnMaps.hpp:
+
+MultiplePickupsModel.hpp:
+
+FeasibleRoute.hpp:
+
+MultPickupSoln.hpp:

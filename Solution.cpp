@@ -10,7 +10,6 @@
 Solution::Solution(int model, time_t simStart, time_t simEnd, int totalReqs, int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs) : 
         _model(model), _simStartTime(simStart), _simEndTime(simEnd), _totalRequests(totalReqs), _totalDrivers(totalDrivers), _allTripsFromSolution(assignedTrips), _disqualifiedRequests(disqualifiedReqs) {
 }
-
 Solution::~Solution() {
 }
 
@@ -30,6 +29,7 @@ void Solution::buildSolutionMetrics() {
     std::vector<int>    waitTimesOfMatchMinions;
     
     std::vector<double> sharedDistancesMatches;
+    std::vector<double> pctSharedDist_Trip;
     std::vector<double> pctSharedDist_ALL;
     std::vector<double> pctSharedDist_Masters;
     std::vector<double> pctSharedDist_Minions;
@@ -92,10 +92,14 @@ void Solution::buildSolutionMetrics() {
             // shared distances
             const double sharedDist = (*tripItr)->getMatchDetails()->_sharedDistance;
             sharedDistancesMatches.push_back(sharedDist);
-            double pctSharedDist_MASTERS = (double)100*(sharedDist/tripLength_master);
-            double pctSharedDist_MINIONS = (double)100*(sharedDist/tripLength_minion);
-            pctSharedDist_Masters.push_back(pctSharedDist_MASTERS);
-            pctSharedDist_Minions.push_back(pctSharedDist_MINIONS);
+            const double totalTripDistance = (*tripItr)->getMatchDetails()->_totalTripDistance; 
+            double pctSharedDistForTrip = (double)100*(sharedDist/totalTripDistance);
+            double pctSharedDist_MASTERS_only = (double)100*(sharedDist/tripLength_master);
+            double pctSharedDist_MINIONS_only = (double)100*(sharedDist/tripLength_minion);
+
+            pctSharedDist_Trip.push_back(pctSharedDistForTrip);
+            pctSharedDist_Masters.push_back(pctSharedDist_MASTERS_only);
+            pctSharedDist_Minions.push_back(pctSharedDist_MINIONS_only);
 
             // savings (distance in which rider is responsible for cost)
             const double savings_masters = (*tripItr)->getMatchDetails()->_masterSavings;
@@ -138,10 +142,10 @@ void Solution::buildSolutionMetrics() {
     pctSharedDist_ALL.insert(pctSharedDist_ALL.end(), pctSharedDist_Masters.begin(), pctSharedDist_Masters.end());
     pctSharedDist_ALL.insert(pctSharedDist_ALL.end(), pctSharedDist_Minions.begin(), pctSharedDist_Minions.end());
     const double avgOverlapDist = Utility::computeMean(sharedDistancesMatches);
+    const double avgPctSharedDist_Trip = Utility::computeMean(pctSharedDist_Trip);
     const double avgPctSharedDist_ALL = Utility::computeMean(pctSharedDist_ALL);
     const double avgPctSharedDist_Masters = Utility::computeMean(pctSharedDist_Masters);
-    const double avgPctSharedDist_Minions = Utility::computeMean(pctSharedDist_Minions);
-    
+    const double avgPctSharedDist_Minions = Utility::computeMean(pctSharedDist_Minions);            
     
     // compute inconvenience     
     pctAllAddedDistances.insert(pctAllAddedDistances.end(),pctAddedDistancesForMasters.begin(),pctAddedDistancesForMasters.end());
@@ -199,6 +203,7 @@ void Solution::buildSolutionMetrics() {
     
     // overlap metrics
     _overlapMetrics._avgOverlapDist       = avgOverlapDist;
+    _overlapMetrics._avgTripOverlapPct    = avgPctSharedDist_Trip;
     _overlapMetrics._avgPctOverlapAll     = avgPctSharedDist_ALL;
     _overlapMetrics._avgPctOverlapMasters = avgPctSharedDist_Masters;
     _overlapMetrics._avgPctOverlapMinions = avgPctSharedDist_Minions;
@@ -216,6 +221,7 @@ void Solution::buildSolutionMetrics() {
     _indivMatchedRiderMetrics._inconv_Minions          = pctAddedDistancesForMinions;
 
     _indivMatchedRiderMetrics._overlapDist             = sharedDistancesMatches;
+    _indivMatchedRiderMetrics._overlapPct_Trip         = pctSharedDist_Trip;
     _indivMatchedRiderMetrics._overlapPct_ALL          = pctSharedDist_ALL;
     _indivMatchedRiderMetrics._overlapPct_Masters      = pctSharedDist_Masters;
     _indivMatchedRiderMetrics._overlapPct_Minions      = pctSharedDist_Minions;
@@ -228,6 +234,8 @@ void Solution::buildSolutionMetrics() {
     _indivMatchedRiderMetrics._waitTimeToMatch_Masters = waitTimesOfMatchMasters;
     _indivMatchedRiderMetrics._waitTimeToMatch_Minions = waitTimesOfMatchMinions;    
 }
+
+
 
 // methods used by derived class to set base class private members
 void Solution::setRequestMetrics(int totalRequests, int totalMatchedRequests, double matchRate, int totalUnmatchedTrips, double unmatchedRequestRate, int totalDisqualReqs, double disqualRequestRate) {
@@ -270,7 +278,7 @@ void Solution::setSavingsMetrics(double avgSavingsAll, double avgSavingsMasters,
     _savingsMetrics._avgMasterSavingsPct = avgSavingsMasters;
     _savingsMetrics._avgMinionSavingsPct = avgSavingsMinions;    
 }
-void Solution::setOverlapMetrics(double avgSharedDist, double avgPctSharedDist_ALL, double avgPctSharedDist_Masters, double avgPctSharedDist_Minions) {
+void Solution::setOverlapMetrics(double avgSharedDist, double pctSharedDist_Trip, double avgPctSharedDist_ALL, double avgPctSharedDist_Masters, double avgPctSharedDist_Minions) {
     _overlapMetrics._avgOverlapDist = avgSharedDist;
     _overlapMetrics._avgPctOverlapAll = avgPctSharedDist_ALL;
     _overlapMetrics._avgPctOverlapMasters = avgPctSharedDist_Masters;
@@ -279,13 +287,14 @@ void Solution::setOverlapMetrics(double avgSharedDist, double avgPctSharedDist_A
 void Solution::setIndivMatchMetrics(std::vector<double> pctAllAddedDistances, std::vector<double> pctAddedDistancesForMasters, std::vector<double> pctAddedDistancesForMinions,
                           std::vector<double> pctSavingsAllMatchedRiders, std::vector<double> pctSavingsForMasters, std::vector<double> pctSavingsForMinions,
                           std::vector<int> waitTimeMatches_all, std::vector<int> waitTimeMatchesForMasters, std::vector<int> waitTimeMatchesForMinions, 
-                          std::vector<double> overlapDistances, std::vector<double> pctSharedDist_ALL, std::vector<double> pctOverlapDist_Masters, std::vector<double> pctOverlapDist_Minions) {
+                          std::vector<double> overlapDistances,  std::vector<double> pctSharedDist_Trip, std::vector<double> pctSharedDist_ALL, std::vector<double> pctOverlapDist_Masters, std::vector<double> pctOverlapDist_Minions) {
     
     _indivMatchedRiderMetrics._inconv_ALL              = pctAllAddedDistances;
     _indivMatchedRiderMetrics._inconv_Masters          = pctAddedDistancesForMasters;
     _indivMatchedRiderMetrics._inconv_Minions          = pctAddedDistancesForMinions;
     
     _indivMatchedRiderMetrics._overlapDist             = overlapDistances;
+    _indivMatchedRiderMetrics._overlapPct_Trip         = pctSharedDist_Trip;
     _indivMatchedRiderMetrics._overlapPct_ALL          = pctSharedDist_ALL;
     _indivMatchedRiderMetrics._overlapPct_Masters      = pctOverlapDist_Masters;
     _indivMatchedRiderMetrics._overlapPct_Minions      = pctOverlapDist_Minions;

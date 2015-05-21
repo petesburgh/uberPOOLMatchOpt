@@ -11,9 +11,11 @@
 #include "Request.hpp"
 #include "OpenTrip.hpp"
 #include "AssignedTrip.hpp"
+#include "AssignedRoute.hpp"
 #include "MasterCand.hpp"
 #include "MinionCand.hpp"
 #include "MasterMinionMatchCand.hpp"
+#include "Route.hpp"
 #include <iostream>
 #include <time.h>
 
@@ -25,9 +27,8 @@ struct ReqComp {
     }
 };
 
-struct EtaComp {
+struct EtdComp {
     bool operator()(const OpenTrip* openTrip1, const OpenTrip* openTrip2) const {
-        //return openTrip1->getETD() < openTrip2->getETD();
         return openTrip1->getETD() <= openTrip2->getETD();
     }
 };
@@ -35,6 +36,12 @@ struct EtaComp {
 struct AssignedTripIndexComp {
     bool operator()(const AssignedTrip* trip1, const AssignedTrip* trip2) const {
         return trip1->getIndex() < trip2->getIndex();
+    }
+};
+
+struct AssignedRouteIndexComp {
+    bool operator()(const AssignedRoute * pRoute1, const AssignedRoute * pRoute2) const {
+        return pRoute1->getIndex() < pRoute2->getIndex();
     }
 };
 
@@ -67,6 +74,12 @@ struct MasterMinionMatchComp {
         return (pMatch1->_matchIndex < pMatch2->_matchIndex);
     }
 };  
+
+struct RouteEndComp {
+    bool operator()(Route * pRoute1, Route * pRoute2) const {
+        return (pRoute1->getRouteEndTime() <= pRoute2->getRouteEndTime());
+    }
+};
 
 
 #endif	/* COMPARATORS_HPP */

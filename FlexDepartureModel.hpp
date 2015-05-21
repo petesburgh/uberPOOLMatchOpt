@@ -42,23 +42,23 @@ class FlexDepartureModel {
     friend class ModelUtils;
     
 public:
-    FlexDepartureModel(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int lenFlexDepWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate, const bool inclMinionPickupInSavingsConstr);
+    FlexDepartureModel(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int lenFlexDepWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate, const bool inclMinionPickupInSavingsConstr);
     virtual ~FlexDepartureModel();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips, bool printToScreen);
     std::set<AssignedTrip*, AssignedTripIndexComp> solveMatchingOptimization(std::set<MasterMinionMatchCand*, MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests, bool printToScreen);
 
-    std::set<OpenTrip*, EtaComp> convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime, std::set<const int> * pFlexDepReqIndices);
+    std::set<OpenTrip*, EtdComp> convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime, std::set<const int> * pFlexDepReqIndices);
     std::set<Request*, ReqComp> getRequestsInInterval(std::deque<Request*> &requestsToProcess, const time_t &currBatchStartTime, const time_t &currBatchEndTime);
     AssignedTrip * convertWaitingRequestToAssignedTrip(Request * pWaitingRequest);
-    std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > generateCandidateMastersAndMinions(std::set<OpenTrip*, EtaComp> &openTrips, std::set<Request*, ReqComp> &currBatchRequests);
+    std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > generateCandidateMastersAndMinions(std::set<OpenTrip*, EtdComp> &openTrips, std::set<Request*, ReqComp> &currBatchRequests);
     std::set<MasterMinionMatchCand*, MasterMinionMatchComp> generateFeasibleMasterMinionMatches(const time_t &reqTimeAtInitRequestInBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices);
     void assignWeightsForMatchCandidates(std::set<MasterMinionMatchCand*, MasterMinionMatchComp> * pCandidateMatches);
     double computeEdgeWeightOfCurrCandidateMatch(MasterMinionMatchCand * pCurrMatchCand);
     bool checkifCandidateMatchIsTimeEligible(MasterCand * pMaster, MinionCand * pMinion, const time_t currReqTime, std::set<const int> * pFlexDepReqIndices);
 
     std::queue<Request*> cloneRequests(std::set<Request*, ReqComp> requests);
-    std::set<OpenTrip*, EtaComp> cloneOpenTrips(std::set<OpenTrip*, EtaComp> openTrips);
+    std::set<OpenTrip*, EtdComp> cloneOpenTrips(std::set<OpenTrip*, EtdComp> openTrips);
     
     void generateRandomFlexibleDepartureRequestIDs(std::set<const int> * pFlexIDs, const std::set<Request*, ReqComp> * pRequests);
     
@@ -83,8 +83,8 @@ public:
     std::vector<MasterMinionMatchCand*> * getOptimalMatchings(MPSolver * pSolver, std::map<MPVariable*,MasterMinionMatchCand*> * pEdgeVariables, bool printToScreen);
     std::set<AssignedTrip*, AssignedTripIndexComp> buildAssignedTripsFromMatchingSolution(std::vector<MasterMinionMatchCand*> * pOptMatchings);
     std::multimap<const int, time_t> getAllIndicesAssociatedWithMatchedRiders(std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
-    int removeMatchedOpenTrips_deprecated(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips);
-    int removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips);    
+    int removeMatchedOpenTrips_deprecated(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtdComp> * pOpenTrips);
+    int removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtdComp> * pOpenTrips);    
     int removeMatchedFutureRequests(std::multimap<const int, time_t>* pMatchedRiderReqTimeMap, std::deque<Request*> * pFutureRequests, Request * pCurrRequestInQueue);
     std::set<int> getRidersThanMayBeMastersOrMinions(std::set<MasterMinionMatchCand*, MasterMinionMatchComp> * pEligMatches, std::set<Request*, ReqComp> * pBatchRequests);
     Request* getMinionRequest(const int riderIndex, std::set<Request*, ReqComp> * pRequests);
@@ -105,7 +105,7 @@ private:
     const double _maxMatchDistInKm;
     const double _minOverlapThreshold;
     const std::set<Request*, ReqComp> _allRequests;
-    const std::set<OpenTrip*, EtaComp> _initOpenTrips;
+    const std::set<OpenTrip*, EtdComp> _initOpenTrips;
     const std::set<Driver*, DriverIndexComp> * _allDrivers;
     
     const double _flexDepOptInRate;

@@ -33,14 +33,14 @@ class Output;
 
 class MitmModel {
 public:
-    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupInSavings);
+    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupInSavings);
     virtual ~MitmModel();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
     
     // methods to update
-    std::set<AssignedTrip*, AssignedTripIndexComp> getAllCompletedOpenTrips(time_t &tm, std::set<OpenTrip*,EtaComp> &openTrips);
-    AssignedTrip * getBestMatchForCurrMinionRequest(Request * pMinionRequest, std::set<OpenTrip*, EtaComp> * pMasterCandidates, bool printDebugFiles, std::ofstream * pOutFile);
+    std::set<AssignedTrip*, AssignedTripIndexComp> getAllCompletedOpenTrips(time_t &tm, std::set<OpenTrip*,EtdComp> &openTrips);
+    AssignedTrip * getBestMatchForCurrMinionRequest(Request * pMinionRequest, std::set<OpenTrip*, EtdComp> * pMasterCandidates, bool printDebugFiles, std::ofstream * pOutFile);
         
     // given minion,master pair, check if feasible
     std::vector<FeasibleMatch*> getFeasibleMatchesFromCurrPair(Request* pMinionReq, OpenTrip * pMasterCand);
@@ -49,20 +49,20 @@ public:
     
     const double computeCostOfMatch(FeasibleMatch * pMatch) const;    
     AssignedTrip * convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch);    
-    bool removeMasterFromOpenTrips(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtaComp> *pOpenTrips);
+    bool removeMasterFromOpenTrips(AssignedTrip * pMatchedTrip, std::set<OpenTrip*, EtdComp> *pOpenTrips);
     
     // find nearest unassigned driver
-    std::pair<Driver*, std::pair<double,double> > * getNearestDriverToDispatchRequest(std::set<OpenTrip*, EtaComp> * pOpenTrips, time_t reqTime, double reqLat, double reqLng, const Driver * pDriver);
-    bool checkIfDriverAssignedToOpenTrip( time_t currTime, Driver * pDriver, std::set<OpenTrip*, EtaComp>* pOpenTrips );
+    std::pair<Driver*, std::pair<double,double> > * getNearestDriverToDispatchRequest(std::set<OpenTrip*, EtdComp> * pOpenTrips, time_t reqTime, double reqLat, double reqLng, const Driver * pDriver);
+    bool checkIfDriverAssignedToOpenTrip( time_t currTime, Driver * pDriver, std::set<OpenTrip*, EtdComp>* pOpenTrips );
     std::pair<const TripData*, const TripData*> * getAdjacentTrips(const Driver * pDriver, const time_t reqTime);
     LatLng getEstLocationOfOpenDriver(const Driver * pDriver, const time_t &reqTime);
     OpenTrip * createNewOpenTripForUnmatchedRequest(const Driver * pNearestDriver, Request * pMinionRequest, const Event * pActualDispatchEvent);
-    OpenTrip * getOpenTripAssignedToDriver(std::set<OpenTrip*, EtaComp> * pOpenTrips, const Driver * pDriver);
+    OpenTrip * getOpenTripAssignedToDriver(std::set<OpenTrip*, EtdComp> * pOpenTrips, const Driver * pDriver);
     
     std::set<Request*,  ReqComp> cloneRequests();
-    std::set<OpenTrip*, EtaComp> cloneOpenTrips();
+    std::set<OpenTrip*, EtdComp> cloneOpenTrips();
     
-    void clearRemainingOpenTrips(std::set<OpenTrip*, EtaComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
+    void clearRemainingOpenTrips(std::set<OpenTrip*, EtdComp> &openTrips, std::set<AssignedTrip*, AssignedTripIndexComp> * pAssignedTrips);
     
     // methods for building solution
     void buildSolution(std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips);
@@ -80,7 +80,7 @@ private:
     const double _maxMatchDistInKm;
     const double _minOverlapThreshold;
     std::set<Request*, ReqComp> _allRequests;
-    std::set<OpenTrip*, EtaComp> _initOpenTrips; 
+    std::set<OpenTrip*, EtdComp> _initOpenTrips; 
     std::set<AssignedTrip*, AssignedTripIndexComp> _assignedTrips;
     std::set<Request*, ReqComp> _disqualifiedRequests;
     const std::set<Driver*, DriverIndexComp> * _allDrivers;
@@ -88,8 +88,6 @@ private:
     Solution * pSolution; 
     
     const bool _inclMinionPickupDistExtMatchesSavingsConstr;
-   
-
 };
 
 #endif	/* MITMMODEL_HPP */

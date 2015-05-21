@@ -73,16 +73,20 @@ int main(int argc, char** argv) {
      *      scen 12: LA, 5-hour sim from 1800-2300 local with LA geofence (comparing accounting of savings)
      *      scen 13: NJ, 1-week sim from 0000-0000 local, no geofence (MITM)
      *      scen 14: SD, 1-week sim from 0000-0000 local 04/26 to 05/03, no geofence
+     *      scen 15: Chengdu, 1 week sim from 0000-0000 local 05/10/2015 to 05/17/2015, no geo (1 MM weekly trip)
+     *      scen 16: SF, NO SNAP, 1 week sim from 1000-1000 local 05/04/2015 to 05/11/2015, with geo
+     *      scen 17: SF, 55% SNAP, same as scen 16
+     *      scen 18: SF, 100% SNAP, same as scen 16
      */
     
-    const int scenNumber = 14;
+    const int scenNumber = 2;
     GenerateInstanceScenarios * pScenarios = new GenerateInstanceScenarios();
     ProblemInstance * pInstance = pScenarios->generateInstanceScenarios(scenNumber,geofenceDataPath);
-    
+       
     // SPECIFY TYPE OF EXPERIMENT
-    const ModelRunner::Experiment experiment = ModelRunner::OPTIN;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE    
+    const ModelRunner::Experiment experiment = ModelRunner::DEFAULTVALUES;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE    
     
-    const bool printDebugFiles       = false;
+    const bool printDebugFiles       = true;
     const bool printToScreen         = false;
     const bool printIndivSolnMetrics = true;
     const bool populateInitOpenTrips = false;
@@ -97,8 +101,9 @@ int main(int argc, char** argv) {
     const double default_minPoolDiscount         = 0.2;
     const double default_flexDepOptInRate        = 0.25;
     const int    default_flexDepWindowInSec      = 600;
+    const int    default_maxAllowablePickups     = 3; // only active for multiple pickups model
         
-    ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(default_optInRate,default_upFrontBatchWindowInSec,default_maxMatchDistInKm,default_minPoolDiscount,default_flexDepOptInRate,default_flexDepWindowInSec);
+    ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(default_optInRate, default_upFrontBatchWindowInSec, default_maxMatchDistInKm, default_minPoolDiscount, default_flexDepOptInRate, default_flexDepWindowInSec, default_maxAllowablePickups);
                 
     const bool inclInitPickupInSavingsConstr = true;
     
@@ -112,11 +117,12 @@ int main(int argc, char** argv) {
     const bool runMITMModel        = true;
     const bool runUFBW_seqPickups  = false;
     //const bool runUFBW_flexPickups = false; 
-    const bool runFlexDepModel     = true;
+    const bool runFlexDepModel     = false;
     const bool runUFBW_perfectInfo = false; 
+    const bool runMultiplePickups  = true;
             
     // create ModelRunner object which controls all optimizations 
-    ModelRunner * pModelRunner = new ModelRunner( experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofence() );     
+    ModelRunner * pModelRunner = new ModelRunner( experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, runMultiplePickups, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofence() );     
     pModelRunner->setInputValues(range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
     pModelRunner->setInclInitPickupDistForSavingsConstr(inclInitPickupInSavingsConstr);
     

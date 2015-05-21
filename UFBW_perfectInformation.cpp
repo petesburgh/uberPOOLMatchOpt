@@ -8,7 +8,7 @@
 #include "UFBW_perfectInformation.hpp"
 #include "ModelUtils.hpp"
 
-UFBW_perfectInformation::UFBW_perfectInformation(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const bool inclMinionPickupInSavingsConstr) : 
+UFBW_perfectInformation::UFBW_perfectInformation(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const bool inclMinionPickupInSavingsConstr) : 
         _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _inclDistMinionPickupExtMatches(inclMinionPickupInSavingsConstr) {
     
     _batchCounter = 0;    
@@ -43,7 +43,7 @@ bool UFBW_perfectInformation::solve(bool printDebugFiles, Output * pOutput, bool
     }
                 
     // step 2: initialize all open trips
-    std::set<OpenTrip*, EtaComp> initialOpenTrips;
+    std::set<OpenTrip*, EtdComp> initialOpenTrips;
     if( populateInitOpenTrips ) {
         initialOpenTrips = cloneOpenTrips(_initOpenTrips);
     }
@@ -133,7 +133,7 @@ bool UFBW_perfectInformation::solve(bool printDebugFiles, Output * pOutput, bool
         std::cout << "\tconverting final open trips to unmatched trips... " << std::endl;
     }
 
-    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    std::set<OpenTrip*, EtdComp>::iterator openTripItr;
     for( openTripItr = initialOpenTrips.begin(); openTripItr != initialOpenTrips.end(); ++openTripItr ) {
         AssignedTrip * pAssignedTrip = ModelUtils::convertOpenTripToAssignedTrip(*openTripItr);
         pAssignedTrip->setIndex(_assignedTrips.size());
@@ -150,7 +150,7 @@ bool UFBW_perfectInformation::solve(bool printDebugFiles, Output * pOutput, bool
     
     return true;    
 }
-std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > UFBW_perfectInformation::generateCandidateMastersAndMinions(std::set<OpenTrip*,EtaComp>& initOpenTrips, std::set<Request*,ReqComp>& currBatchRequests) {
+std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > UFBW_perfectInformation::generateCandidateMastersAndMinions(std::set<OpenTrip*,EtdComp>& initOpenTrips, std::set<Request*,ReqComp>& currBatchRequests) {
    
     // instantiate first and second sets to be returned in pair
     std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > mmPair;
@@ -158,7 +158,7 @@ std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> >
     std::set<MinionCand*, MinionComp> candMinions;
     
     // first generate master candidates from current open trips
-    for( std::set<OpenTrip*, EtaComp>::iterator tripItr = initOpenTrips.begin(); tripItr != initOpenTrips.end(); ++tripItr ) {
+    for( std::set<OpenTrip*, EtdComp>::iterator tripItr = initOpenTrips.begin(); tripItr != initOpenTrips.end(); ++tripItr ) {
         LatLng reqOrig((*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
         LatLng reqDest((*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
 
@@ -202,7 +202,7 @@ std::set<Request*, ReqComp> UFBW_perfectInformation::getRequestsInInterval(std::
 }
 
 // METHODS TO FIND ALL FEASIBLE MATCH COMBINATIONS
-std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation::generateFeasibleMasterMinionMatches(const time_t &reqTimeOfFirstReqInCurrBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, std::set<OpenTrip*, EtaComp> * pInitOpenTrips) {
+std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation::generateFeasibleMasterMinionMatches(const time_t &reqTimeOfFirstReqInCurrBatch, std::set<MasterCand*, MasterComp> &candMasters, std::set<MinionCand*, MinionComp> &candMinions, std::set<OpenTrip*, EtdComp> * pInitOpenTrips) {
     std::set<MasterMinionMatchCand*, MasterMinionMatchComp> matchCandidates;
     int counter = 1;
     std::set<MasterCand*, MasterComp>::iterator masterItr;
@@ -302,7 +302,7 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> UFBW_perfectInformation:
 
     return matchCandidates;
 }
-bool UFBW_perfectInformation::checkIfCandidateMatchIsTimeEligible(MasterCand * pMaster, MinionCand *pMinion, std::set<OpenTrip*, EtaComp> * pInitOpenTrips) {
+bool UFBW_perfectInformation::checkIfCandidateMatchIsTimeEligible(MasterCand * pMaster, MinionCand *pMinion, std::set<OpenTrip*, EtdComp> * pInitOpenTrips) {
     bool isCandMasterOpenTrip = checkIfCandMasterIsInitialOpenTrip(pMaster, pInitOpenTrips);
     
     // if master is an initial open trip then nothing to check (only applies if both are future requests)
@@ -327,8 +327,8 @@ bool UFBW_perfectInformation::checkIfCandidateMatchIsTimeEligible(MasterCand * p
      
     return false;
 }
-bool UFBW_perfectInformation::checkIfCandMasterIsInitialOpenTrip(MasterCand * pMaster, std::set<OpenTrip*, EtaComp> * pInitOpenTrips) {
-    for( std::set<OpenTrip*, EtaComp>::iterator it = pInitOpenTrips->begin(); it != pInitOpenTrips->end(); ++it ) {
+bool UFBW_perfectInformation::checkIfCandMasterIsInitialOpenTrip(MasterCand * pMaster, std::set<OpenTrip*, EtdComp> * pInitOpenTrips) {
+    for( std::set<OpenTrip*, EtdComp>::iterator it = pInitOpenTrips->begin(); it != pInitOpenTrips->end(); ++it ) {
         if( pMaster->_riderIndex == (*it)->getMasterIndex() ) {
             return true;
         }
@@ -711,11 +711,11 @@ int UFBW_perfectInformation::convertUnmatchedRequestsToOpenTrips(std::set<Assign
 }  
 
 // METHODS TO UPDATE DYNAMIC STRUCTURES
-int UFBW_perfectInformation::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips) {
+int UFBW_perfectInformation::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtdComp> * pOpenTrips) {
     
     int removedOpenTrips = 0;
     
-    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    std::set<OpenTrip*, EtdComp>::iterator openTripItr;
     for( openTripItr = pOpenTrips->begin(); openTripItr != pOpenTrips->end(); ) {
         const int masterIndex = (*openTripItr)->getMasterIndex();
         std::multimap<const int, time_t>::iterator matchingRiderIndexReqTimeItr = pMatchedRiderReqTimeMap->find(masterIndex); // = pMatchedRiderIndices->find(masterIndex);
@@ -782,9 +782,9 @@ std::queue<Request*> UFBW_perfectInformation::cloneRequests(std::set<Request*, R
     
     return requestQueue;
 }
-std::set<OpenTrip*, EtaComp> UFBW_perfectInformation::cloneOpenTrips(std::set<OpenTrip*, EtaComp> openTrips) {
-    std::set<OpenTrip*, EtaComp> openTripClones;
-    for( std::set<OpenTrip*, EtaComp>::iterator itr = openTrips.begin(); itr != openTrips.end(); ++itr ) {
+std::set<OpenTrip*, EtdComp> UFBW_perfectInformation::cloneOpenTrips(std::set<OpenTrip*, EtdComp> openTrips) {
+    std::set<OpenTrip*, EtdComp> openTripClones;
+    for( std::set<OpenTrip*, EtdComp>::iterator itr = openTrips.begin(); itr != openTrips.end(); ++itr ) {
         //if( (_startTime <= (*itr)->getETD()) && ((*itr)->getETD() <= _endTime) ) {
             
             openTripClones.insert(*itr);

@@ -175,18 +175,71 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             const std::string scenStr            = "NJ-20150426-0000-1Wk-noGeo";
  
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);  
-            return pInstance;               
+            return pInstance;                
         }
         case 14 :
         {
             const int cityIndex                  = SD;
             const std::string simStartTimeStr    = "2015-04-26 00:00:00";
             const int simLengthInMin             = 10080;
-            const std::string inputCsvFilename   = "trips-SanDiego-2015-04-26-0700-05-03-0700-uberX.csv";
+            const std::string inputCsvFilename   = "trips-SanDiego-2015-04-26-0700-2015-05-03-0700-uberX.csv";
             const std::string scenStr            = "SD-20150426-0000-1Wk-noGeo";
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
             return pInstance;
+        }
+        case 15 :
+        {
+            const int cityIndex                 = CHENGDU;
+            const std::string simStartTimeStr   = "2015-05-10 00:00:00";
+            const int simLengthInMin            = 10080;
+            const std::string inputCsvFilename  = "trips-Chengdu-20150509-1600-20150516-1600-uberX.csv";
+            const std::string scenStr           = "Chengdu-20150410-0000-1Wk-noGeo";
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
+            return pInstance;
+        }
+        case 16 :
+        {
+            const int cityIndex                 = SF;
+            const std::string simStartTimeStr   = "2015-05-04 10:00:00";
+            const int simLengthInMin            = 10080;
+            const std::string inputCsvFilename  = "SF_no_snapping.csv";
+            const std::string scenStr           = "SF-noSnap";
+            
+            const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
+            return pInstance;
+        }
+        case 17 : 
+        {
+            const int cityIndex                 = SF;
+            const std::string simStartTimeStr   = "2015-05-04 10:00:00";
+            const int simLengthInMin            = 10080;
+            const std::string inputCsvFilename  = "SF_55p_snapped.csv";
+            const std::string scenStr           = "SF-noSnap";
+            
+            const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
+            return pInstance;            
+        }
+        case 18 : 
+        {
+            const int cityIndex                 = SF;
+            const std::string simStartTimeStr   = "2015-05-04 10:00:00";
+            const int simLengthInMin            = 10080;
+            const std::string inputCsvFilename  = "SF_100p_snapped.csv";
+            const std::string scenStr           = "SF-noSnap";
+            
+            const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
+            return pInstance;            
         }
         default : 
         {

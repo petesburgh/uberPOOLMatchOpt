@@ -14,7 +14,8 @@ enum ModelEnum {
     UFBW_FIXED_PICKUPS,
    // UFBW_PICKUP_SWAPS,
     UFBW_PERFECT_INFO,
-    FLEX_DEPARTURE        
+    FLEX_DEPARTURE,
+    MULTIPLE_PICKUPS
 };
 
 #endif	/* MODELENUM_HPP */

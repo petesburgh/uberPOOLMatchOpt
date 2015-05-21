@@ -42,14 +42,14 @@ void DataContainer::extractCvsSnapshot() {
     int rowIndex = 0;
     while( file >> row ) {        
         size_t nCols = row.size();
-        assert( nCols == 15 ); // ENSURE proper dimension of CSV 
+       // assert( nCols == 15 ); // ENSURE proper dimension of CSV 
 
        // ignore header row
        if( rowIndex > 0 ) {
 
            // define current trip
-           TripData * currTrip = defineCurrentTripInfoFromCsvLine(row);    
-           
+           TripData * currTrip = defineCurrentTripInfoFromCsvLine(row); 
+                      
            // get Driver* object (and define if necessary)
            Driver * pDriver = getDriverFromTrip(currTrip->getDriverID());
            pDriver->addTrip(currTrip); 
@@ -164,6 +164,7 @@ TripData* DataContainer::defineCurrentTripInfoFromCsvLine(CSVRow& row) {
     return currTrip;
 }
 
+
 Driver * DataContainer::getDriverFromTrip(const std::string _id) {
     
     // search for existing entry in mapping between ID and Driver object ptr
@@ -179,6 +180,8 @@ Driver * DataContainer::getDriverFromTrip(const std::string _id) {
         pDriver->setIndex(_allDrivers.size()); // numeric identifier
         _allDrivers.insert(pDriver); // add to set of all drivers
         _idDriverMap.insert(make_pair(pDriver->getId(), pDriver));
+        pDriver->setCapacity(4); // for now assume capacity is 4
+        
         return pDriver;
     }   
 }

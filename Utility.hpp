@@ -192,6 +192,15 @@ public:
         return (c%2 != 0);
     }
     
+    static double computeAvgSpeed(const time_t startTime, const double startLat, const double startLng, const double endTime, const double endLat, const double endLng) {
+        assert(endTime > startTime);
+        
+        double distanceInKm = Utility::computeGreatCircleDistance(startLat, startLng, endLat, endLng); // Haversine distance in km
+        time_t timeInSec = endTime-startTime; // time in seconds
+        double avgSpeed = distanceInKm/(double)timeInSec; // speed in km per seconds
+        return avgSpeed;
+    }
+    
 private:
 };
 

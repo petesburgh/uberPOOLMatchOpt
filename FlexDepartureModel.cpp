@@ -10,7 +10,7 @@
 
 FlexDepartureModel::FlexDepartureModel(const time_t startTime, const time_t endTime, const int lenBatchWindow, const int lenFlexDepWindow, 
             const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, 
-            std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate,
+            std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, const double flexDepOptInRate,
             const bool inclMinionPickupInSavingsConstr ) : 
             _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _lenFlexDepWindowInSec(lenFlexDepWindow), _maxMatchDistInKm(maxMatchDistKm), 
             _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _flexDepOptInRate(flexDepOptInRate),
@@ -71,7 +71,7 @@ bool FlexDepartureModel::solve(bool printDebugFiles, Output * pOutput, bool popu
     }
     
     // step 2: initialize all open trips
-    std::set<OpenTrip*, EtaComp> currOpenTrips;
+    std::set<OpenTrip*, EtdComp> currOpenTrips;
     if( populateInitOpenTrips ) {
         currOpenTrips = cloneOpenTrips(_initOpenTrips);
     }
@@ -101,7 +101,7 @@ bool FlexDepartureModel::solve(bool printDebugFiles, Output * pOutput, bool popu
                               
         // step 1: convert any expired unmatched requests to open trips if they have been waiting more than the tolerance
         if( unmatchedRequestsWithinWaitTime.size() > 0 ) {                        
-            std::set<OpenTrip*,EtaComp> newOpenTrips = convertExpiredUnmatchedReqsToOpenTrips(&unmatchedRequestsWithinWaitTime, pCurrRequest->getReqTime(), pFlexDepRequestIDs);
+            std::set<OpenTrip*,EtdComp> newOpenTrips = convertExpiredUnmatchedReqsToOpenTrips(&unmatchedRequestsWithinWaitTime, pCurrRequest->getReqTime(), pFlexDepRequestIDs);
             currOpenTrips.insert(newOpenTrips.begin(), newOpenTrips.end()); 
         }
         
@@ -211,7 +211,7 @@ bool FlexDepartureModel::solve(bool printDebugFiles, Output * pOutput, bool popu
     if( printToScreen ) {
         std::cout << "\tconverting final open trips to unmatched trips... " << std::endl;
     }
-    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    std::set<OpenTrip*, EtdComp>::iterator openTripItr;
     for( openTripItr = currOpenTrips.begin(); openTripItr != currOpenTrips.end(); ++openTripItr ) {
         AssignedTrip * pAssignedTrip = ModelUtils::convertOpenTripToAssignedTrip(*openTripItr);
         pAssignedTrip->setIndex(_assignedTrips.size());
@@ -229,9 +229,9 @@ bool FlexDepartureModel::solve(bool printDebugFiles, Output * pOutput, bool popu
     return true;    
 }
 
-std::set<OpenTrip*, EtaComp> FlexDepartureModel::convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime, std::set<const int> * pFlexDepReqIndices) {
+std::set<OpenTrip*, EtdComp> FlexDepartureModel::convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime, std::set<const int> * pFlexDepReqIndices) {
    
-    std::set<OpenTrip*, EtaComp> newOpenTrips;
+    std::set<OpenTrip*, EtdComp> newOpenTrips;
      
    // std::cout << "\t\t\tlooping through " << pUnmatchedRequests->size() << " unmatched reqs... " << std::endl;
     for( std::set<Request*, ReqComp>::iterator reqItr = pUnmatchedRequests->begin(); reqItr != pUnmatchedRequests->end(); ) {
@@ -262,7 +262,7 @@ std::set<OpenTrip*, EtaComp> FlexDepartureModel::convertExpiredUnmatchedReqsToOp
     
     return newOpenTrips;
 }
-std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > FlexDepartureModel::generateCandidateMastersAndMinions(std::set<OpenTrip*,EtaComp>& openTrips, std::set<Request*,ReqComp>& currBatchRequests) {
+std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > FlexDepartureModel::generateCandidateMastersAndMinions(std::set<OpenTrip*,EtdComp>& openTrips, std::set<Request*,ReqComp>& currBatchRequests) {
    
     // instantiate first and second sets to be returned in pair
     std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > mmPair;
@@ -270,7 +270,7 @@ std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> >
     std::set<MinionCand*, MinionComp> candMinions;
     
     // first generate master candidates from current open trips
-    for( std::set<OpenTrip*, EtaComp>::iterator tripItr = openTrips.begin(); tripItr != openTrips.end(); ++tripItr ) {
+    for( std::set<OpenTrip*, EtdComp>::iterator tripItr = openTrips.begin(); tripItr != openTrips.end(); ++tripItr ) {
         LatLng reqOrig((*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
         LatLng reqDest((*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
         
@@ -404,9 +404,7 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::gene
                 }
             }
                         
-            if( pickupDistToMinionAtTimeOfReq <= _maxMatchDistInKm ) {   
-                
-                //const double haversineDistFromMasterOrigToMinionOrig = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng());
+            if( pickupDistToMinionAtTimeOfReq <= _maxMatchDistInKm ) {                   
                 const double pickupDistanceToMinion = ModelUtils::computePickupDistance_savingsConstr((*masterItr)->_ETA, (*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_ETD, (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng(), (*minionItr)->_reqTime, (*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), _inclMinionPickupExtMatchesSavingsConstr); // TODO: fix this!
                 double uberX_dist_master = Utility::computeGreatCircleDistance((*masterItr)->_reqOrig.getLat(), (*masterItr)->_reqOrig.getLng(), (*masterItr)->_reqDest.getLat(), (*masterItr)->_reqDest.getLng());
                 double uberX_dist_minion = Utility::computeGreatCircleDistance((*minionItr)->_reqOrig.getLat(), (*minionItr)->_reqOrig.getLng(), (*minionItr)->_reqDest.getLat(), (*minionItr)->_reqDest.getLng());
@@ -415,7 +413,7 @@ std::set<MasterMinionMatchCand*, MasterMinionMatchComp> FlexDepartureModel::gene
                 time_t secWaitTimeMatchMinion = (*minionItr)->_reqTime - reqTimeAtInitRequestInBatch;
                 
                 // check if FIFO match is feasible                           
-                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitTimeMatchMater, (int)secWaitTimeMatchMinion );                                
+                FeasibleMatch * pFIFOMatch = ModelUtils::checkIfOverlapIsFeasWithforFIFOMatch(_minOverlapThreshold, (*minionItr)->_riderID, pickupDistanceToMinion , uberX_dist_master, uberX_dist_minion, *minionItr, *masterItr, (int)secWaitTimeMatchMater, (int)secWaitTimeMatchMinion);                                
                 if( pFIFOMatch != NULL ) {  
                     const int matchIndex = matchCandidates.size();
                     MasterMinionMatchCand * pFIFOMatchCandidate = new MasterMinionMatchCand(matchIndex, *masterItr, *minionItr, pickupDistanceToMinion, MasterMinionMatchCand::FIFO, pFIFOMatch->_avgSavings, pFIFOMatch->_masterPickedUpAtTimeOfMatch, pFIFOMatch);                   
@@ -799,11 +797,11 @@ MPConstraint * FlexDepartureModel::getRiderCopyAggregationConstraint(MPSolver * 
 }
 
 // METHODS TO UPDATE DYNAMIC STRUCTURES
-int FlexDepartureModel::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips) {
+int FlexDepartureModel::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtdComp> * pOpenTrips) {
     
     int removedOpenTrips = 0;
     
-    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    std::set<OpenTrip*, EtdComp>::iterator openTripItr;
     for( openTripItr = pOpenTrips->begin(); openTripItr != pOpenTrips->end(); ) {
         const int masterIndex = (*openTripItr)->getMasterIndex();
         std::multimap<const int, time_t>::iterator matchingRiderIndexReqTimeItr = pMatchedRiderReqTimeMap->find(masterIndex); // = pMatchedRiderIndices->find(masterIndex);
@@ -870,9 +868,9 @@ std::queue<Request*> FlexDepartureModel::cloneRequests(std::set<Request*, ReqCom
     
     return requestQueue;
 }
-std::set<OpenTrip*, EtaComp> FlexDepartureModel::cloneOpenTrips(std::set<OpenTrip*, EtaComp> openTrips) {
-    std::set<OpenTrip*, EtaComp> openTripClones;
-    for( std::set<OpenTrip*, EtaComp>::iterator itr = openTrips.begin(); itr != openTrips.end(); ++itr ) {
+std::set<OpenTrip*, EtdComp> FlexDepartureModel::cloneOpenTrips(std::set<OpenTrip*, EtdComp> openTrips) {
+    std::set<OpenTrip*, EtdComp> openTripClones;
+    for( std::set<OpenTrip*, EtdComp>::iterator itr = openTrips.begin(); itr != openTrips.end(); ++itr ) {
         //if( (_startTime <= (*itr)->getETD()) && ((*itr)->getETD() <= _endTime) ) {
             
             openTripClones.insert(*itr);

@@ -20,6 +20,7 @@ struct SolnMaps {
     std::map<ModelEnum, double> avgSavingsMasters;
     std::map<ModelEnum, double> avgSavingsMinions;
     std::map<ModelEnum, double> avgOverlapDist;
+    std::map<ModelEnum, double> avgPctOverlap_Trip;
     std::map<ModelEnum, double> avgPctOverlap_ALL;
     std::map<ModelEnum, double> avgPctOverlap_Masters;
     std::map<ModelEnum, double> avgPctOverlap_Minions;
@@ -35,7 +36,8 @@ struct SolnMaps {
     // ---------------------------------
     
     // overlap
-    std::map<ModelEnum, std::vector<double> > indivMatchOverlapDistances;
+    std::map<ModelEnum, std::vector<double> > indivMatchOverlapDistances;  
+    std::map<ModelEnum, std::vector<double> > indivPctOverlap_Trip;
     std::map<ModelEnum, std::vector<double> > indivPctTripOverlap_ALL;
     std::map<ModelEnum, std::vector<double> > indivPctTripOverlap_Masters;
     std::map<ModelEnum, std::vector<double> > indivPctTripOverlap_Minions;
@@ -54,7 +56,7 @@ struct SolnMaps {
     std::map<ModelEnum, std::vector<int> > indivWaitTimeToMatch_all;
     std::map<ModelEnum, std::vector<int> > indivWaitTimeToMatch_Masters;
     std::map<ModelEnum, std::vector<int> > indivWaitTimeToMatch_Minions;
-    
+           
     // flexible departure match rates
     std::vector<double> indivFlexDepMatchRate_FDOptIns;
     std::vector<double> indivFlexDepMatchRate_FDNonOptIns;    

@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>AssignedRoute.hpp</itemPath>
       <itemPath>AssignedTrip.hpp</itemPath>
       <itemPath>CSVRow.hpp</itemPath>
       <itemPath>Comparators.hpp</itemPath>
@@ -11,6 +12,7 @@
       <itemPath>Driver.hpp</itemPath>
       <itemPath>Event.hpp</itemPath>
       <itemPath>FeasibleMatch.hpp</itemPath>
+      <itemPath>FeasibleRoute.hpp</itemPath>
       <itemPath>FlexDepSolution.hpp</itemPath>
       <itemPath>FlexDepartureModel.hpp</itemPath>
       <itemPath>GenerateInstanceScenarios.hpp</itemPath>
@@ -24,11 +26,15 @@
       <itemPath>ModelEnum.hpp</itemPath>
       <itemPath>ModelRunner.hpp</itemPath>
       <itemPath>ModelUtils.hpp</itemPath>
+      <itemPath>MultPickupSoln.hpp</itemPath>
+      <itemPath>MultiplePickupsModel.hpp</itemPath>
       <itemPath>OpenTrip.hpp</itemPath>
       <itemPath>Output.hpp</itemPath>
       <itemPath>ProblemInstance.hpp</itemPath>
       <itemPath>Request.hpp</itemPath>
       <itemPath>Rider.hpp</itemPath>
+      <itemPath>Route.hpp</itemPath>
+      <itemPath>RouteEvent.hpp</itemPath>
       <itemPath>SolnMaps.hpp</itemPath>
       <itemPath>Solution.hpp</itemPath>
       <itemPath>TripData.hpp</itemPath>
@@ -45,6 +51,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>AssignedRoute.cpp</itemPath>
       <itemPath>AssignedTrip.cpp</itemPath>
       <itemPath>CSVRow.cpp</itemPath>
       <itemPath>DataContainer.cpp</itemPath>
@@ -55,16 +62,19 @@
       <itemPath>Geofence.cpp</itemPath>
       <itemPath>MitmModel.cpp</itemPath>
       <itemPath>ModelRunner.cpp</itemPath>
+      <itemPath>MultPickupSoln.cpp</itemPath>
+      <itemPath>MultiplePickupsModel.cpp</itemPath>
       <itemPath>OpenTrip.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
       <itemPath>ProblemInstance.cpp</itemPath>
       <itemPath>Request.cpp</itemPath>
       <itemPath>Rider.cpp</itemPath>
+      <itemPath>Route.cpp</itemPath>
+      <itemPath>RouteEvent.cpp</itemPath>
       <itemPath>Solution.cpp</itemPath>
       <itemPath>TripData.cpp</itemPath>
       <itemPath>UFBW_fixed.cpp</itemPath>
       <itemPath>UFBW_perfectInformation.cpp</itemPath>
-      <itemPath>deprecated.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -103,6 +113,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="AssignedRoute.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AssignedRoute.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="AssignedTrip.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="AssignedTrip.hpp" ex="false" tool="3" flavor2="0">
@@ -124,6 +138,8 @@
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FeasibleRoute.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlexDepSolution.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -165,6 +181,14 @@
       </item>
       <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MultPickupSoln.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MultPickupSoln.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MultiplePickupsModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MultiplePickupsModel.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="OpenTrip.hpp" ex="false" tool="3" flavor2="0">
@@ -184,6 +208,14 @@
       <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Route.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Route.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RouteEvent.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RouteEvent.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="SolnMaps.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -206,8 +238,6 @@
       <item path="UFBW_perfectInformation.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="deprecated.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -232,6 +262,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="AssignedRoute.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AssignedRoute.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="AssignedTrip.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="AssignedTrip.hpp" ex="false" tool="3" flavor2="0">
@@ -253,6 +287,8 @@
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FeasibleRoute.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlexDepSolution.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -294,6 +330,14 @@
       </item>
       <item path="ModelUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MultPickupSoln.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MultPickupSoln.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MultiplePickupsModel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MultiplePickupsModel.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="OpenTrip.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="OpenTrip.hpp" ex="false" tool="3" flavor2="0">
@@ -313,6 +357,14 @@
       <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Route.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Route.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RouteEvent.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RouteEvent.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="SolnMaps.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -335,8 +387,6 @@
       <item path="UFBW_perfectInformation.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="deprecated.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

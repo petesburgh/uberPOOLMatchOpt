@@ -15,6 +15,7 @@
 #include "ModelEnum.hpp"
 #include "FlexDepartureModel.hpp"
 #include "SolnMaps.hpp"
+#include "MultiplePickupsModel.hpp"
 #include <sys/stat.h>   /* mkdir */
 
 using namespace std;
@@ -45,15 +46,16 @@ public:
     };
     
     struct DefaultModelParameters { 
-        DefaultModelParameters(const double optIn, const int batchWindow, const double maxPickupDist, const double minSavings, const double flexDepOptInRate, const int flexDepWindowSec) : 
-            _optInRate(optIn), _batchWindowLengthInSec(batchWindow), _maxPickupDistance(maxPickupDist), _minSavings(minSavings), _flexDepOptInRate(flexDepOptInRate), _flexDepWindowInSec(flexDepWindowSec) {};
+        DefaultModelParameters(const double optIn, const int batchWindow, const double maxPickupDist, const double minSavings, const double flexDepOptInRate, const int flexDepWindowSec, const int maxAllowablePickups) : 
+            _optInRate(optIn), _batchWindowLengthInSec(batchWindow), _maxPickupDistance(maxPickupDist), _minSavings(minSavings), _flexDepOptInRate(flexDepOptInRate), _flexDepWindowInSec(flexDepWindowSec), _maxAllowablePickups(maxAllowablePickups) {};
 
         const double _optInRate;
         const int    _batchWindowLengthInSec;
         const double _maxPickupDistance;
         const double _minSavings;
         const double _flexDepOptInRate;
-        const int    _flexDepWindowInSec;        
+        const int    _flexDepWindowInSec;       
+        const int    _maxAllowablePickups;
     };    
     
     struct DataOutputValues {
@@ -73,6 +75,7 @@ public:
         std::vector<double> _inconv_Minions;
         
         std::vector<double> _overlapDist;
+        std::vector<double> _overlapPct_Trip;
         std::vector<double> _overlapPct_ALL;
         std::vector<double> _overlapPct_Masters;
         std::vector<double> _overlapPct_Minions;
@@ -101,6 +104,7 @@ public:
         double avgWaitTimeMatch_masters;
         double avgWaitTimeMatch_minions;
         double avgSharedDist;
+        double avgPctSharedDist_Trip;
         double avgPctSharedDist_ALL;
         double avgPctSharedDist_Masters;
         double avgPctSharedDist_Minions;
@@ -109,7 +113,7 @@ public:
     };
     
      
-    ModelRunner(const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const Geofence * geofence );
+    ModelRunner(const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const Geofence * geofence );
     virtual ~ModelRunner();
     
     // construct DataContainer object
@@ -145,6 +149,7 @@ private:
     const bool _runUFBW_pickupSwap;
     const bool _runFlexDeparture;
     const bool _runUFBW_PI; 
+    const bool _runMultiplePickupsModel;
     
     const Geofence* pGeofence;
     
@@ -159,7 +164,7 @@ private:
     // extracted from DataContainer
     std::set<Request*,  ReqComp> _initRequests;
     std::set<Request*,  ReqComp> _allRequestsInSim;
-    std::set<OpenTrip*, EtaComp> _initOpenTrips;
+    std::set<OpenTrip*, EtdComp> _initOpenTrips;
     
     // switches
     bool _inclInitPickupDistForSavingsConstr;

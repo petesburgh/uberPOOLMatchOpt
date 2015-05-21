@@ -12,8 +12,8 @@ struct LatLng {
     LatLng(double lat, double lng) : _lat(lat), _lng(lng) {};
     const double getLat() const { return _lat; }
     const double getLng() const { return _lng; }
-    const double _lat;
-    const double _lng;
+    double _lat;
+    double _lng;
 };
 
 

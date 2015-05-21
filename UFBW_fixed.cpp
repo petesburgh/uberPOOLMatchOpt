@@ -8,7 +8,7 @@
 #include "UFBW_fixed.hpp"
 #include "ModelUtils.hpp"
 
-UFBW_fixed::UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtaComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupForSavingsConstr) : 
+UFBW_fixed::UFBW_fixed(const time_t startTime, const time_t endTime, const int lenBatchWindow, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupForSavingsConstr) : 
         _startTime(startTime), _endTime(endTime), _lenBatchWindowInSec(lenBatchWindow), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allRequests(initRequests), _initOpenTrips(initOpenTrips), _allDrivers(drivers), _inclMinionPickupExtMatchesSavingsConstr(inclInitPickupForSavingsConstr) {
     
     _batchCounter = 0;    
@@ -44,7 +44,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
     }
     
     // step 2: initialize all open trips
-    std::set<OpenTrip*, EtaComp> currOpenTrips;
+    std::set<OpenTrip*, EtdComp> currOpenTrips;
     if( populateInitOpenTrips ) {
         currOpenTrips = cloneOpenTrips(_initOpenTrips);
     }
@@ -72,7 +72,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
         // step 1: convert any expired unmatched requests to open trips if they have been waiting more than the tolerance
         if( unmatchedRequestsWithinWaitTime.size() > 0 ) {            
             std::set<Request*, ReqComp>::iterator unmatchItr;            
-            std::set<OpenTrip*,EtaComp> newOpenTrips = convertExpiredUnmatchedReqsToOpenTrips(&unmatchedRequestsWithinWaitTime, pCurrRequest->getReqTime());
+            std::set<OpenTrip*,EtdComp> newOpenTrips = convertExpiredUnmatchedReqsToOpenTrips(&unmatchedRequestsWithinWaitTime, pCurrRequest->getReqTime());
             currOpenTrips.insert(newOpenTrips.begin(), newOpenTrips.end()); 
         }
         
@@ -183,7 +183,7 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
     if( printToScreen ) {
         std::cout << "\tconverting final open trips to unmatched trips... " << std::endl;
     }
-    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    std::set<OpenTrip*, EtdComp>::iterator openTripItr;
     for( openTripItr = currOpenTrips.begin(); openTripItr != currOpenTrips.end(); ++openTripItr ) {
         AssignedTrip * pAssignedTrip = ModelUtils::convertOpenTripToAssignedTrip(*openTripItr);
         pAssignedTrip->setIndex(_assignedTrips.size());
@@ -203,9 +203,9 @@ bool UFBW_fixed::solve(bool printDebugFiles, Output * pOutput, bool populateInit
     return true;    
 }
 
-std::set<OpenTrip*, EtaComp> UFBW_fixed::convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime) {
+std::set<OpenTrip*, EtdComp> UFBW_fixed::convertExpiredUnmatchedReqsToOpenTrips(std::set<Request*, ReqComp> * pUnmatchedRequests, const time_t currTime) {
    
-    std::set<OpenTrip*, EtaComp> newOpenTrips;
+    std::set<OpenTrip*, EtdComp> newOpenTrips;
      
    // std::cout << "\t\t\tlooping through " << pUnmatchedRequests->size() << " unmatched reqs... " << std::endl;
     for( std::set<Request*, ReqComp>::iterator reqItr = pUnmatchedRequests->begin(); reqItr != pUnmatchedRequests->end(); ) {
@@ -237,7 +237,7 @@ std::set<OpenTrip*, EtaComp> UFBW_fixed::convertExpiredUnmatchedReqsToOpenTrips(
     
     return newOpenTrips;
 }
-std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > UFBW_fixed::generateCandidateMastersAndMinions(std::set<OpenTrip*,EtaComp>& openTrips, std::set<Request*,ReqComp>& currBatchRequests) {
+std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > UFBW_fixed::generateCandidateMastersAndMinions(std::set<OpenTrip*,EtdComp>& openTrips, std::set<Request*,ReqComp>& currBatchRequests) {
    
     // instantiate first and second sets to be returned in pair
     std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> > mmPair;
@@ -245,7 +245,7 @@ std::pair<std::set<MasterCand*, MasterComp>, std::set<MinionCand*, MinionComp> >
     std::set<MinionCand*, MinionComp> candMinions;
     
     // first generate master candidates from current open trips
-    for( std::set<OpenTrip*, EtaComp>::iterator tripItr = openTrips.begin(); tripItr != openTrips.end(); ++tripItr ) {
+    for( std::set<OpenTrip*, EtdComp>::iterator tripItr = openTrips.begin(); tripItr != openTrips.end(); ++tripItr ) {
         LatLng reqOrig((*tripItr)->getActPickupLat(), (*tripItr)->getActPickupLng());
         LatLng reqDest((*tripItr)->getDropRequestLat(), (*tripItr)->getDropRequestLng());
         
@@ -729,11 +729,11 @@ MPConstraint * UFBW_fixed::getRiderCopyAggregationConstraint(MPSolver * pSolver,
 }
 
 // METHODS TO UPDATE DYNAMIC STRUCTURES
-int UFBW_fixed::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtaComp> * pOpenTrips) {
+int UFBW_fixed::removeMatchedOpenTrips(std::multimap<const int, time_t> * pMatchedRiderReqTimeMap, std::set<OpenTrip*, EtdComp> * pOpenTrips) {
     
     int removedOpenTrips = 0;
     
-    std::set<OpenTrip*, EtaComp>::iterator openTripItr;
+    std::set<OpenTrip*, EtdComp>::iterator openTripItr;
     for( openTripItr = pOpenTrips->begin(); openTripItr != pOpenTrips->end(); ) {
         const int masterIndex = (*openTripItr)->getMasterIndex();
         std::multimap<const int, time_t>::iterator matchingRiderIndexReqTimeItr = pMatchedRiderReqTimeMap->find(masterIndex); // = pMatchedRiderIndices->find(masterIndex);
@@ -800,9 +800,9 @@ std::queue<Request*> UFBW_fixed::cloneRequests(std::set<Request*, ReqComp> reque
     
     return requestQueue;
 }
-std::set<OpenTrip*, EtaComp> UFBW_fixed::cloneOpenTrips(std::set<OpenTrip*, EtaComp> openTrips) {
-    std::set<OpenTrip*, EtaComp> openTripClones;
-    for( std::set<OpenTrip*, EtaComp>::iterator itr = openTrips.begin(); itr != openTrips.end(); ++itr ) {
+std::set<OpenTrip*, EtdComp> UFBW_fixed::cloneOpenTrips(std::set<OpenTrip*, EtdComp> openTrips) {
+    std::set<OpenTrip*, EtdComp> openTripClones;
+    for( std::set<OpenTrip*, EtdComp>::iterator itr = openTrips.begin(); itr != openTrips.end(); ++itr ) {
         //if( (_startTime <= (*itr)->getETD()) && ((*itr)->getETD() <= _endTime) ) {
             
             openTripClones.insert(*itr);

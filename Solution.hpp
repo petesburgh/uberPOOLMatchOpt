@@ -66,6 +66,7 @@ public:
     
     struct MatchOverlapMetrics {        
         double  _avgOverlapDist;
+        double  _avgTripOverlapPct;
         double  _avgPctOverlapAll;
         double  _avgPctOverlapMasters;
         double  _avgPctOverlapMinions;
@@ -77,6 +78,7 @@ public:
         std::vector<double> _inconv_Minions;
         
         std::vector<double> _overlapDist;
+        std::vector<double> _overlapPct_Trip;
         std::vector<double> _overlapPct_ALL;
         std::vector<double> _overlapPct_Masters;
         std::vector<double> _overlapPct_Minions;
@@ -91,13 +93,13 @@ public:
     };
     
     // constructor for scenarios OTHER than 
-    Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);
-    
+    Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);        
     virtual ~Solution();
     
     // main method to generate all data
-    void buildSolutionMetrics();
-        
+    void buildSolutionMetrics();    
+
+    
     // setters
     void setMatchedTrips(std::set<AssignedTrip*, AssignedTripIndexComp> matchedTrips) { _matchedTrips = matchedTrips; }
     void setUnmatchedTrips(std::set<AssignedTrip*, AssignedTripIndexComp> unmatchedTrips) { _unmatchedTrips = unmatchedTrips; }
@@ -144,11 +146,11 @@ public:
                         double avgWaitTimeMatch_all, double avgWaitTimeMatch_masters, double avgWaitTimeMatch_minions);
     void setInconvenienceMetrics(double avgPctAddedAll, double avgPctAddedMasters, double avgPctAddedMinions);
     void setSavingsMetrics(double avgSavingsAll, double avgSavingsMasters, double avgSavingsMinions);
-    void setOverlapMetrics(double avgSharedDist, double avgPctSharedDist_ALL, double avgPctSharedDist_Masters, double avgPctSharedDist_Minions);
+    void setOverlapMetrics(double avgSharedDist, double pctSharedDist_Trip, double avgPctSharedDist_ALL, double avgPctSharedDist_Masters, double avgPctSharedDist_Minions);
     void setIndivMatchMetrics(std::vector<double> pctAllAddedDistances, std::vector<double> pctAddedDistancesForMasters, std::vector<double> pctAddedDistancesForMinions,
                               std::vector<double> pctSavingsAllMatchedRiders, std::vector<double> pctSavingsForMasters, std::vector<double> pctSavingsForMinions,
                               std::vector<int> waitTimeMatches_all, std::vector<int> waitTimeMatchesForMasters, std::vector<int> waitTimeMatchesForMinions, 
-                              std::vector<double> overlapDistances, std::vector<double> pctSharedDist_ALL, std::vector<double> pctOverlapDist_Masters, std::vector<double> pctOverlapDist_Minions);
+                              std::vector<double> overlapDistances, std::vector<double> pctSharedDist_Trip, std::vector<double> pctSharedDist_ALL, std::vector<double> pctOverlapDist_Masters, std::vector<double> pctOverlapDist_Minions);
     
 private:
     

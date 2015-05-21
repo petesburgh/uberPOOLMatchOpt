@@ -1,9 +1,10 @@
 build/Debug/GNU-MacOSX/MitmModel.o: MitmModel.cpp MitmModel.hpp \
   Request.hpp Driver.hpp TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
   TimeAdjacencyException.hpp OpenTrip.hpp Rider.hpp Comparators.hpp \
-  AssignedTrip.hpp FeasibleMatch.hpp MasterCand.hpp MinionCand.hpp \
-  MasterMinionMatchCand.hpp Output.hpp DataContainer.hpp CSVRow.hpp \
-  Geofence.hpp ItemNotFoundException.hpp Solution.hpp ModelEnum.hpp \
+  AssignedTrip.hpp FeasibleMatch.hpp AssignedRoute.hpp Route.hpp \
+  RouteEvent.hpp MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp \
+  Output.hpp DataContainer.hpp CSVRow.hpp Geofence.hpp \
+  ItemNotFoundException.hpp Solution.hpp ModelEnum.hpp \
   FlexDepSolution.hpp ModelRunner.hpp FlexDepartureModel.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
@@ -17,7 +18,8 @@ build/Debug/GNU-MacOSX/MitmModel.o: MitmModel.cpp MitmModel.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  SolnMaps.hpp ModelUtils.hpp UFBW_fixed.hpp
+  SolnMaps.hpp MultiplePickupsModel.hpp FeasibleRoute.hpp \
+  MultPickupSoln.hpp ModelUtils.hpp UFBW_fixed.hpp
 
 MitmModel.hpp:
 
@@ -44,6 +46,12 @@ Comparators.hpp:
 AssignedTrip.hpp:
 
 FeasibleMatch.hpp:
+
+AssignedRoute.hpp:
+
+Route.hpp:
+
+RouteEvent.hpp:
 
 MasterCand.hpp:
 
@@ -96,6 +104,12 @@ FlexDepartureModel.hpp:
 ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h:
 
 SolnMaps.hpp:
+
+MultiplePickupsModel.hpp:
+
+FeasibleRoute.hpp:
+
+MultPickupSoln.hpp:
 
 ModelUtils.hpp:
 

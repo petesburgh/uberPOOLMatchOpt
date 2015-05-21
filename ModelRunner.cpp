@@ -8,8 +8,8 @@
 #include "ModelRunner.hpp"
 #include "UFBW_perfectInformation.hpp"
 
-ModelRunner::ModelRunner( const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const Geofence * geofence ) : 
-    _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofence(geofence) {      
+ModelRunner::ModelRunner( const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const Geofence * geofence ) : 
+    _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), _runMultiplePickupsModel(runMultiplePickupsModel), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofence(geofence) {      
 }
 
 ModelRunner::~ModelRunner() {
@@ -142,8 +142,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
     
     pOutput->setDataContainer(pDataContainer);
     pOutput->writeAndPrintInputs(pDataContainer, pDataOutput->_printDebugFiles); 
-           
-    
+               
     /*
      *    MAN IN THE MUNI (MITM) MODEL 
      */
@@ -167,6 +166,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
             pSolnMetrics->avgWaitTimeMatch_masters   = pMitmSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMasters;
             pSolnMetrics->avgWaitTimeMatch_minions   = pMitmSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
             pSolnMetrics->avgSharedDist = pMitmSolution->getOverlapMetrics()->_avgOverlapDist;
+            pSolnMetrics->avgPctSharedDist_Trip = pMitmSolution->getOverlapMetrics()->_avgTripOverlapPct;
             pSolnMetrics->avgPctSharedDist_ALL = pMitmSolution->getOverlapMetrics()->_avgPctOverlapAll;
             pSolnMetrics->avgPctSharedDist_Masters = pMitmSolution->getOverlapMetrics()->_avgPctOverlapMasters;
             pSolnMetrics->avgPctSharedDist_Minions = pMitmSolution->getOverlapMetrics()->_avgPctOverlapMinions;
@@ -202,6 +202,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
             pSolnMetrics->avgWaitTimeMatch_minions   = pFixedBatchSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
             pSolnMetrics->avgSharedDist = pFixedBatchSolution->getOverlapMetrics()->_avgOverlapDist;
             pSolnMetrics->avgPctSharedDist_ALL = pFixedBatchSolution->getOverlapMetrics()->_avgPctOverlapAll;
+            pSolnMetrics->avgPctSharedDist_Trip = pFixedBatchSolution->getOverlapMetrics()->_avgTripOverlapPct;
             pSolnMetrics->avgPctSharedDist_Masters = pFixedBatchSolution->getOverlapMetrics()->_avgPctOverlapMasters;
             pSolnMetrics->avgPctSharedDist_Minions = pFixedBatchSolution->getOverlapMetrics()->_avgPctOverlapMinions;            
             
@@ -236,6 +237,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
             pSolnMetrics->avgWaitTimeMatch_minions   = pBatchSolnWithPerfInfo->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
             pSolnMetrics->avgSharedDist = pBatchSolnWithPerfInfo->getOverlapMetrics()->_avgOverlapDist;
             pSolnMetrics->avgPctSharedDist_ALL = pBatchSolnWithPerfInfo->getOverlapMetrics()->_avgPctOverlapAll;
+            pSolnMetrics->avgPctSharedDist_Trip = pBatchSolnWithPerfInfo->getOverlapMetrics()->_avgTripOverlapPct;
             pSolnMetrics->avgPctSharedDist_Masters = pBatchSolnWithPerfInfo->getOverlapMetrics()->_avgPctOverlapMasters;
             pSolnMetrics->avgPctSharedDist_Minions = pBatchSolnWithPerfInfo->getOverlapMetrics()->_avgPctOverlapMinions;  
             
@@ -269,6 +271,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
             pSolnMetrics->avgWaitTimeMatch_masters   = pFlexDepSoln->getMatchMetrics()->_avgWaitTimeOfMatchesForMasters;
             pSolnMetrics->avgWaitTimeMatch_minions   = pFlexDepSoln->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
             pSolnMetrics->avgSharedDist = pFlexDepSoln->getOverlapMetrics()->_avgOverlapDist;
+            pSolnMetrics->avgPctSharedDist_Trip = pFlexDepSoln->getOverlapMetrics()->_avgTripOverlapPct;
             pSolnMetrics->avgPctSharedDist_ALL = pFlexDepSoln->getOverlapMetrics()->_avgPctOverlapAll;
             pSolnMetrics->avgPctSharedDist_Masters = pFlexDepSoln->getOverlapMetrics()->_avgPctOverlapMasters;
             pSolnMetrics->avgPctSharedDist_Minions = pFlexDepSoln->getOverlapMetrics()->_avgPctOverlapMinions;  
@@ -280,6 +283,43 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
         }
     }
     
+    /*
+     *    MULTIPLE PICKUPS
+     */
+    if( _runMultiplePickupsModel ) {
+        MultiplePickupsModel * pMultiplePickupsModel = new MultiplePickupsModel(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers(), _inclInitPickupDistForSavingsConstr, pDefaultValues->_maxAllowablePickups);
+        bool modelSolved = pMultiplePickupsModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips);     
+        if( modelSolved ) {          
+            
+            MultPickupSoln * pSolution = pMultiplePickupsModel->getSolution();
+            
+            //Solution * pSolution = pMultiplePickupsModel->getSolution();
+           // pOutput->printSolution(pSolution, MULTIPLE_PICKUPS);
+            
+            // update solution maps
+            SolnMetrics * pSolnMetrics  = new SolnMetrics();
+            /*pSolnMetrics->numRequests   = pSolution->getTotalRequests();
+            pSolnMetrics->matchRate     = pSolution->getRequestMetrics()->_matchedPercentage;
+            pSolnMetrics->inconvenience = pSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll;
+            pSolnMetrics->numTrips      = pSolution->getTotalNumTripsFromSoln();
+            pSolnMetrics->avgSavingsAllMatchedRiders = pSolution->getSavingsMetrics()->_avgMatchedRiderSavingsPct;
+            pSolnMetrics->avgSavingsMasters = pSolution->getSavingsMetrics()->_avgMasterSavingsPct;
+            pSolnMetrics->avgSavingsMinions = pSolution->getSavingsMetrics()->_avgMinionSavingsPct;
+            pSolnMetrics->avgWaitTimeMatch_allRiders = pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForAllMatchedRiders;
+            pSolnMetrics->avgWaitTimeMatch_masters   = pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMasters;
+            pSolnMetrics->avgWaitTimeMatch_minions   = pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
+            pSolnMetrics->avgSharedDist = pSolution->getOverlapMetrics()->_avgOverlapDist;
+            pSolnMetrics->avgPctSharedDist_Trip = pSolution->getOverlapMetrics()->_avgTripOverlapPct;
+            pSolnMetrics->avgPctSharedDist_ALL = pSolution->getOverlapMetrics()->_avgPctOverlapAll;
+            pSolnMetrics->avgPctSharedDist_Masters = pSolution->getOverlapMetrics()->_avgPctOverlapMasters;
+            pSolnMetrics->avgPctSharedDist_Minions = pSolution->getOverlapMetrics()->_avgPctOverlapMinions;  
+            
+            IndivSolnMetrics * pIndivSolnMetrics = getIndivSolnMetrics(pSolution);
+            pSolnMetrics->pIndivMetrics = pIndivSolnMetrics; */
+            
+            pModelSolnMetricMap->insert(make_pair(MULTIPLE_PICKUPS, pSolnMetrics));             
+        }        
+    }
         
     return pModelSolnMetricMap;
 }
@@ -303,6 +343,7 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             modelAllSolnMapItr->second->avgWaitTimeOfMatchMasters.insert(make_pair(it->first, it->second->avgWaitTimeMatch_masters));
             modelAllSolnMapItr->second->avgWaitTimeOfMatchMinions.insert(make_pair(it->first, it->second->avgWaitTimeMatch_minions));
             modelAllSolnMapItr->second->avgOverlapDist.insert(make_pair(it->first, it->second->avgSharedDist));
+            modelAllSolnMapItr->second->avgPctOverlap_Trip.insert(make_pair(it->first, it->second->avgPctSharedDist_Trip));
             modelAllSolnMapItr->second->avgPctOverlap_ALL.insert(make_pair(it->first, it->second->avgPctSharedDist_ALL));
             modelAllSolnMapItr->second->avgPctOverlap_Masters.insert(make_pair(it->first, it->second->avgPctSharedDist_Masters));
             modelAllSolnMapItr->second->avgPctOverlap_Minions.insert(make_pair(it->first, it->second->avgPctSharedDist_Minions));
@@ -313,6 +354,7 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             modelAllSolnMapItr->second->indivPctInconvenience_Minions.insert(make_pair(it->first, it->second->pIndivMetrics->_inconv_Minions));
             
             modelAllSolnMapItr->second->indivMatchOverlapDistances.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapDist));
+            modelAllSolnMapItr->second->indivPctOverlap_Trip.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapPct_Trip));
             modelAllSolnMapItr->second->indivPctTripOverlap_ALL.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapPct_ALL));
             modelAllSolnMapItr->second->indivPctTripOverlap_Masters.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapPct_Masters));
             modelAllSolnMapItr->second->indivPctTripOverlap_Minions.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapPct_Minions));
@@ -353,6 +395,9 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             std::map<ModelEnum, double> initSharedDistMap;
             initSharedDistMap.insert(make_pair(it->first, it->second->avgSharedDist));
             
+            std::map<ModelEnum, double> initPctTripOverlapMap;
+            initPctTripOverlapMap.insert(make_pair(it->first, it->second->avgPctSharedDist_Trip));
+            
             std::map<ModelEnum, double> initPctSharedDistMap_ALL;  
             initPctSharedDistMap_ALL.insert(make_pair(it->first, it->second->avgPctSharedDist_ALL));
             
@@ -371,6 +416,8 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             std::map<ModelEnum, double> initWaitTimeMatchMinionsMap;
             initWaitTimeMatchMinionsMap.insert(make_pair(it->first, it->second->avgWaitTimeMatch_minions));
             
+            
+            // mapping between models and individual metrics
             std::map<ModelEnum, std::vector<double> > initIndivInconvMap_ALL;
             initIndivInconvMap_ALL.insert(make_pair(it->first, it->second->pIndivMetrics->_inconv_ALL));
             
@@ -382,6 +429,9 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
                         
             std::map<ModelEnum, std::vector<double> > initIndivOverlapDist;
             initIndivOverlapDist.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapDist));
+            
+            std::map<ModelEnum, std::vector<double> > initIndivPctTripOverlap;
+            initIndivPctTripOverlap.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapPct_Trip));
             
             std::map<ModelEnum, std::vector<double> > initIndivPctOverlap_ALL;
             initIndivPctOverlap_ALL.insert(make_pair(it->first, it->second->pIndivMetrics->_overlapPct_ALL));
@@ -422,6 +472,7 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             pSolnMaps->avgWaitTimeOfMatchMasters = initWaitTimeMatchMastersMap;
             pSolnMaps->avgWaitTimeOfMatchMinions = initWaitTimeMatchMinionsMap;
             pSolnMaps->avgOverlapDist = initSharedDistMap;
+            pSolnMaps->avgPctOverlap_Trip = initPctTripOverlapMap;
             pSolnMaps->avgPctOverlap_ALL = initPctSharedDistMap_ALL;
             pSolnMaps->avgPctOverlap_Masters = initPctSharedDistMap_Masters;
             pSolnMaps->avgPctOverlap_Minions = initPctSharedDistMap_Minions;
@@ -432,6 +483,7 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             pSolnMaps->indivPctInconvenience_Minions = initIndivInconvMap_Minions;
             pSolnMaps->indivMatchOverlapDistances    = initIndivOverlapDist;
             pSolnMaps->indivPctTripOverlap_ALL       = initIndivPctOverlap_ALL;
+            pSolnMaps->indivPctOverlap_Trip          = initIndivPctTripOverlap;
             pSolnMaps->indivPctTripOverlap_Masters   = initIndivPctOverlap_Masters;
             pSolnMaps->indivPctTripOverlap_Minions   = initIndivPctOverlap_Minions;
             pSolnMaps->indivPctSavings_ALL           = initIndivPctSavings_ALL;
@@ -456,6 +508,7 @@ ModelRunner::IndivSolnMetrics * ModelRunner::getIndivSolnMetrics(Solution * pSol
     pIndivSolnMetrics->_inconv_Minions     = pSoln->getIndivMatchedRidersMetrics()->_inconv_Minions;
     
     pIndivSolnMetrics->_overlapDist        = pSoln->getIndivMatchedRidersMetrics()->_overlapDist;
+    pIndivSolnMetrics->_overlapPct_Trip    = pSoln->getIndivMatchedRidersMetrics()->_overlapPct_Trip;
     pIndivSolnMetrics->_overlapPct_ALL     = pSoln->getIndivMatchedRidersMetrics()->_overlapPct_ALL;
     pIndivSolnMetrics->_overlapPct_Masters = pSoln->getIndivMatchedRidersMetrics()->_overlapPct_Masters;
     pIndivSolnMetrics->_overlapPct_Minions = pSoln->getIndivMatchedRidersMetrics()->_overlapPct_Minions;

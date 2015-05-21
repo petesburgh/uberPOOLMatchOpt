@@ -48,7 +48,7 @@ public:
     
     // I/O methods
     TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row);
-
+    
     // getters
     const std::string getInputPath()   const { return _inputPath; }
     const std::string getCsvFilename() const { return _csvFilename; }
@@ -65,7 +65,7 @@ public:
     // get objects to instantiate algorithms
     std::set<Request*,  ReqComp> getAllPoolRequestsInSim() { return _allRequestsInSim; } 
     std::set<Request*,  ReqComp> getInitPoolRequestsAtTimeline() { return _initRequests; }     
-    std::set<OpenTrip*, EtaComp> getInitOpenTripsAtTimeline() { return _initOpenTrips; }    
+    std::set<OpenTrip*, EtdComp> getInitOpenTripsAtTimeline() { return _initOpenTrips; }    
     
     // methods to return objects from IDs
     Rider * getRiderFromID(const std::string riderID);
@@ -105,7 +105,7 @@ private:
     std::set<Request*,  ReqComp> _allRequestsInSim;  // all requests starting at timeline through sim end
     std::set<Request*,  ReqComp> _initRequests;      // open requests only at timeline
     std::set<Request*,  ReqComp> _futureRequests;    // all future requests after timeline
-    std::set<OpenTrip*, EtaComp> _initOpenTrips;     // open trips at timeline
+    std::set<OpenTrip*, EtdComp> _initOpenTrips;     // open trips at timeline
         
     // vector of all drivers
     std::set<Driver*, DriverIndexComp> _allDrivers;

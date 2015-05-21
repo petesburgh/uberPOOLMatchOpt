@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/AssignedRoute.o \
 	${OBJECTDIR}/AssignedTrip.o \
 	${OBJECTDIR}/CSVRow.o \
 	${OBJECTDIR}/DataContainer.o \
@@ -45,16 +46,19 @@ OBJECTFILES= \
 	${OBJECTDIR}/Geofence.o \
 	${OBJECTDIR}/MitmModel.o \
 	${OBJECTDIR}/ModelRunner.o \
+	${OBJECTDIR}/MultPickupSoln.o \
+	${OBJECTDIR}/MultiplePickupsModel.o \
 	${OBJECTDIR}/OpenTrip.o \
 	${OBJECTDIR}/Output.o \
 	${OBJECTDIR}/ProblemInstance.o \
 	${OBJECTDIR}/Request.o \
 	${OBJECTDIR}/Rider.o \
+	${OBJECTDIR}/Route.o \
+	${OBJECTDIR}/RouteEvent.o \
 	${OBJECTDIR}/Solution.o \
 	${OBJECTDIR}/TripData.o \
 	${OBJECTDIR}/UFBW_fixed.o \
 	${OBJECTDIR}/UFBW_perfectInformation.o \
-	${OBJECTDIR}/deprecated.o \
 	${OBJECTDIR}/main.o
 
 
@@ -81,6 +85,11 @@ LDLIBSOPTIONS=-L../../Documents/3rdparty/or-tools.MacOsX64/lib -L../../Documents
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/uberpoolmatchopt: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/uberpoolmatchopt ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/AssignedRoute.o: AssignedRoute.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AssignedRoute.o AssignedRoute.cpp
 
 ${OBJECTDIR}/AssignedTrip.o: AssignedTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -132,6 +141,16 @@ ${OBJECTDIR}/ModelRunner.o: ModelRunner.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ModelRunner.o ModelRunner.cpp
 
+${OBJECTDIR}/MultPickupSoln.o: MultPickupSoln.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MultPickupSoln.o MultPickupSoln.cpp
+
+${OBJECTDIR}/MultiplePickupsModel.o: MultiplePickupsModel.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MultiplePickupsModel.o MultiplePickupsModel.cpp
+
 ${OBJECTDIR}/OpenTrip.o: OpenTrip.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -157,6 +176,16 @@ ${OBJECTDIR}/Rider.o: Rider.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Rider.o Rider.cpp
 
+${OBJECTDIR}/Route.o: Route.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Route.o Route.cpp
+
+${OBJECTDIR}/RouteEvent.o: RouteEvent.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RouteEvent.o RouteEvent.cpp
+
 ${OBJECTDIR}/Solution.o: Solution.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -176,11 +205,6 @@ ${OBJECTDIR}/UFBW_perfectInformation.o: UFBW_perfectInformation.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_perfectInformation.o UFBW_perfectInformation.cpp
-
-${OBJECTDIR}/deprecated.o: deprecated.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../../Documents/3rdparty/or-tools.MacOsX64/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/deprecated.o deprecated.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -40,6 +40,7 @@ void DataContainer::extractCvsSnapshot() {
     std::ifstream       file(filePath);
     CSVRow row;
     int rowIndex = 0;
+    int beginTripAfterEndTrip = 0;
     while( file >> row ) {        
         size_t nCols = row.size();
        // assert( nCols == 15 ); // ENSURE proper dimension of CSV 
@@ -49,6 +50,12 @@ void DataContainer::extractCvsSnapshot() {
 
            // define current trip
            TripData * currTrip = defineCurrentTripInfoFromCsvLine(row); 
+           
+           // data validation: ensure the trip begins before it ends (e.g. going under a tunnel may reset the time(s))
+           if( currTrip->getPickupEvent()->timeT >= currTrip->getDropoffEvent()->timeT ) {
+               beginTripAfterEndTrip++;
+               continue;
+           }
                       
            // get Driver* object (and define if necessary)
            Driver * pDriver = getDriverFromTrip(currTrip->getDriverID());
@@ -86,7 +93,11 @@ void DataContainer::extractCvsSnapshot() {
             rowIndex++;
         }
     }
-     
+    
+    if( beginTripAfterEndTrip > 0 ) {
+        std::cout << "\t" << Utility::intToStr(beginTripAfterEndTrip) << " trips discarded due to negative trip duratio (begintrip >= endtrip)" << std::endl;
+    }
+    
     file.close();    
 }
 

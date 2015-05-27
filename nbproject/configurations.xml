@@ -46,6 +46,7 @@
                    displayName="Resource Files"
                    projectFiles="true">
       <itemPath>ItemNotFoundException.hpp</itemPath>
+      <itemPath>RiderCountException.hpp</itemPath>
       <itemPath>TimeAdjacencyException.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -209,6 +210,8 @@
       </item>
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="RiderCountException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Route.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Route.hpp" ex="false" tool="3" flavor2="0">
@@ -357,6 +360,8 @@
       <item path="Rider.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiderCountException.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Route.cpp" ex="false" tool="1" flavor2="0">
       </item>

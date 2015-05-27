@@ -12,30 +12,44 @@
 #include "AssignedRoute.hpp"
 #include "Comparators.hpp"
 #include "ModelEnum.hpp"
+#include "Solution.hpp"
+#include "RiderCountException.hpp"
 #include <vector>
 #include <set>
 
 using namespace std;
 
-class MultPickupSoln {
+class MultPickupSoln : public Solution {
+            
 public:
-    MultPickupSoln(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedRoute*, AssignedRouteIndexComp> &assignedRoutes, std::set<Request*,ReqComp> &disqualifiedReqs);
+    
+    struct RiderCountDistn {
+        int numTrips_1Rider;
+        int numTrips_2Riders;
+        int numTrips_3Riders;
+    };
+        
+    MultPickupSoln(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedRoute*, AssignedRouteIndexComp> &assignedRoutes, std::set<Request*,ReqComp> &disqualifiedReqs, int maxRiders);
     virtual ~MultPickupSoln();
     
     void buildSolutionMetrics();
+    const int getMaxRiders() const {return _maxRidersPerTrip;} 
     
+    const RiderCountDistn * getRiderCountDistn() const { return &_riderCountDistn; }
+            
+    // getters for solution objects
+    std::set<AssignedRoute*, AssignedRouteIndexComp> * getAssignedRoutes() { return &_allRoutesFromSolution; }
+    std::set<AssignedRoute*, AssignedRouteIndexComp> * getMatchedRoutes() { return &_matchedRoutes; }
+    std::set<AssignedRoute*, AssignedRouteIndexComp> * getUnmatchedRoutes() { return &_unmatchedRoutes; }
+            
 private:
-    const int _model;
-    const time_t _simStartTime;
-    const time_t _simEndTime;
-    const int _totalRequests;
-    const int _totalDrivers;
-    
-    const std::set<AssignedRoute*, AssignedRouteIndexComp> _allRoutesFromSolution;
-    
+
+    const int _maxRidersPerTrip;
+    std::set<AssignedRoute*, AssignedRouteIndexComp> _allRoutesFromSolution;
     std::set<AssignedRoute*, AssignedRouteIndexComp> _matchedRoutes;
     std::set<AssignedRoute*, AssignedRouteIndexComp> _unmatchedRoutes;
-    std::set<Request*, ReqComp> _disqualifiedRequests;    
+    RiderCountDistn _riderCountDistn;
+    
 };
 
 #endif	/* MULTPICKUPSOLN_HPP */

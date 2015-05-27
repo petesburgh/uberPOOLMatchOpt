@@ -319,7 +319,7 @@ void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
             modelname = "FlexDepartures";
             break;
         case MULTIPLE_PICKUPS :
-            modelname = "MultiplePickups";
+            modelname = "MultPickups";
             break;
         default :
             modelname += "other";
@@ -328,16 +328,30 @@ void Output::printSolution(Solution* pSolution, const ModelEnum &model) {
     filename += modelname;
     std::string outpath = _outputScenarioPath + filename;
     
+    MultPickupSoln * pMultPickupSoln = dynamic_cast<MultPickupSoln*>(pSolution);
+    bool isMultPickupSoln = (pMultPickupSoln != NULL);
+    
     printSolutionSummary(pSolution, outpath, modelname);
     if( pSolution->getRequestMetrics()->_numMatchedRequests > 0 ) {
-        printMatchTripSummary(pSolution, outpath);
+        // if 3-rider solution, call its own print method         
+        if( isMultPickupSoln ) {
+            printMultPickupMatchTripSummary(pMultPickupSoln, outpath);
+        } else {
+            printMatchTripSummary(pSolution, outpath);
+        }
     }
+    
     if( pSolution->getRequestMetrics()->_numUnmatchedRequests > 0 ) {
-        printUnmatchedTripsSummary(pSolution, outpath);
+        if( isMultPickupSoln ) {
+            printMultPickupUnmatchedTripSummary(pMultPickupSoln, outpath);
+        } else {
+            printUnmatchedTripsSummary(pSolution, outpath);
+        }        
     }
     if( pSolution->getRequestMetrics()->_numDisqualifiedRequests > 0 ) {
         printDisqualifiedRequestsSummary(pSolution, outpath);
     }
+    
     if( _printIndivMetrics ) {
         printIndivSolnMetrics(pSolution, outpath);
     }    
@@ -486,7 +500,7 @@ void Output::printMatchTripSummary(Solution * pSolution, std::string &outpath) {
     // check if solution corresponds to FD model
     FlexDepSolution * pFDSoln = dynamic_cast<FlexDepSolution*>(pSolution);
     const bool isFDSoln = (pFDSoln != NULL);
-    
+   
     int ixBuff = 13;
     int isExtBuff = 9;
     int fifoBuff = 12;
@@ -521,7 +535,7 @@ void Output::printMatchTripSummary(Solution * pSolution, std::string &outpath) {
         left << setw(geoBuff) << "MINION_DEST" << 
         left << setw(geoBuff) << "DRIVER_AT_MIN_REQ" << 
         left << setw(geoBuff) << "MASTER_AT_MIN_REQ" << 
-        std::endl;
+    std::endl;
              
     const std::set<AssignedTrip*, AssignedTripIndexComp> * pMatchedTrips = pSolution->getMatchedTrips();
     std::set<AssignedTrip*, AssignedTripIndexComp>::const_iterator tripItr;
@@ -533,14 +547,14 @@ void Output::printMatchTripSummary(Solution * pSolution, std::string &outpath) {
         // get master orig & dest
         LatLng masterOrig = (*tripItr)->getMatchDetails()->_masterOrig;
         LatLng masterDest = (*tripItr)->getMatchDetails()->_masterDest;
-        const std::string masterOrigStr = Utility::convertToLatLngStr(masterOrig, 5);
-        const std::string masterDestStr = Utility::convertToLatLngStr(masterDest, 5);
+        const std::string masterOrigStr = Utility::convertToLatLngStr(masterOrig, 6);
+        const std::string masterDestStr = Utility::convertToLatLngStr(masterDest, 6);
                 
         // get minion orig & dest
         LatLng minionOrig = (*tripItr)->getMatchDetails()->_minionOrig;
         LatLng minionDest = (*tripItr)->getMatchDetails()->_minionDest;        
-        const std::string minionOrigStr = Utility::convertToLatLngStr(minionOrig, 5);
-        const std::string minionDestStr = Utility::convertToLatLngStr(minionDest, 5);
+        const std::string minionOrigStr = Utility::convertToLatLngStr(minionOrig, 6);
+        const std::string minionDestStr = Utility::convertToLatLngStr(minionDest, 6);
         
         const int driverIndex = (*tripItr)->getDriver()->getIndex();
         int masterIndex  = (*tripItr)->getMatchDetails()->_masterIndex;
@@ -588,6 +602,141 @@ void Output::printMatchTripSummary(Solution * pSolution, std::string &outpath) {
     }  
     
     outFile.close();    
+}
+// print matches from multiple pickup model
+void Output::printMultPickupMatchTripSummary(MultPickupSoln* pMultPickupSoln, std::string& outpath) {
+    std::string outFilePath = outpath + "_MATCHED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());
+    
+    int ctBuff = 7;
+    int ixBuff = 13;
+    int isExtBuff = 9;
+    int fifoBuff = 12;
+    int geoBuff = 25;
+    int distBuff = 14;
+    int inconvBuff = 17;
+    int uuidBuff = 45;
+    int timeBuff = 25;
+    int isFdBuff = 9; 
+    
+    outFile <<
+            left << setw(ctBuff) << "rtIx" <<
+            left << setw(ixBuff) << "pickup_1" <<
+            left << setw(uuidBuff) << "pick_1_uuid" << 
+            left << setw(timeBuff) << "reqTime_1" << 
+            left << setw(timeBuff) << "pickupTime_1" << 
+            left << setw(geoBuff) << "pickupLoc_1" << 
+            left << setw(ixBuff) << "pickup_2" << 
+            left << setw(uuidBuff) << "pick_2_uuid" << 
+            left << setw(timeBuff) << "reqTime_2" << 
+            left << setw(timeBuff) << "pickupTime_2" <<
+            left << setw(geoBuff) << "pickupLoc_2" << 
+            left << setw(ixBuff) << "rider_3" << 
+            left << setw(uuidBuff) << "pick_3_uuid" << 
+            left << setw(timeBuff) << "reqTime_3" << 
+            left << setw(timeBuff) << "pickupTime_3" <<
+            left << setw(geoBuff) << "pickupLoc_3" << 
+            left << setw(ixBuff) << "drop_1" << 
+            left << setw(uuidBuff) << "drop_1_uuid" <<
+            left << setw(timeBuff) << "dropTime_1" << 
+            left << setw(geoBuff) << "dropLoc_1" << 
+            left << setw(ixBuff) << "drop_2" << 
+            left << setw(uuidBuff) << "drop_2_uuid" << 
+            left << setw(timeBuff) << "dropTime_2" << 
+            left << setw(geoBuff) << "dropLoc_2" << 
+            left << setw(ixBuff) << "drop_3" << 
+            left << setw(uuidBuff) << "drop_3_uuid" <<
+            left << setw(timeBuff) << " dropTime_3" << 
+            left << setw(ixBuff) << "dropLoc_3" << 
+    endl;
+    
+    std::set<AssignedRoute*, AssignedRouteIndexComp> * pMatchedRoutes = pMultPickupSoln->getMatchedRoutes();
+    std::set<AssignedRoute*, AssignedRouteIndexComp>::iterator routeItr;
+    for( routeItr = pMatchedRoutes->begin(); routeItr != pMatchedRoutes->end(); ++routeItr ) {
+        Route * pRoute = (*routeItr)->getRoute();
+        const std::vector<RouteEvent*> * pPickupEvents = pRoute->getPickupEvents();
+        RouteEvent * pickup1 = (pPickupEvents->size() >= 1) ? pPickupEvents->at(0) : NULL;
+        RouteEvent * pickup2 = (pPickupEvents->size() >= 2) ? pPickupEvents->at(1) : NULL;
+        RouteEvent * pickup3 = (pPickupEvents->size() >= 3) ? pPickupEvents->at(2) : NULL;
+        
+        // pickup 1 info
+        std::string p1_rider_str = (pickup1 == NULL) ? "-" : Utility::intToStr(pickup1->getRequest()->getRiderIndex());
+        std::string p1_rider_uuid = (pickup1 == NULL) ? "-" : pickup1->getRequest()->getRiderTripUUID();
+        std::string p1_req_str = (pickup1 == NULL) ? "-" : Utility::convertTimeTToString(pickup1->getRequest()->getReqTime());
+        std::string p1_pick_str = (pickup1 == NULL) ? "-" : Utility::convertTimeTToString(pickup1->getEventTime());
+        std::string p1_loc_str = (pickup1 == NULL) ? "-" : Utility::convertToLatLngStr(*(pickup1->getLocation()),6);
+        
+        // pickup 2 info
+        std::string p2_rider_str = (pickup2 == NULL) ? "-" : Utility::intToStr(pickup2->getRequest()->getRiderIndex());
+        std::string p2_rider_uuid = (pickup2 == NULL) ? "-" : pickup2->getRequest()->getRiderTripUUID();
+        std::string p2_req_str = (pickup2 == NULL) ? "-" : Utility::convertTimeTToString(pickup2->getRequest()->getReqTime());
+        std::string p2_pick_str = (pickup2 == NULL) ? "-" : Utility::convertTimeTToString(pickup2->getEventTime());
+        std::string p2_loc_str = (pickup2 == NULL) ? "-" : Utility::convertToLatLngStr(*(pickup2->getLocation()),6);
+        
+        // pickup 3 info
+        std::string p3_rider_str = (pickup3 == NULL) ? "-" : Utility::intToStr(pickup3->getRequest()->getRiderIndex());
+        std::string p3_rider_uuid = (pickup3 == NULL) ? "-" : pickup3->getRequest()->getRiderTripUUID();
+        std::string p3_req_str = (pickup3 == NULL) ? "-" : Utility::convertTimeTToString(pickup3->getRequest()->getReqTime());
+        std::string p3_pick_str = (pickup3 == NULL) ? "-" : Utility::convertTimeTToString(pickup3->getEventTime());
+        std::string p3_loc_str = (pickup3 == NULL) ? "-" : Utility::convertToLatLngStr(*(pickup3->getLocation()),6);
+        
+        // drop 1 info
+        const std::vector<RouteEvent*> * pDropEvents = (*routeItr)->getRoute()->getDropoffEvents();
+        RouteEvent * drop1 = (pDropEvents->size() >= 1) ? pDropEvents->at(0) : NULL;
+        RouteEvent * drop2 = (pDropEvents->size() >= 2) ? pDropEvents->at(1) : NULL;
+        RouteEvent * drop3 = (pDropEvents->size() >= 3) ? pDropEvents->at(2) : NULL;
+        
+        // drop 1 info
+        std::string d1_rider_str = (drop1 == NULL) ? "-" : Utility::intToStr(drop1->getRequest()->getRiderIndex());
+        std::string d1_rider_uuid = (drop1 == NULL) ? "-" : drop1->getRequest()->getRiderTripUUID();
+        std::string d1_drop_str = (drop1 == NULL) ? "-" : Utility::convertTimeTToString(drop1->getEventTime());
+        std::string d1_loc_str = (drop1 == NULL) ? "-" : Utility::convertToLatLngStr(*(drop1->getLocation()),6);
+        
+        // drop 2 info
+        std::string d2_rider_str = (drop2 == NULL) ? "-" : Utility::intToStr(drop2->getRequest()->getRiderIndex());
+        std::string d2_rider_uuid = (drop2 == NULL) ? "-" : drop2->getRequest()->getRiderTripUUID();
+        std::string d2_drop_str = (drop2 == NULL) ? "-" : Utility::convertTimeTToString(drop2->getEventTime());
+        std::string d2_loc_str = (drop2 == NULL) ? "-" : Utility::convertToLatLngStr(*(drop2->getLocation()),6);
+        
+        // drop 3 info
+        std::string d3_rider_str = (drop3 == NULL) ? "-" : Utility::intToStr(drop3->getRequest()->getRiderIndex());
+        std::string d3_rider_uuid = (drop3 == NULL) ? "-" : drop3->getRequest()->getRiderTripUUID();
+        std::string d3_drop_str = (drop3 == NULL) ? "-" : Utility::convertTimeTToString(drop3->getEventTime());
+        std::string d3_loc_str = (drop3 == NULL) ? "-" : Utility::convertToLatLngStr(*(drop3->getLocation()),6);
+        
+        outFile <<
+                left << setw(ctBuff) << Utility::intToStr((*routeItr)->getIndex()) << 
+                left << setw(ixBuff) << p1_rider_str <<
+                left << setw(uuidBuff) << p1_rider_uuid <<
+                left << setw(timeBuff) << p1_req_str << 
+                left << setw(timeBuff) << p1_pick_str << 
+                left << setw(geoBuff) << p1_loc_str << 
+                left << setw(ixBuff) << p2_rider_str << 
+                left << setw(uuidBuff) << p2_rider_uuid <<
+                left << setw(timeBuff) << p2_req_str << 
+                left << setw(timeBuff) << p2_pick_str << 
+                left << setw(geoBuff) << p2_loc_str << 
+                left << setw(ixBuff) << p3_rider_str << 
+                left << setw(uuidBuff) << p3_rider_uuid <<
+                left << setw(timeBuff) << p3_req_str << 
+                left << setw(timeBuff) << p3_pick_str << 
+                left << setw(geoBuff) << p3_loc_str << 
+                left << setw(ixBuff) << d1_rider_str << 
+                left << setw(uuidBuff) << d1_rider_uuid <<
+                left << setw(timeBuff) << d1_drop_str << 
+                left << setw(geoBuff) << d1_loc_str << 
+                left << setw(ixBuff) << d2_rider_str << 
+                left << setw(uuidBuff) << d2_rider_uuid << 
+                left << setw(timeBuff) << d2_drop_str << 
+                left << setw(geoBuff) << d2_loc_str << 
+                left << setw(ixBuff) << d3_rider_str << 
+                left << setw(uuidBuff) << d3_rider_uuid <<
+                left << setw(timeBuff) << d3_drop_str << 
+                left << setw(geoBuff) << d3_loc_str << 
+        std::endl;                
+    }  
+    
+    outFile.close();
 }
 void Output::printUnmatchedTripsSummary(Solution* pSolution, std::string& outpath) {
   
@@ -639,8 +788,8 @@ void Output::printUnmatchedTripsSummary(Solution* pSolution, std::string& outpat
             outFile << left << setw(isFdBuff) << isFdStr;
         }
         outFile << left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterRequestEvent()->timeT) << 
-                left << setw(geoBuff) << Utility::convertToLatLngStr(pickupLoc, 5) << 
-                left << setw(geoBuff) << Utility::convertToLatLngStr(dropLoc, 5) << 
+                left << setw(geoBuff) << Utility::convertToLatLngStr(pickupLoc, 6) << 
+                left << setw(geoBuff) << Utility::convertToLatLngStr(dropLoc, 6) << 
                 left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterPickupEventFromActuals()->timeT) << 
                 left << setw(timeBuff) << Utility::convertTimeTToString((*tripItr)->getMasterDropEventFromActuals()->timeT) << 
                 left << setw(distBuff) << Utility::truncateDouble(distKm, 2) << 
@@ -648,6 +797,52 @@ void Output::printUnmatchedTripsSummary(Solution* pSolution, std::string& outpat
     }
     
     outFile.close();    
+}
+void Output::printMultPickupUnmatchedTripSummary(MultPickupSoln* pSolution, std::string& outpath) {
+    std::string outFilePath = outpath + "_UNMATCHED_TRIPS.txt";
+    ofstream outFile(outFilePath.c_str());
+       
+    const std::set<AssignedRoute*, AssignedRouteIndexComp> * pUnmatchedTrips = pSolution->getUnmatchedRoutes();
+    std::set<AssignedRoute*, AssignedRouteIndexComp>::const_iterator routeItr;        
+    
+    int ixBuff = 13;
+    int timeBuff = 25;
+    int geoBuff = 25;
+    int distBuff = 15;
+    int uuidBuff = 45;
+    
+    outFile << left << setw(ixBuff) << "DRIVER" << 
+        left << setw(ixBuff) << "RIDER_IX" << 
+        left << setw(uuidBuff) << "RIDER_UUID" << 
+        left << setw(timeBuff) << "REQUEST_TIME" << 
+        left << setw(geoBuff) << "PICKUP_LOC" << 
+        left << setw(geoBuff) << "DROP_LOC" << 
+        left << setw(timeBuff) << "PICKUP_TIME" << 
+        left << setw(timeBuff) << "DROP_TIME" << 
+        left << setw(distBuff) << "TRIP_DIST_KM" << 
+    std::endl;
+    
+    for( routeItr = pUnmatchedTrips->begin(); routeItr != pUnmatchedTrips->end(); ++routeItr ) {
+        assert( (*routeItr)->getNumRidersInRoute() == 1 );
+        Request * pRequest = (*routeItr)->getRoute()->getRequests()->front();
+        LatLng pickupLoc(pRequest->getActualPickupEvent()->lat, pRequest->getActualPickupEvent()->lng);
+        LatLng dropLoc(pRequest->getActualDropEvent()->lat, pRequest->getActualDropEvent()->lng);
+        
+        const double tripDist = Utility::computeGreatCircleDistance(pickupLoc._lat,pickupLoc._lng,dropLoc._lat,dropLoc._lng);
+        
+        outFile << left << setw(ixBuff) << Utility::intToStr(pRequest->getActualDriver()->getIndex()) << 
+                left << setw(ixBuff) << Utility::intToStr(pRequest->getRiderIndex()) << 
+                left << setw(uuidBuff) << pRequest->getRiderTripUUID() << 
+                left << setw(timeBuff) << Utility::convertTimeTToString(pRequest->getReqTime()) << 
+                left << setw(geoBuff) << Utility::convertToLatLngStr(pickupLoc,6) << 
+                left << setw(geoBuff) << Utility::convertToLatLngStr(dropLoc,6) << 
+                left << setw(timeBuff) << Utility::convertTimeTToString(pRequest->getActualPickupEvent()->timeT) << 
+                left << setw(timeBuff) << Utility::convertTimeTToString(pRequest->getActualDropEvent()->timeT) << 
+                left << setw(distBuff) << Utility::truncateDouble(tripDist,2) << 
+        endl;
+    } 
+    
+    outFile.close();
 }
 void Output::printDisqualifiedRequestsSummary(Solution* pSolution, std::string &outpath) {
     
@@ -1135,7 +1330,7 @@ void Output::printNumTripsMetrics(std::ofstream& outFile, std::string inputName,
                 left << setw(15) << ufbwMatchRateStr << 
                 left << setw(15) << flexDepMatchRateStr << 
                 left << setw(15) << ufbwPerfInfoMatchRateStr << 
-                left << setw(15) << csv_multPickups_str << 
+                left << setw(15) << multPickupsNumTripsStr << 
             std::endl;
     }
     

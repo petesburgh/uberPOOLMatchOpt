@@ -5,8 +5,8 @@ build/Debug/GNU-MacOSX/ModelRunner.o: ModelRunner.cpp ModelRunner.hpp \
   AssignedRoute.hpp Route.hpp RouteEvent.hpp MasterCand.hpp \
   MinionCand.hpp MasterMinionMatchCand.hpp Geofence.hpp \
   ItemNotFoundException.hpp Output.hpp Solution.hpp ModelEnum.hpp \
-  FlexDepSolution.hpp SolnMaps.hpp MitmModel.hpp ModelUtils.hpp \
-  UFBW_fixed.hpp \
+  FlexDepSolution.hpp MultPickupSoln.hpp RiderCountException.hpp \
+  SolnMaps.hpp MitmModel.hpp ModelUtils.hpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -20,7 +20,7 @@ build/Debug/GNU-MacOSX/ModelRunner.o: ModelRunner.cpp ModelRunner.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   FlexDepartureModel.hpp MultiplePickupsModel.hpp FeasibleRoute.hpp \
-  MultPickupSoln.hpp UFBW_perfectInformation.hpp
+  UFBW_perfectInformation.hpp
 
 ModelRunner.hpp:
 
@@ -76,6 +76,10 @@ ModelEnum.hpp:
 
 FlexDepSolution.hpp:
 
+MultPickupSoln.hpp:
+
+RiderCountException.hpp:
+
 SolnMaps.hpp:
 
 MitmModel.hpp:
@@ -113,7 +117,5 @@ FlexDepartureModel.hpp:
 MultiplePickupsModel.hpp:
 
 FeasibleRoute.hpp:
-
-MultPickupSoln.hpp:
 
 UFBW_perfectInformation.hpp:

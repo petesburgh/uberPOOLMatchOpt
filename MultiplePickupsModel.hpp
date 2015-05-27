@@ -74,12 +74,6 @@ public:
     RouteEvent * getDropEventInRouteForRider(const int riderIndex, Route * pCandRoute);
     double getTotalTripCostForRider(RouteEvent * pPickupEvent, RouteEvent * pDropEvent, Route * pCandRoute, double sharedTripDist);
     
-    // find nearest unassigned driver
-    std::pair<Driver*, std::pair<double,double> > * getNearestDriverToDispatchRequest(std::set<OpenTrip*, EtdComp> * pOpenTrips, time_t reqTime, double reqLat, double reqLng, const Driver * pDriver);
-    bool checkIfDriverAssignedToOpenTrip( time_t currTime, Driver * pDriver, std::set<OpenTrip*, EtdComp>* pOpenTrips );
-    std::pair<const TripData*, const TripData*> * getAdjacentTrips(const Driver * pDriver, const time_t reqTime);
-    LatLng getEstLocationOfOpenDriver(const Driver * pDriver, const time_t &reqTime);
-    
     // given an unmatched request create a new Route object
     Route * createNewRouteWithUnmatchedRider(const Driver * pDriver, Request * pMinionRequest, const Event * pActualDispatchEvent);
     

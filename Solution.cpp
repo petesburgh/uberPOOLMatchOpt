@@ -7,9 +7,14 @@
 
 #include "Solution.hpp"
 
+// general constructor 
 Solution::Solution(int model, time_t simStart, time_t simEnd, int totalReqs, int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs) : 
         _model(model), _simStartTime(simStart), _simEndTime(simEnd), _totalRequests(totalReqs), _totalDrivers(totalDrivers), _allTripsFromSolution(assignedTrips), _disqualifiedRequests(disqualifiedReqs) {
 }
+// constructor to be used for MultPickupSoln Model
+Solution::Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<Request*,ReqComp> &disqualifiedReqs) : 
+        _model(model), _simStartTime(simStart), _simEndTime(simEnd), _totalRequests(totalReqs), _totalDrivers(totalDrivers), _disqualifiedRequests(disqualifiedReqs) {};
+        
 Solution::~Solution() {
 }
 

@@ -21,7 +21,7 @@ class TimeAdjacencyException : public exception {
         TimeAdjacencyException(const TimeAdjacencyException& orig);
         ~TimeAdjacencyException() throw() {};
         
-        const char * what() const throw() {
+        virtual const char * what() const throw() {
             std::string errStr = "current time not contained in interval defined by adjacent events";
             return errStr.c_str();
         }

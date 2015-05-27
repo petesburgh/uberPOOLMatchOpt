@@ -24,10 +24,11 @@ public:
     // getters
     const int getIndex() const { return _index; }
     const int getNumRidersInRoute() const { return pRoute->getNumMatchedRiders(); }
+    Route * getRoute() { return pRoute; }
     
 private:
 
-    const Route * pRoute;    
+    Route * pRoute;    
     int _index;
 };
 

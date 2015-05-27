@@ -17,7 +17,6 @@ void Route::addPickupEvent(const Request* pReq, time_t tm, double lat, double ln
     LatLng loc(lat,lng);
     RouteEvent * pRouteEvent = new RouteEvent(pReq,tm,loc,RouteEvent::PICKUP);
     _pickupEvents.push_back(pRouteEvent);
-  //  _pickupTimeEventMap.insert(make_pair(tm,pRouteEvent));
     _pickupEventTimeMap.insert(make_pair(pRouteEvent,tm));
 }
 
@@ -25,7 +24,6 @@ void Route::addDropoffEvent(const Request* pReq, time_t tm, double lat, double l
     LatLng loc(lat,lng);
     RouteEvent * pRouteEvent = new RouteEvent(pReq,tm,loc,RouteEvent::DROPOFF);
     _dropoffEvents.push_back(pRouteEvent);
-   // _dropoffTimeEventMap.insert(make_pair(tm,pRouteEvent));
     _dropoffEventTimeMap.insert(make_pair(pRouteEvent,tm));
 }
 
@@ -33,7 +31,6 @@ void Route::insertPickupEvent(RouteEvent* pickupEvent, int position) {
     int index = position-1;
     std::vector<RouteEvent*>::iterator itr = _pickupEvents.begin()+index;
     _pickupEvents.insert(itr, pickupEvent);
-  //  _pickupTimeEventMap.insert(make_pair(pickupEvent->getEventTime(),pickupEvent));
     _pickupEventTimeMap.insert(make_pair(pickupEvent, pickupEvent->getEventTime()));
 }
 
@@ -41,7 +38,6 @@ void Route::insertDropoffEvent(RouteEvent* dropoffEvent, int position) {
     int index = position-1;
     std::vector<RouteEvent*>::iterator itr = _dropoffEvents.begin()+index;
     _dropoffEvents.insert(itr, dropoffEvent);
-   // _dropoffTimeEventMap.insert(make_pair(dropoffEvent->getEventTime(),dropoffEvent));
     _dropoffEventTimeMap.insert(make_pair(dropoffEvent, dropoffEvent->getEventTime()));
 }
 
@@ -53,7 +49,8 @@ bool Route::updateTimes() {
     const Request * pFirstReq = _requests.front();
     const Event * pPickupEvent = pFirstReq->getActualPickupEvent();
     const Event * pDropEvent   = pFirstReq->getActualDropEvent();
-    double avgSpeed = Utility::computeAvgSpeed(pPickupEvent->timeT, pPickupEvent->lat, pPickupEvent->lng, pDropEvent->timeT, pDropEvent->lat, pDropEvent->lng);    
+        
+    double avgSpeed = Utility::computeAvgSpeed(pPickupEvent->timeT, pPickupEvent->lat, pPickupEvent->lng, pDropEvent->timeT, pDropEvent->lat, pDropEvent->lng);  
     
     // modify pickup times
     std::vector<RouteEvent*>::iterator pickupItr;

@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
     // SPECIFY TYPE OF EXPERIMENT
     const ModelRunner::Experiment experiment = ModelRunner::DEFAULTVALUES;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE    
     
-    const bool printDebugFiles       = true;
+    const bool printDebugFiles       = false;
     const bool printToScreen         = false;
     const bool printIndivSolnMetrics = true;
     const bool populateInitOpenTrips = false;

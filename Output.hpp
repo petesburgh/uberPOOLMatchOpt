@@ -12,6 +12,7 @@
 #include "Utility.hpp"
 #include "Solution.hpp"
 #include "FlexDepSolution.hpp"
+#include "MultPickupSoln.hpp"
 #include "ModelEnum.hpp"
 #include "ModelRunner.hpp"
 #include "SolnMaps.hpp"
@@ -43,8 +44,10 @@ public:
     // print solution
     void printSolution(Solution * pSolution, const ModelEnum &model);
     void printSolutionSummary( Solution * pSolution, std::string &outpath, std::string &modelname );
-    void printMatchTripSummary(Solution * pSolution, std::string &outpath);    
+    void printMatchTripSummary(Solution * pSolution, std::string &outpath);  
+    void printMultPickupMatchTripSummary(MultPickupSoln * pMultPickupSoln, std::string &outpath);
     void printUnmatchedTripsSummary(Solution * pSolution, std::string &outpath);
+    void printMultPickupUnmatchedTripSummary(MultPickupSoln * pSolution, std::string &outpath);
     void printDisqualifiedRequestsSummary(Solution * pSolution, std::string &outpath);
     void printIndivSolnMetrics(Solution * pSolution, std::string &outpath);
     

@@ -93,12 +93,12 @@ public:
     };
     
     // constructor for scenarios OTHER than 
-    Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);        
+    Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<AssignedTrip*, AssignedTripIndexComp> &assignedTrips, std::set<Request*,ReqComp> &disqualifiedReqs);   
+    Solution(int model, const time_t simStart, const time_t simEnd, const int totalReqs, const int totalDrivers, std::set<Request*,ReqComp> &disqualifiedReqs);
     virtual ~Solution();
     
     // main method to generate all data
     void buildSolutionMetrics();    
-
     
     // setters
     void setMatchedTrips(std::set<AssignedTrip*, AssignedTripIndexComp> matchedTrips) { _matchedTrips = matchedTrips; }
@@ -122,12 +122,10 @@ public:
     const Solution::MatchOverlapMetrics * getOverlapMetrics() const { return &_overlapMetrics; }
     const Solution::SavingsMetrics * getSavingsMetrics() const { return &_savingsMetrics; }
     const Solution::IndivMatchedRiderMetrics * getIndivMatchedRidersMetrics() const { return &_indivMatchedRiderMetrics; }
-//    const std::set<Solution::IndivMatchedRiderMetrics*> * getIndivMatchedRiderMetrics() const { return &_individualMatchedRiderMetrics; }
     
     const int getTotalNumTripsFromSoln() const { return (int)_allTripsFromSolution.size(); }
     
     // methods used by derived classes
-   // void addRequestMetric()
     const std::set<AssignedTrip*, AssignedTripIndexComp> * getAllTripsFromSoln() const { return &_allTripsFromSolution; }
     void addMatchedTrip(AssignedTrip * pAssignedTrip) { _matchedTrips.insert(pAssignedTrip); }
     void addUnmatchedTrip(AssignedTrip * pUnmatchedTrip) { _unmatchedTrips.insert(pUnmatchedTrip); }
@@ -151,6 +149,16 @@ public:
                               std::vector<double> pctSavingsAllMatchedRiders, std::vector<double> pctSavingsForMasters, std::vector<double> pctSavingsForMinions,
                               std::vector<int> waitTimeMatches_all, std::vector<int> waitTimeMatchesForMasters, std::vector<int> waitTimeMatchesForMinions, 
                               std::vector<double> overlapDistances, std::vector<double> pctSharedDist_Trip, std::vector<double> pctSharedDist_ALL, std::vector<double> pctOverlapDist_Masters, std::vector<double> pctOverlapDist_Minions);
+    
+    const int getNumDisqualReqs() const { return (int)_disqualifiedRequests.size(); }
+    
+    // methods to populate Solution structures from base class(es)
+    void setRequestMetrics(Solution::RequestMetrics reqMetrics) { _requestMetrics = reqMetrics; }
+    void setMatchMetrics(Solution::MatchMetrics matchMetrics) { _matchMetrics = matchMetrics; }
+    void setInconvenienceMetrics(Solution::MatchInconvenienceMetrics inconvMetrics) { _inconvenienceMetrics = inconvMetrics; }
+    void setOverlapMetrics(Solution::MatchOverlapMetrics overlapMetrics) { _overlapMetrics = overlapMetrics; }
+    void setSavingsMetrics(Solution::SavingsMetrics savingsMetrics) {_savingsMetrics = savingsMetrics; }
+    void setIndivMatchedMetrics(Solution::IndivMatchedRiderMetrics indivMetrics) { _indivMatchedRiderMetrics = indivMetrics; }
     
 private:
     

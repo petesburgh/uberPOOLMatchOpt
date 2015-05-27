@@ -3,7 +3,8 @@ build/Debug/GNU-MacOSX/MultPickupSoln.o: MultPickupSoln.cpp \
   LatLng.hpp TimeAdjacencyException.hpp AssignedRoute.hpp Route.hpp \
   RouteEvent.hpp Request.hpp Comparators.hpp OpenTrip.hpp Rider.hpp \
   AssignedTrip.hpp FeasibleMatch.hpp MasterCand.hpp MinionCand.hpp \
-  MasterMinionMatchCand.hpp ModelEnum.hpp
+  MasterMinionMatchCand.hpp ModelEnum.hpp Solution.hpp \
+  RiderCountException.hpp
 
 MultPickupSoln.hpp:
 
@@ -44,3 +45,7 @@ MinionCand.hpp:
 MasterMinionMatchCand.hpp:
 
 ModelEnum.hpp:
+
+Solution.hpp:
+
+RiderCountException.hpp:

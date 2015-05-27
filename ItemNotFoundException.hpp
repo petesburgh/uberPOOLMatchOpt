@@ -18,7 +18,7 @@ public:
     ItemNotFoundException(const ItemNotFoundException& orig);
     ~ItemNotFoundException() throw() {};
     
-    const char * what() const throw() {
+    virtual const char * what() const throw() {
         std::string errorStr = "";
         errorStr += _item + " ID " + _stringId + " not found in map `" + _mapName + "'";
         return errorStr.c_str();        

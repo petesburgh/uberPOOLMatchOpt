@@ -22,6 +22,14 @@ class Route {
         
 public:
     
+    struct RiderProperties {
+        Request * pRequest;
+        double uberXDist;
+        double pooledDist;
+        double savings;
+        double inconv;
+    };
+    
     Route(int ix, const Driver * driver, const Event * dispatch);
     virtual ~Route();
     
@@ -35,8 +43,7 @@ public:
     const int getRouteIndex() const { return _routeIndex; }
     const std::vector<Request*> * getRequests() const { return &_requests; }
     const time_t getInitPickupTime() const { return _pickupEvents.front()->getEventTime(); }
-    const time_t getRouteEndTime() const { return _dropoffEvents.back()->getEventTime(); }
-    //const int getNumMatchedRiders() const { return _requests.size(); }
+    const time_t getRouteEndTime() const { return _dropoffEvents.back()->getEventTime(); }    
     const int getNumMatchedRiders() const { return _dropoffEvents.size(); }
     const time_t getDispatchTime() const { return pDispatchEvent->timeT; }
     const Request * getPickupRequest(int j) const { return _requests.at(j-1); }
@@ -68,6 +75,11 @@ private:
 
     std::map<RouteEvent*, time_t> _pickupEventTimeMap;
     std::map<RouteEvent*, time_t> _dropoffEventTimeMap;
+    
+    // POOL metrics
+    
+    // individual rider metrics
+    
 };
 
 #endif	/* ROUTE_HPP */

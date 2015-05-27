@@ -59,7 +59,6 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
             pOutput->setOutputScenarioPath(outputScenarioPath);
             
             const std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMetrics_defaultVals = runModelsForCurrExperiment(pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings); // second input is a dummy argument                     
-            updateModelSolnMaps(pModelSolnMap, pSolnMetrics_defaultVals, -1);
             break;
         }
         case ModelRunner::OPTIN :
@@ -292,30 +291,28 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
         if( modelSolved ) {          
             
             MultPickupSoln * pSolution = pMultiplePickupsModel->getSolution();
-            
-            //Solution * pSolution = pMultiplePickupsModel->getSolution();
-           // pOutput->printSolution(pSolution, MULTIPLE_PICKUPS);
+            pOutput->printSolution(pSolution, MULTIPLE_PICKUPS);
             
             // update solution maps
             SolnMetrics * pSolnMetrics  = new SolnMetrics();
-            /*pSolnMetrics->numRequests   = pSolution->getTotalRequests();
+            pSolnMetrics->numRequests   = pSolution->getTotalRequests();
             pSolnMetrics->matchRate     = pSolution->getRequestMetrics()->_matchedPercentage;
-            pSolnMetrics->inconvenience = pSolution->getInconvenienceMetrics()->_avgPctAddedDistsForAll;
-            pSolnMetrics->numTrips      = pSolution->getTotalNumTripsFromSoln();
-            pSolnMetrics->avgSavingsAllMatchedRiders = pSolution->getSavingsMetrics()->_avgMatchedRiderSavingsPct;
-            pSolnMetrics->avgSavingsMasters = pSolution->getSavingsMetrics()->_avgMasterSavingsPct;
-            pSolnMetrics->avgSavingsMinions = pSolution->getSavingsMetrics()->_avgMinionSavingsPct;
-            pSolnMetrics->avgWaitTimeMatch_allRiders = pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForAllMatchedRiders;
-            pSolnMetrics->avgWaitTimeMatch_masters   = pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMasters;
-            pSolnMetrics->avgWaitTimeMatch_minions   = pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
-            pSolnMetrics->avgSharedDist = pSolution->getOverlapMetrics()->_avgOverlapDist;
-            pSolnMetrics->avgPctSharedDist_Trip = pSolution->getOverlapMetrics()->_avgTripOverlapPct;
-            pSolnMetrics->avgPctSharedDist_ALL = pSolution->getOverlapMetrics()->_avgPctOverlapAll;
-            pSolnMetrics->avgPctSharedDist_Masters = pSolution->getOverlapMetrics()->_avgPctOverlapMasters;
-            pSolnMetrics->avgPctSharedDist_Minions = pSolution->getOverlapMetrics()->_avgPctOverlapMinions;  
-            
+            pSolnMetrics->inconvenience = -1.0; // TODO: update
+            pSolnMetrics->numTrips      = pSolution->getMatchedRoutes()->size() + pSolution->getUnmatchedRoutes()->size();
+            pSolnMetrics->avgSavingsAllMatchedRiders = -1.0; //pSolution->getSavingsMetrics()->_avgMatchedRiderSavingsPct;
+            pSolnMetrics->avgSavingsMasters = -1.0; //pSolution->getSavingsMetrics()->_avgMasterSavingsPct;
+            pSolnMetrics->avgSavingsMinions = -1.0; //pSolution->getSavingsMetrics()->_avgMinionSavingsPct;
+            pSolnMetrics->avgWaitTimeMatch_allRiders = 0.0; //pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForAllMatchedRiders;
+            pSolnMetrics->avgWaitTimeMatch_masters   = 0.0; //pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMasters;
+            pSolnMetrics->avgWaitTimeMatch_minions   = 0.0; //pSolution->getMatchMetrics()->_avgWaitTimeOfMatchesForMinions;
+            pSolnMetrics->avgSharedDist = -1.0; // pSolution->getOverlapMetrics()->_avgOverlapDist;
+            pSolnMetrics->avgPctSharedDist_Trip = -1.0; // pSolution->getOverlapMetrics()->_avgTripOverlapPct;
+            pSolnMetrics->avgPctSharedDist_ALL = -1.0; // pSolution->getOverlapMetrics()->_avgPctOverlapAll;
+            pSolnMetrics->avgPctSharedDist_Masters = -1.0; // pSolution->getOverlapMetrics()->_avgPctOverlapMasters;
+            pSolnMetrics->avgPctSharedDist_Minions = -1.0; // pSolution->getOverlapMetrics()->_avgPctOverlapMinions;  
+
             IndivSolnMetrics * pIndivSolnMetrics = getIndivSolnMetrics(pSolution);
-            pSolnMetrics->pIndivMetrics = pIndivSolnMetrics; */
+            pSolnMetrics->pIndivMetrics = pIndivSolnMetrics; 
             
             pModelSolnMetricMap->insert(make_pair(MULTIPLE_PICKUPS, pSolnMetrics));             
         }        
@@ -328,13 +325,12 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
     
     // loop through all entries for the CURRENT SOLUTION and update the maps from ALL soltuions
     for( std::map<const ModelEnum, ModelRunner::SolnMetrics*>::const_iterator it = pModelCurrSolnMap->begin(); it != pModelCurrSolnMap->end(); ++it ) {        
-             
+        
         // check if the key exists
         std::map<double, SolnMaps*>::const_iterator modelAllSolnMapItr = pModelSolnMap->find(currInputValue);
         if( modelAllSolnMapItr != pModelSolnMap->end() ) {
             modelAllSolnMapItr->second->numRequests_inputs.insert(make_pair(it->first, it->second->numRequests));
-            modelAllSolnMapItr->second->matchRateMap.insert(make_pair(it->first, it->second->matchRate));
-            modelAllSolnMapItr->second->inconvMap.insert(make_pair(it->first, it->second->inconvenience));
+            modelAllSolnMapItr->second->matchRateMap.insert(make_pair(it->first, it->second->matchRate));            
             modelAllSolnMapItr->second->numTripsMap.insert(make_pair(it->first, it->second->numTrips));
             modelAllSolnMapItr->second->avgSavingsAllMatchedRiders.insert(make_pair(it->first, it->second->avgSavingsAllMatchedRiders));
             modelAllSolnMapItr->second->avgSavingsMasters.insert(make_pair(it->first, it->second->avgSavingsMasters));
@@ -415,8 +411,7 @@ bool ModelRunner::updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMa
             
             std::map<ModelEnum, double> initWaitTimeMatchMinionsMap;
             initWaitTimeMatchMinionsMap.insert(make_pair(it->first, it->second->avgWaitTimeMatch_minions));
-            
-            
+                        
             // mapping between models and individual metrics
             std::map<ModelEnum, std::vector<double> > initIndivInconvMap_ALL;
             initIndivInconvMap_ALL.insert(make_pair(it->first, it->second->pIndivMetrics->_inconv_ALL));

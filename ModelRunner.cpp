@@ -24,7 +24,14 @@ DataContainer * ModelRunner::constructDataContainer(double optInRate, int batchW
     */
     pDataContainer = new DataContainer(pDataInput->_inputPath, pDataInput->_cvsFilename, pDataInput->_timelineStr, optInRate, pDataInput->_simLengthInMinutes, pDataOutput->_printDebugFiles, pDataOutput->_printToScreen, pGeofence);
     pDataContainer->setBatchWindowInSeconds(batchWindowLengthInSec);
-    pDataContainer->extractCvsSnapshot();  
+    try {
+        pDataContainer->extractCvsSnapshot();  
+    } catch( FileNotFoundException &ex ) {
+        std::cerr << "\n*** FileNotFoundException thrown ***" << std::endl;
+        std::cerr << ex.what() << std::endl;
+        std::cerr << "\t(exiting unsuccessfully) " << std::endl;
+        exit(1);
+    }
 
     /*
      *  step 2: filter uberX users to proxy for uberPOOL trips

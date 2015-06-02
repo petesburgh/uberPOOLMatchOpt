@@ -51,8 +51,8 @@ bool MultiplePickupsModel::solve(bool printDebugFiles, Output * pOutput, bool po
         time_t currReqTime = (*reqItr)->getReqTime();
         
         // TODO: delete
-        //std::cout << "\n** processing request " << (*reqItr)->getRiderIndex() << " **" << std::endl;
-        //cout << "\trequest at " << Utility::convertTimeTToString(currReqTime) << endl;
+         std::cout << "\n** processing request " << (*reqItr)->getRiderIndex() << " **" << std::endl;
+         cout << "\trequest at " << Utility::convertTimeTToString(currReqTime) << endl;
                                
         int numCompletedRoutes = ModelUtils::assignCompletedOpenRoutes(currReqTime,openRoutes,_assignedRoutes);
         
@@ -266,7 +266,10 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesToInsertMinionReq(Req
     // get all matches that have a single rider present
     std::vector<Route*> feasRoutesWithSingleRider;
     if( numRidersInExistingRoute == 1 ) {
-        feasRoutesWithSingleRider = getFeasibleRoutesForSingleExistingRiderInRoute(pMinionReq, pExistingRoute);
+        // JPJP
+        //cout << "\tprocessing single rider match for minion req " << pMinionReq->getRiderIndex() << endl;
+        //feasRoutesWithSingleRider = getFeasibleRoutesForSingleExistingRiderInRoute(pMinionReq, pExistingRoute);
+        feasRoutesWithSingleRider = getFeasibleRoutesForSingleExistingRiderInRoute_deprecated(pMinionReq, pExistingRoute);      
     }
 
     std::vector<Route*> feasRoutesWithMultipleExistingRiders;
@@ -283,11 +286,41 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesToInsertMinionReq(Req
     if( feasRoutesWithMultipleExistingRiders.size() > 0 ) {
         feasRoutesForMinionInsertion.insert(feasRoutesForMinionInsertion.end(), feasRoutesWithMultipleExistingRiders.begin(), feasRoutesWithMultipleExistingRiders.end());
     }
-    
-    
+       
     return feasRoutesForMinionInsertion;
 } 
-std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesForSingleExistingRiderInRoute(Request * pMinionReq, Route * pExistingRoute) {
+std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesForSingleExistingRiderInRoute(Request* pMinionReq, Route * pExistingRoute) {
+    std::vector<Route*> feasTwoRiderRoutes;
+
+    // check 1: pickup distance is feasible (if there is only one existing rider the current request is the candidate minion)
+    const Request * pMasterRequest = pExistingRoute->getPickupRequest(1);
+         
+    const double pickupDistanceAtTimeOfMinionRequest = ModelUtils::getPickupDistanceAtTimeOfMinionRequest_maxPickupConstr(
+            pMinionReq->getReqTime(), pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), 
+            pMasterRequest->getActualPickupEvent()->timeT, pMasterRequest->getActualPickupEvent()->lat, pMasterRequest->getActualPickupEvent()->lng, 
+            pMasterRequest->getActualDropEvent()->timeT, pMasterRequest->getActualDropEvent()->lat, pMasterRequest->getActualDropEvent()->lng, 
+            pMasterRequest->getActualDispatchEvent()->timeT, pMasterRequest->getActualDispatchEvent()->lat, pMasterRequest->getActualDispatchEvent()->lng);
+    
+    if( pickupDistanceAtTimeOfMinionRequest <= _maxMatchDistInKm ) {
+                
+        // check FIFO
+        Route * pRoute_FIFO = constructInsertedRoute(pExistingRoute,pMinionReq,2,2);
+        bool isFIFOFeas = checkIfCandRouteMeetsSavings(pRoute_FIFO);
+        if( isFIFOFeas ) {
+            feasTwoRiderRoutes.push_back(pRoute_FIFO);
+        }
+        
+        // check FILO
+        Route * pRoute_FILO = constructInsertedRoute(pExistingRoute,pMinionReq,2,1);
+        bool isFILOFeas = checkIfCandRouteMeetsSavings(pRoute_FILO);
+        if( isFILOFeas ) {
+            feasTwoRiderRoutes.push_back(pRoute_FILO);
+        }        
+    }    
+
+    return feasTwoRiderRoutes;
+}
+std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesForSingleExistingRiderInRoute_deprecated(Request * pMinionReq, Route * pExistingRoute) {
     std::vector<Route*> feasRoutesForTwoRiders;
        
     // check 1: pickup distance is feasible (if there is only one existing rider the current request is the candidate minion)
@@ -298,20 +331,20 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesForSingleExistingRide
             pMasterRequest->getActualPickupEvent()->timeT, pMasterRequest->getActualPickupEvent()->lat, pMasterRequest->getActualPickupEvent()->lng, 
             pMasterRequest->getActualDropEvent()->timeT, pMasterRequest->getActualDropEvent()->lat, pMasterRequest->getActualDropEvent()->lng, 
             pMasterRequest->getActualDispatchEvent()->timeT, pMasterRequest->getActualDispatchEvent()->lat, pMasterRequest->getActualDispatchEvent()->lng);
-    
+        
     if( pickupDistanceAtTimeOfMinionRequest <= _maxMatchDistInKm ) {
         
         // check 2: trip overlap exceeds threshold
         const double pickupDistanceToMinion = ModelUtils::computePickupDistance_savingsConstr(pMasterRequest->getActualPickupEvent()->timeT, pMasterRequest->getActualPickupEvent()->lat, pMasterRequest->getActualPickupEvent()->lng, pMasterRequest->getActualDropEvent()->timeT, pMasterRequest->getActualDropEvent()->lat, pMasterRequest->getActualDropEvent()->lng, pMinionReq->getReqTime(), pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), _inclMinionPickupDistExtMatchesSavingsConstr);
         const double uberXdistanceForMaster = Utility::computeGreatCircleDistance(pMasterRequest->getActualPickupEvent()->lat, pMasterRequest->getActualPickupEvent()->lng, pMasterRequest->getActualDropEvent()->lat, pMasterRequest->getActualDropEvent()->lng);
         const double uberXdistanceForMinion = Utility::computeGreatCircleDistance(pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
-                
+        
         // check if FIFO route is feasible
         Route * pFeasRoute_FIFO = checkIfFIFORouteIsFeasible(pMinionReq->getRiderID(), pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pExistingRoute);
         if( pFeasRoute_FIFO != NULL ) {
             feasRoutesForTwoRiders.push_back(pFeasRoute_FIFO);
         }
-        
+                
         // check if FILO route is feasible  
         Route * pFeasRoute_FILO = checkIfFILORouteIsFeasible(pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pExistingRoute);
         if( pFeasRoute_FILO != NULL ) {
@@ -376,15 +409,15 @@ Route * MultiplePickupsModel::checkIfFIFORouteIsFeasible(const std::string minio
      */
     
     const Request * pMasterReq = pSingleRiderExistingRoute->getPickupRequest(1);
-    
+        
     // step 1: compute h: distance of shared leg with MASTER being dropped first (Haversine)
     const double minionPickupLat  = pMinionReq->getPickupLat();
     const double minionPickupLng  = pMinionReq->getPickupLng();
     const double masterDropoffLat = pMasterReq->getDropoffLat();
     const double masterDropoffLng = pMasterReq->getDropoffLng();
     const double sharedDistance   = Utility::computeGreatCircleDistance(minionPickupLat, minionPickupLng, masterDropoffLat, masterDropoffLng);
-    const double dropDistance     = Utility::computeGreatCircleDistance(masterDropoffLat, masterDropoffLng, pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
-        
+    const double dropDistance     = Utility::computeGreatCircleDistance(masterDropoffLat, masterDropoffLng, pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());        
+    
     // step 2: compute LHS representing cost of matched uberPOOL trip
     const double distance_pool_master = distToMinion + 0.5*sharedDistance; // distance of pooled trip for master (deadhead to pickup + 0.5*shared distance)
     const double distance_pool_minion = 0.5*sharedDistance + dropDistance; // distance of pooled trip for minion (0.5*shared distance + deadhead to drop)
@@ -392,14 +425,15 @@ Route * MultiplePickupsModel::checkIfFIFORouteIsFeasible(const std::string minio
     // step 3: compute RHS representing cost of unmatched uberPOOL trip
     const double distance_uberX_master = (1-_minOverlapThreshold)*masterUberXDist;
     const double distance_uberX_minion = (1-_minOverlapThreshold)*minionUberXDist;
-    
+
     // step 4: check feasibility for both master and minion
     bool isFeasForMaster = ( distance_pool_master <= distance_uberX_master );
     bool isFeasForMinion = ( distance_pool_minion <= distance_uberX_minion );
-    
+
     // step 5: check if feasible and if so create AssignedTrip object
     if( isFeasForMaster && isFeasForMinion ) {
-        Route * pAugmentedRoute = buildCandidateRouteWithInsertion(pSingleRiderExistingRoute, pMinionReq, 2, 2);
+        //Route * pAugmentedRoute = buildCandidateRouteWithInsertion(pSingleRiderExistingRoute, pMinionReq, 2, 2);
+        Route * pAugmentedRoute = constructInsertedRoute(pSingleRiderExistingRoute, pMinionReq, 2, 2);              
         return pAugmentedRoute;
     } else {
         return NULL;
@@ -446,7 +480,8 @@ Route * MultiplePickupsModel::checkIfFILORouteIsFeasible(const double distToMini
     
     // step 5: return FeasibleMatch * object (if cost savings) or NULL (if match does not save)
     if ( isFeasForMaster && isFeasForMinion ) {                                
-        Route * pFeasRoute = buildCandidateRouteWithInsertion(pSingleRiderExistingRoute, pMinionReq, 2, 1);
+        //Route * pFeasRoute = buildCandidateRouteWithInsertion(pSingleRiderExistingRoute, pMinionReq, 2, 1);
+        Route * pFeasRoute = constructInsertedRoute(pSingleRiderExistingRoute, pMinionReq, 2, 1);
         return pFeasRoute;
     } else {
         return NULL;
@@ -478,7 +513,7 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesWithRiderPickedUpFirs
         Route * pRoute_11 = constructInsertedRoute(pExistingRoute,pMinionReq,1,1);
         bool isRouteFeas_11 = checkIfCandRouteMeetsSavings(pRoute_11);
         if( isRouteFeas_11 ) {
-            feasRoutesWithReqFirstPickup.push_back(pRoute_11);
+            feasRoutesWithReqFirstPickup.push_back(pRoute_11);           
         }
         
         // second check: second drop
@@ -495,7 +530,7 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesWithRiderPickedUpFirs
             feasRoutesWithReqFirstPickup.push_back(pRoute_13);
         }             
     }    
-    
+
     return feasRoutesWithReqFirstPickup;
 }
 std::vector<Route*> MultiplePickupsModel::getFeasilbeRoutesWithRiderPickedUpSecond(Request * pMinionReq, Route * pExistingRoute) {
@@ -558,9 +593,9 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesWithRiderPickedUpThir
         pExistingRoute->print();
         exit(1);
     }
-    
+       
     const double pickupDistanceAtTimeOfMinionRequest = ModelUtils::getPickupDistance_maxPickupConstr_route(pExistingRoute, pMinionReq, 3);
-    
+        
     if( pickupDistanceAtTimeOfMinionRequest <= _maxAllowablePickups ) { 
      
         // first check: second pickup, first drop
@@ -589,74 +624,289 @@ std::vector<Route*> MultiplePickupsModel::getFeasibleRoutesWithRiderPickedUpThir
 }
 Route * MultiplePickupsModel::constructInsertedRoute(Route* pOrigRoute, Request* reqToInsert, int pickupOrder, int dropoffOrder) {
     
-        Route * pRouteCopy = new Route(pOrigRoute->getRouteIndex(), pOrigRoute->getDriver(), pOrigRoute->getDispatchEvent());
-
-        // re-create requests and pick & drop events
-        for( std::vector<Request*>::const_iterator reqItr = pOrigRoute->getRequests()->begin(); reqItr != pOrigRoute->getRequests()->end(); ++reqItr) {
-            pRouteCopy->addRequest(*reqItr);
-        }
-        for( std::vector<RouteEvent*>::iterator pickItr = pOrigRoute->getPickupEvents()->begin(); pickItr != pOrigRoute->getPickupEvents()->end(); ++pickItr ) {
-            pRouteCopy->addPickupEvent((*pickItr)->getRequest(), (*pickItr)->getEventTime(), (*pickItr)->getLat(), (*pickItr)->getLng());
-        }
-        for( std::vector<RouteEvent*>::iterator dropItr = pOrigRoute->getDropoffEvents()->begin(); dropItr != pOrigRoute->getDropoffEvents()->end(); ++dropItr ) {
-            pRouteCopy->addDropoffEvent((*dropItr)->getRequest(), (*dropItr)->getEventTime(), (*dropItr)->getLat(), (*dropItr)->getLng());
-        }
-        
-        // append current request to route copy
-        pRouteCopy->addRequest(reqToInsert);
-        
-        // insert the PICKUP event
-        int pickupIndex = pickupOrder-1;
-        std::vector<RouteEvent*>::iterator itr = pRouteCopy->getPickupEvents()->begin()+pickupIndex;
-        LatLng pickupLoc(reqToInsert->getActualRequestEvent()->lat, reqToInsert->getActualRequestEvent()->lng);
-        RouteEvent * pNewPickupEvent = new RouteEvent(reqToInsert, reqToInsert->getActualPickupEvent()->timeT, pickupLoc, RouteEvent::PICKUP);
-        pRouteCopy->insertPickupEvent(pNewPickupEvent, pickupOrder);
-        
-        // insert the DROPOFF event
-        int dropoffIndex = dropoffOrder-1;
-        std::vector<RouteEvent*>::iterator dropItr = pRouteCopy->getDropoffEvents()->begin()+dropoffIndex;
-        LatLng dropLoc(reqToInsert->getActualDropEvent()->lat, reqToInsert->getActualDropEvent()->lng);
-        RouteEvent * pNewDropEvent = new RouteEvent(reqToInsert, reqToInsert->getActualDropEvent()->timeT, dropLoc, RouteEvent::DROPOFF);
-        pRouteCopy->insertDropoffEvent(pNewDropEvent,dropoffOrder);
-        
-        // update times
-        pRouteCopy->updateTimes();
-        
-        return pRouteCopy;
-}
-
-Route * MultiplePickupsModel::buildCandidateRouteWithInsertion(Route * origRoute, Request * pRequest, int pickupOrder, int dropOrder) {
+    Route * pRouteCopy = new Route(pOrigRoute->getRouteIndex(), pOrigRoute->getDriver(), pOrigRoute->getDispatchEvent());
     
-    // instantiate copy of existing route
-    Route * pRouteCopy = new Route(origRoute->getRouteIndex(), origRoute->getDriver(), origRoute->getDispatchEvent());
-        
+    // extract the current events and times associated with the adjacent RouteEvents 
+    std::pair<RouteEvent*, time_t> priorEvent  = getRouteEventPreceedingInsertedEvent(pOrigRoute,pickupOrder);
+    std::pair<RouteEvent*, time_t> subseqEvent = getRouteEventFollowingInsertedEvent(pOrigRoute,pickupOrder); 
+    
     // re-create requests and pick & drop events
-    for( std::vector<Request*>::const_iterator reqItr = origRoute->getRequests()->begin(); reqItr != origRoute->getRequests()->end(); ++reqItr) {
+    for( std::vector<Request*>::const_iterator reqItr = pOrigRoute->getRequests()->begin(); reqItr != pOrigRoute->getRequests()->end(); ++reqItr) {
         pRouteCopy->addRequest(*reqItr);
     }
-    for( std::vector<RouteEvent*>::iterator pickItr = origRoute->getPickupEvents()->begin(); pickItr != origRoute->getPickupEvents()->end(); ++pickItr ) {
+    for( std::vector<RouteEvent*>::iterator pickItr = pOrigRoute->getPickupEvents()->begin(); pickItr != pOrigRoute->getPickupEvents()->end(); ++pickItr ) {
         pRouteCopy->addPickupEvent((*pickItr)->getRequest(), (*pickItr)->getEventTime(), (*pickItr)->getLat(), (*pickItr)->getLng());
     }
-    for( std::vector<RouteEvent*>::iterator dropItr = origRoute->getDropoffEvents()->begin(); dropItr != origRoute->getDropoffEvents()->end(); ++dropItr ) {
+    for( std::vector<RouteEvent*>::iterator dropItr = pOrigRoute->getDropoffEvents()->begin(); dropItr != pOrigRoute->getDropoffEvents()->end(); ++dropItr ) {
         pRouteCopy->addDropoffEvent((*dropItr)->getRequest(), (*dropItr)->getEventTime(), (*dropItr)->getLat(), (*dropItr)->getLng());
     }
-    
-    // append current request to all requests in candidate route
-    pRouteCopy->addRequest(pRequest);
-           
-    // define and insert new pickup event
-    LatLng reqPickupLoc(pRequest->getActualPickupEvent()->lat, pRequest->getActualPickupEvent()->lng);
-    RouteEvent * pickupEvent = new RouteEvent(pRequest, pRequest->getActualPickupEvent()->timeT, reqPickupLoc, RouteEvent::PICKUP);
-    pRouteCopy->insertPickupEvent(pickupEvent,pickupOrder);
-        
-    // define new dropoff event            
-    LatLng reqDropLoc(pRequest->getActualDropEvent()->lat, pRequest->getActualDropEvent()->lng);        
-    RouteEvent * dropEvent   = new RouteEvent(pRequest, pRequest->getActualDropEvent()->timeT, reqDropLoc, RouteEvent::DROPOFF);
-    pRouteCopy->insertDropoffEvent(dropEvent,dropOrder);    
 
+    // append current request to route copy
+    pRouteCopy->addRequest(reqToInsert);
+
+    // insert the PICKUP event
+    int pickupIndex = pickupOrder-1;
+    std::vector<RouteEvent*>::iterator itr = pRouteCopy->getPickupEvents()->begin()+pickupIndex;
+    LatLng pickupLoc(reqToInsert->getActualRequestEvent()->lat, reqToInsert->getActualRequestEvent()->lng);
+    RouteEvent * pNewPickupEvent = new RouteEvent(reqToInsert, reqToInsert->getActualPickupEvent()->timeT, pickupLoc, RouteEvent::PICKUP);
+    pRouteCopy->insertPickupEvent(pNewPickupEvent, pickupOrder);
+
+    // insert the DROPOFF event
+    int dropoffIndex = dropoffOrder-1;
+    std::vector<RouteEvent*>::iterator dropItr = pRouteCopy->getDropoffEvents()->begin()+dropoffIndex;
+    LatLng dropLoc(reqToInsert->getActualDropEvent()->lat, reqToInsert->getActualDropEvent()->lng);
+    RouteEvent * pNewDropEvent = new RouteEvent(reqToInsert, reqToInsert->getActualDropEvent()->timeT, dropLoc, RouteEvent::DROPOFF);
+    pRouteCopy->insertDropoffEvent(pNewDropEvent,dropoffOrder);
+
+    // update times
+    pRouteCopy->updateTimes();
+
+    // compute the distance traveled to pick up the request 
+    double distToInsertedPickup = 0.0;
+    RouteEvent * priorPickupEvent = priorEvent.first;     // prior pickup before insertion
+    if( priorPickupEvent != NULL ) {
+        RouteEvent * nextEvent = subseqEvent.first; // subsequent pickup before insertion
+        distToInsertedPickup = ModelUtils::computePickupDistance_savingsConstr(priorPickupEvent->getEventTime(), priorPickupEvent->getLat(), priorPickupEvent->getLng(),
+                                                        nextEvent->getEventTime(), nextEvent->getLat(), nextEvent->getLng(), 
+                                                        reqToInsert->getReqTime(), reqToInsert->getActualRequestEvent()->lat, reqToInsert->getActualRequestEvent()->lng,
+                                                        _inclMinionPickupDistExtMatchesSavingsConstr);
+    }
+
+    // compute the MASTER metrics
+    RiderMetrics * master_metrics = computeRiderMetrics(pRouteCopy,1,distToInsertedPickup,reqToInsert);
+    pRouteCopy->setMasterMetrics(master_metrics);
+ 
+    // compute the MINION metrics
+    if( pRouteCopy->getNumMatchedRiders() >= 2 ) {
+        RiderMetrics * minion_metrics = computeRiderMetrics(pRouteCopy,2,distToInsertedPickup,reqToInsert);
+        pRouteCopy->setMinionMetrics(minion_metrics);
+    }
+
+    // compute the PARASITE metrics
+    if( pRouteCopy->getNumMatchedRiders() >= 3 ) {
+        RiderMetrics * parasite_metrics = computeRiderMetrics(pRouteCopy,3,distToInsertedPickup,reqToInsert);
+        pRouteCopy->setParasiteMetrics(parasite_metrics);
+    }
+    
+    Route::RouteMetrics * pRouteMetrics = computeRouteMetrics(pRouteCopy);
+    pRouteCopy->setRouteMetrics(pRouteMetrics);
+    
     return pRouteCopy;
 }
 
+std::pair<RouteEvent*, time_t> MultiplePickupsModel::getRouteEventPreceedingInsertedEvent(Route* pOrigRoute, int seqInsertedEvent) {
+    std::pair<RouteEvent*, time_t> preceedingEventAndTimePair;
+    assert(seqInsertedEvent >= 1);
+    
+    // only proceed if the event is NOT first (else, empty pair is returned and handled separately)
+    if( seqInsertedEvent > 1) {
+        int arrayIndexOfNewEvent = seqInsertedEvent-1; // e.g. if 2nd event, this is index 1
+        RouteEvent * pPrecedingEvent = pOrigRoute->getPickupEvents()->at(arrayIndexOfNewEvent-1);
+        time_t timeOfPrecedingEvent = pPrecedingEvent->getEventTime();
+        preceedingEventAndTimePair = make_pair(pPrecedingEvent, timeOfPrecedingEvent);
+    } else {
+        preceedingEventAndTimePair.first = NULL;
+        preceedingEventAndTimePair.second = 0;
+    }
+    
+    return preceedingEventAndTimePair;
+}
+std::pair<RouteEvent*, time_t> MultiplePickupsModel::getRouteEventFollowingInsertedEvent(Route* pOrigRoute, int seqInsertedEvent) {
+    std::pair<RouteEvent*, time_t> subseqEventAndTimePair;
+   
+    std::vector<RouteEvent*> * pickupEvents  = pOrigRoute->getPickupEvents();
+    std::vector<RouteEvent*> * dropoffEvents = pOrigRoute->getDropoffEvents();
+    
+    bool isInsertedEventLast = (pickupEvents->size()+1 == seqInsertedEvent);
+    
+    // case 1: the preceding pickup was NOT the final pickup... so next event is the following pickup
+    if( isInsertedEventLast == false ) {
+        subseqEventAndTimePair = make_pair(pickupEvents->at(seqInsertedEvent-1), pickupEvents->at(seqInsertedEvent-1)->getEventTime());
+    }
+    
+    // case 2: the preceding pickup route WAS the final pickup... so next event is first drop
+    else {
+        subseqEventAndTimePair = make_pair(dropoffEvents->front(),dropoffEvents->front()->getEventTime());
+    }
+    
+    return subseqEventAndTimePair;
+}
+
+void MultiplePickupsModel::printRiderMetrics(const RiderMetrics * pRiderMetrics) {
+    cout << "\t" << left << setw(15) << "rider: " << Utility::intToStr(pRiderMetrics->pRequest->getRiderIndex()) << endl;
+    cout << "\t" << left << setw(15) << "dist_X: " << Utility::truncateDouble(pRiderMetrics->uberXDist,4) << endl;
+    cout << "\t" << left << setw(15) << "dist_pool:" << Utility::truncateDouble(pRiderMetrics->pooledDist,4) << endl;
+    cout << "\t" << left << setw(15) << "inconv:" << Utility::truncateDouble(pRiderMetrics->inconv,4) << endl;
+    cout << "\t" << left << setw(15) << "cost: " << Utility::truncateDouble(pRiderMetrics->pooledCost,4) << endl;
+    cout << "\t" << left << setw(15) << "savings: " << Utility::truncateDouble(pRiderMetrics->savings,4) << endl;
+}
+void MultiplePickupsModel::printRouteMetrics(const Route::RouteMetrics * pRouteMetrics) {
+    cout << "\t" << left << setw(15) << "totalTripDist: " << Utility::truncateDouble(pRouteMetrics->_totalTripDist,4) << endl;
+    cout << "\t" << left << setw(15) << "sharedDist: " << Utility::truncateDouble(pRouteMetrics->_sharedDist,4) << endl;
+    cout << "\t" << left << setw(15) << "avgInconv: " << Utility::truncateDouble(pRouteMetrics->_avgRiderInconv,4) << endl;
+    cout << "\t" << left << setw(15) << "avgSavings: " << Utility::truncateDouble(pRouteMetrics->_avgRiderSavings,4) << endl;
+}
+
+RiderMetrics * MultiplePickupsModel::computeRiderMetrics(Route* pRoute, int riderIndexPickup, double pickupDistToInsertedReq, Request * pInsertedReq) {
+    assert( riderIndexPickup <= this->_maxAllowablePickups );
+    assert( riderIndexPickup <= pRoute->getPickupEvents()->size() );
+    
+    int pickupIx = riderIndexPickup-1;    
+    RouteEvent * pRiderPickup  = pRoute->getPickupEvents()->at(pickupIx);
+    RouteEvent * pRiderDropoff = getDropEventInRouteForRider(pRiderPickup->getRequest()->getRiderIndex(), pRoute);
+    
+    // compute shared distance
+    RouteEvent * pLastPickup = pRoute->getPickupEvents()->back();
+    RouteEvent * pFirstDrop  = pRoute->getDropoffEvents()->front();    
+    const double sharedDist = Utility::computeGreatCircleDistance(pLastPickup->getLat(), pLastPickup->getLng(), pFirstDrop->getLat(), pFirstDrop->getLng());
+    
+    // compute total trip distance AND trip cost together
+    std::pair<const double, const double> tripDistCostPair = computeTripCostAndDistanceForRider(pRoute, pRiderPickup, pRiderDropoff, pInsertedReq->getRiderIndex(), sharedDist, pickupDistToInsertedReq);
+    const double riderPoolDist = tripDistCostPair.first;
+    const double riderPoolCost = tripDistCostPair.second;
+    
+    // compute savings
+    const double uberXDist = Utility::computeGreatCircleDistance(pRiderPickup->getRequest()->getActualPickupEvent()->lat, pRiderPickup->getRequest()->getActualPickupEvent()->lng, pRiderPickup->getRequest()->getActualDropEvent()->lat, pRiderPickup->getRequest()->getActualDropEvent()->lng);
+    const double excessDist = riderPoolDist - uberXDist;
+    const double inconv = excessDist/uberXDist;
+    //const double inconv = (double)100*(excessDist/uberXDist);
+    const double costDiff = uberXDist - riderPoolCost;
+    //const double savings = (double)100*(costDiff/uberXDist);
+    const double savings = costDiff/uberXDist;
+        
+    RiderMetrics * pRiderMetrics = new RiderMetrics(pRiderPickup->getRequest(), uberXDist, riderPoolDist, riderPoolCost, savings, inconv);
+    return pRiderMetrics;
+}
+std::pair<const double, const double> MultiplePickupsModel::computeTripCostAndDistanceForRider(Route * pRoute, RouteEvent * pRiderPickup, RouteEvent * pRiderDropoff, const int riderIndexInserted, double sharedDistance, double pickupDistToInsertedReq) {
+    
+    assert( pRiderPickup->getRequest()->getRiderIndex() == pRiderDropoff->getRequest()->getRiderIndex() );
+    
+    std::vector<RouteEvent*> * pickups  = pRoute->getPickupEvents();
+    std::vector<RouteEvent*> * dropoffs = pRoute->getDropoffEvents();
+    
+    const double fracSharedDist = (double)1/(double)pRoute->getNumMatchedRiders();
+    double totalTripCost = fracSharedDist*sharedDistance; // instantiate trip cost with the link shared by all riders
+    
+    // step 1: compute pickup distance (but only if the final pickup does not coincide with the current rider)
+    double totalPickupDistance = 0;
+
+    if( pickups->back()->getRequest()->getRiderIndex() != pRiderPickup->getRequest()->getRiderIndex() ) {
+        bool isPartOfTrip = false;
+        for( int ii = 0; ii < pickups->size()-1; ii++ ) {
+            RouteEvent * currPickup = pickups->at(ii);
+            if( !isPartOfTrip ) { isPartOfTrip = (currPickup->getRequest()->getRiderIndex() == pRiderPickup->getRequest()->getRiderIndex()); }
+            if( isPartOfTrip ) {
+                RouteEvent * nextPickup = pickups->at(ii+1);
+                double currPickupDist = 0.0;  
+                if( nextPickup->getRequest()->getRiderIndex() == riderIndexInserted ) {
+                    currPickupDist += pickupDistToInsertedReq;
+                } else {
+                    currPickupDist += Utility::computeGreatCircleDistance(currPickup->getLat(), currPickup->getLng(), nextPickup->getLat(), nextPickup->getLng());
+                }
+                
+                totalPickupDistance += currPickupDist;                
+                double multiplier = (double)(2 - ii)/(double)2;
+                double adjCost = multiplier*currPickupDist;
+                totalTripCost += adjCost;                
+            }
+        }
+    }
+    
+    
+    // step 2: compute drop distance (but only if the initial drop does not coincide with the current rider)
+    double totalDropoffDistance = 0.0;
+    if( dropoffs->front()->getRequest()->getRiderIndex() != pRiderPickup->getRequest()->getRiderIndex() ) {
+        for( int jj = 0; jj < dropoffs->size()-1; jj++ ) {
+            RouteEvent * currDrop = dropoffs->at(jj);
+            RouteEvent * nextDrop = dropoffs->at(jj+1);
+            const double currDropoffDist = Utility::computeGreatCircleDistance(currDrop->getLat(), currDrop->getLng(), nextDrop->getLat(), nextDrop->getLng());
+            totalDropoffDistance += currDropoffDist;
+            
+            double multiplier = (double)(jj+1)/(double)(pRoute->getNumMatchedRiders()-1);
+            double adjCost = multiplier*currDropoffDist;
+            totalTripCost += adjCost;
+            
+            if( nextDrop->getRequest()->getRiderIndex() == pRiderDropoff->getRequest()->getRiderIndex() ) {                                                
+                break;
+            }
+        }
+    } 
+    
+    // now sum the three trip components and return trip distance for rider
+    const double totalTripDistForRider = totalPickupDistance + sharedDistance + totalDropoffDistance;
+    const double totalTripCostForRider = totalTripCost;
+                
+    std::pair<const double, const double> costDistPair = make_pair(totalTripDistForRider, totalTripCostForRider);    
+    return costDistPair;
+}
+Route::RouteMetrics * MultiplePickupsModel::computeRouteMetrics(Route * pRoute) {
+        
+    //    compute shared distance
+    RouteEvent * lastPickup = pRoute->getPickupEvents()->back();
+    RouteEvent * firstDrop  = pRoute->getDropoffEvents()->front();
+    double sharedDist = Utility::computeGreatCircleDistance(lastPickup->getLat(), lastPickup->getLng(), firstDrop->getLat(), firstDrop->getLng());
+        
+    // define total trip distance
+    const double totalTripDist = computeTotalTripDistance(pRoute, sharedDist);
+    
+    // compute average savings
+    const RiderMetrics * pMasterMetrics   = pRoute->getMasterMetrics();
+    const RiderMetrics * pMinionMetrics   = pRoute->getMinionMetrics();
+    const RiderMetrics * pParasiteMetrics = pRoute->getParasiteMetrics();
+    
+    double totalInconv  = 0.0;
+    double totalSavings = 0.0;
+    if( pMasterMetrics != NULL ) {
+        totalInconv  += pMasterMetrics->inconv;
+        totalSavings += pMasterMetrics->savings;
+    }
+    
+    if( pMinionMetrics != NULL ) {
+        totalInconv  += pMinionMetrics->inconv;
+        totalSavings += pMinionMetrics->savings;
+    }
+    
+    if( pParasiteMetrics != NULL ) {
+        totalInconv  += pParasiteMetrics->inconv;
+        totalSavings += pParasiteMetrics->savings;
+    }
+    
+    int numRiders = pRoute->getNumMatchedRiders();
+    double avgInconv  = totalInconv/(double)numRiders;
+    double avgSavings = totalSavings/(double)numRiders;
+    
+    // now define RouteMetrics object
+    Route::RouteMetrics * pRouteMetrics = new Route::RouteMetrics(totalTripDist, sharedDist, avgInconv, avgSavings);    
+    return pRouteMetrics;
+}
+const double MultiplePickupsModel::computeTotalTripDistance(Route * pRoute, const double &sharedDist) {
+  
+    // compute total trip distance    
+    std::vector<RouteEvent*> * pickups  = pRoute->getPickupEvents();
+    std::vector<RouteEvent*> * dropoffs = pRoute->getDropoffEvents();
+    
+    // compute pickup distances
+    double totalPickupDist = 0.0;
+    for( int ii = 0; ii < pickups->size()-1; ii++ ) {
+        RouteEvent * currPickup = pickups->at(ii);
+        RouteEvent * nextPickup = pickups->at(ii+1);
+        const double currPickupDist = Utility::computeGreatCircleDistance(currPickup->getLat(), currPickup->getLng(), nextPickup->getLat(), nextPickup->getLng());
+        totalPickupDist += currPickupDist;
+    }    
+    
+    // compute drop distance
+    double totalDropDist = 0.0;
+    for( int jj = 0; jj < dropoffs->size()-1; jj++ ) {
+        RouteEvent * currDrop = dropoffs->at(jj);
+        RouteEvent * nextDrop = dropoffs->at(jj+1);
+        const double currDropDist = Utility::computeGreatCircleDistance(currDrop->getLat(), currDrop->getLng(), nextDrop->getLat(), nextDrop->getLng());
+        totalDropDist += currDropDist;
+    }
+    
+    // define total trip distance
+    const double totalTripDist = totalPickupDist + sharedDist + totalDropDist;
+    return totalTripDist;
+}
 /*
  *   compute the cost of a candidate match
  *     - computed as difference in driver distance from master pickup to final drop
@@ -665,6 +915,19 @@ Route * MultiplePickupsModel::buildCandidateRouteWithInsertion(Route * origRoute
 const double MultiplePickupsModel::computeCostOfRoute(Route* pRoute) const {
     int n = pRoute->getPickupEvents()->size();
     assert( (1 <= n) && (n <= 3));
+    
+    // use master inconvenience
+    /*const double driverTripDist = pRoute->getRouteMetrics()->_totalTripDist;
+    const double masterTripDist = pRoute->getMasterMetrics()->pooledDist;
+    double addedDistance = driverTripDist - masterTripDist;
+    
+    if( 0.0 < abs(addedDistance) < 0.0001 ) {
+        addedDistance = 0.0;
+    }
+    
+    const double cost = addedDistance;
+    
+    return cost;*/
     
     switch( pRoute->getPickupEvents()->size() ) {
         case 1 :
@@ -744,50 +1007,34 @@ Route * MultiplePickupsModel::createNewRouteWithUnmatchedRider(const Driver * pD
     return pOpenRoute;
 }
 
-
-bool MultiplePickupsModel::checkIfCandRouteMeetsSavings(Route * pCandRoute) {
-    
-    // extract all events
-    RouteEvent * pFirstPickup  = pCandRoute->getPickupEvents()->front();
-    RouteEvent * pSecondPickup = pCandRoute->getPickupEvents()->at(1);
-    RouteEvent * pLastPickup   = pCandRoute->getPickupEvents()->back();
-    RouteEvent * pFirstDrop    = pCandRoute->getDropoffEvents()->front();
-    
-    const double sharedDist = Utility::computeGreatCircleDistance(pLastPickup->getLat(), pLastPickup->getLng(), pFirstDrop->getLat(), pFirstDrop->getLng());
-    
-    // check savings for rider 1
-    RouteEvent * pDropEvent_rider1 = getDropEventInRouteForRider(pFirstPickup->getRequest()->getRiderIndex(), pCandRoute);
-    double totalTripDist_rider1    = getTotalTripCostForRider(pFirstPickup, pDropEvent_rider1, pCandRoute, sharedDist);
-    const Event * pickup_1 = pFirstPickup->getRequest()->getActualPickupEvent();
-    const Event * drop_1   = pFirstPickup->getRequest()->getActualDropEvent();
-    double totalUberXDist_rider1 = Utility::computeGreatCircleDistance(pickup_1->lat, pickup_1->lng, drop_1->lat, drop_1->lng);
-    bool isFeas_rider1 = ( totalTripDist_rider1 <= (1-_minOverlapThreshold)*totalUberXDist_rider1 );
-    if( isFeas_rider1 == false ) 
-        return false;
-    
-    // check savings for rider 2
-    RouteEvent * pDropEvent_rider2 = getDropEventInRouteForRider(pSecondPickup->getRequest()->getRiderIndex(), pCandRoute);
-    double totalTripDist_rider2    = getTotalTripCostForRider(pSecondPickup, pDropEvent_rider2, pCandRoute, sharedDist);
-    const Event * pickup_2 = pSecondPickup->getRequest()->getActualPickupEvent();
-    const Event * drop_2   = pSecondPickup->getRequest()->getActualDropEvent();
-    double totalUberXDist_rider2 = Utility::computeGreatCircleDistance(pickup_2->lat, pickup_2->lng, drop_2->lat, drop_2->lng);
-    bool isFeas_rider2 = ( totalTripDist_rider2 <= (1-_minOverlapThreshold)*totalUberXDist_rider2 );
-    if( isFeas_rider2 == false )
-        return false;
-    
-    // check savings for rider 3
-    RouteEvent * pDropEvent_rider3 = getDropEventInRouteForRider(pLastPickup->getRequest()->getRiderIndex(), pCandRoute);
-    double totalTripDist_rider3 = getTotalTripCostForRider(pLastPickup, pDropEvent_rider3, pCandRoute, sharedDist);
-    const Event * pickup_3 = pLastPickup->getRequest()->getActualPickupEvent();
-    const Event * drop_3   = pLastPickup->getRequest()->getActualDropEvent();
-    double totalUberXDist_rider3 = Utility::computeGreatCircleDistance(pickup_3->lat, pickup_3->lng, drop_3->lat, drop_3->lng);
-    bool isFeas_rider3 = ( totalTripDist_rider3 <= (1-_minOverlapThreshold)*totalUberXDist_rider3 );
-    if( isFeas_rider3 == false ) 
-        return false;
+bool MultiplePickupsModel::checkIfCandRouteMeetsSavings(Route* pCandRoute) {
         
-    return true;    
+    // check savings for master
+    const RiderMetrics * pMasterMetrics = pCandRoute->getMasterMetrics();
+    assert( pMasterMetrics != NULL );
+    const double savings_master = pMasterMetrics->savings;
+    bool isSavings = (savings_master >= this->_minOverlapThreshold);
+    if( isSavings == false  )
+        return false;
+    
+    // check savings for minion
+    const RiderMetrics * pMinionMetrics = pCandRoute->getMinionMetrics();
+    if( pMinionMetrics != NULL ) {
+        const double savings_minion = pMinionMetrics->savings;
+        if( savings_minion < this->_minOverlapThreshold ) 
+            return false;
+    }
+    
+    // check savings for parasite
+    const RiderMetrics * pParasiteMetrics = pCandRoute->getParasiteMetrics();
+    if( pParasiteMetrics != NULL ) {
+        const double savings_parasite = pParasiteMetrics->savings;
+        if( savings_parasite < this->_minOverlapThreshold )
+            return false;
+    }
+        
+    return true;
 }
-
 RouteEvent * MultiplePickupsModel::getDropEventInRouteForRider(const int riderIndex, Route* pCandRoute) {
     
     for( std::vector<RouteEvent*>::iterator dropItr = pCandRoute->getDropoffEvents()->begin(); dropItr != pCandRoute->getDropoffEvents()->end(); ++dropItr ) {
@@ -797,95 +1044,6 @@ RouteEvent * MultiplePickupsModel::getDropEventInRouteForRider(const int riderIn
     }
     
     return NULL;
-}
-
-double MultiplePickupsModel::getTotalTripCostForRider(RouteEvent* pPickupEvent, RouteEvent* pDropEvent, Route* pCandRoute, double sharedTripDist) {
-    
-    // ensure the pickup and drop events correspond to the same rider
-    assert( pPickupEvent->getRequest()->getRiderIndex() == pDropEvent->getRequest()->getRiderIndex() );
-    
-    double totalTripDist = 0.3333*sharedTripDist; // initialize by shared distance (incurred by all riders)
-    
-    std::vector<RouteEvent*> * pickupEvents  = pCandRoute->getPickupEvents();
-    std::vector<RouteEvent*> * dropoffEvents = pCandRoute->getDropoffEvents();
-        
-    bool isOnTrip = false;
-    
-        // TODO: delete
-    bool toPrint = false;
-    RouteEvent * pFirstPickup = pCandRoute->getPickupEvents()->front();
-    RouteEvent * pSecondPickup = pCandRoute->getPickupEvents()->at(1);
-    RouteEvent * pLastPickup = pCandRoute->getPickupEvents()->back();
-    RouteEvent * pFirstDrop = pCandRoute->getDropoffEvents()->front();
-    RouteEvent * pSecondDrop = pCandRoute->getDropoffEvents()->at(1);
-    RouteEvent * pLastDrop = pCandRoute->getDropoffEvents()->back();
-    /*bool isPickupSeq = ( (pFirstPickup->getRequest()->getRiderIndex() == 763) && (pSecondPickup->getRequest()->getRiderIndex() == 823) && (pLastPickup->getRequest()->getRiderIndex() == 1599) );
-    bool isDropSeq = ( (pFirstDrop->getRequest()->getRiderIndex() == 763) && (pSecondDrop->getRequest()->getRiderIndex() == 823) && (pLastDrop->getRequest()->getRiderIndex() == 1599) );
-    if( isPickupSeq && isDropSeq ){
-        toPrint = true;        
-    }*/
-    
-    if( toPrint ) {
-        cout << "\n\nshared distance: " << Utility::truncateDouble(sharedTripDist,2) << std::endl;
-        cout << "\nPICKUP distances" << endl;
-    }
-    
-    // first compute all pickup distances 
-    for( int ii = 0; ii < pickupEvents->size()-1; ii++ ) {
-        RouteEvent * currPickupEvent = pickupEvents->at(ii);
-        if( isOnTrip == false ) {
-            isOnTrip = (currPickupEvent->getRequest()->getRiderIndex() == pPickupEvent->getRequest()->getRiderIndex());
-        }
-        
-        if( isOnTrip ) {        
-            RouteEvent * nextPickupEvent = pickupEvents->at(ii+1);
-            const double currPickupDist = Utility::computeGreatCircleDistance(currPickupEvent->getLat(), currPickupEvent->getLng(), nextPickupEvent->getLat(), nextPickupEvent->getLng());
-            double multiplier = (double)(2 - ii)/(double)2;
-            double adjCost = multiplier*currPickupDist;
-            totalTripDist += adjCost;
-            if( toPrint ) {                
-                cout << "current pickup: rider " << currPickupEvent->getRequest()->getRiderIndex() << endl;
-                cout << "next pickup: rider    " << nextPickupEvent->getRequest()->getRiderIndex() << endl;
-                cout << "\tpickup dist: " << Utility::truncateDouble(currPickupDist,2) << endl;
-            }
-        }        
-    } 
-    
-    if( toPrint ) {
-        cout << "\nDROPOFF distances" << endl;
-    }
-    
-    // now compute all dropoff distances
-    for( int jj = 0; jj < dropoffEvents->size()-1; jj++ ) {
-        RouteEvent * currDropoffEvent = dropoffEvents->at(jj);
-        if( currDropoffEvent->getRequest()->getRiderIndex() == pDropEvent->getRequest()->getRiderIndex() ) {
-            break;
-        }
-        
-        RouteEvent * nextDropoffEvent = dropoffEvents->at(jj+1);
-        const double currDropoffDist = Utility::computeGreatCircleDistance(currDropoffEvent->getLat(), currDropoffEvent->getLng(), nextDropoffEvent->getLat(), nextDropoffEvent->getLng());
-        double multiplier = (double)(jj+1)/(double)2;
-        double adjCost = multiplier*currDropoffDist;
-        totalTripDist += adjCost;
-        
-        if( toPrint ) {
-            cout << "current dropoff: rider " << currDropoffEvent->getRequest()->getRiderIndex() << endl;
-            cout << "next dropoff: rider    " << nextDropoffEvent->getRequest()->getRiderIndex() << endl;
-            cout << "\tdropoff distance: " << Utility::truncateDouble(currDropoffDist,2) << endl;
-        }
-    }
-    
-    if( toPrint ) {
-        cout << "\nuberX distances... " << endl;
-        const std::vector<Request*> * pReqs = pCandRoute->getRequests();
-        for( std::vector<Request*>::const_iterator jj = pReqs->begin(); jj != pReqs->end(); ++jj ) {
-            const double uberX = Utility::computeGreatCircleDistance((*jj)->getActualPickupEvent()->lat, (*jj)->getActualPickupEvent()->lng, (*jj)->getActualDropEvent()->lat, (*jj)->getActualDropEvent()->lng);
-            cout << "rider " << (*jj)->getRiderIndex() << ": " << Utility::truncateDouble(uberX,2) << endl;
-        }
-        //exit(0);
-    }
-    
-    return totalTripDist;
 }
 
 // --------------------

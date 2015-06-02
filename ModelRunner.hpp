@@ -16,6 +16,7 @@
 #include "FlexDepartureModel.hpp"
 #include "SolnMaps.hpp"
 #include "MultiplePickupsModel.hpp"
+#include "FileNotFoundException.hpp"
 #include <sys/stat.h>   /* mkdir */
 
 using namespace std;

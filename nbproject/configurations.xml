@@ -33,6 +33,7 @@
       <itemPath>ProblemInstance.hpp</itemPath>
       <itemPath>Request.hpp</itemPath>
       <itemPath>Rider.hpp</itemPath>
+      <itemPath>RiderMetrics.hpp</itemPath>
       <itemPath>Route.hpp</itemPath>
       <itemPath>RouteEvent.hpp</itemPath>
       <itemPath>SolnMaps.hpp</itemPath>
@@ -45,6 +46,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>FileNotFoundException.hpp</itemPath>
       <itemPath>ItemNotFoundException.hpp</itemPath>
       <itemPath>RiderCountException.hpp</itemPath>
       <itemPath>TimeAdjacencyException.hpp</itemPath>
@@ -142,6 +144,8 @@
       </item>
       <item path="FeasibleRoute.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FileNotFoundException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="FlexDepSolution.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FlexDepSolution.hpp" ex="false" tool="3" flavor2="0">
@@ -211,6 +215,8 @@
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RiderCountException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiderMetrics.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Route.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -293,6 +299,8 @@
       </item>
       <item path="FeasibleRoute.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FileNotFoundException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="FlexDepSolution.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FlexDepSolution.hpp" ex="false" tool="3" flavor2="0">
@@ -362,6 +370,8 @@
       <item path="Rider.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RiderCountException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiderMetrics.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Route.cpp" ex="false" tool="1" flavor2="0">
       </item>

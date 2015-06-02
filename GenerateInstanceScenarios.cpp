@@ -241,6 +241,17 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;            
         }
+        case 19 :
+        {
+            const int cityIndex                 = SF;
+            const std::string simStartTimeStr   = "2015-05-20 00:00:00";
+            const int simLengthInMin            = 10080;
+            const std::string inputCsvFilename  = "SFO_OAK-20150520-0000-20150527-0000.csv";
+            const std::string scenStr           = "SFO_OAK_snap";
+            
+            ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, NULL, scenStr);
+            return pInstance;
+        }
         default : 
         {
             std::cout << "\n\n--- ERROR: SCENARIO NUMBER NOT DEFINED ---\n" << std::endl;

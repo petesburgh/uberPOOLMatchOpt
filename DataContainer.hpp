@@ -19,6 +19,7 @@
 #include "Geofence.hpp"
 
 #include "ItemNotFoundException.hpp" /* custom exception */
+#include "FileNotFoundException.hpp" /* custom exception */
 
 #include<iostream>
 #include<sstream>

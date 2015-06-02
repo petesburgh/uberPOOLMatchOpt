@@ -8,6 +8,10 @@
 #include "Route.hpp"
 
 Route::Route(int ix, const Driver * driver, const Event * dispatch) : _routeIndex(ix), pDriver(driver), pDispatchEvent(dispatch) {
+    this->pRouteMetrics    = NULL;
+    this->pMasterMetrics   = NULL;
+    this->pMinionMetrics   = NULL;
+    this->pParasiteMetrics = NULL;
 }
 
 Route::~Route() {

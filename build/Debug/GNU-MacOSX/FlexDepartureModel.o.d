@@ -3,8 +3,9 @@ build/Debug/GNU-MacOSX/FlexDepartureModel.o: FlexDepartureModel.cpp \
   Utility.hpp LatLng.hpp TimeAdjacencyException.hpp OpenTrip.hpp \
   Rider.hpp MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp \
   FeasibleMatch.hpp Comparators.hpp AssignedTrip.hpp AssignedRoute.hpp \
-  Route.hpp RouteEvent.hpp Output.hpp DataContainer.hpp CSVRow.hpp \
-  Geofence.hpp ItemNotFoundException.hpp Solution.hpp ModelEnum.hpp \
+  Route.hpp RouteEvent.hpp RiderMetrics.hpp Output.hpp DataContainer.hpp \
+  CSVRow.hpp Geofence.hpp ItemNotFoundException.hpp \
+  FileNotFoundException.hpp Solution.hpp ModelEnum.hpp \
   FlexDepSolution.hpp MultPickupSoln.hpp RiderCountException.hpp \
   ModelRunner.hpp MitmModel.hpp ModelUtils.hpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
@@ -59,6 +60,8 @@ Route.hpp:
 
 RouteEvent.hpp:
 
+RiderMetrics.hpp:
+
 Output.hpp:
 
 DataContainer.hpp:
@@ -68,6 +71,8 @@ CSVRow.hpp:
 Geofence.hpp:
 
 ItemNotFoundException.hpp:
+
+FileNotFoundException.hpp:
 
 Solution.hpp:
 

@@ -22,6 +22,7 @@
 #include "MultPickupSoln.hpp"
 #include "ModelUtils.hpp"
 #include "Route.hpp"
+#include "RiderMetrics.hpp"
 
 #include <iostream>
 #include <set>
@@ -49,16 +50,14 @@ public:
     std::vector<Route*> getFeasibleRoutesToInsertMinionReq(Request * pMinionReq, Route * pExistingRoute);
     Route * checkIfFIFORouteIsFeasible(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, Route * pSingleRiderExistingRoute);
     Route * checkIfFILORouteIsFeasible(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, Route * pSingleRiderExistingRoute);
-    
-    //  build candidate route 
-    Route * buildCandidateRouteWithInsertion(Route * origRoute, Request * pRequest, int pickupOrder, int dropOrder);
-    
+
     const double computeCostOfMatch(FeasibleMatch * pMatch) const; 
     const double computeCostOfRoute(Route * pRoute) const;
     AssignedTrip * convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch);    
     bool removeRouteFromAssignedRoutes(Route * pMatchedRoute, std::set<Route*, RouteEndComp> *pOpenRoutes);
     
     std::vector<Route*> getFeasibleRoutesForSingleExistingRiderInRoute(Request * pMinionReq, Route * pExistingRoute);
+    std::vector<Route*> getFeasibleRoutesForSingleExistingRiderInRoute_deprecated(Request * pMinionReq, Route * pExistingRoute);
     std::vector<Route*> getFeasibleRoutesWithTwoExistingRiders(Request * pMinionReq, Route * pExistingRoute);
     
     // append modified route to set of open routes
@@ -72,7 +71,12 @@ public:
     Route * constructInsertedRoute(Route * pOrigRoute, Request * reqToInsert, int pickupOrder, int dropoffOrder);
     bool checkIfCandRouteMeetsSavings(Route * pCandRoute);
     RouteEvent * getDropEventInRouteForRider(const int riderIndex, Route * pCandRoute);
-    double getTotalTripCostForRider(RouteEvent * pPickupEvent, RouteEvent * pDropEvent, Route * pCandRoute, double sharedTripDist);
+    std::pair<const double, const double> computeTripCostAndDistanceForRider(Route * pRoute, RouteEvent * pRiderPickup, RouteEvent * pRiderDropoff, const int riderIndexInserted, double sharedDistance, double pickupDistToInsertedReq);
+    Route::RouteMetrics * computeRouteMetrics(Route * pRoute);
+    const double computeTotalTripDistance(Route * pRoute, const double &sharedDist);
+    
+    std::pair<RouteEvent*, time_t> getRouteEventPreceedingInsertedEvent(Route * pOrigRoute, int seqInsertedEvent);
+    std::pair<RouteEvent*, time_t> getRouteEventFollowingInsertedEvent(Route * pOrigRoute, int seqInsertedEvent);
     
     // given an unmatched request create a new Route object
     Route * createNewRouteWithUnmatchedRider(const Driver * pDriver, Request * pMinionRequest, const Event * pActualDispatchEvent);
@@ -91,6 +95,10 @@ public:
     
     const int getMaxAllowablePickups() const { return _maxAllowablePickups; }
     
+    // define metrics for given rider
+    RiderMetrics * computeRiderMetrics(Route * pRoute, int riderIndexPickup, double pickupDistToInsertedReq, Request * pInsertedReq);
+    void printRiderMetrics(const RiderMetrics * pRiderMetrics);
+    void printRouteMetrics(const Route::RouteMetrics * pRouteMetrics);
 
     // file I/O
     void initCandidateMatchFile(std::ofstream &outFile);

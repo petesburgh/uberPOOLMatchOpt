@@ -362,10 +362,11 @@ public:
     
     // compute pick up distance
     static double computePickupDistance_savingsConstr(
-            const time_t masterETA, const double masterOrigLat, const double masterOrigLng, const time_t masterETD, 
-            const double masterDestLat, const double masterDestLng, const time_t minionReqTime, const double minionOrigLat, 
-            const double minionOrigLng, int inclInitDistExtendedMatches) {
-        
+            const time_t masterETA, const double masterOrigLat, const double masterOrigLng, 
+            const time_t masterETD, const double masterDestLat, const double masterDestLng, 
+            const time_t minionReqTime, const double minionOrigLat, const double minionOrigLng, 
+            int inclInitDistExtendedMatches
+    ) {                
         double pickupDist = 0.0;
         
         bool isExtended = (masterETA <= minionReqTime);
@@ -386,7 +387,7 @@ public:
             // compute dist between curr location and minion origin
             const double distFromCurrLocToMinion = Utility::computeGreatCircleDistance(estLocAtMinReq.getLat(), estLocAtMinReq.getLng(), minionOrigLat, minionOrigLng);
             
-            pickupDist = distFromOrigToCurrLoc + distFromCurrLocToMinion;            
+            pickupDist = distFromOrigToCurrLoc + distFromCurrLocToMinion;               
         }
         
         return pickupDist;

@@ -77,6 +77,7 @@ int main(int argc, char** argv) {
      *      scen 16: SF, NO SNAP, 1 week sim from 1000-1000 local 05/04/2015 to 05/11/2015, with geo
      *      scen 17: SF, 55% SNAP, same as scen 16
      *      scen 18: SF, 100% SNAP, same as scen 16
+     *      scen 19: SFO-OAK sim, 1-week from 0000-0000 local 05/20 - 05/27, no geo
      */
     
     const int scenNumber = 2;
@@ -86,12 +87,12 @@ int main(int argc, char** argv) {
     // SPECIFY TYPE OF EXPERIMENT
     const ModelRunner::Experiment experiment = ModelRunner::DEFAULTVALUES;  //DEFAULTVALUES, OPTIN, BATCHWINDOW, PICKUP, SAVINGSRATE    
     
-    const bool printDebugFiles       = false;
+    const bool printDebugFiles       = true;
     const bool printToScreen         = false;
     const bool printIndivSolnMetrics = true;
     const bool populateInitOpenTrips = false;
         
-    ModelRunner::DataInputValues * pDataInput   = new ModelRunner::DataInputValues(inputPath, outputBasePath, pInstance->getInputCsvFilename(), pInstance->getSimStartTimeString(), pInstance->getSimLengthInMin(), populateInitOpenTrips);    
+    ModelRunner::DataInputValues  * pDataInput  = new ModelRunner::DataInputValues(inputPath, outputBasePath, pInstance->getInputCsvFilename(), pInstance->getSimStartTimeString(), pInstance->getSimLengthInMin(), populateInitOpenTrips);    
     ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(outputBasePath,printDebugFiles,printIndivSolnMetrics,printToScreen);
         
     // specify DEFAULT values
@@ -114,7 +115,7 @@ int main(int argc, char** argv) {
     std::vector<double> range_minPoolDiscount = defineMinPoolDiscountRange();  // max pool discount for master: 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
         
     // uberPOOL TEST MODELS RUN
-    const bool runMITMModel        = true;
+    const bool runMITMModel        = false;
     const bool runUFBW_seqPickups  = false;
     //const bool runUFBW_flexPickups = false; 
     const bool runFlexDepModel     = false;

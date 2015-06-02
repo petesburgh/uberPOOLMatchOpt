@@ -36,14 +36,20 @@ std::istream& operator>>(std::istream& str,CSVRow& data) {
 } 
 void DataContainer::extractCvsSnapshot() {
     
-    const std::string filePath = _inputPath + _csvFilename;    
+    const std::string filePath = _inputPath + _csvFilename; 
     std::ifstream       file(filePath);
+    
+    // ensure file is opened
+    if( file.is_open() == false ) {
+        throw new FileNotFoundException(filePath);
+    }
+    
     CSVRow row;
     int rowIndex = 0;
     int beginTripAfterEndTrip = 0;
     while( file >> row ) {        
-        size_t nCols = row.size();
-       // assert( nCols == 15 ); // ENSURE proper dimension of CSV 
+       size_t nCols = row.size();
+       //assert( nCols == 15 ); // ENSURE proper dimension of CSV 
 
        // ignore header row
        if( rowIndex > 0 ) {
@@ -60,7 +66,7 @@ void DataContainer::extractCvsSnapshot() {
            // get Driver* object (and define if necessary)
            Driver * pDriver = getDriverFromTrip(currTrip->getDriverID());
            pDriver->addTrip(currTrip); 
-                     
+                                
            /*
             *  ignore if the trip if:
             *       (a) it is already complete OR

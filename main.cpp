@@ -39,16 +39,10 @@ struct ParameterSet {
 void printMetricsToScreen(UserConfig * pUserConfig);
 std::vector<double> getExperimentInputValues(const Experiment &experiment, std::vector<double>&, std::vector<double>&, std::vector<double>&, std::vector<double>&);
 
-std::vector<double> defineBatchWindowRange();
-std::vector<double> defineOptInRange();
-std::vector<double> defineMaxPickupDistRange();
-std::vector<double> defineMinPoolDiscountRange();
-
 void printBanner(ParameterSet * pParamSet, int N);
 void printSummaryOfDataInput(DataContainer*);
 void printDriverInfo(DataContainer*);
 void printRiderInfo(const std::set<Rider*, RiderIndexComp>*);
-
 
 // -----------
 //    MAIN
@@ -67,7 +61,7 @@ int main(int argc, char** argv) {
         exit(1);
     }
                          
-    // specify singleton inputs // TODO: move to text file
+    // specify singleton inputs 
     const std::string inputPath        = pUserConfig->getStringParams()->_inputPath; 
     const std::string outputBasePath   = pUserConfig->getStringParams()->_outputBasePath; 
     const std::string geofenceDataPath = pUserConfig->getStringParams()->_geofenceDataPath; 
@@ -151,77 +145,6 @@ int main(int argc, char** argv) {
   
     return 0;
 }
-
-// define ranges for experiment
-std::vector<double> defineBatchWindowRange() {
-    std::vector<double> batchWindowRange;
-    
-    // all times are in SECONDS
-    batchWindowRange.push_back(15);
-    batchWindowRange.push_back(30);
-    batchWindowRange.push_back(45);
-    batchWindowRange.push_back(60);
-    batchWindowRange.push_back(75);
-    batchWindowRange.push_back(90);
-    batchWindowRange.push_back(120);
-    batchWindowRange.push_back(150);
-    batchWindowRange.push_back(300);
-    batchWindowRange.push_back(600); 
-    
-    return batchWindowRange;
-}
-std::vector<double> defineOptInRange() {
-    std::vector<double> optInRange;
-    
-    optInRange.push_back(0.10); 
-    optInRange.push_back(0.20);
-    optInRange.push_back(0.30);
-    optInRange.push_back(0.40);
-    optInRange.push_back(0.50);
-    optInRange.push_back(0.60);
-    optInRange.push_back(0.70);
-    optInRange.push_back(0.80);
-    optInRange.push_back(0.90);
-    optInRange.push_back(1.0);
-         
-    return optInRange;
-}
-std::vector<double> defineMaxPickupDistRange() {
-    std::vector<double> maxPickupRange;
-    
-    maxPickupRange.push_back(0.50);
-    maxPickupRange.push_back(1.0);
-    maxPickupRange.push_back(1.5);
-    maxPickupRange.push_back(2.0);
-    maxPickupRange.push_back(2.5);
-    maxPickupRange.push_back(3.0);
-    maxPickupRange.push_back(3.5);
-    maxPickupRange.push_back(4.0);
-    maxPickupRange.push_back(4.5);
-    maxPickupRange.push_back(5.0);
-    maxPickupRange.push_back(5.5);
-    maxPickupRange.push_back(6.0);
-    maxPickupRange.push_back(10.0);
-    
-    return maxPickupRange;    
-}
-std::vector<double> defineMinPoolDiscountRange() {
-    std::vector<double> minPoolDiscMasterRange;
-    
-    minPoolDiscMasterRange.push_back(0.05);
-    minPoolDiscMasterRange.push_back(0.10);
-    minPoolDiscMasterRange.push_back(0.15);
-    minPoolDiscMasterRange.push_back(0.20);
-    minPoolDiscMasterRange.push_back(0.25);
-    minPoolDiscMasterRange.push_back(0.30);
-    minPoolDiscMasterRange.push_back(0.35);
-    minPoolDiscMasterRange.push_back(0.40);
-    minPoolDiscMasterRange.push_back(0.45);
-    minPoolDiscMasterRange.push_back(0.50);    
-    
-    return minPoolDiscMasterRange;
-}
-
 
 void printMatchRateMetrics(ofstream &outFile, std::string inputName, std::vector<double> * pInputRange, std::map<double,double> * pMatchRateMap_MITM, std::map<double,double> * pMatchRateMap_UFBW, std::map<double,double> * pMatchRateMap_FD, std::map<double,double> * pMatchRateMap_UFBW_PI, std::map<double,double> * pMatchRateMap_FD_FDReqs, std::map<double,double> * pMatchRateMap_FD_nonFDReqs) {
    

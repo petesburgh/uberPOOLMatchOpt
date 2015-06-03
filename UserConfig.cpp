@@ -208,7 +208,6 @@ Experiment UserConfig::convertExperimentToExpEnum(std::string experimentStr) {
 std::vector<double> UserConfig::parseCsvRange_double(std::string str) {
     std::vector<double> rangeVec;
     
-    cout << "hello world!" << endl;
     std::stringstream ss(str);
     double value;
     while( ss >> value) {

@@ -10,6 +10,7 @@
 
 #include "Solution.hpp"
 #include "ModelEnum.hpp"
+#include "Utility.hpp"
 
 class FlexDepSolution : public Solution {
 public:

@@ -17,6 +17,7 @@
 #include "LatLng.hpp"
 #include "Comparators.hpp"
 #include "Geofence.hpp"
+#include "Utility.hpp"
 
 #include "ItemNotFoundException.hpp" /* custom exception */
 #include "FileNotFoundException.hpp" /* custom exception */

@@ -1,6 +1,5 @@
 build/Debug/GNU-MacOSX/OpenTrip.o: OpenTrip.cpp OpenTrip.hpp Driver.hpp \
-  TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
-  TimeAdjacencyException.hpp Rider.hpp
+  TripData.hpp Event.hpp Rider.hpp LatLng.hpp
 
 OpenTrip.hpp:
 
@@ -10,10 +9,6 @@ TripData.hpp:
 
 Event.hpp:
 
-Utility.hpp:
+Rider.hpp:
 
 LatLng.hpp:
-
-TimeAdjacencyException.hpp:
-
-Rider.hpp:

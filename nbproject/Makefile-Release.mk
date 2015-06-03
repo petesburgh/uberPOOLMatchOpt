@@ -59,6 +59,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/TripData.o \
 	${OBJECTDIR}/UFBW_fixed.o \
 	${OBJECTDIR}/UFBW_perfectInformation.o \
+	${OBJECTDIR}/UserConfig.o \
 	${OBJECTDIR}/main.o
 
 
@@ -205,6 +206,11 @@ ${OBJECTDIR}/UFBW_perfectInformation.o: UFBW_perfectInformation.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UFBW_perfectInformation.o UFBW_perfectInformation.cpp
+
+${OBJECTDIR}/UserConfig.o: UserConfig.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserConfig.o UserConfig.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

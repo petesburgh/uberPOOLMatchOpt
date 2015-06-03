@@ -16,6 +16,7 @@
 #include "FlexDepartureModel.hpp"
 #include "SolnMaps.hpp"
 #include "MultiplePickupsModel.hpp"
+#include "Experiment.hpp"
 #include "FileNotFoundException.hpp"
 #include <sys/stat.h>   /* mkdir */
 
@@ -25,15 +26,7 @@ class Output;
 
 class ModelRunner {
 public:
-    
-    enum Experiment{
-        DEFAULTVALUES,
-        OPTIN,
-        BATCHWINDOW,
-        PICKUP,
-        SAVINGSRATE
-     };
-     
+         
     struct DataInputValues {    
         DataInputValues(const std::string input, const std::string inputBase, const std::string cvsFname, const std::string timeline, const int simLengthMin, const bool popInitCandidates) :
             _inputPath(input), _inputBasePath(inputBase), _cvsFilename(cvsFname), _timelineStr(timeline), _simLengthInMinutes(simLengthMin),  _populateInitOpenTrips(popInitCandidates) {};
@@ -114,7 +107,7 @@ public:
     };
     
      
-    ModelRunner(const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const Geofence * geofence );
+    ModelRunner(const Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const Geofence * geofence );
     virtual ~ModelRunner();
     
     // construct DataContainer object

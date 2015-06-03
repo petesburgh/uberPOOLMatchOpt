@@ -51,8 +51,8 @@ bool MultiplePickupsModel::solve(bool printDebugFiles, Output * pOutput, bool po
         time_t currReqTime = (*reqItr)->getReqTime();
         
         // TODO: delete
-         std::cout << "\n** processing request " << (*reqItr)->getRiderIndex() << " **" << std::endl;
-         cout << "\trequest at " << Utility::convertTimeTToString(currReqTime) << endl;
+         //std::cout << "\n** processing request " << (*reqItr)->getRiderIndex() << " **" << std::endl;
+         //cout << "\trequest at " << Utility::convertTimeTToString(currReqTime) << endl;
                                
         int numCompletedRoutes = ModelUtils::assignCompletedOpenRoutes(currReqTime,openRoutes,_assignedRoutes);
         
@@ -88,11 +88,11 @@ bool MultiplePickupsModel::solve(bool printDebugFiles, Output * pOutput, bool po
     } 
    
     std::cout << "\n\n\n--- finished processing all requests ---\n\n" << std::endl;
-    std::cout << "\n\n_assignedRoutes.size() = " << _assignedRoutes.size() << std::endl;
+   /* std::cout << "\n\n_assignedRoutes.size() = " << _assignedRoutes.size() << std::endl;
     std::cout << "let's see how many riders are in each route... " << std::endl;
     for( std::set<AssignedRoute*, AssignedRouteIndexComp>::iterator it = _assignedRoutes.begin(); it != _assignedRoutes.end(); ++it ) {
         std::cout << "\troute " << (*it)->getIndex() << ":  " << (*it)->getNumRidersInRoute() << std::endl;
-    }
+    } */
         
     if( printDebugFiles ) {
         pOutFile->close();

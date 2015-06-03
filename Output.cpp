@@ -7,6 +7,7 @@
 
 #include "Output.hpp"
 #include "ModelRunner.hpp"
+#include "UserConfig.hpp"
 
 
 Output::Output(const std::string outputBasePath, const std::string outputExperimentPath, const bool printIndivMetrics) : 
@@ -989,19 +990,19 @@ void Output::printSolutionSummaryMetricsForCurrSolutions(const int &experiment, 
     std::set<double> inputRange = getKeyValues(pModelSolnMap);
     std::string inputValueStr = "";
     switch( experiment ) {
-        case ModelRunner::DEFAULTVALUES : 
+        case DEFAULTVALUES : 
             inputValueStr = "default";
             break;
-        case ModelRunner::OPTIN :
+        case OPTIN :
             inputValueStr = "opt-in";
             break;
-        case ModelRunner::BATCHWINDOW : 
+        case BATCHWINDOW : 
             inputValueStr = "batchLength";
             break;
-        case ModelRunner::PICKUP :
+        case PICKUP :
             inputValueStr = "maxPickupDist";
             break;
-        case ModelRunner::SAVINGSRATE :
+        case SAVINGSRATE :
             inputValueStr = "minSavingsPct";
             break;
         default :
@@ -2002,4 +2003,9 @@ std::set<double> Output::getKeyValues( const std::map<double, SolnMaps*> * pMode
     }
     
     return keyValues;
+}
+
+void Output::printInputFileSummary(UserConfig* pUserConfig) {
+    cout << "hello world from printInputFIleSummary" << endl;
+    exit(0);
 }

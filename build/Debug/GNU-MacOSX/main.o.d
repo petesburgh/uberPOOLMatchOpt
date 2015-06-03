@@ -1,13 +1,12 @@
 build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
-  TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
-  TimeAdjacencyException.hpp Driver.hpp Rider.hpp Request.hpp \
+  TripData.hpp Event.hpp Driver.hpp Rider.hpp Request.hpp LatLng.hpp \
   OpenTrip.hpp Comparators.hpp AssignedTrip.hpp FeasibleMatch.hpp \
   AssignedRoute.hpp Route.hpp RouteEvent.hpp RiderMetrics.hpp \
-  MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp Geofence.hpp \
-  ItemNotFoundException.hpp FileNotFoundException.hpp Output.hpp \
-  Solution.hpp ModelEnum.hpp FlexDepSolution.hpp MultPickupSoln.hpp \
-  RiderCountException.hpp ModelRunner.hpp MitmModel.hpp ModelUtils.hpp \
-  UFBW_fixed.hpp \
+  Utility.hpp TimeAdjacencyException.hpp MasterCand.hpp MinionCand.hpp \
+  MasterMinionMatchCand.hpp Geofence.hpp ItemNotFoundException.hpp \
+  FileNotFoundException.hpp Output.hpp Solution.hpp ModelEnum.hpp \
+  FlexDepSolution.hpp MultPickupSoln.hpp RiderCountException.hpp \
+  ModelRunner.hpp MitmModel.hpp ModelUtils.hpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -21,8 +20,9 @@ build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   FlexDepartureModel.hpp SolnMaps.hpp MultiplePickupsModel.hpp \
-  FeasibleRoute.hpp UFBW_perfectInformation.hpp \
-  GenerateInstanceScenarios.hpp ProblemInstance.hpp
+  FeasibleRoute.hpp Experiment.hpp UserConfig.hpp \
+  UFBW_perfectInformation.hpp GenerateInstanceScenarios.hpp \
+  ProblemInstance.hpp
 
 DataContainer.hpp:
 
@@ -32,17 +32,13 @@ TripData.hpp:
 
 Event.hpp:
 
-Utility.hpp:
-
-LatLng.hpp:
-
-TimeAdjacencyException.hpp:
-
 Driver.hpp:
 
 Rider.hpp:
 
 Request.hpp:
+
+LatLng.hpp:
 
 OpenTrip.hpp:
 
@@ -59,6 +55,10 @@ Route.hpp:
 RouteEvent.hpp:
 
 RiderMetrics.hpp:
+
+Utility.hpp:
+
+TimeAdjacencyException.hpp:
 
 MasterCand.hpp:
 
@@ -123,6 +123,10 @@ SolnMaps.hpp:
 MultiplePickupsModel.hpp:
 
 FeasibleRoute.hpp:
+
+Experiment.hpp:
+
+UserConfig.hpp:
 
 UFBW_perfectInformation.hpp:
 

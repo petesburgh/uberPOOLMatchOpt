@@ -263,9 +263,6 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
         return NULL;
     }
     
-    
-    
-    
     return NULL;
 }
 

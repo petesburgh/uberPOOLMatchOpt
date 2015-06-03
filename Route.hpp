@@ -9,6 +9,7 @@
 #include "RouteEvent.hpp"
 #include "LatLng.hpp"
 #include "RiderMetrics.hpp"
+#include "Utility.hpp"
 
 #include <iostream>
 #include <time.h>

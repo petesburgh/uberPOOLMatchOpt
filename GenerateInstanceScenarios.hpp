@@ -10,8 +10,6 @@
 
 #include "ProblemInstance.hpp"
 #include "CSVRow.hpp"
-//#include "Utility.hpp"
-//#include "Geofence.hpp"
 #include <iostream>
 #include<fstream>
 #include<sstream>

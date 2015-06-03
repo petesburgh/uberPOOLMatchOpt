@@ -1,8 +1,8 @@
 build/Debug/GNU-MacOSX/MitmModel.o: MitmModel.cpp MitmModel.hpp \
-  Request.hpp Driver.hpp TripData.hpp Event.hpp Utility.hpp LatLng.hpp \
-  TimeAdjacencyException.hpp OpenTrip.hpp Rider.hpp Comparators.hpp \
-  AssignedTrip.hpp FeasibleMatch.hpp AssignedRoute.hpp Route.hpp \
-  RouteEvent.hpp RiderMetrics.hpp MasterCand.hpp MinionCand.hpp \
+  Request.hpp Driver.hpp TripData.hpp Event.hpp LatLng.hpp OpenTrip.hpp \
+  Rider.hpp Comparators.hpp AssignedTrip.hpp FeasibleMatch.hpp \
+  AssignedRoute.hpp Route.hpp RouteEvent.hpp RiderMetrics.hpp \
+  Utility.hpp TimeAdjacencyException.hpp MasterCand.hpp MinionCand.hpp \
   MasterMinionMatchCand.hpp Output.hpp DataContainer.hpp CSVRow.hpp \
   Geofence.hpp ItemNotFoundException.hpp FileNotFoundException.hpp \
   Solution.hpp ModelEnum.hpp FlexDepSolution.hpp MultPickupSoln.hpp \
@@ -20,7 +20,7 @@ build/Debug/GNU-MacOSX/MitmModel.o: MitmModel.cpp MitmModel.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   SolnMaps.hpp MultiplePickupsModel.hpp FeasibleRoute.hpp ModelUtils.hpp \
-  UFBW_fixed.hpp
+  UFBW_fixed.hpp Experiment.hpp UserConfig.hpp
 
 MitmModel.hpp:
 
@@ -32,11 +32,7 @@ TripData.hpp:
 
 Event.hpp:
 
-Utility.hpp:
-
 LatLng.hpp:
-
-TimeAdjacencyException.hpp:
 
 OpenTrip.hpp:
 
@@ -55,6 +51,10 @@ Route.hpp:
 RouteEvent.hpp:
 
 RiderMetrics.hpp:
+
+Utility.hpp:
+
+TimeAdjacencyException.hpp:
 
 MasterCand.hpp:
 
@@ -121,3 +121,7 @@ FeasibleRoute.hpp:
 ModelUtils.hpp:
 
 UFBW_fixed.hpp:
+
+Experiment.hpp:
+
+UserConfig.hpp:

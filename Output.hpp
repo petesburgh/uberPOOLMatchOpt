@@ -16,6 +16,7 @@
 #include "ModelEnum.hpp"
 #include "ModelRunner.hpp"
 #include "SolnMaps.hpp"
+#include "UserConfig.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -77,6 +78,8 @@ public:
     void setDataContainer(DataContainer * dataContainer) { pDataContainer = dataContainer; }    
     std::set<double> getKeyValues( const std::map<double, SolnMaps*> * pModelSolnMap );
     
+    void printInputFileSummary(UserConfig * pUserConfig);
+
     
 private:
     const std::string _outputBasePath;

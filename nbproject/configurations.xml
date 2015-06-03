@@ -11,6 +11,7 @@
       <itemPath>DataContainer.hpp</itemPath>
       <itemPath>Driver.hpp</itemPath>
       <itemPath>Event.hpp</itemPath>
+      <itemPath>Experiment.hpp</itemPath>
       <itemPath>FeasibleMatch.hpp</itemPath>
       <itemPath>FeasibleRoute.hpp</itemPath>
       <itemPath>FlexDepSolution.hpp</itemPath>
@@ -41,11 +42,13 @@
       <itemPath>TripData.hpp</itemPath>
       <itemPath>UFBW_fixed.hpp</itemPath>
       <itemPath>UFBW_perfectInformation.hpp</itemPath>
+      <itemPath>UserConfig.hpp</itemPath>
       <itemPath>Utility.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>ExperimentUndefinedException.hpp</itemPath>
       <itemPath>FileNotFoundException.hpp</itemPath>
       <itemPath>ItemNotFoundException.hpp</itemPath>
       <itemPath>RiderCountException.hpp</itemPath>
@@ -78,6 +81,7 @@
       <itemPath>TripData.cpp</itemPath>
       <itemPath>UFBW_fixed.cpp</itemPath>
       <itemPath>UFBW_perfectInformation.cpp</itemPath>
+      <itemPath>UserConfig.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -140,6 +144,10 @@
       </item>
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Experiment.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ExperimentUndefinedException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FeasibleRoute.hpp" ex="false" tool="3" flavor2="0">
@@ -245,6 +253,10 @@
       <item path="UFBW_perfectInformation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="UFBW_perfectInformation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UserConfig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UserConfig.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -295,6 +307,10 @@
       </item>
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Experiment.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ExperimentUndefinedException.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="FeasibleMatch.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FeasibleRoute.hpp" ex="false" tool="3" flavor2="0">
@@ -400,6 +416,10 @@
       <item path="UFBW_perfectInformation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="UFBW_perfectInformation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="UserConfig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="UserConfig.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utility.hpp" ex="false" tool="3" flavor2="0">
       </item>

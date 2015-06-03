@@ -8,7 +8,7 @@
 #include "ModelRunner.hpp"
 #include "UFBW_perfectInformation.hpp"
 
-ModelRunner::ModelRunner( const ModelRunner::Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const Geofence * geofence ) : 
+ModelRunner::ModelRunner( const Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const Geofence * geofence ) : 
     _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), _runMultiplePickupsModel(runMultiplePickupsModel), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofence(geofence) {      
 }
 
@@ -58,7 +58,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
     
     // run DEFAULT VALUES
     switch( _experiment ) {
-        case ModelRunner::DEFAULTVALUES :
+        case DEFAULTVALUES :
         {             
             const std::string outputExpPath = pDataOutput->_outputBasePath + "defaultParams/";
             pOutput = new Output(pDataOutput->_outputBasePath, outputExpPath, pDataOutput->_printIndivSolnMetrics);
@@ -68,7 +68,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
             const std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMetrics_defaultVals = runModelsForCurrExperiment(pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings); // second input is a dummy argument                     
             break;
         }
-        case ModelRunner::OPTIN :
+        case OPTIN :
         {
             for( std::vector<double>::iterator optInItr = _range_optInValues.begin(); optInItr != _range_optInValues.end(); ++optInItr ) {
                 
@@ -83,7 +83,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
             }
             break;
         }
-        case ModelRunner::BATCHWINDOW :
+        case BATCHWINDOW :
         {
             for( std::vector<double>::iterator batchWindowItr = _range_batchWindowValues.begin(); batchWindowItr != _range_batchWindowValues.end(); ++batchWindowItr ) {
                 
@@ -98,7 +98,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
             }
             break;
         }
-        case ModelRunner::PICKUP :
+        case PICKUP :
         {
             for( std::vector<double>::iterator maxPickupItr = _range_maxPickupDistValues.begin(); maxPickupItr != _range_maxPickupDistValues.end(); ++maxPickupItr ) {
                 
@@ -113,7 +113,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
             }
             break;
         }        
-        case ModelRunner::SAVINGSRATE :
+        case SAVINGSRATE :
         {
             for( std::vector<double>::iterator minSavingsItr = _range_minSavingsValues.begin(); minSavingsItr != _range_minSavingsValues.end(); ++minSavingsItr ) {
                 

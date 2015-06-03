@@ -8,13 +8,13 @@
 #ifndef EVENT_HPP
 #define	EVENT_HPP
 
+//#include "Utility.hpp"
+
 #include<iostream>
 #include<vector>
 #include<time.h>
 
-#include "Utility.hpp"
-
-using namespace std;
+//using namespace std;
 
 struct Event{
     Event() {};
@@ -23,11 +23,11 @@ struct Event{
         
    const std::string getEventStr() const { 
        std::string eventStr = "";
-       eventStr += Utility::convertTimeTToString(timeT); 
+       eventStr += "ABC"; //Utility::convertTimeTToString(timeT); 
        eventStr += "/";
-       eventStr += Utility::doubleToStr(lat);
+       eventStr += "IJK"; //Utility::doubleToStr(lat);
        eventStr += "/";
-       eventStr += Utility::doubleToStr(lng);
+       eventStr += "XYZ"; //Utility::doubleToStr(lng);
        return eventStr;
    }
         

@@ -201,6 +201,27 @@ public:
         return avgSpeed;
     }
     
+    static int stringToInt(std::string s) {
+        int value = atoi(s.c_str());
+        return value;
+    }
+    static double stringToDouble(std::string s) {
+        double value = stod(s.c_str());
+        return value;
+    }
+    static bool stringToBoolean(std::string s) {
+        std::string trueStr_lower = "true";
+        std::string trueStr_firstUpper = "True";
+        std::string trueStr_upper = "TRUE";
+        
+        if( (strcmp(s.c_str(),trueStr_lower.c_str()) == 0) || (strcmp(s.c_str(),trueStr_firstUpper.c_str()) == 0) || (strcmp(s.c_str(),trueStr_upper.c_str()) == 0) ) {
+            return true;
+        }
+        else 
+            return false;        
+    }
+        
+    
 private:
 };
 

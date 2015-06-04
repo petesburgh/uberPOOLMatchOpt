@@ -22,8 +22,7 @@ build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
   FlexDepartureModel.hpp SolnMaps.hpp MultiplePickupsModel.hpp \
   FeasibleRoute.hpp Experiment.hpp UserConfig.hpp \
   ExperimentUndefinedException.hpp EnumException.hpp \
-  UFBW_perfectInformation.hpp GenerateInstanceScenarios.hpp \
-  ProblemInstance.hpp
+  UFBW_perfectInformation.hpp
 
 DataContainer.hpp:
 
@@ -134,7 +133,3 @@ ExperimentUndefinedException.hpp:
 EnumException.hpp:
 
 UFBW_perfectInformation.hpp:
-
-GenerateInstanceScenarios.hpp:
-
-ProblemInstance.hpp:

@@ -39,9 +39,15 @@ public:
     };
     
     struct DefaultModelParameters { 
-        DefaultModelParameters(const double optIn, const int batchWindow, const double maxPickupDist, const double minSavings, const double flexDepOptInRate, const int flexDepWindowSec, const int maxAllowablePickups) : 
-            _optInRate(optIn), _batchWindowLengthInSec(batchWindow), _maxPickupDistance(maxPickupDist), _minSavings(minSavings), _flexDepOptInRate(flexDepOptInRate), _flexDepWindowInSec(flexDepWindowSec), _maxAllowablePickups(maxAllowablePickups) {};
-
+        DefaultModelParameters(const UserConfig * pUserConfig) : 
+            _optInRate(pUserConfig->getDoubleParams()->_defaultOptInRate), 
+            _batchWindowLengthInSec(pUserConfig->getIntParams()->_default_upFrontBatchWindowInSec), 
+            _maxPickupDistance(pUserConfig->getDoubleParams()->_default_maxMatchDistInKm), 
+            _minSavings(pUserConfig->getDoubleParams()->_default_minPoolDiscount), 
+            _flexDepOptInRate(pUserConfig->getDoubleParams()->_flexDepOptInRate), 
+            _flexDepWindowInSec(pUserConfig->getIntParams()->_flexDepWindowInSec), 
+            _maxAllowablePickups(pUserConfig->getIntParams()->_maxAllowablePickups) {};
+       
         const double _optInRate;
         const int    _batchWindowLengthInSec;
         const double _maxPickupDistance;
@@ -52,8 +58,11 @@ public:
     };    
     
     struct DataOutputValues {
-        DataOutputValues(const std::string outputBasePath, const bool printDebugFiles, const bool printIndivSolnMetrics, const bool printToScreen) : 
-            _outputBasePath(outputBasePath), _printDebugFiles(printDebugFiles), _printIndivSolnMetrics(printIndivSolnMetrics), _printToScreen(printToScreen) {};
+        DataOutputValues(const UserConfig * pUserConfig) : 
+            _outputBasePath(pUserConfig->getStringParams()->_outputBasePath), 
+            _printDebugFiles(pUserConfig->getBooleanParams()->_printDebugFiles), 
+            _printIndivSolnMetrics(pUserConfig->getBooleanParams()->_printIndivSolnMetrics), 
+            _printToScreen(pUserConfig->getBooleanParams()->_printToScreen) {};
     
         const std::string _outputBasePath;
         std::string _outputScenarioPath;
@@ -119,7 +128,6 @@ public:
     std::map<const ModelEnum, SolnMetrics*> * runModelsForCurrExperiment(double optInRate, double batchWindowLengthInSecDouble, double maxPickupDistance, double minPctSavings);
     
     // set input values 
-    //void setInputValues( std::vector<double> optInVals, std::vector<double> batchWindowVals, std::vector<double> maxPickupVals, std::vector<double> minSavingsVals );
     void setInputValues( UserConfig * pUserConfig );  
     
     // update solution to be returned

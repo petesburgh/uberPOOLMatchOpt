@@ -42,7 +42,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Driver.o \
 	${OBJECTDIR}/FlexDepSolution.o \
 	${OBJECTDIR}/FlexDepartureModel.o \
-	${OBJECTDIR}/GenerateInstanceScenarios.o \
 	${OBJECTDIR}/Geofence.o \
 	${OBJECTDIR}/MitmModel.o \
 	${OBJECTDIR}/ModelRunner.o \
@@ -50,7 +49,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/MultiplePickupsModel.o \
 	${OBJECTDIR}/OpenTrip.o \
 	${OBJECTDIR}/Output.o \
-	${OBJECTDIR}/ProblemInstance.o \
 	${OBJECTDIR}/Request.o \
 	${OBJECTDIR}/Rider.o \
 	${OBJECTDIR}/Route.o \
@@ -122,11 +120,6 @@ ${OBJECTDIR}/FlexDepartureModel.o: FlexDepartureModel.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FlexDepartureModel.o FlexDepartureModel.cpp
 
-${OBJECTDIR}/GenerateInstanceScenarios.o: GenerateInstanceScenarios.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GenerateInstanceScenarios.o GenerateInstanceScenarios.cpp
-
 ${OBJECTDIR}/Geofence.o: Geofence.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -161,11 +154,6 @@ ${OBJECTDIR}/Output.o: Output.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
-
-${OBJECTDIR}/ProblemInstance.o: ProblemInstance.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ProblemInstance.o ProblemInstance.cpp
 
 ${OBJECTDIR}/Request.o: Request.cpp 
 	${MKDIR} -p ${OBJECTDIR}

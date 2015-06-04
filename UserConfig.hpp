@@ -40,7 +40,6 @@ public:
     };
     
     struct IntParams {
-        int _scenNumber; 
         int _maxAllowablePickups;
         int _default_upFrontBatchWindowInSec;
         int _flexDepWindowInSec;    
@@ -56,9 +55,7 @@ public:
     
     struct StringParams {
         std::string _experiment;
-        std::string _inputPath;
-        std::string _outputBasePath;
-        std::string _geofenceDataPath;    
+        std::string _outputBasePath;    
         std::string _inputData;
         std::string _geofenceData;
         std::string _simStartTime;
@@ -118,16 +115,13 @@ private:
     UserConfig::RangeParams  * pRangeParams;
     
     // key values from input
-    std::string input_int_scenNumber;    
     std::string input_int_maxAllowablePickups;
     std::string input_int_defaultUpFrontBatchWindowInSec;
     std::string input_int_defaultFlexDepWindowInSec; 
     std::string input_int_simLenInMin;
     
     std::string input_str_experiment;
-    std::string input_str_inputPath; // TODO: deprecate
     std::string input_str_outputBasePath;
-    std::string input_str_geofenceDataPath; // TODO: deprecate
     std::string input_str_inputCSV;
     std::string input_str_geofenceData;
     std::string input_str_simStartTime;

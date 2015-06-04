@@ -7,21 +7,6 @@
 
 #include "DataContainer.hpp"
 #include "TripData.hpp"
-#include "ProblemInstance.hpp"
-
-// constructors
-/*DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, 
-            const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence) 
-                : _optInRate(optInRate), pGeofence(geofence) {
-    
-    _inputPath = inputPath;
-    _csvFilename = csvFilename;
-    _timelineStr = timelineStr;
-    _timeline = Utility::convertDateTimeStringToTimeT(timelineStr);
-    _printDebugFiles = printDebugFiles;
-    _printToScreen = printToScreen;
-    _simEndTime = _timeline + (time_t)(60*simLengthInMin);
-}*/
 
 DataContainer::DataContainer(const std::string& inputCsvFile, const std::string& timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence* geofence) : 
         _optInRate(optInRate), pGeofence(geofence) {
@@ -45,8 +30,7 @@ std::istream& operator>>(std::istream& str,CSVRow& data) {
     return str;
 } 
 void DataContainer::extractCvsSnapshot() {
-    
-  //  const std::string filePath = _inputPath + _csvFilename; 
+  
     const std::string filePath = _inputCsvFile;
     std::ifstream       file(filePath);
     
@@ -60,7 +44,7 @@ void DataContainer::extractCvsSnapshot() {
     int beginTripAfterEndTrip = 0;
     while( file >> row ) {        
        size_t nCols = row.size();
-       //assert( nCols == 15 ); // ENSURE proper dimension of CSV 
+       assert( nCols == 15 ); // ENSURE proper dimension of CSV 
 
        // ignore header row
        if( rowIndex > 0 ) {

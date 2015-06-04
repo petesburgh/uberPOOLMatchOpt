@@ -13,8 +13,6 @@
 #include "UFBW_fixed.hpp"
 #include "FlexDepartureModel.hpp"
 #include "UFBW_perfectInformation.hpp"
-#include "GenerateInstanceScenarios.hpp"
-#include "ProblemInstance.hpp"
 #include "Geofence.hpp"
 #include "FlexDepSolution.hpp"
 #include "ModelRunner.hpp"
@@ -54,36 +52,19 @@ int main(int argc, char** argv) {
     try {
         pUserConfig->readConfigValues(configFile);
         printMetricsToScreen(pUserConfig);
-        //exit(0);
     } catch( FileNotFoundException &ex ) {
         std::cout << "\n*** FileNotFoundException thrown ***" << std::endl;
         ex.what();
         std::cout << "\t(existing unsuccessfully)" << endl;
         exit(1);
     }
-                         
-    // specify singleton inputs 
-   // const std::string inputPath        = pUserConfig->getStringParams()->_inputPath; 
-    const std::string outputBasePath   = pUserConfig->getStringParams()->_outputBasePath; 
-   // const std::string geofenceDataPath = pUserConfig->getStringParams()->_geofenceDataPath; 
-        
-    const bool printDebugFiles       = pUserConfig->getBooleanParams()->_printDebugFiles; // true;
-    const bool printToScreen         = pUserConfig->getBooleanParams()->_printToScreen; // false;
-    const bool printIndivSolnMetrics = pUserConfig->getBooleanParams()->_printIndivSolnMetrics; // true;
-        
+
+    // populate input and output structures belonging to ModelRunner
     ModelRunner::DataInputValues  * pDataInput  = new ModelRunner::DataInputValues(pUserConfig);
-    ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(outputBasePath,printDebugFiles,printIndivSolnMetrics,printToScreen);
-    
-    // specify DEFAULT values
-    const double default_optInRate               = pUserConfig->getDoubleParams()->_defaultOptInRate; // 0.40;
-    const int    default_upFrontBatchWindowInSec = pUserConfig->getIntParams()->_default_upFrontBatchWindowInSec; // 30;
-    const double default_maxMatchDistInKm        = pUserConfig->getDoubleParams()->_default_maxMatchDistInKm; // 3.0;
-    const double default_minPoolDiscount         = pUserConfig->getDoubleParams()->_default_minPoolDiscount; // 0.2;
-    const double default_flexDepOptInRate        = pUserConfig->getDoubleParams()->_flexDepOptInRate; // 0.25;
-    const int    default_flexDepWindowInSec      = pUserConfig->getIntParams()->_flexDepWindowInSec; // 600;
-    const int    default_maxAllowablePickups     = pUserConfig->getIntParams()->_maxAllowablePickups; 
-        
-    ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(default_optInRate, default_upFrontBatchWindowInSec, default_maxMatchDistInKm, default_minPoolDiscount, default_flexDepOptInRate, default_flexDepWindowInSec, default_maxAllowablePickups);
+    ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(pUserConfig);
+
+    // populate default input values
+    ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(pUserConfig); // default_optInRate, default_upFrontBatchWindowInSec, default_maxMatchDistInKm, default_minPoolDiscount, default_flexDepOptInRate, default_flexDepWindowInSec, default_maxAllowablePickups);
              
     // create ModelRunner object which controls all optimizations 
     ModelRunner * pModelRunner = new ModelRunner( pUserConfig->getEnumParams()->_experiment, pUserConfig, pDataInput, pDataOutput, pDefaultInputs );     
@@ -372,12 +353,10 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
         
     cout << "\nINTEGER PARAMETERS" << endl;
     const UserConfig::IntParams * pIntParams = pUserConfig->getIntParams();
-    std::string scen = Utility::intToStr(pIntParams->_scenNumber);
     std::string maxPickups = Utility::intToStr(pIntParams->_maxAllowablePickups);
     std::string ufbwSec = Utility::intToStr(pIntParams->_default_upFrontBatchWindowInSec);
     std::string flexDepWindowSec = Utility::intToStr(pIntParams->_flexDepWindowInSec);
     std::string simLenInMin = Utility::intToStr(pIntParams->_simLengthInMin);
-    cout << "  " << left << setw(30) << "scenario number: " << scen << endl;
     cout << "  " << left << setw(30) << "sim length in min: " << simLenInMin << endl;
     cout << "  " << left << setw(30) << "max pickups: " << maxPickups << endl;
     cout << "  " << left << setw(30) << "up front batch window sec: " << ufbwSec << endl;
@@ -399,9 +378,7 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     const UserConfig::StringParams * pStringParams = pUserConfig->getStringParams();
     cout << "  " << left << setw(20) << "input data: " << pStringParams->_inputData << endl;
     cout << "  " << left << setw(20) << "geofence data: " << pStringParams->_geofenceData << endl;
-    cout << "  " << left << setw(20) << "input path:  " << pStringParams->_inputPath << endl;
     cout << "  " << left << setw(20) << "output base path: " << pStringParams->_outputBasePath << endl;
-    cout << "  " << left << setw(20) << "geofence: " << pStringParams->_geofenceDataPath << endl;
     cout << "  " << left << setw(20) << "sim start time: " << pStringParams->_simStartTime << endl;
     
     cout << "\nENUM PARAMETERS" << endl;

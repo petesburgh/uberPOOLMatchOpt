@@ -4,8 +4,7 @@ build/Debug/GNU-MacOSX/DataContainer.o: DataContainer.cpp \
   AssignedTrip.hpp FeasibleMatch.hpp AssignedRoute.hpp Route.hpp \
   RouteEvent.hpp RiderMetrics.hpp Utility.hpp TimeAdjacencyException.hpp \
   MasterCand.hpp MinionCand.hpp MasterMinionMatchCand.hpp Geofence.hpp \
-  ItemNotFoundException.hpp FileNotFoundException.hpp \
-  ProblemInstance.hpp
+  ItemNotFoundException.hpp FileNotFoundException.hpp
 
 DataContainer.hpp:
 
@@ -54,5 +53,3 @@ Geofence.hpp:
 ItemNotFoundException.hpp:
 
 FileNotFoundException.hpp:
-
-ProblemInstance.hpp:

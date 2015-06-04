@@ -184,11 +184,6 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
     std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pModelSolnMetricMap = new std::map<const ModelEnum, ModelRunner::SolnMetrics*>();
     
     int batchWindowLengthInSec = (int)batchWindowLengthInSecDouble;
-    cout << "optInRate: " << Utility::doubleToStr(optInRate) << endl;
-    if( optInRate < 0.001 ) {
-        cout << "\t(exiting from runModelsForCurrExperiment...)" << endl;
-        exit(0);
-    }
     DataContainer * pDataContainer = constructDataContainer(optInRate, batchWindowLengthInSec);
     
     pOutput->setDataContainer(pDataContainer);

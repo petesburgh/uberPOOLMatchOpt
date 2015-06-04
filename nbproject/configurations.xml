@@ -16,7 +16,6 @@
       <itemPath>FeasibleRoute.hpp</itemPath>
       <itemPath>FlexDepSolution.hpp</itemPath>
       <itemPath>FlexDepartureModel.hpp</itemPath>
-      <itemPath>GenerateInstanceScenarios.hpp</itemPath>
       <itemPath>Geofence.hpp</itemPath>
       <itemPath>LatLng.hpp</itemPath>
       <itemPath>Location.hpp</itemPath>
@@ -31,7 +30,6 @@
       <itemPath>MultiplePickupsModel.hpp</itemPath>
       <itemPath>OpenTrip.hpp</itemPath>
       <itemPath>Output.hpp</itemPath>
-      <itemPath>ProblemInstance.hpp</itemPath>
       <itemPath>Request.hpp</itemPath>
       <itemPath>Rider.hpp</itemPath>
       <itemPath>RiderMetrics.hpp</itemPath>
@@ -65,7 +63,6 @@
       <itemPath>Driver.cpp</itemPath>
       <itemPath>FlexDepSolution.cpp</itemPath>
       <itemPath>FlexDepartureModel.cpp</itemPath>
-      <itemPath>GenerateInstanceScenarios.cpp</itemPath>
       <itemPath>Geofence.cpp</itemPath>
       <itemPath>MitmModel.cpp</itemPath>
       <itemPath>ModelRunner.cpp</itemPath>
@@ -73,7 +70,6 @@
       <itemPath>MultiplePickupsModel.cpp</itemPath>
       <itemPath>OpenTrip.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
-      <itemPath>ProblemInstance.cpp</itemPath>
       <itemPath>Request.cpp</itemPath>
       <itemPath>Rider.cpp</itemPath>
       <itemPath>Route.cpp</itemPath>
@@ -165,10 +161,6 @@
       </item>
       <item path="FlexDepartureModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="GenerateInstanceScenarios.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="GenerateInstanceScenarios.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Geofence.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Geofence.hpp" ex="false" tool="3" flavor2="0">
@@ -212,10 +204,6 @@
       <item path="Output.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Output.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ProblemInstance.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="ProblemInstance.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Request.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -330,10 +318,6 @@
       </item>
       <item path="FlexDepartureModel.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="GenerateInstanceScenarios.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="GenerateInstanceScenarios.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Geofence.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Geofence.hpp" ex="false" tool="3" flavor2="0">
@@ -377,10 +361,6 @@
       <item path="Output.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Output.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ProblemInstance.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="ProblemInstance.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Request.cpp" ex="false" tool="1" flavor2="0">
       </item>

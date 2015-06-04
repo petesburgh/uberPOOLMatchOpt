@@ -10,16 +10,13 @@
 
 UserConfig::UserConfig() {
     // populate key values from input file
-    input_int_scenNumber                        = "scenNumber";
     input_int_maxAllowablePickups               = "maxAllowablePickups";
     input_int_defaultUpFrontBatchWindowInSec    = "default_upFrontBatchWindowInSec";
     input_int_defaultFlexDepWindowInSec         = "default_flexDepWindowInSec";
     input_int_simLenInMin                       = "simLengthInMin";
     
     input_str_experiment        = "experiment";
-    input_str_inputPath         = "inputPath"; // TODO: deprecate
     input_str_outputBasePath    = "outputBasePath";
-    input_str_geofenceDataPath  = "geofenceDataPath"; // TODO: deprecate
     input_str_inputCSV          = "inputCSVFile";
     input_str_geofenceData      = "geofenceFile";
     input_str_simStartTime      = "simStartTime";
@@ -123,9 +120,7 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
             }
                         
             // populate INT values
-            else if( strcmp(key.c_str(), input_int_scenNumber.c_str()) == 0 ) {
-                pIntParams->_scenNumber = Utility::stringToInt(value);                      // scenario number                           
-            } else if( strcmp(key.c_str(), input_int_maxAllowablePickups.c_str()) == 0 ) {
+            else if( strcmp(key.c_str(), input_int_maxAllowablePickups.c_str()) == 0 ) {
                 pIntParams->_maxAllowablePickups = Utility::stringToInt(value);             //  max pickups permitted
             } else if( strcmp(key.c_str(), input_int_defaultUpFrontBatchWindowInSec.c_str()) == 0 ) {
                 pIntParams->_default_upFrontBatchWindowInSec = Utility::stringToInt(value); // default up front batch window in sec
@@ -151,12 +146,8 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
                 pStringParams->_inputData = value;                                      // input CSV file
             } else if( strcmp(key.c_str(), input_str_geofenceData.c_str()) == 0 ) {
                 pStringParams->_geofenceData = value;                                   // input file assoicated with geofence .txt input
-            } else if( strcmp(key.c_str(), input_str_inputPath.c_str()) == 0 ) {
-                pStringParams->_inputPath = value;                                      // input (data) path                                                         
             } else if( strcmp(key.c_str(), input_str_outputBasePath.c_str()) == 0 ) {
                 pStringParams->_outputBasePath = value;                                 // output base path                                   
-            } else if( strcmp(key.c_str(), input_str_geofenceDataPath.c_str()) == 0 ) {
-                pStringParams->_geofenceDataPath = value;                               // path of geofences                                    
             } else if( strcmp(key.c_str(), input_str_simStartTime.c_str()) == 0 ) {
                 pStringParams->_simStartTime = value;                                   // sim start time in string format
             }

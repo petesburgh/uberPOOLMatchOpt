@@ -9,8 +9,11 @@
 
 #include <iostream>
 
-Geofence::Geofence(const Geofence::Type geofenceType, const int geofenceID, const std::string cityStr) :
+/*Geofence::Geofence(const Geofence::Type geofenceType, const int geofenceID, const std::string cityStr) :
          _geofenceType(geofenceType), _geofenceID(geofenceID), _cityString(cityStr) {
+}*/
+
+Geofence::Geofence( const Type geofenceType ) : _geofenceType(geofenceType) {    
 }
 
 Geofence::~Geofence() {

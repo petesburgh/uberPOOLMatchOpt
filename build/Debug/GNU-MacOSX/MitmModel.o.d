@@ -20,7 +20,8 @@ build/Debug/GNU-MacOSX/MitmModel.o: MitmModel.cpp MitmModel.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   SolnMaps.hpp MultiplePickupsModel.hpp FeasibleRoute.hpp ModelUtils.hpp \
-  UFBW_fixed.hpp Experiment.hpp UserConfig.hpp
+  UFBW_fixed.hpp Experiment.hpp UserConfig.hpp \
+  ExperimentUndefinedException.hpp EnumException.hpp
 
 MitmModel.hpp:
 
@@ -125,3 +126,7 @@ UFBW_fixed.hpp:
 Experiment.hpp:
 
 UserConfig.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:

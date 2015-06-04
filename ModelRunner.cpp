@@ -8,11 +8,50 @@
 #include "ModelRunner.hpp"
 #include "UFBW_perfectInformation.hpp"
 
-ModelRunner::ModelRunner( const Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues, const Geofence * geofence ) : 
-    _experiment(experiment), _runMitmModel(runMITMModel), _runUFBW_fixedPickup(runUFBW_seqPickups), _runUFBW_pickupSwap(false), _runFlexDeparture(runFlexDepModel), _runUFBW_PI(runUFBW_perfectInfo), _runMultiplePickupsModel(runMultiplePickupsModel), pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues), pGeofence(geofence) {      
+ModelRunner::ModelRunner( const Experiment &experiment, UserConfig * pUserConfig, DataInputValues * dataInput, DataOutputValues * dataOutput, DefaultModelParameters * defaultValues) : 
+    _experiment(experiment), 
+    _runMitmModel(pUserConfig->getBooleanParams()->_runMITMModel), 
+    _runUFBW_fixedPickup(pUserConfig->getBooleanParams()->_runUFBW_seqPickups), 
+    _runFlexDeparture(pUserConfig->getBooleanParams()->_runFlexDepModel), 
+    _runUFBW_PI(pUserConfig->getBooleanParams()->_runUFBW_perfInfo), 
+    _runMultiplePickupsModel(pUserConfig->getBooleanParams()->_runMultiplePickups), 
+    pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues) {      
+    
+    pGeofence = NULL; // instantiate Geofence; this may be later updated if a valid file is provided
 }
 
 ModelRunner::~ModelRunner() {
+}
+
+void ModelRunner::extractGeofence(const std::string _geofencePath) {
+    
+    pGeofence = new Geofence(Geofence::REQ_ONLY);
+    
+    ifstream inFile;
+    inFile.open(_geofencePath);
+    std::string line;
+    if( inFile.is_open() ) {
+        while( getline(inFile,line) ) {
+
+            std::stringstream ss(line);
+            std::string token;
+            std::pair<double,double> currVertex;
+            int column = 0;
+            while( ss >> token ) {                
+                assert( column <= 1 );
+                size_t prec = 10;
+                double currValue = std::stod(token,&prec);
+                if( column == 0 ) {
+                    currVertex.first = currValue;
+                } else if( column == 1 ) {
+                    currVertex.second = currValue;
+                }
+                column++;
+            }
+            pGeofence->addLatLng(currVertex);
+        }
+        inFile.close();
+    }    
 }
 
 DataContainer * ModelRunner::constructDataContainer(double optInRate, int batchWindowLengthInSec) {
@@ -22,7 +61,8 @@ DataContainer * ModelRunner::constructDataContainer(double optInRate, int batchW
     /* 
      * STEP 1: read parse CSV input 
     */
-    pDataContainer = new DataContainer(pDataInput->_inputPath, pDataInput->_cvsFilename, pDataInput->_timelineStr, optInRate, pDataInput->_simLengthInMinutes, pDataOutput->_printDebugFiles, pDataOutput->_printToScreen, pGeofence);
+//    pDataContainer = new DataContainer(pDataInput->_inputPath, pDataInput->_cvsFilename, pDataInput->_timelineStr, optInRate, pDataInput->_simLengthInMinutes, pDataOutput->_printDebugFiles, pDataOutput->_printToScreen, pGeofence);
+    pDataContainer = new DataContainer(pDataInput->_inputCvsFile, pDataInput->_timelineStr, optInRate, pDataInput->_simLengthInMinutes, pDataOutput->_printDebugFiles, pDataOutput->_printToScreen, pGeofence);
     pDataContainer->setBatchWindowInSeconds(batchWindowLengthInSec);
     try {
         pDataContainer->extractCvsSnapshot();  
@@ -39,7 +79,7 @@ DataContainer * ModelRunner::constructDataContainer(double optInRate, int batchW
     pDataContainer->generateUberPoolTripProxy();   // get uberPOOL users
     int nPoolTrips = pDataContainer->buildUberPOOLTrips(); // build only uberPOOL trips (subset of all trips which also contain uberX trips)  
     std::cout << Utility::intToStr(nPoolTrips) << " uberPOOL trips created" << std::endl;
-
+              
     /*
      *   step 3: convert Trip objects into:
      *      (i)  Request objects (i.e. Trips that have not yet been dispatched)
@@ -144,6 +184,11 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
     std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pModelSolnMetricMap = new std::map<const ModelEnum, ModelRunner::SolnMetrics*>();
     
     int batchWindowLengthInSec = (int)batchWindowLengthInSecDouble;
+    cout << "optInRate: " << Utility::doubleToStr(optInRate) << endl;
+    if( optInRate < 0.001 ) {
+        cout << "\t(exiting from runModelsForCurrExperiment...)" << endl;
+        exit(0);
+    }
     DataContainer * pDataContainer = constructDataContainer(optInRate, batchWindowLengthInSec);
     
     pOutput->setDataContainer(pDataContainer);
@@ -526,11 +571,11 @@ ModelRunner::IndivSolnMetrics * ModelRunner::getIndivSolnMetrics(Solution * pSol
     return pIndivSolnMetrics;    
 }
 
-void ModelRunner::setInputValues( std::vector<double> optInVals, std::vector<double> batchWindowVals, std::vector<double> maxPickupVals, std::vector<double> minSavingsVals ) {
-    _range_optInValues = optInVals;
-    _range_batchWindowValues = batchWindowVals;
-    _range_maxPickupDistValues = maxPickupVals;
-    _range_minSavingsValues = minSavingsVals;
+void ModelRunner::setInputValues(UserConfig* pUserConfig) {
+    _range_optInValues = pUserConfig->getRangeParams()->optInRange;
+    _range_batchWindowValues = pUserConfig->getRangeParams()->batchWindowRange;
+    _range_maxPickupDistValues = pUserConfig->getRangeParams()->maxPickupRange;
+    _range_minSavingsValues = pUserConfig->getRangeParams()->minSavingsRange;    
 }
 
 void ModelRunner::printSolutionSummaryForCurrExperiment(const std::map<double, SolnMaps*> * pInputValSolnMap) {

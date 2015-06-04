@@ -9,14 +9,18 @@
 #define	USERCONFIG_HPP
 
 #include "Utility.hpp" /* converting string to int, double, bool */
-#include "FileNotFoundException.hpp" /* custom exception */
 #include "Experiment.hpp" /* enum for experiment */
+#include "FileNotFoundException.hpp" /* custom exception */
+#include "ExperimentUndefinedException.hpp" /* custom exception */
+#include "EnumException.hpp" /* custom exception */
+#include "Geofence.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <map>
 #include <set>
+//#include <algorithm>
 using namespace std;
 
 class UserConfig {
@@ -39,7 +43,8 @@ public:
         int _scenNumber; 
         int _maxAllowablePickups;
         int _default_upFrontBatchWindowInSec;
-        int _flexDepWindowInSec;        
+        int _flexDepWindowInSec;    
+        int _simLengthInMin;
     };
     
     struct DoubleParams {
@@ -53,11 +58,15 @@ public:
         std::string _experiment;
         std::string _inputPath;
         std::string _outputBasePath;
-        std::string _geofenceDataPath;        
+        std::string _geofenceDataPath;    
+        std::string _inputData;
+        std::string _geofenceData;
+        std::string _simStartTime;
     };
     
     struct EnumParams {
         Experiment _experiment;
+        Geofence::Type _geofenceType;
     };
     
     struct RangeParams {
@@ -80,6 +89,7 @@ public:
     
     // convert string to Enum values
     Experiment convertExperimentToExpEnum(std::string experimentStr);
+    Geofence::Type convertGeofenceTypeToEnum(std::string geofenceRestrTypeStr);
     
     // setters
     void setBoolParams(BoolParams * boolParams) { pBoolParams = boolParams; }
@@ -112,11 +122,16 @@ private:
     std::string input_int_maxAllowablePickups;
     std::string input_int_defaultUpFrontBatchWindowInSec;
     std::string input_int_defaultFlexDepWindowInSec; 
+    std::string input_int_simLenInMin;
     
     std::string input_str_experiment;
-    std::string input_str_inputPath;
+    std::string input_str_inputPath; // TODO: deprecate
     std::string input_str_outputBasePath;
-    std::string input_str_geofenceDataPath;
+    std::string input_str_geofenceDataPath; // TODO: deprecate
+    std::string input_str_inputCSV;
+    std::string input_str_geofenceData;
+    std::string input_str_simStartTime;
+    std::string input_str_geofenceType; 
     
     std::string input_bool_runMITM;
     std::string input_bool_runUFBWSeqPickups;
@@ -140,7 +155,7 @@ private:
     std::string input_range_minSavingsExp;
     
     std::set<std::string> eligExperimentInputStrings;
-    
+    std::set<std::string> eligGeofenceRestrTypeStrings; 
 };
 
 #endif	/* USERCONFIG_HPP */

@@ -22,7 +22,8 @@ build/Debug/GNU-MacOSX/UFBW_perfectInformation.o: \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   FlexDepartureModel.hpp SolnMaps.hpp MultiplePickupsModel.hpp \
-  FeasibleRoute.hpp Experiment.hpp UserConfig.hpp
+  FeasibleRoute.hpp Experiment.hpp UserConfig.hpp \
+  ExperimentUndefinedException.hpp EnumException.hpp
 
 UFBW_perfectInformation.hpp:
 
@@ -129,3 +130,7 @@ FeasibleRoute.hpp:
 Experiment.hpp:
 
 UserConfig.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:

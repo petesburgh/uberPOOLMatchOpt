@@ -39,7 +39,8 @@ using namespace std;
 
 class DataContainer {
 public:
-    DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence);
+   // DataContainer(const std::string &inputPath, const std::string &filename, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence);
+    DataContainer(const std::string &inputCsvFile, const std::string &timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence);
     virtual ~DataContainer();
     
     // methods called by main()
@@ -52,8 +53,9 @@ public:
     TripData* defineCurrentTripInfoFromCsvLine(CSVRow& row);
     
     // getters
-    const std::string getInputPath()   const { return _inputPath; }
-    const std::string getCsvFilename() const { return _csvFilename; }
+    const std::string getCsvInputFile()  const { return _inputCsvFile; }
+   // const std::string getInputPath()   const { return _inputPath; }
+    //const std::string getCsvFilename() const { return _csvFilename; }
     const std::vector<TripData*>* getAllTrips() const { return &_allTrips; }
     const std::vector<TripData*>* getUberPoolTrips() const { return &_uberPOOLTrips; }
     const std::set<Driver*, DriverIndexComp>* getAllDrivers() const { return &_allDrivers; }
@@ -86,8 +88,9 @@ public:
    
 private:
     // I/O
-    std::string _inputPath;   // input path for folder containing input data
-    std::string _csvFilename; // name of csv file containing snapshot data
+   // std::string _inputPath;   // input path for folder containing input data
+   // std::string _csvFilename; // name of csv file containing snapshot data
+    std::string _inputCsvFile; // 
     std::string _timelineStr; // string of timeline defining snapshot
     int _batchWindowInSec;    // length of up-front batch window
     double _optInRate;        // percent of users requesting uberX that define POOL requests

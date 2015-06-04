@@ -21,7 +21,8 @@ build/Debug/GNU-MacOSX/Output.o: Output.cpp Output.hpp DataContainer.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   FlexDepartureModel.hpp SolnMaps.hpp MultiplePickupsModel.hpp \
-  FeasibleRoute.hpp Experiment.hpp UserConfig.hpp
+  FeasibleRoute.hpp Experiment.hpp UserConfig.hpp \
+  ExperimentUndefinedException.hpp EnumException.hpp
 
 Output.hpp:
 
@@ -126,3 +127,7 @@ FeasibleRoute.hpp:
 Experiment.hpp:
 
 UserConfig.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:

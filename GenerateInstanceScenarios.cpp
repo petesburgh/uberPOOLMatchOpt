@@ -27,7 +27,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             const std::string scenStr           = "SF-20150413-1600-1Hr-2Geofences";                        
 
             const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;   
@@ -55,7 +55,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             
             // extract SF whiteout geofence (geofence id 14617)
             const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;            
@@ -71,7 +71,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             
             // extract SF whiteout geofence (geofence id 14617)
             const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
-            const Geofence * pGeofence = extractGeofence(Geofence::ENTIRE_TRIP, 14617, "SF", geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::ENTIRE_TRIP, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;
@@ -146,7 +146,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
 
             // extract LA geofence id 23664
             const std::string geofenceInputPath = geofenceFolderPath + "LA-geo.txt";            
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY,23664,"LA",geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);  
             return pInstance;              
@@ -161,7 +161,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             
             // extract LA geofence id 23664
             const std::string geofenceInputPath = geofenceFolderPath + "LA-geo.txt";            
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY,23664,"LA",geofenceInputPath);            
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);            
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);  
             return pInstance;              
@@ -208,7 +208,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             const std::string scenStr           = "SF-noSnap";
             
             const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;
@@ -222,7 +222,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             const std::string scenStr           = "SF-noSnap";
             
             const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;            
@@ -236,7 +236,7 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
             const std::string scenStr           = "SF-noSnap";
             
             const std::string geofenceInputPath = geofenceFolderPath + "SF-whiteout.txt"; 
-            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, 14617, "SF", geofenceInputPath);
+            const Geofence * pGeofence = extractGeofence(Geofence::REQ_ONLY, geofenceInputPath);
             
             ProblemInstance * pInstance = new ProblemInstance(cityIndex, simStartTimeStr, simLengthInMin, inputCsvFilename, pGeofence, scenStr);
             return pInstance;            
@@ -266,9 +266,9 @@ ProblemInstance * GenerateInstanceScenarios::generateInstanceScenarios(const int
     return NULL;
 }
 
-const Geofence * GenerateInstanceScenarios::extractGeofence(const Geofence::Type type, const int geofenceID, const std::string cityString, const std::string &geofenceDataFile) {
+const Geofence * GenerateInstanceScenarios::extractGeofence(const Geofence::Type type, const std::string &geofenceDataFile) {
     
-    Geofence * pGeofence = new Geofence(type,geofenceID,cityString);
+    Geofence * pGeofence = new Geofence(type);
     
     ifstream inFile;
     inFile.open(geofenceDataFile);

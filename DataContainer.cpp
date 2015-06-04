@@ -10,7 +10,7 @@
 #include "ProblemInstance.hpp"
 
 // constructors
-DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, 
+/*DataContainer::DataContainer(const std::string &inputPath, const std::string &csvFilename, const std::string &timelineStr, 
             const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence * geofence) 
                 : _optInRate(optInRate), pGeofence(geofence) {
     
@@ -21,6 +21,16 @@ DataContainer::DataContainer(const std::string &inputPath, const std::string &cs
     _printDebugFiles = printDebugFiles;
     _printToScreen = printToScreen;
     _simEndTime = _timeline + (time_t)(60*simLengthInMin);
+}*/
+
+DataContainer::DataContainer(const std::string& inputCsvFile, const std::string& timelineStr, const double optInRate, const int simLengthInMin, const bool printDebugFiles, const bool printToScreen, const Geofence* geofence) : 
+        _optInRate(optInRate), pGeofence(geofence) {
+    _inputCsvFile = inputCsvFile;
+    _timelineStr = timelineStr; 
+    _timeline = Utility::convertDateTimeStringToTimeT(timelineStr);
+    _printDebugFiles = printDebugFiles;
+    _printToScreen = printToScreen;
+    _simEndTime = _timeline + (time_t)(60*simLengthInMin);    
 }
 
 // destructor
@@ -36,7 +46,8 @@ std::istream& operator>>(std::istream& str,CSVRow& data) {
 } 
 void DataContainer::extractCvsSnapshot() {
     
-    const std::string filePath = _inputPath + _csvFilename; 
+  //  const std::string filePath = _inputPath + _csvFilename; 
+    const std::string filePath = _inputCsvFile;
     std::ifstream       file(filePath);
     
     // ensure file is opened
@@ -228,11 +239,12 @@ bool DataContainer::generateUberPoolTripProxy() {
     
     // ensure optInRate is in [0,1]
     assert( (0.0 <= _optInRate) && (_optInRate <= 1.0) );
-    
+
     // if no uberX requests are POOL requests then the test does not make sense
     if( _optInRate == 0 ) {
         std::cerr << "\n\n*** ERROR: no uberPOOL requests are given (0 percent) ***\n\n" << std::endl;
         std::cerr << "\tsystem exiting upon error... " << std::endl;
+        exit(1);
         return false;
     }
     

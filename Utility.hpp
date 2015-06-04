@@ -220,6 +220,10 @@ public:
         else 
             return false;        
     }
+    
+    static void removeWhitespaceString(std::string &s) {
+        s.erase( std::remove_if( s.begin(), s.end(), ::isspace), s.end() );
+    }
         
     
 private:

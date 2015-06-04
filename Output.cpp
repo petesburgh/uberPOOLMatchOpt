@@ -51,8 +51,8 @@ void Output::printSummaryInfo() {
     outFile << "\n----------------------------------------\n\n" << std::endl;
     
     int buffer = 15;
-    outFile << "\n\t" << left << setw(buffer) << "inputPath: " << pDataContainer->getInputPath() << std::endl;
-    outFile << "\t" << left << setw(buffer) << "filename:  " << pDataContainer->getCsvFilename() << std::endl;
+    outFile << "\n\t" << left << setw(buffer) << "inputPath: " << pDataContainer->getCsvInputFile() << std::endl;
+   // outFile << "\t" << left << setw(buffer) << "filename:  " << pDataContainer->getCsvFilename() << std::endl;
     
     buffer = 35;
     outFile << "\n\t" << left << setw(buffer) << "snapshot time:  " << Utility::convertTimeTToString(pDataContainer->getTimeline()) << std::endl;
@@ -282,8 +282,8 @@ void Output::printInitOpenTrips() {
 void Output::printSummaryOfDataInput(DataContainer * pDataContainer) {
     
     std::cout << "\nSUMMARY OF INPUT DATA: " << std::endl;
-    std::cout << "\n\tinputPath: " << pDataContainer->getInputPath() << std::endl;
-    std::cout << "\tfilename:  " << pDataContainer->getCsvFilename() << std::endl;
+    std::cout << "\n\tinputPath: " << pDataContainer->getCsvInputFile() << std::endl;
+    //std::cout << "\tfilename:  " << pDataContainer->getCsvFilename() << std::endl;
     
     std::cout << "\n\tsnapshot time:  " << Utility::convertTimeTToString(pDataContainer->getTimeline()) << std::endl;
     std::cout << "\tup front batching window:   " << Utility::intToStr(pDataContainer->getUpFrontBatchWindowLenInSec()) << " seconds" << std::endl;

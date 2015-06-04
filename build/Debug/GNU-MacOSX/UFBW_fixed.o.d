@@ -21,7 +21,7 @@ build/Debug/GNU-MacOSX/UFBW_fixed.o: UFBW_fixed.cpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   SolnMaps.hpp MultiplePickupsModel.hpp FeasibleRoute.hpp Experiment.hpp \
-  UserConfig.hpp
+  UserConfig.hpp ExperimentUndefinedException.hpp EnumException.hpp
 
 UFBW_fixed.hpp:
 
@@ -126,3 +126,7 @@ FeasibleRoute.hpp:
 Experiment.hpp:
 
 UserConfig.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:

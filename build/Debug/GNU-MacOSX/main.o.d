@@ -21,6 +21,7 @@ build/Debug/GNU-MacOSX/main.o: main.cpp DataContainer.hpp CSVRow.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
   FlexDepartureModel.hpp SolnMaps.hpp MultiplePickupsModel.hpp \
   FeasibleRoute.hpp Experiment.hpp UserConfig.hpp \
+  ExperimentUndefinedException.hpp EnumException.hpp \
   UFBW_perfectInformation.hpp GenerateInstanceScenarios.hpp \
   ProblemInstance.hpp
 
@@ -127,6 +128,10 @@ FeasibleRoute.hpp:
 Experiment.hpp:
 
 UserConfig.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:
 
 UFBW_perfectInformation.hpp:
 

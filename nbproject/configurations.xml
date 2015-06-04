@@ -48,6 +48,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>EnumException.hpp</itemPath>
       <itemPath>ExperimentUndefinedException.hpp</itemPath>
       <itemPath>FileNotFoundException.hpp</itemPath>
       <itemPath>ItemNotFoundException.hpp</itemPath>
@@ -141,6 +142,8 @@
       <item path="Driver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Driver.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="EnumException.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -304,6 +307,8 @@
       <item path="Driver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Driver.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="EnumException.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Event.hpp" ex="false" tool="3" flavor2="0">
       </item>

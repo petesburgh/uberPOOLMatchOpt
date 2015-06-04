@@ -7,7 +7,8 @@ build/Debug/GNU-MacOSX/ModelRunner.o: ModelRunner.cpp ModelRunner.hpp \
   ItemNotFoundException.hpp FileNotFoundException.hpp Output.hpp \
   Solution.hpp ModelEnum.hpp FlexDepSolution.hpp MultPickupSoln.hpp \
   RiderCountException.hpp SolnMaps.hpp UserConfig.hpp Experiment.hpp \
-  MitmModel.hpp ModelUtils.hpp UFBW_fixed.hpp \
+  ExperimentUndefinedException.hpp EnumException.hpp MitmModel.hpp \
+  ModelUtils.hpp UFBW_fixed.hpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/commandlineflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/gflags/gflags_declare.h \
@@ -90,6 +91,10 @@ SolnMaps.hpp:
 UserConfig.hpp:
 
 Experiment.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:
 
 MitmModel.hpp:
 

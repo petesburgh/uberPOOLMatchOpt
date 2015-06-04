@@ -38,7 +38,7 @@ public:
     ~GenerateInstanceScenarios(){};
     
     ProblemInstance * generateInstanceScenarios(const int scenIndex, const std::string &geofenceFolderPath);
-    const Geofence * extractGeofence(const Geofence::Type type, const int geofenceID, const std::string cityString, const std::string &geofenceDataFile);
+    const Geofence * extractGeofence(const Geofence::Type type, const std::string &geofenceDataFile);
    
 
 private:

@@ -54,6 +54,7 @@ int main(int argc, char** argv) {
     try {
         pUserConfig->readConfigValues(configFile);
         printMetricsToScreen(pUserConfig);
+        //exit(0);
     } catch( FileNotFoundException &ex ) {
         std::cout << "\n*** FileNotFoundException thrown ***" << std::endl;
         ex.what();
@@ -62,45 +63,15 @@ int main(int argc, char** argv) {
     }
                          
     // specify singleton inputs 
-    const std::string inputPath        = pUserConfig->getStringParams()->_inputPath; 
+   // const std::string inputPath        = pUserConfig->getStringParams()->_inputPath; 
     const std::string outputBasePath   = pUserConfig->getStringParams()->_outputBasePath; 
-    const std::string geofenceDataPath = pUserConfig->getStringParams()->_geofenceDataPath; 
-    
-    /*
-     *  populate all input scenarios
-     *      scen 01: SF, one hour sim from 1600-1700 UTC on 2015-04-13, no geofence
-     *      scen 02: SF, one hour sim from 1600-1700 UTC on 2015-04-13, SF whiteout geofencee
-     *      scen 03: SF, one week sim from 2015-04-12 0000 - 2015-04-19 0000 (UTC), no geofence
-     *      scen 04: SF, one week sim from 2015-04-12 0000 - 2015-04-19 0000 (UTC), SF whiteout geofence
-     *      scen 05: SF, four hour sim from 1300-1700 UTC on 2015-04-24, SF whiteout geofence
-     *      scen 06: Chengdu, one week sim from 2015-04-29 1600 - 2015-04-05 1600 UTC, no geofence
-     *      scen 07: Chengdu, two week data from 2015-04-29 1600 - 2015-04-12 1600 UTC consolidated to be consolidated so that the second week of data is to be moved to first week (subtract 7 days from all times)     
-     *      scen 08: SF, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geofence (flexible departure analysis)
-     *      scen 09: LA, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geofence (flexible departure analysis)
-     *      scen 10: Austin, one day sim from 2014-04-27 07:00:00 - 2015-04-28 07:00:00 UTC, no geofence (flexible departure analysis)
-     *      scen 11: scen 09 with LA geofence
-     *      scen 12: LA, 5-hour sim from 1800-2300 local with LA geofence (comparing accounting of savings)
-     *      scen 13: NJ, 1-week sim from 0000-0000 local, no geofence (MITM)
-     *      scen 14: SD, 1-week sim from 0000-0000 local 04/26 to 05/03, no geofence
-     *      scen 15: Chengdu, 1 week sim from 0000-0000 local 05/10/2015 to 05/17/2015, no geo (1 MM weekly trip)
-     *      scen 16: SF, NO SNAP, 1 week sim from 1000-1000 local 05/04/2015 to 05/11/2015, with geo
-     *      scen 17: SF, 55% SNAP, same as scen 16
-     *      scen 18: SF, 100% SNAP, same as scen 16
-     *      scen 19: SFO-OAK sim, 1-week from 0000-0000 local 05/20 - 05/27, no geo
-     */
-    
-    const int scenNumber = pUserConfig->getIntParams()->_scenNumber; 
-    
-    
-    GenerateInstanceScenarios * pScenarios = new GenerateInstanceScenarios();
-    ProblemInstance * pInstance = pScenarios->generateInstanceScenarios(scenNumber,geofenceDataPath); 
-    
+   // const std::string geofenceDataPath = pUserConfig->getStringParams()->_geofenceDataPath; 
+        
     const bool printDebugFiles       = pUserConfig->getBooleanParams()->_printDebugFiles; // true;
     const bool printToScreen         = pUserConfig->getBooleanParams()->_printToScreen; // false;
     const bool printIndivSolnMetrics = pUserConfig->getBooleanParams()->_printIndivSolnMetrics; // true;
-    const bool populateInitOpenTrips = pUserConfig->getBooleanParams()->_populateInitOpenTrips; // false;
         
-    ModelRunner::DataInputValues  * pDataInput  = new ModelRunner::DataInputValues(inputPath, outputBasePath, pInstance->getInputCsvFilename(), pInstance->getSimStartTimeString(), pInstance->getSimLengthInMin(), populateInitOpenTrips);    
+    ModelRunner::DataInputValues  * pDataInput  = new ModelRunner::DataInputValues(pUserConfig);
     ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(outputBasePath,printDebugFiles,printIndivSolnMetrics,printToScreen);
     
     // specify DEFAULT values
@@ -113,27 +84,12 @@ int main(int argc, char** argv) {
     const int    default_maxAllowablePickups     = pUserConfig->getIntParams()->_maxAllowablePickups; 
         
     ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(default_optInRate, default_upFrontBatchWindowInSec, default_maxMatchDistInKm, default_minPoolDiscount, default_flexDepOptInRate, default_flexDepWindowInSec, default_maxAllowablePickups);
-                
-    const bool inclInitPickupInSavingsConstr = true;
-    
-    // specify RANGES to iterate experiments                 
-    std::vector<double> range_optInRate = pUserConfig->getRangeParams()->optInRange; // defineOptInRange(); // opt-in ranges: 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.0            
-    std::vector<double> range_upFrontBatchWindowInSec = pUserConfig->getRangeParams()->batchWindowRange; // defineBatchWindowRange(); // batch window values: 15, 30, 45, 60, 75, 90, 120, 150, 300, 600            
-    std::vector<double> range_maxMatchDistInKm = pUserConfig->getRangeParams()->maxPickupRange; // defineMaxPickupDistRange(); // max pickup range (km): 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 10.0           
-    std::vector<double> range_minPoolDiscount = pUserConfig->getRangeParams()->minSavingsRange; // defineMinPoolDiscountRange();  // max pool discount for master: 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
-        
-    // uberPOOL TEST MODELS RUN
-    const bool runMITMModel        = pUserConfig->getBooleanParams()->_runMITMModel;
-    const bool runUFBW_seqPickups  = pUserConfig->getBooleanParams()->_runUFBW_seqPickups;
-    //const bool runUFBW_flexPickups = false; 
-    const bool runFlexDepModel     = pUserConfig->getBooleanParams()->_runFlexDepModel;
-    const bool runUFBW_perfectInfo = pUserConfig->getBooleanParams()->_runUFBW_perfInfo; 
-    const bool runMultiplePickups  = pUserConfig->getBooleanParams()->_runMultiplePickups;
-            
+             
     // create ModelRunner object which controls all optimizations 
-    ModelRunner * pModelRunner = new ModelRunner( pUserConfig->getEnumParams()->_experiment, runMITMModel, runUFBW_seqPickups, runFlexDepModel, runUFBW_perfectInfo, runMultiplePickups, pDataInput, pDataOutput, pDefaultInputs, pInstance->getGeofence() );     
-    pModelRunner->setInputValues(range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
-    pModelRunner->setInclInitPickupDistForSavingsConstr(inclInitPickupInSavingsConstr);
+    ModelRunner * pModelRunner = new ModelRunner( pUserConfig->getEnumParams()->_experiment, pUserConfig, pDataInput, pDataOutput, pDefaultInputs );     
+    pModelRunner->extractGeofence(pUserConfig->getStringParams()->_geofenceData);
+    pModelRunner->setInputValues(pUserConfig); //range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
+    pModelRunner->setInclInitPickupDistForSavingsConstr(pUserConfig->getBooleanParams()->_inclInitPickupInSavingsConstr);
     
     // ---- SOLVE MODELS ----
     const std::map<double, SolnMaps*> * pInputValSolnMap = pModelRunner->runAllModels();
@@ -390,7 +346,7 @@ std::vector<double> getExperimentInputValues(const Experiment &experiment, std::
 }
 
 void printMetricsToScreen(UserConfig * pUserConfig) {
-    cout << "\n\n--- summary of metrics ---\n" << endl;
+    cout << "\n\n--- summary of input parameters ---\n" << endl;
     cout << "BOOLEAN PARAMETERS" << endl;
     const UserConfig::BoolParams * pBoolParams = pUserConfig->getBooleanParams();
     std::string runMITM = (pBoolParams->_runMITMModel) ? "true" : "false";
@@ -403,16 +359,16 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     std::string printIndiv = (pBoolParams->_printIndivSolnMetrics) ? "true" : "false";
     std::string populateInit = (pBoolParams->_populateInitOpenTrips) ? "true" : "false";   
     std::string inclInitPickupSavings = (pBoolParams->_inclInitPickupInSavingsConstr) ? "true" : "false";
-    cout << "  " << left << setw(35) << "run MITM: " << runMITM << endl;
-    cout << "  " << left << setw(35) << "run UFBW: " << runUFBW << endl;
-    cout << "  " << left << setw(35) << "run PI: " << runPI << endl;
-    cout << "  " << left << setw(35) << "run FD: " << runFD << endl;
-    cout << "  " << left << setw(35) << "run mult pickups: " << runMultPicks << endl;
-    cout << "  " << left << setw(35) << "incl init pickup in savings: " << inclInitPickupSavings << endl;
-    cout << "  " << left << setw(35) << "print debug files:  " << printDebug << endl;
-    cout << "  " << left << setw(35) << "print to screen: " << printScreen << endl;
-    cout << "  " << left << setw(35) << "print indiv metrics: " << printIndiv << endl;
-    cout << "  " << left << setw(35) << "populate init open trips: " << populateInit << endl;
+    cout << "  " << left << setw(31) << "run MITM: " << runMITM << endl;
+    cout << "  " << left << setw(31) << "run UFBW: " << runUFBW << endl;
+    cout << "  " << left << setw(31) << "run PI: " << runPI << endl;
+    cout << "  " << left << setw(31) << "run FD: " << runFD << endl;
+    cout << "  " << left << setw(31) << "run mult pickups: " << runMultPicks << endl;
+    cout << "  " << left << setw(31) << "incl init pickup in savings: " << inclInitPickupSavings << endl;
+    cout << "  " << left << setw(31) << "print debug files:  " << printDebug << endl;
+    cout << "  " << left << setw(31) << "print to screen: " << printScreen << endl;
+    cout << "  " << left << setw(31) << "print indiv metrics: " << printIndiv << endl;
+    cout << "  " << left << setw(31) << "populate init open trips: " << populateInit << endl;
         
     cout << "\nINTEGER PARAMETERS" << endl;
     const UserConfig::IntParams * pIntParams = pUserConfig->getIntParams();
@@ -420,10 +376,12 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     std::string maxPickups = Utility::intToStr(pIntParams->_maxAllowablePickups);
     std::string ufbwSec = Utility::intToStr(pIntParams->_default_upFrontBatchWindowInSec);
     std::string flexDepWindowSec = Utility::intToStr(pIntParams->_flexDepWindowInSec);
-    cout << "  " << left << setw(35) << "scenario number: " << scen << endl;
-    cout << "  " << left << setw(35) << "max pickups: " << maxPickups << endl;
-    cout << "  " << left << setw(35) << "up front batch window sec: " << ufbwSec << endl;
-    cout << "  " << left << setw(35) << "flex dep window in sec: " << flexDepWindowSec << endl;
+    std::string simLenInMin = Utility::intToStr(pIntParams->_simLengthInMin);
+    cout << "  " << left << setw(30) << "scenario number: " << scen << endl;
+    cout << "  " << left << setw(30) << "sim length in min: " << simLenInMin << endl;
+    cout << "  " << left << setw(30) << "max pickups: " << maxPickups << endl;
+    cout << "  " << left << setw(30) << "up front batch window sec: " << ufbwSec << endl;
+    cout << "  " << left << setw(30) << "flex dep window in sec: " << flexDepWindowSec << endl;
     
     
     cout << "\nDOUBLE PARAMETERS" << endl;
@@ -432,16 +390,19 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     std::string defaultMaxDist = Utility::doubleToStr(pDoubleParams->_default_maxMatchDistInKm);
     std::string defaultMinSavings = Utility::doubleToStr(pDoubleParams->_default_minPoolDiscount);
     std::string flexDepOptIn = Utility::doubleToStr(pDoubleParams->_flexDepOptInRate);
-    cout << "  " << left << setw(35) << "default optIn rate: " << defaultOptIn << endl;
-    cout << "  " << left << setw(35) << "default max dist (km): " << defaultMaxDist << endl;
-    cout << "  " << left << setw(35) << "default min savings (%):" << defaultMinSavings << endl;
-    cout << "  " << left << setw(35) << "flex dep optIn rate: " << flexDepOptIn << endl;
+    cout << "  " << left << setw(28) << "default optIn rate: " << defaultOptIn << endl;
+    cout << "  " << left << setw(28) << "default max dist (km): " << defaultMaxDist << endl;
+    cout << "  " << left << setw(28) << "default min savings (%):" << defaultMinSavings << endl;
+    cout << "  " << left << setw(28) << "flex dep optIn rate: " << flexDepOptIn << endl;
     
     cout << "\nSTRING PARAMETERS" << endl;
     const UserConfig::StringParams * pStringParams = pUserConfig->getStringParams();
-    cout << "  " << left << setw(35) << "input path:  " << pStringParams->_inputPath << endl;
-    cout << "  " << left << setw(35) << "output base path: " << pStringParams->_outputBasePath << endl;
-    cout << "  " << left << setw(35) << "geofence: " << pStringParams->_geofenceDataPath << endl;
+    cout << "  " << left << setw(20) << "input data: " << pStringParams->_inputData << endl;
+    cout << "  " << left << setw(20) << "geofence data: " << pStringParams->_geofenceData << endl;
+    cout << "  " << left << setw(20) << "input path:  " << pStringParams->_inputPath << endl;
+    cout << "  " << left << setw(20) << "output base path: " << pStringParams->_outputBasePath << endl;
+    cout << "  " << left << setw(20) << "geofence: " << pStringParams->_geofenceDataPath << endl;
+    cout << "  " << left << setw(20) << "sim start time: " << pStringParams->_simStartTime << endl;
     
     cout << "\nENUM PARAMETERS" << endl;
     const UserConfig::EnumParams * pEnumParams = pUserConfig->getEnumParams();
@@ -465,14 +426,29 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
         default :
             experimentStr = "OTHER";
     }
-    cout << "  " << left << setw(35) << "experiment: " << experimentStr << endl;
+    cout << "  " << left << setw(20) << "experiment: " << experimentStr << endl;
+    
+    std::string geofenceTypeStr = "";
+    const Geofence::Type pGeoType = pUserConfig->getEnumParams()->_geofenceType;
+    switch( pGeoType ) {
+        case Geofence::REQ_ONLY :
+            geofenceTypeStr = "request_only";
+            break;
+        case Geofence::ORIG_ONLY :
+            geofenceTypeStr = "orig_only";
+            break;
+        case Geofence::ENTIRE_TRIP : 
+            geofenceTypeStr = "entire_trip";
+            break;
+        default : 
+            geofenceTypeStr = "OTHER";
+    }
+    cout << "  " << left << setw(20) << "geofence restr: " << geofenceTypeStr << endl;
     
     cout << "\nRANGE PARAMETERS FOR EXPERIMENTS" << endl;
     std::vector<double> optInRange = pUserConfig->getRangeParams()->optInRange;
     
-    
-    
-    cout << "  " << left << setw(15) << "opt-in: ";
+    cout << "  " << left << setw(18) << "opt-in: ";
     int optInCounter = 0;
     for( std::vector<double>::iterator itr = optInRange.begin(); itr != optInRange.end(); ++itr ) {
         if( optInCounter == 0 ) {
@@ -486,7 +462,7 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     cout << ")" << endl;
     
     std::vector<double> batchWindowRange = pUserConfig->getRangeParams()->batchWindowRange;
-    cout << "  " << left << setw(15) << "batchWindow:";
+    cout << "  " << left << setw(18) << "batchWindow:";
     int batchCounter = 0;
     for( std::vector<double>::iterator itr = batchWindowRange.begin(); itr != batchWindowRange.end(); ++itr ) {
         if( batchCounter == 0 ) {
@@ -500,7 +476,7 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     cout << ")" << endl;
     
     std::vector<double> maxPickupRange = pUserConfig->getRangeParams()->maxPickupRange;
-    cout << "  " << left << setw(15) << "maxPickupDist:";
+    cout << "  " << left << setw(18) << "maxPickupDist:";
     int pickupCounter = 0;
     for( std::vector<double>::iterator itr = maxPickupRange.begin(); itr != maxPickupRange.end(); ++itr ) {
         if( pickupCounter == 0 ) {
@@ -514,7 +490,7 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     cout << ")" << endl;
     
     std::vector<double> minSavingsRange = pUserConfig->getRangeParams()->minSavingsRange;
-    cout << "  " << left << setw(15) << "minSavings:";
+    cout << "  " << left << setw(18) << "minSavings:";
     int savingsCounter = 0;
     for( std::vector<double>::iterator itr = minSavingsRange.begin(); itr != minSavingsRange.end(); ++itr ) {
         if( savingsCounter == 0 ) {

@@ -18,6 +18,7 @@
 #include "MultiplePickupsModel.hpp"
 #include "Experiment.hpp"
 #include "FileNotFoundException.hpp"
+#include "UserConfig.hpp"
 #include <sys/stat.h>   /* mkdir */
 
 using namespace std;
@@ -26,17 +27,15 @@ class Output;
 
 class ModelRunner {
 public:
-         
-    struct DataInputValues {    
-        DataInputValues(const std::string input, const std::string inputBase, const std::string cvsFname, const std::string timeline, const int simLengthMin, const bool popInitCandidates) :
-            _inputPath(input), _inputBasePath(inputBase), _cvsFilename(cvsFname), _timelineStr(timeline), _simLengthInMinutes(simLengthMin),  _populateInitOpenTrips(popInitCandidates) {};
-
-        const std::string   _inputPath;
-        const std::string   _inputBasePath;
-        const std::string   _cvsFilename;
+             
+    struct DataInputValues {
+        DataInputValues(const UserConfig * pUserConfig) :
+            _inputCvsFile(pUserConfig->getStringParams()->_inputData), _timelineStr(pUserConfig->getStringParams()->_simStartTime), _simLengthInMinutes(pUserConfig->getIntParams()->_simLengthInMin), _populateInitOpenTrips(pUserConfig->getBooleanParams()->_populateInitOpenTrips) {};
+        
+        const std::string   _inputCvsFile;
         const std::string   _timelineStr;
         const int           _simLengthInMinutes;
-        const bool          _populateInitOpenTrips;
+        const bool          _populateInitOpenTrips;        
     };
     
     struct DefaultModelParameters { 
@@ -107,7 +106,7 @@ public:
     };
     
      
-    ModelRunner(const Experiment &experiment, const bool &runMITMModel, const bool &runUFBW_seqPickups, const bool &runFlexDepModel, const bool &runUFBW_perfectInfo, const bool &runMultiplePickupsModel, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues, const Geofence * geofence );
+    ModelRunner(const Experiment &experiment, UserConfig * pUserConfig, DataInputValues * pDataInput, DataOutputValues * dataOutput, DefaultModelParameters *  defaultValues );
     virtual ~ModelRunner();
     
     // construct DataContainer object
@@ -120,8 +119,9 @@ public:
     std::map<const ModelEnum, SolnMetrics*> * runModelsForCurrExperiment(double optInRate, double batchWindowLengthInSecDouble, double maxPickupDistance, double minPctSavings);
     
     // set input values 
-    void setInputValues( std::vector<double> optInVals, std::vector<double> batchWindowVals, std::vector<double> maxPickupVals, std::vector<double> minSavingsVals );
-        
+    //void setInputValues( std::vector<double> optInVals, std::vector<double> batchWindowVals, std::vector<double> maxPickupVals, std::vector<double> minSavingsVals );
+    void setInputValues( UserConfig * pUserConfig );  
+    
     // update solution to be returned
     bool updateModelSolnMaps(std::map<double, SolnMaps*> * pModelSolnMap, const std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pModelCurrSolnMap, double currInputValue);
     
@@ -130,6 +130,8 @@ public:
     void setInclInitPickupDistForSavingsConstr(bool includeInitTripSavingsConstr) { _inclInitPickupDistForSavingsConstr = includeInitTripSavingsConstr; }
     
     IndivSolnMetrics * getIndivSolnMetrics(Solution * pSoln);
+    
+    void extractGeofence(const std::string _geofencePath);
     
 private:
 
@@ -140,12 +142,13 @@ private:
     
     const bool _runMitmModel;
     const bool _runUFBW_fixedPickup;
-    const bool _runUFBW_pickupSwap;
+  //  const bool _runUFBW_pickupSwap;
     const bool _runFlexDeparture;
     const bool _runUFBW_PI; 
     const bool _runMultiplePickupsModel;
     
-    const Geofence* pGeofence;
+    Geofence * pGeofence;
+    //const Geofence* pGeofence;
     
     Output * pOutput;
     

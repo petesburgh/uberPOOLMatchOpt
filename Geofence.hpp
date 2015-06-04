@@ -25,7 +25,8 @@ public:
         ENTIRE_TRIP
     };     
     
-    Geofence( const Type geofenceType, const int geofenceID, const std::string cityStr );
+   // Geofence( const Type geofenceType, const int geofenceID, const std::string cityStr );
+    Geofence( const Type geofenceType );
     virtual ~Geofence();
             
     // append curr lat or lng
@@ -33,16 +34,16 @@ public:
     
     // getters
     const Type getGeofenceType() const { return _geofenceType; }
-    const int getGeofenceID() const { return _geofenceID; }
-    const std::string getGeofenceCityString() const { return _cityString; }
+   // const int getGeofenceID() const { return _geofenceID; }
+   // const std::string getGeofenceCityString() const { return _cityString; }
     const std::vector<double> * getLatitudes() const  { return &_latitudes; }
     const std::vector<double> * getLongitudes() const { return &_longitudes; }
    
 private:
 
     const Type   _geofenceType;
-    const int _geofenceID; 
-    const std::string _cityString;
+   // const int _geofenceID; 
+  //  const std::string _cityString;
     
     std::vector<double> _latitudes;
     std::vector<double> _longitudes;

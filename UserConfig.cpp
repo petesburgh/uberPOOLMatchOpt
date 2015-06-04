@@ -6,7 +6,7 @@
  */
 
 #include "UserConfig.hpp"
-#include "ExperimentUndefinedException.hpp"
+
 
 UserConfig::UserConfig() {
     // populate key values from input file
@@ -14,11 +14,16 @@ UserConfig::UserConfig() {
     input_int_maxAllowablePickups               = "maxAllowablePickups";
     input_int_defaultUpFrontBatchWindowInSec    = "default_upFrontBatchWindowInSec";
     input_int_defaultFlexDepWindowInSec         = "default_flexDepWindowInSec";
+    input_int_simLenInMin                       = "simLengthInMin";
     
-    input_str_experiment                 = "experiment";
-    input_str_inputPath                  = "inputPath";
-    input_str_outputBasePath             = "outputBasePath";
-    input_str_geofenceDataPath           = "geofenceDataPath";
+    input_str_experiment        = "experiment";
+    input_str_inputPath         = "inputPath"; // TODO: deprecate
+    input_str_outputBasePath    = "outputBasePath";
+    input_str_geofenceDataPath  = "geofenceDataPath"; // TODO: deprecate
+    input_str_inputCSV          = "inputCSVFile";
+    input_str_geofenceData      = "geofenceFile";
+    input_str_simStartTime      = "simStartTime";
+    input_str_geofenceType      = "geofenceType";
     
     input_bool_runMITM                       = "runMITMModel";
     input_bool_runUFBWSeqPickups             = "runUFBW_seqPickups";
@@ -34,7 +39,7 @@ UserConfig::UserConfig() {
     input_double_defaultOptInRate        = "default_optInRate";    
     input_double_defaultMaxMatchDistInKm = "default_maxMatchDistInKm";
     input_double_defaultMinPoolDiscount  = "default_minPoolDiscount";
-    input_double_flexDepOptInRate        = "default_flexDepOptInRate";
+    input_double_flexDepOptInRate        = "flexDepOptInRate";
     
     input_range_optInExp        = "range_optInExp";
     input_range_batchWindowExp  = "range_batchWindowExp";
@@ -47,6 +52,12 @@ UserConfig::UserConfig() {
     eligExperimentInputStrings.insert("BATCHWINDOW");
     eligExperimentInputStrings.insert("PICKUPDIST");
     eligExperimentInputStrings.insert("SAVINGSRATE");
+    
+    // eligible string values for Geofence restriction type
+    eligGeofenceRestrTypeStrings.insert("REQ_ONLY");
+    eligGeofenceRestrTypeStrings.insert("ORIG_ONLY");
+    eligGeofenceRestrTypeStrings.insert("ENTIRE_TRIP");
+    
     
     // instantiate booleans, int, double, string parameters
     pBoolParams   = new UserConfig::BoolParams();
@@ -81,8 +92,11 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
       {
         std::string value;
         if( std::getline(is_line, value, '#') )  {
-            key.erase( remove( key.begin(), key.end(), ' ' ), key.end() );
-            value.erase( remove( value.begin(), value.end(), ' '), value.end()); 
+            Utility::removeWhitespaceString(key);   // remove all whitespace contained in key string
+            Utility::removeWhitespaceString(value);
+            if( strcmp(key.c_str(), input_str_simStartTime.c_str()) == 0 ) { 
+                value.insert(10," "); // add one space between date and time
+            }
 
             // populate BOOLEAN values
             if( strcmp( key.c_str(), input_bool_runMITM.c_str()) == 0 ) {
@@ -117,7 +131,9 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
                 pIntParams->_default_upFrontBatchWindowInSec = Utility::stringToInt(value); // default up front batch window in sec
             } else if( strcmp(key.c_str(), input_int_defaultFlexDepWindowInSec.c_str()) == 0 ) {
                 pIntParams->_flexDepWindowInSec = Utility::stringToInt(value);      // default flex dep window in sec
-            }        
+            } else if( strcmp(key.c_str(), input_int_simLenInMin.c_str()) == 0 ) {
+                pIntParams->_simLengthInMin = Utility::stringToInt(value);
+            }  
             
             // populate DOUBLE values
             else if( strcmp(key.c_str(), input_double_defaultOptInRate.c_str()) == 0 ) {
@@ -131,12 +147,18 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
             }
             
             // populate STRING values
-            else if( strcmp(key.c_str(), input_str_inputPath.c_str()) == 0 ) {
+            else if( strcmp(key.c_str(), input_str_inputCSV.c_str()) == 0 ) {
+                pStringParams->_inputData = value;                                      // input CSV file
+            } else if( strcmp(key.c_str(), input_str_geofenceData.c_str()) == 0 ) {
+                pStringParams->_geofenceData = value;                                   // input file assoicated with geofence .txt input
+            } else if( strcmp(key.c_str(), input_str_inputPath.c_str()) == 0 ) {
                 pStringParams->_inputPath = value;                                      // input (data) path                                                         
             } else if( strcmp(key.c_str(), input_str_outputBasePath.c_str()) == 0 ) {
                 pStringParams->_outputBasePath = value;                                 // output base path                                   
             } else if( strcmp(key.c_str(), input_str_geofenceDataPath.c_str()) == 0 ) {
                 pStringParams->_geofenceDataPath = value;                               // path of geofences                                    
+            } else if( strcmp(key.c_str(), input_str_simStartTime.c_str()) == 0 ) {
+                pStringParams->_simStartTime = value;                                   // sim start time in string format
             }
             
             // populate ENUM values
@@ -148,6 +170,16 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
                     std::cerr << "\nExperimentUndefinedException thrown... " << endl;
                     std::cerr << ex.what() << endl;
                     std::cerr << "\t(process terminated)" << endl;
+                    exit(1);
+                }
+            } else if( strcmp(key.c_str(), input_str_geofenceType.c_str()) == 0 ) {
+                try {
+                    Geofence::Type geofenceType = convertGeofenceTypeToEnum(value);
+                    pEnumParams->_geofenceType = geofenceType;
+                } catch( const EnumException &ex ) {
+                    std::cerr << "\nEnumException thrown... " << std::endl;
+                    std::cerr << ex.what() << std::endl;
+                    std::cerr << "\t(process terminated)" << std::endl;
                     exit(1);
                 }
             }
@@ -182,8 +214,7 @@ void UserConfig::printKeyValueMap() {
 }
 
 Experiment UserConfig::convertExperimentToExpEnum(std::string experimentStr) {
-    std::set<std::string>::iterator expStrItr = eligExperimentInputStrings.find(experimentStr);
-    
+
     std::string defaultValuesStr = "DEFAULTVALUES";
     std::string optInStr         = "OPTIN";
     std::string batchWindowStr   = "BATCHWINDOW";
@@ -202,6 +233,21 @@ Experiment UserConfig::convertExperimentToExpEnum(std::string experimentStr) {
         return SAVINGSRATE;
     } else {
         throw new ExperimentUndefinedException(experimentStr, eligExperimentInputStrings);
+    }
+}
+Geofence::Type UserConfig::convertGeofenceTypeToEnum(std::string geofenceRestrTypeStr) {
+    std::string reqOnlyStr = "REQ_ONLY";
+    std::string origOnlyStr = "ORIG_ONLY";
+    std::string entireTripStr = "ENTIRE_TRIP";
+    
+    if( strcmp( geofenceRestrTypeStr.c_str(), reqOnlyStr.c_str()) == 0 ) {
+        return Geofence::REQ_ONLY;
+    } else if( strcmp( geofenceRestrTypeStr.c_str(), origOnlyStr.c_str()) == 0 ) {
+        return Geofence::ORIG_ONLY;
+    } else if( strcmp( geofenceRestrTypeStr.c_str(), entireTripStr.c_str()) == 0 ) {
+        return Geofence::ENTIRE_TRIP;
+    } else {
+        throw new EnumException(geofenceRestrTypeStr, eligGeofenceRestrTypeStrings);
     }
 }
 

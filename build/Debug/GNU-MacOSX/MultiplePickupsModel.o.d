@@ -20,7 +20,8 @@ build/Debug/GNU-MacOSX/MultiplePickupsModel.o: MultiplePickupsModel.cpp \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/unique_ptr.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/timer.h \
   ../../Documents/3rdparty/or-tools.MacOsX64/include/base/time_support.h \
-  FlexDepartureModel.hpp SolnMaps.hpp Experiment.hpp UserConfig.hpp
+  FlexDepartureModel.hpp SolnMaps.hpp Experiment.hpp UserConfig.hpp \
+  ExperimentUndefinedException.hpp EnumException.hpp
 
 MultiplePickupsModel.hpp:
 
@@ -125,3 +126,7 @@ SolnMaps.hpp:
 Experiment.hpp:
 
 UserConfig.hpp:
+
+ExperimentUndefinedException.hpp:
+
+EnumException.hpp:

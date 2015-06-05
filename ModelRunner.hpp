@@ -125,7 +125,7 @@ public:
     std::map<double, SolnMaps*> * runAllModels();
     
     // individual model runs
-    std::map<const ModelEnum, SolnMetrics*> * runModelsForCurrExperiment(double optInRate, double batchWindowLengthInSecDouble, double maxPickupDistance, double minPctSavings);
+    std::map<const ModelEnum, SolnMetrics*> * runModelsForCurrExperiment(double optInRate, double batchWindowLengthInSecDouble, double maxPickupDistance, double minPctSavings, const bool useAggTripSavingsForObjAndConstr);
     
     // set input values 
     void setInputValues( UserConfig * pUserConfig );  
@@ -135,7 +135,7 @@ public:
     
     void printSolutionSummaryForCurrExperiment(const std::map<double, SolnMaps*> * pInputValSolnMap);
     
-    void setInclInitPickupDistForSavingsConstr(bool includeInitTripSavingsConstr) { _inclInitPickupDistForSavingsConstr = includeInitTripSavingsConstr; }
+    //void setInclInitPickupDistForSavingsConstr(bool includeInitTripSavingsConstr) { _inclInitPickupDistForSavingsConstr = includeInitTripSavingsConstr; }
     
     IndivSolnMetrics * getIndivSolnMetrics(Solution * pSoln);
     
@@ -172,7 +172,8 @@ private:
     std::set<OpenTrip*, EtdComp> _initOpenTrips;
     
     // switches
-    bool _inclInitPickupDistForSavingsConstr;
+    const bool _inclInitPickupDistForSavingsConstr;
+    const bool _useAggTripSavingsForObjAndConstr;
 };
 
 #endif	/* MODELRUNNER_HPP */

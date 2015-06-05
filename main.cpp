@@ -8,11 +8,6 @@
 #include <iostream>
 #include <iterator>
 #include "DataContainer.hpp"
-#include "Output.hpp"
-#include "MitmModel.hpp"
-#include "UFBW_fixed.hpp"
-#include "FlexDepartureModel.hpp"
-#include "UFBW_perfectInformation.hpp"
 #include "Geofence.hpp"
 #include "FlexDepSolution.hpp"
 #include "ModelRunner.hpp"
@@ -64,14 +59,13 @@ int main(int argc, char** argv) {
     ModelRunner::DataOutputValues * pDataOutput = new ModelRunner::DataOutputValues(pUserConfig);
 
     // populate default input values
-    ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(pUserConfig); // default_optInRate, default_upFrontBatchWindowInSec, default_maxMatchDistInKm, default_minPoolDiscount, default_flexDepOptInRate, default_flexDepWindowInSec, default_maxAllowablePickups);
+    ModelRunner::DefaultModelParameters * pDefaultInputs = new ModelRunner::DefaultModelParameters(pUserConfig); 
              
     // create ModelRunner object which controls all optimizations 
     ModelRunner * pModelRunner = new ModelRunner( pUserConfig->getEnumParams()->_experiment, pUserConfig, pDataInput, pDataOutput, pDefaultInputs );     
     pModelRunner->extractGeofence(pUserConfig->getStringParams()->_geofenceData);
-    pModelRunner->setInputValues(pUserConfig); //range_optInRate, range_upFrontBatchWindowInSec, range_maxMatchDistInKm, range_minPoolDiscount);
-    pModelRunner->setInclInitPickupDistForSavingsConstr(pUserConfig->getBooleanParams()->_inclInitPickupInSavingsConstr);
-    
+    pModelRunner->setInputValues(pUserConfig); 
+        
     // ---- SOLVE MODELS ----
     const std::map<double, SolnMaps*> * pInputValSolnMap = pModelRunner->runAllModels();
 
@@ -340,6 +334,8 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     std::string printIndiv = (pBoolParams->_printIndivSolnMetrics) ? "true" : "false";
     std::string populateInit = (pBoolParams->_populateInitOpenTrips) ? "true" : "false";   
     std::string inclInitPickupSavings = (pBoolParams->_inclInitPickupInSavingsConstr) ? "true" : "false";
+    std::string useAggTripInObjAndConstr = (pBoolParams->_useAggConstrAndObj) ? "true" : "false";
+    
     cout << "  " << left << setw(31) << "run MITM: " << runMITM << endl;
     cout << "  " << left << setw(31) << "run UFBW: " << runUFBW << endl;
     cout << "  " << left << setw(31) << "run PI: " << runPI << endl;
@@ -350,6 +346,7 @@ void printMetricsToScreen(UserConfig * pUserConfig) {
     cout << "  " << left << setw(31) << "print to screen: " << printScreen << endl;
     cout << "  " << left << setw(31) << "print indiv metrics: " << printIndiv << endl;
     cout << "  " << left << setw(31) << "populate init open trips: " << populateInit << endl;
+    cout << "  " << left << setw(31) << "use agg trip in obj/constr: " << useAggTripInObjAndConstr << endl;
         
     cout << "\nINTEGER PARAMETERS" << endl;
     const UserConfig::IntParams * pIntParams = pUserConfig->getIntParams();

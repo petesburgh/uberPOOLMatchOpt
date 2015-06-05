@@ -33,7 +33,7 @@ class Output;
 
 class MitmModel {
 public:
-    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupInSavings);
+    MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers, bool inclInitPickupInSavings, bool useAggTripSavingsForConstrAndObj);
     virtual ~MitmModel();
     
     bool solve(bool printDebugFiles, Output * pOutput, bool populateInitOpenTrips);
@@ -44,8 +44,14 @@ public:
         
     // given minion,master pair, check if feasible
     std::vector<FeasibleMatch*> getFeasibleMatchesFromCurrPair(Request* pMinionReq, OpenTrip * pMasterCand);
-    FeasibleMatch * checkIfFIFOMatchIsFeasible(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
-    FeasibleMatch * checkIfFILOMatchIsFeasible(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
+    
+    // new constraints based off aggregate trip savings
+    FeasibleMatch * checkIfFIFOMatchIsFeasible_aggTripSavings(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
+    FeasibleMatch * checkIfFILOMatchIsFeasible_aggTripSavings(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
+    
+    // old constraints based off individual savings
+    FeasibleMatch * checkIfFIFOMatchIsFeasible_indivSavingsConstr(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
+    FeasibleMatch * checkIfFILOMatchIsFeasible_indivSavingsConstr(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand);
     
     const double computeCostOfMatch(FeasibleMatch * pMatch) const;    
     AssignedTrip * convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch);    
@@ -88,6 +94,7 @@ private:
     Solution * pSolution; 
     
     const bool _inclMinionPickupDistExtMatchesSavingsConstr;
+    const bool _useAggTripSavingsForConstrAndObj;
 };
 
 #endif	/* MITMMODEL_HPP */

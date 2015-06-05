@@ -15,9 +15,11 @@ ModelRunner::ModelRunner( const Experiment &experiment, UserConfig * pUserConfig
     _runFlexDeparture(pUserConfig->getBooleanParams()->_runFlexDepModel), 
     _runUFBW_PI(pUserConfig->getBooleanParams()->_runUFBW_perfInfo), 
     _runMultiplePickupsModel(pUserConfig->getBooleanParams()->_runMultiplePickups), 
-    pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues) {      
-    
-    pGeofence = NULL; // instantiate Geofence; this may be later updated if a valid file is provided
+    pDataInput(dataInput), pDataOutput(dataOutput) , pDefaultValues(defaultValues),
+    _inclInitPickupDistForSavingsConstr(pUserConfig->getBooleanParams()->_inclInitPickupInSavingsConstr),
+    _useAggTripSavingsForObjAndConstr(pUserConfig->getBooleanParams()->_useAggConstrAndObj) 
+{          
+    pGeofence = NULL; // instantiate Geofence; this may be later updated if a valid file is provided     
 }
 
 ModelRunner::~ModelRunner() {
@@ -105,7 +107,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
             std::string outputScenarioPath = outputExpPath;
             pOutput->setOutputScenarioPath(outputScenarioPath);
             
-            const std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMetrics_defaultVals = runModelsForCurrExperiment(pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings); // second input is a dummy argument                     
+            const std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMetrics_defaultVals = runModelsForCurrExperiment(pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, _useAggTripSavingsForObjAndConstr); // second input is a dummy argument                     
             break;
         }
         case OPTIN :
@@ -118,7 +120,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
                 pOutput->setOutputScenarioPath(outputScenarioPath);
                 Utility::createFolder(outputScenarioPath);
             
-                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapCurrOptInRate = runModelsForCurrExperiment(*optInItr, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings );
+                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapCurrOptInRate = runModelsForCurrExperiment(*optInItr, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, _useAggTripSavingsForObjAndConstr );
                 updateModelSolnMaps(pModelSolnMap, pSolnMapCurrOptInRate, *optInItr);
             }
             break;
@@ -133,7 +135,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
                 pOutput->setOutputScenarioPath(outputScenarioPath);      
                 Utility::createFolder(outputScenarioPath);
                 
-                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapBatchWindow = runModelsForCurrExperiment(pDefaultValues->_optInRate, *batchWindowItr, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings );
+                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapBatchWindow = runModelsForCurrExperiment(pDefaultValues->_optInRate, *batchWindowItr, pDefaultValues->_maxPickupDistance, pDefaultValues->_minSavings, _useAggTripSavingsForObjAndConstr );
                 updateModelSolnMaps(pModelSolnMap, pSolnMapBatchWindow, *batchWindowItr);
             }
             break;
@@ -148,7 +150,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
                 pOutput->setOutputScenarioPath(outputScenarioPath);     
                 Utility::createFolder(outputScenarioPath);
                 
-                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapMaxPickupDist = runModelsForCurrExperiment( pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, *maxPickupItr, pDefaultValues->_minSavings );
+                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapMaxPickupDist = runModelsForCurrExperiment( pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, *maxPickupItr, pDefaultValues->_minSavings, _useAggTripSavingsForObjAndConstr );
                 updateModelSolnMaps(pModelSolnMap, pSolnMapMaxPickupDist, *maxPickupItr);
             }
             break;
@@ -163,7 +165,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
                 pOutput->setOutputScenarioPath(outputScenarioPath);                
                 Utility::createFolder(outputScenarioPath);
                 
-                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapMinSavings = runModelsForCurrExperiment( pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, *minSavingsItr );
+                std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pSolnMapMinSavings = runModelsForCurrExperiment( pDefaultValues->_optInRate, pDefaultValues->_batchWindowLengthInSec, pDefaultValues->_maxPickupDistance, *minSavingsItr, _useAggTripSavingsForObjAndConstr );
                 updateModelSolnMaps(pModelSolnMap, pSolnMapMinSavings, *minSavingsItr);
             }
             break;
@@ -179,7 +181,7 @@ std::map<double, SolnMaps*> * ModelRunner::runAllModels() {
     return pModelSolnMap;
 }
 
-std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsForCurrExperiment(double optInRate, double batchWindowLengthInSecDouble, double maxPickupDistance, double minPctSavings) {
+std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsForCurrExperiment(double optInRate, double batchWindowLengthInSecDouble, double maxPickupDistance, double minPctSavings, const bool useAggTripSavingsForObjAndConstr) {
         
     std::map<const ModelEnum, ModelRunner::SolnMetrics*> * pModelSolnMetricMap = new std::map<const ModelEnum, ModelRunner::SolnMetrics*>();
     
@@ -193,7 +195,7 @@ std::map<const ModelEnum, ModelRunner::SolnMetrics*> * ModelRunner::runModelsFor
      *    MAN IN THE MUNI (MITM) MODEL 
      */
     if( _runMitmModel ) {
-        MitmModel * pMitmModel = new MitmModel(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers(), _inclInitPickupDistForSavingsConstr);
+        MitmModel * pMitmModel = new MitmModel(pDataContainer->getTimeline(), pDataContainer->getSimEndTime(), maxPickupDistance, minPctSavings, _allRequestsInSim, _initOpenTrips, pDataContainer->getAllDrivers(), _inclInitPickupDistForSavingsConstr, useAggTripSavingsForObjAndConstr);
         bool modelSolved = pMitmModel->solve(pDataOutput->_printDebugFiles, pOutput, pDataInput->_populateInitOpenTrips);     
         if( modelSolved ) {          
             Solution * pMitmSolution = pMitmModel->getSolution();            

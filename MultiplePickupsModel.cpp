@@ -917,7 +917,7 @@ const double MultiplePickupsModel::computeCostOfRoute(Route* pRoute) const {
     assert( (1 <= n) && (n <= 3));
     
     // use master inconvenience
-    /*const double driverTripDist = pRoute->getRouteMetrics()->_totalTripDist;
+    const double driverTripDist = pRoute->getRouteMetrics()->_totalTripDist;
     const double masterTripDist = pRoute->getMasterMetrics()->pooledDist;
     double addedDistance = driverTripDist - masterTripDist;
     
@@ -927,16 +927,7 @@ const double MultiplePickupsModel::computeCostOfRoute(Route* pRoute) const {
     
     const double cost = addedDistance;
     
-    return cost;*/
-    
-    switch( pRoute->getPickupEvents()->size() ) {
-        case 1 :
-            return 100;
-        case 2:
-            return 50;
-        case 3:
-            return 0;
-    }
+    return cost;
 }
 const double MultiplePickupsModel::computeCostOfMatch(FeasibleMatch * pMatch) const {
     

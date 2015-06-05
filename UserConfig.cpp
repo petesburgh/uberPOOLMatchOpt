@@ -31,7 +31,8 @@ UserConfig::UserConfig() {
     input_bool_printDebugFiles               = "printDebugFiles";
     input_bool_printToScreen                 = "printToScreen";
     input_bool_printIndivSolnMetrics         = "printIndivSolnMetrics";
-    input_bool_populateInitOpenTrips         = "populateInitOpenTrips";    
+    input_bool_populateInitOpenTrips         = "populateInitOpenTrips";  
+    input_bool_useAggTripInObjAndConstr      = "useAggTripObjConstr";
     
     input_double_defaultOptInRate        = "default_optInRate";    
     input_double_defaultMaxMatchDistInKm = "default_maxMatchDistInKm";
@@ -117,6 +118,8 @@ void UserConfig::constructKeyValueMapFromInputFile(const std::string inputFile) 
                 pBoolParams->_populateInitOpenTrips = Utility::stringToBoolean(value);          // populate init open trips
             } else if( strcmp(key.c_str(), input_bool_inclInitPickupInSavingsConstr.c_str()) == 0 ) {
                 pBoolParams->_inclInitPickupInSavingsConstr = Utility::stringToBoolean(value);  // incl init pickup in savings constr
+            } else if( strcmp(key.c_str(), input_bool_useAggTripInObjAndConstr.c_str()) == 0 ) {
+                pBoolParams->_useAggConstrAndObj = Utility::stringToBoolean(value);
             }
                         
             // populate INT values

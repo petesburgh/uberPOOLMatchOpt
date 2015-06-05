@@ -256,6 +256,8 @@ public:
             const double pctAddlDistMinion = (double)100*(double)addlDistMinion/(double)minionUberXDist;
             
             const double totalTripDistance =  distToMinion + sharedDistance + dropDistance; // note: distToMinion includes initial distance traveled by master at time of match to minion
+            const double distBetweenReqs = Utility::computeGreatCircleDistance(pMasterCand->_reqOrig._lat, pMasterCand->_reqOrig._lng, pMinionCand->_reqOrig._lat, pMinionCand->_reqOrig._lng);
+            const double totalRidepoolDist = distBetweenReqs + sharedDistance + dropDistance;
                         
             const double masterDistCostSavings = masterUberXDist - distance_pool_master;
             const double minionDistCostSavings = minionUberXDist - distance_pool_minion;
@@ -271,7 +273,7 @@ public:
             LatLng masterLocAtTimeOfMinionReq = ModelUtils::computeMasterLocAtTimeOfMinionReq(pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMinionCand->_reqTime);
             FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMasterCand->_riderTripUUID, minionId, 
                         pMinionCand->_riderIndex, pMinionCand->_riderTripUUID, true, pMasterCand->pReqEvent, pMasterCand->pDispatchEvent, isExtendedMatch, 
-                        distToMinion, sharedDistance, dropDist, totalTripDistance, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist,
+                        distToMinion, sharedDistance, dropDist, totalTripDistance, totalRidepoolDist, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist,
                         pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, pMasterCand->_ETD, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                         pMinionCand->_reqTime, -1, -1, -1, pMinionCand->_reqOrig, pMinionCand->_reqDest, pctAddlDistMinion,
                         masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, pMasterCand->_requestIndex, pMinionCand->pRequest->getReqIndex(), masterDriverLocAtTimeOfMinionReq, masterLocAtTimeOfMinionReq,
@@ -338,7 +340,9 @@ public:
             const double avgDistCostPctSavings = (masterDistCostPctSavings + minionDistCostPctSavings)/(double)2;
             
             const double totalTripDistance =  distToMinion + sharedDistance + distToMasterDrop;            
-
+            const double distBetweenReqs = Utility::computeGreatCircleDistance(pMasterCand->_reqOrig._lat, pMasterCand->_reqOrig._lng, pMinionCand->_reqOrig._lat, pMinionCand->_reqOrig._lng);
+            const double totalRidepoolDist = distBetweenReqs + sharedDistance + distToMasterDrop;
+            
             // get dispatch time (-1 if dispatch has not yet occurred)
             time_t masterDispatchTime = (pMasterCand->pDispatchEvent == NULL) ? -1 : pMasterCand->pDispatchEvent->timeT;
             
@@ -348,7 +352,7 @@ public:
 
             FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->pDriver, pMasterCand->_riderID, pMasterCand->_riderIndex, pMasterCand->_riderTripUUID, 
                     pMinionCand->_riderID, pMinionCand->_riderIndex, pMinionCand->_riderTripUUID, false, pMasterCand->pReqEvent, pMasterCand->pDispatchEvent, isExtendedMatch,
-                    distToMinion, sharedDistance, distToMasterDrop, totalTripDistance, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
+                    distToMinion, sharedDistance, distToMasterDrop, totalTripDistance, totalRidepoolDist, totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist,
                     pMasterCand->_reqTime, masterDispatchTime, pMasterCand->_ETA, -1, pMasterCand->_ETD, pMasterCand->pPickupEvent, pMasterCand->pDropEvent, pMasterCand->_reqOrig, pMasterCand->_reqDest, pctAddlDistMaster,
                     pMinionCand->_reqTime, pMinionCand->_reqTime, -1, -1, minionOrig, minionDest, pctAddlDistMinion,
                     masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, pMasterCand->_requestIndex, pMinionCand->pRequest->getReqIndex(), masterDriverLocAtTimeOfMinionReq, masterLocAtTimeOfMinionReq,

@@ -36,7 +36,8 @@ public:
         bool _printDebugFiles;
         bool _printToScreen;
         bool _printIndivSolnMetrics;
-        bool _populateInitOpenTrips;        
+        bool _populateInitOpenTrips;      
+        bool _useAggConstrAndObj;
     };
     
     struct IntParams {
@@ -137,6 +138,7 @@ private:
     std::string input_bool_printToScreen;
     std::string input_bool_printIndivSolnMetrics;
     std::string input_bool_populateInitOpenTrips;   
+    std::string input_bool_useAggTripInObjAndConstr;
     
     std::string input_double_defaultOptInRate;
     std::string input_double_defaultMaxMatchDistInKm;

@@ -8,8 +8,9 @@
 #include "MitmModel.hpp"
 
 MitmModel::MitmModel(const time_t startTime, const time_t endTime, const double maxMatchDistKm, const double minOverlapThreshold, 
-        std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers,  bool inclInitPickupInSavings) 
-        : _startTime(startTime), _endTime(endTime), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allDrivers(drivers), _inclMinionPickupDistExtMatchesSavingsConstr(inclInitPickupInSavings) {
+        std::set<Request*, ReqComp> initRequests, std::set<OpenTrip*, EtdComp> initOpenTrips, const std::set<Driver*, DriverIndexComp> * drivers,  bool inclInitPickupInSavings, bool useAggTripSavingsForConstrAndObj) 
+        : _startTime(startTime), _endTime(endTime), _maxMatchDistInKm(maxMatchDistKm), _minOverlapThreshold(minOverlapThreshold), _allDrivers(drivers), 
+          _inclMinionPickupDistExtMatchesSavingsConstr(inclInitPickupInSavings), _useAggTripSavingsForConstrAndObj(useAggTripSavingsForConstrAndObj) {
     _allRequests = initRequests;
     _initOpenTrips = initOpenTrips;
     pSolution = NULL;
@@ -251,22 +252,181 @@ std::vector<FeasibleMatch*> MitmModel::getFeasibleMatchesFromCurrPair(Request* p
         const double uberXdistanceForMaster = Utility::computeGreatCircleDistance(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng(), pMasterCand->getDropRequestLat(), pMasterCand->getDropRequestLng());
         const double uberXdistanceForMinion = Utility::computeGreatCircleDistance(pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
 
-        //      2.A:  check match with master dropoff first
-        FeasibleMatch * pFeasMatchWithMasterDropoffFirst = checkIfFIFOMatchIsFeasible(pMinionReq->getRiderID(), pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
-        if( pFeasMatchWithMasterDropoffFirst != NULL ) {
-            feasibleAssignments.push_back(pFeasMatchWithMasterDropoffFirst);
-        }    
         
-        //      2.B:  check with minion dropoff first
-        FeasibleMatch * pFeasMatchWithMinionDropoffFirst = checkIfFILOMatchIsFeasible(pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
-        if( pFeasMatchWithMinionDropoffFirst != NULL ) {
-            feasibleAssignments.push_back(pFeasMatchWithMinionDropoffFirst);
+        // NEW paradigm... based off aggregate savings
+        if( _useAggTripSavingsForConstrAndObj ) {        
+            FeasibleMatch * pFeasMatch_FIFO = checkIfFIFOMatchIsFeasible_aggTripSavings(pMinionReq->getRiderID(), pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
+            if( pFeasMatch_FIFO != NULL ) {
+                feasibleAssignments.push_back(pFeasMatch_FIFO);
+            }            
+            FeasibleMatch * pFeasMatch_FILO = checkIfFILOMatchIsFeasible_aggTripSavings(pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
+            if( pFeasMatch_FILO != NULL ) {
+                feasibleAssignments.push_back(pFeasMatch_FILO);
+            }
+        }
+        
+        // OLD paradigm... based off individual savings 
+        else {
+            //      2.A:  check match with master dropoff first
+            FeasibleMatch * pFeasMatch_FIFO = checkIfFIFOMatchIsFeasible_indivSavingsConstr(pMinionReq->getRiderID(), pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
+            if( pFeasMatch_FIFO != NULL ) {
+                feasibleAssignments.push_back(pFeasMatch_FIFO);
+            }
+
+            //      2.B:  check with minion dropoff first
+            FeasibleMatch * pFeasMatch_FILO = checkIfFILOMatchIsFeasible_indivSavingsConstr(pickupDistanceToMinion, uberXdistanceForMaster, uberXdistanceForMinion, pMinionReq, pMasterCand);
+            if( pFeasMatch_FILO != NULL ) {
+                feasibleAssignments.push_back(pFeasMatch_FILO);
+            } 
         }
     }
     
     return feasibleAssignments;
 }
-FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
+
+FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible_aggTripSavings(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
+    
+    /*
+     *   constraint: (d(A) + d(B) - d(P)) / (d(A) + d(B)) >= t where
+     *        d(A) = distance of master trip
+     *        d(B) = distance of minion trip
+     *        d(P) = distance of pooled trip
+     *          t  = threshold [0,1] savings  
+     */
+    
+    // step 1: compute the ridepool distance
+    const double minionPickupLat  = pMinionReq->getPickupLat();
+    const double minionPickupLng  = pMinionReq->getPickupLng();
+    const double masterDropoffLat = pMasterCand->getDropRequestLat();
+    const double masterDropoffLng = pMasterCand->getDropRequestLng();
+    const double sharedDistance   = Utility::computeGreatCircleDistance(minionPickupLat, minionPickupLng, masterDropoffLat, masterDropoffLng);
+    const double dropDistance     = Utility::computeGreatCircleDistance(masterDropoffLat, masterDropoffLng, pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
+    const double distBeetweenReqs = Utility::computeGreatCircleDistance(pMasterCand->getMasterRequestEvent()->lat, pMasterCand->getMasterRequestEvent()->lng, pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+    
+    const double ridepoolDistance = distBeetweenReqs + sharedDistance + dropDistance;        
+    const double absSavings = masterUberXDist + minionUberXDist - ridepoolDistance;
+    const double pctSavings = absSavings/ridepoolDistance;
+    
+    // step 2: check feasibility 
+    const bool isFeas = (pctSavings >= this->_minOverlapThreshold);   
+    if( isFeas ) {
+        // compute inconvenience metrics
+        LatLng masterOrig = LatLng(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng());
+        LatLng masterDest = LatLng(pMasterCand->getDropRequestLat(), pMasterCand->getDropRequestLng());
+        LatLng minionOrig = LatLng(pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+        LatLng minionDest = LatLng(pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());                
+        const double dropDist = Utility::computeGreatCircleDistance(masterDropoffLat, masterDropoffLng, pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
+        const double totalDistMaster = distToMinion + sharedDistance;
+        const double totalDistMinion = sharedDistance + dropDist;
+        const bool masterPickedUpAtTimeOfMatch = (pMasterCand->getETA() <= pMinionReq->getReqTime());   
+        const double addlDistMaster = totalDistMaster - (double)masterUberXDist;
+        const double addlDistMinion = totalDistMinion - (double)minionUberXDist;
+        const double pctAddlDistMaster = (double)100*(double)addlDistMaster/(double)masterUberXDist;
+        const double pctAddlDistMinion = (double)100*(double)addlDistMinion/(double)minionUberXDist;
+        
+        // compute savings metrics
+        const double distance_pool_master = distToMinion + 0.5*sharedDistance; // distance of pooled trip for master (deadhead to pickup + 0.5*shared distance)
+        const double distance_pool_minion = 0.5*sharedDistance + dropDistance; // distance of pooled trip for minion (0.5*shared distance + deadhead to drop)
+        const double masterDistCostSavings = masterUberXDist - distance_pool_master;
+        const double minionDistCostSavings = minionUberXDist - distance_pool_minion;
+        const double masterDistCostPctSavings = (double)100*(masterDistCostSavings/masterUberXDist);
+        const double minionDistCostPctSavings = (double)100*(minionDistCostSavings/minionUberXDist);
+        const double avgDistCostPctSavings = (masterDistCostPctSavings + minionDistCostPctSavings)/(double)2;
+        
+        const double totalTripDistance = distToMinion + sharedDistance + dropDistance;
+                
+        // get driver & master location at time of minion request
+        LatLng driverLocAtTimeOfMinionReq = ModelUtils::computeMasterDriverLocAtTimeOfMinionReq(pMasterCand->getMasterRequestEvent(), pMasterCand->getMasterDispatcEvent(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), pMinionReq->getReqTime());
+        LatLng masterLocAtTimeOfMinionReq = ModelUtils::computeMasterLocAtTimeOfMinionReq(pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), pMinionReq->getReqTime());
+                
+        FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->getDriver(), pMasterCand->getMasterID(), pMasterCand->getMasterIndex(), pMasterCand->getRiderTripUUID(), 
+                                                       minionId, pMinionReq->getRiderIndex(), pMinionReq->getRiderTripUUID(), true, pMasterCand->getMasterRequestEvent(), 
+                                                       pMasterCand->getMasterDispatcEvent(), masterPickedUpAtTimeOfMatch, distToMinion, sharedDistance, dropDist, 
+                                                       totalTripDistance, ridepoolDistance, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist, pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT,
+                                                       pMasterCand->getETA(), pMasterCand->getETD(), pMasterCand->getETD(), pMasterCand->getMasterActualPickupEvent(), 
+                                                       pMasterCand->getMasterActualDropEvent(), masterOrig, masterDest, pctAddlDistMaster, pMinionReq->getReqTime(), -1, -1, -1, minionOrig, minionDest, 
+                                                       pctAddlDistMinion, masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, -1, pMinionReq->getReqIndex(), driverLocAtTimeOfMinionReq, 
+                                                       masterLocAtTimeOfMinionReq, 0, 0);  // note: -1 indicates the master was from an OpenTrip, 0 at the end indicates master, minion do not wait (only of interest for batching window scenarios)        
+        return pFeasMatch;        
+    } else {
+        return NULL;
+    }
+}
+FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible_aggTripSavings(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
+  
+    /*
+     *   constraint: (d(A) + d(B) - d(P)) / (d(A) + d(B)) >= t where
+     *        d(A) = distance of master trip
+     *        d(B) = distance of minion trip
+     *        d(P) = distance of pooled trip
+     *          t  = threshold [0,1] savings  
+     */    
+    
+    // step 1: compute ridepool distance
+    const double minionPickupLat  = pMinionReq->getPickupLat();
+    const double minionPickupLng  = pMinionReq->getPickupLng();
+    const double minionDropoffLat = pMinionReq->getDropoffLat();
+    const double minionDropoffLng = pMinionReq->getDropoffLng();
+    const double sharedDistance   = Utility::computeGreatCircleDistance(minionPickupLat, minionPickupLng, minionDropoffLat, minionDropoffLng);
+    
+    const double masterDropLat    = pMasterCand->getDropRequestLat();
+    const double masterDropLng    = pMasterCand->getDropRequestLng();
+    const double distToMasterDrop = Utility::computeGreatCircleDistance(minionDropoffLat, minionDropoffLng, masterDropLat, masterDropLng);
+    
+    const double distBeetweenReqs = Utility::computeGreatCircleDistance(pMasterCand->getMasterRequestEvent()->lat, pMasterCand->getMasterRequestEvent()->lng, pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+    
+    const double ridepoolDistance = distBeetweenReqs + sharedDistance + distToMasterDrop;        
+    const double absSavings = masterUberXDist + minionUberXDist - ridepoolDistance;
+    const double pctSavings = absSavings/ridepoolDistance;
+    
+    // step 2: check feasibility 
+    const bool isFeas = (pctSavings >= this->_minOverlapThreshold);  
+    if( isFeas ) {
+        
+        // compute inconvenience metrics
+        const double distance_pool_master = distToMinion + 0.5*sharedDistance + distToMasterDrop;
+        const double distance_pool_minion = 0.5*sharedDistance;
+
+        LatLng masterOrig = LatLng(pMasterCand->getActPickupLat(), pMasterCand->getActPickupLng());
+        LatLng masterDest = LatLng(pMasterCand->getDropRequestLat(), pMasterCand->getDropRequestLng());
+        LatLng minionOrig = LatLng(pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+        LatLng minionDest = LatLng(pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
+        const double totalDistMaster = distToMinion + sharedDistance + distToMasterDrop;
+        const bool masterPickedUpAtTimeOfMatch = (pMasterCand->getETA() <= pMinionReq->getReqTime());
+        const double minionUberXDist = Utility::computeGreatCircleDistance(pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
+        const double addlDistMaster = (double)totalDistMaster - (double)masterUberXDist;
+
+        const double totalTripDistance = distToMinion + sharedDistance + distToMasterDrop;
+
+        const double pctAddlDistMaster = (double)100*(double)addlDistMaster/(double)masterUberXDist;
+        const double pctAddlDistMinion = 0.0;
+
+        // compute savings metrics
+        const double masterDistCostSavings = masterUberXDist - distance_pool_master;
+        const double minionDistCostSavings = minionUberXDist - distance_pool_minion;
+        const double masterDistCostPctSavings = (double)100*(masterDistCostSavings/masterUberXDist);
+        const double minionDistCostPctSavings = (double)100*(minionDistCostSavings/minionUberXDist);
+        const double avgDistCostPctSavings = (masterDistCostPctSavings + minionDistCostPctSavings)/(double)2;
+
+        // get driver & master location at time of minion request
+        LatLng driverLocAtTimeOfMinionReq = ModelUtils::computeMasterDriverLocAtTimeOfMinionReq(pMasterCand->getMasterRequestEvent(),pMasterCand->getMasterDispatcEvent(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), pMinionReq->getReqTime());
+        LatLng masterLocAtTimeOfMinionReq = ModelUtils::computeMasterLocAtTimeOfMinionReq(pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), pMinionReq->getReqTime());
+
+        FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->getDriver(), pMasterCand->getMasterID(), pMasterCand->getMasterIndex(), pMasterCand->getRiderTripUUID(), 
+                                                       pMinionReq->getRiderID(), pMinionReq->getRiderIndex(), pMinionReq->getRiderTripUUID(), false, pMasterCand->getMasterRequestEvent(), 
+                                                       pMasterCand->getMasterDispatcEvent(), masterPickedUpAtTimeOfMatch, distToMinion, sharedDistance, distToMasterDrop, totalTripDistance, ridepoolDistance,
+                                                       totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist, pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT, 
+                                                       pMasterCand->getETA(), -1, pMasterCand->getETD(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), 
+                                                       masterOrig, masterDest, pctAddlDistMaster, pMinionReq->getReqTime(), pMinionReq->getReqTime(), -1, -1, minionOrig, minionDest, 
+                                                       pctAddlDistMinion, masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, -1, pMinionReq->getReqIndex(), driverLocAtTimeOfMinionReq, 
+                                                       masterLocAtTimeOfMinionReq, 0, 0);  // note: -1 indicates the master was from an OpenTrip, 0 at the end indicates master, minion do not wait (only of interest for batching window scenarios)    
+        return pFeasMatch;
+    } else {
+        return NULL;
+    }
+}
+
+FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible_indivSavingsConstr(const std::string minionId, const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
     
     /*
      *   MASTER constraint: s1 + 0.5h <= (1-t)x 
@@ -320,7 +480,10 @@ FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible(const std::string minionId
         const double minionDistCostPctSavings = (double)100*(minionDistCostSavings/minionUberXDist);
         const double avgDistCostPctSavings = (masterDistCostPctSavings + minionDistCostPctSavings)/(double)2;
         
+        // compute trip & ridepool distances
         const double totalTripDistance = distToMinion + sharedDistance + dropDistance;
+        const double distBetweenReqs = Utility::computeGreatCircleDistance(pMasterCand->getMasterRequestEvent()->lat, pMasterCand->getMasterRequestEvent()->lng, minionOrig.getLat(), minionOrig.getLng());
+        const double totalRidepoolDist = distBetweenReqs + sharedDistance + dropDistance;
                 
         // get driver & master location at time of minion request
         LatLng driverLocAtTimeOfMinionReq = ModelUtils::computeMasterDriverLocAtTimeOfMinionReq(pMasterCand->getMasterRequestEvent(), pMasterCand->getMasterDispatcEvent(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), pMinionReq->getReqTime());
@@ -329,7 +492,7 @@ FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible(const std::string minionId
         FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->getDriver(), pMasterCand->getMasterID(), pMasterCand->getMasterIndex(), pMasterCand->getRiderTripUUID(), 
                                                        minionId, pMinionReq->getRiderIndex(), pMinionReq->getRiderTripUUID(), true, pMasterCand->getMasterRequestEvent(), 
                                                        pMasterCand->getMasterDispatcEvent(), masterPickedUpAtTimeOfMatch, distToMinion, sharedDistance, dropDist, 
-                                                       totalTripDistance, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist, pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT,
+                                                       totalTripDistance, totalRidepoolDist, totalDistMaster, totalDistMinion, masterUberXDist, minionUberXDist, pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT,
                                                        pMasterCand->getETA(), pMasterCand->getETD(), pMasterCand->getETD(), pMasterCand->getMasterActualPickupEvent(), 
                                                        pMasterCand->getMasterActualDropEvent(), masterOrig, masterDest, pctAddlDistMaster, pMinionReq->getReqTime(), -1, -1, -1, minionOrig, minionDest, 
                                                        pctAddlDistMinion, masterDistCostPctSavings, minionDistCostPctSavings, avgDistCostPctSavings, -1, pMinionReq->getReqIndex(), driverLocAtTimeOfMinionReq, 
@@ -339,7 +502,7 @@ FeasibleMatch * MitmModel::checkIfFIFOMatchIsFeasible(const std::string minionId
         return NULL;
     }
 }
-FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
+FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible_indivSavingsConstr(const double distToMinion, const double masterUberXDist, const double minionUberXDist, Request* pMinionReq, OpenTrip * pMasterCand) {
     
     /*
      *   MASTER constraint: (s1 + 0.5h + s2) <= (1-t)x 
@@ -387,7 +550,10 @@ FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible(const double distToMinion,
         const double minionUberXDist = Utility::computeGreatCircleDistance(pMinionReq->getPickupLat(), pMinionReq->getPickupLng(), pMinionReq->getDropoffLat(), pMinionReq->getDropoffLng());
         const double addlDistMaster = (double)totalDistMaster - (double)masterUberXDist;
         
+        // compute trip & ridepool distances
         const double totalTripDistance = distToMinion + sharedDistance + distToMasterDrop;
+        const double distBetweenReqs = Utility::computeGreatCircleDistance(pMasterCand->getMasterRequestEvent()->lat, pMasterCand->getMasterRequestEvent()->lng, pMinionReq->getPickupLat(), pMinionReq->getPickupLng());
+        const double totalRidepoolDist = distBetweenReqs + sharedDistance + distToMasterDrop;
         
         const double pctAddlDistMaster = (double)100*(double)addlDistMaster/(double)masterUberXDist;
         const double pctAddlDistMinion = 0.0;
@@ -404,7 +570,7 @@ FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible(const double distToMinion,
         
         FeasibleMatch * pFeasMatch = new FeasibleMatch(pMasterCand->getDriver(), pMasterCand->getMasterID(), pMasterCand->getMasterIndex(), pMasterCand->getRiderTripUUID(), 
                                                        pMinionReq->getRiderID(), pMinionReq->getRiderIndex(), pMinionReq->getRiderTripUUID(), false, pMasterCand->getMasterRequestEvent(), 
-                                                       pMasterCand->getMasterDispatcEvent(), masterPickedUpAtTimeOfMatch, distToMinion, sharedDistance, distToMasterDrop, totalTripDistance,
+                                                       pMasterCand->getMasterDispatcEvent(), masterPickedUpAtTimeOfMatch, distToMinion, sharedDistance, distToMasterDrop, totalTripDistance, totalRidepoolDist,
                                                        totalDistMaster, sharedDistance, masterUberXDist, minionUberXDist, pMasterCand->getMasterRequestEvent()->timeT, pMasterCand->getMasterDispatcEvent()->timeT, 
                                                        pMasterCand->getETA(), -1, pMasterCand->getETD(), pMasterCand->getMasterActualPickupEvent(), pMasterCand->getMasterActualDropEvent(), 
                                                        masterOrig, masterDest, pctAddlDistMaster, pMinionReq->getReqTime(), pMinionReq->getReqTime(), -1, -1, minionOrig, minionDest, 
@@ -423,42 +589,41 @@ FeasibleMatch * MitmModel::checkIfFILOMatchIsFeasible(const double distToMinion,
  */
 const double MitmModel::computeCostOfMatch(FeasibleMatch * pMatch) const {
     
-    // get the estimated location of the master at the time of 
-    
-    
-    // get the distance from the current location of the car to the master origin
-    double distFromDispatchToMasterPickup = 0.0;
-    if( pMatch->_masterPickedUpAtTimeOfMatch == false ) {  
-        LatLng estLocOfCarAtTimeOfMinionReq = Utility::estLocationByLinearProxy(pMatch->_minionRequest, pMatch->_masterDispatch, pMatch->_masterDispatchEvent->lat, pMatch->_masterDispatchEvent->lng, pMatch->_masterPickup, pMatch->_masterOrig.getLat(), pMatch->_masterOrig.getLng());
-        distFromDispatchToMasterPickup = Utility::computeGreatCircleDistance(estLocOfCarAtTimeOfMinionReq.getLat(), estLocOfCarAtTimeOfMinionReq.getLng(), pMatch->_masterOrig.getLat(), pMatch->_masterOrig.getLng());
-    }
+    // NEW cost: absolute savings
+    if( this->_useAggTripSavingsForConstrAndObj ) {
+        const double uberX_dist_master = pMatch->_uberXDistanceForMaster;
+        const double uberX_dist_minion = pMatch->_uberXDistanceForMinion;
+        const double ridepool_dist = pMatch->_totalRidepoolDistance;
+        const double savings = uberX_dist_master + uberX_dist_minion - ridepool_dist;
 
-    const double distToMinionPickup = pMatch->_distToMinionPickup;  // from current location to minion origin
-    const double sharedDist         = pMatch->_sharedDistance;
-    const double dropDist = pMatch->_distFromFirstToSecondDrop;
-    
-    const double totalPooledDistance =  distFromDispatchToMasterPickup + distToMinionPickup + sharedDist + dropDist;
-    const double uberXDistMaster     = pMatch->_uberXDistanceForMaster;
-    
-    double addedDistance = totalPooledDistance - uberXDistMaster;
-    
-    /*if( addedDistance < -0.1 ) {
-        std::cout << "\n\nuberX dist: " << Utility::doubleToStr(uberXDistMaster) << std::endl;
-        std::cout << "total pooled dist: " << Utility::doubleToStr(totalPooledDistance) << std::endl;
-        std::cout << "\tdist to minion pickup: " << Utility::doubleToStr(distToMinionPickup) << std::endl;
-        std::cout << "\tshared dist: " << Utility::doubleToStr(sharedDist) << std::endl;
-        std::cout << "\tdrop dist: " << Utility::doubleToStr(dropDist) << std::endl;     
-        std::cout << "\tadded dist: " << Utility::doubleToStr(addedDistance) << std::endl;
-    }
-    assert(addedDistance >= -0.1);*/
-    
-    if( 0.0 < abs(addedDistance) < 0.0001 ) {
-        addedDistance = 0.0;
+        return savings;
     }
     
-    const double cost = addedDistance;
-      
-    return cost;
+    // OLD 
+    else {        
+        // get the distance from the current location of the car to the master origin
+        double distFromDispatchToMasterPickup = 0.0;
+        if( pMatch->_masterPickedUpAtTimeOfMatch == false ) {  
+            LatLng estLocOfCarAtTimeOfMinionReq = Utility::estLocationByLinearProxy(pMatch->_minionRequest, pMatch->_masterDispatch, pMatch->_masterDispatchEvent->lat, pMatch->_masterDispatchEvent->lng, pMatch->_masterPickup, pMatch->_masterOrig.getLat(), pMatch->_masterOrig.getLng());
+            distFromDispatchToMasterPickup = Utility::computeGreatCircleDistance(estLocOfCarAtTimeOfMinionReq.getLat(), estLocOfCarAtTimeOfMinionReq.getLng(), pMatch->_masterOrig.getLat(), pMatch->_masterOrig.getLng());
+        }
+
+        const double distToMinionPickup = pMatch->_distToMinionPickup;  // from current location to minion origin
+        const double sharedDist         = pMatch->_sharedDistance;
+        const double dropDist = pMatch->_distFromFirstToSecondDrop;
+
+        const double totalPooledDistance =  distFromDispatchToMasterPickup + distToMinionPickup + sharedDist + dropDist;
+        const double uberXDistMaster     = pMatch->_uberXDistanceForMaster;
+
+        double addedDistance = totalPooledDistance - uberXDistMaster;    
+        if( 0.0 < abs(addedDistance) < 0.0001 ) {
+            addedDistance = 0.0;
+        }
+
+        const double cost = addedDistance;
+
+        return cost;
+    }
 }
 
 AssignedTrip * MitmModel::convertFeasibleMatchToAssignedTripObject(FeasibleMatch * pMatch) {
